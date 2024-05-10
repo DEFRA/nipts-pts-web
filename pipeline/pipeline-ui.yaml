@@ -49,8 +49,8 @@ extends:
     appProject: PTS
     appInstanceNumber: $(nc-region-id)01
     scr: GH
-    buildProjects: 'src\$(APIName)\$(APIName).csproj'
-    publishProject: 'src\$(APIName)\$(APIName).csproj'
+    buildProjects: '**/*UI.csproj'
+    publishProject: '**/*UI.csproj'
     publishArguments: "--configuration Release"
     runHealthCheck: false    
     setupSlotKeyVaultAccess: true
