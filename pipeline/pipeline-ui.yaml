@@ -48,6 +48,7 @@ extends:
     appName: $(APIName)
     appProject: PTS
     appInstanceNumber: $(nc-region-id)01
+    scr: GH
     buildProjects: 'src\$(APIName)\$(APIName).csproj'
     publishProject: 'src\$(APIName)\$(APIName).csproj'
     publishArguments: "--configuration Release"
