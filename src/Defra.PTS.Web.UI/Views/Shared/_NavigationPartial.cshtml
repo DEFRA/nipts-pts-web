@@ -1,0 +1,45 @@
+﻿@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.Domain.Models;
+@using Defra.PTS.Web.UI.Extensions;
+@{
+    var isAuthenticated = User.Identity.IsAuthenticated;
+    var separator = "|";
+    var conditionalSeparator = isAuthenticated ? "|" : string.Empty;
+}
+
+<div class="login-nav">
+    <ul class="login-nav__list">
+
+        @if (isAuthenticated)
+        {
+            var user = User.ToUserInfo();
+
+            <li class="login-nav__list-item">
+                @user.FirstName @user.LastName @separator
+            </li>
+        }
+
+        <li class="login-nav__list-item">
+            <a href="@WebAppConstants.Pages.TravelDocument.Index" class="govuk-link login-nav__link govuk-link--no-visited-state profile">
+                Lifelong pet travel documents
+            </a>@conditionalSeparator
+        </li>
+
+        @if (isAuthenticated)
+        {
+            <li class="login-nav__list-item">
+                <a href="@WebAppConstants.Pages.User.ManageAccount" class="govuk-link login-nav__link govuk-link--no-visited-state profile">
+                    Manage Account
+                </a>@separator
+            </li>
+
+            <li class="login-nav__list-item">
+                <a href="@WebAppConstants.Pages.User.SignOut" class="govuk-link login-nav__link govuk-link--no-visited-state">
+                    Sign out
+                </a>
+            </li>
+
+        }
+
+    </ul>
+</div>

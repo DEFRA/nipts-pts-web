@@ -1,0 +1,40 @@
+﻿@model PetKeeperNameViewModel
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.Domain.Enums;
+@using System.Web;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    this.SetMetaTitle(Model.FormTitle);
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        @using (Html.BeginForm("PetKeeperName", "TravelDocument", FormMethod.Post, new { @class = "form PetKeeperName" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.IsCompleted)
+
+            <partial name="_ErrorSummary" />
+
+            <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+                <h1 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--xl" for="Name">
+                        @Model.FormTitle
+                    </label>
+                </h1>
+                @Html.ValidationMessageFor(x => x.Name, string.Empty, new { @class = "govuk-error-message" })
+                @Html.TextBoxFor(x => x.Name, new { @class = "govuk-input", @spellcheck = "false", @autocomplete = "name", @pattern = @"^[a-zA-Z'\- ]+$", @title = "Please enter a name using only letters, hyphens or apostrophes"})
+            </div>
+
+            <div class="govuk-button-group">
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Continue
+                </button>
+            </div>
+        }
+
+    </div>
+</div>

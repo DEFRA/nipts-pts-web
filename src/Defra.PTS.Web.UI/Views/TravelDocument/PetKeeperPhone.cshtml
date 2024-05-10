@@ -1,0 +1,44 @@
+﻿@model PetKeeperPhoneViewModel
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.Domain.Enums;
+@using System.Web;
+@using Defra.PTS.Web.UI.Extensions;
+@{
+    this.SetMetaTitle(Model.FormTitle);
+    var summary = "We ask for your phone number in case we need to call you about your application.";
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        @using (Html.BeginForm("PetKeeperPhone", "TravelDocument", FormMethod.Post, new { @class = "form PetKeeperPhone" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.IsCompleted)
+
+            <partial name="_ErrorSummary" />
+
+            <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+                <h1 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--xl" for="Phone">
+                        @Model.FormTitle
+                    </label>
+                </h1>
+
+                <div id="telephone-number-hint" class="govuk-hint">
+                    @summary
+                </div>
+
+                @Html.ValidationMessageFor(x => x.Phone, string.Empty, new { @class="govuk-error-message"})
+                @Html.TextBoxFor(x => x.Phone, new { @class = "govuk-input govuk-input--width-20", @spellcheck = "false", @autocomplete = "phone", @pattern = @"(?=^[0-9\+\-]+$)((?!.*--).*)", @title = "Please enter a valid phone number",  @aria_describedby = "telephone-number-hint"})
+            </div>
+
+            <div class="govuk-button-group">
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Continue
+                </button>
+            </div>
+        }
+
+    </div>
+</div>

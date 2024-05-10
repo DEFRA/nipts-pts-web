@@ -1,0 +1,181 @@
+﻿using Defra.PTS.Web.Application.Constants;
+using Defra.PTS.Web.Application.Features.TravelDocument.Queries;
+using Defra.PTS.Web.Application.Features.Users.Commands;
+using Defra.PTS.Web.Application.Services.Interfaces;
+using Defra.PTS.Web.Domain.Models;
+using Defra.PTS.Web.Domain.ViewModels;
+using Defra.PTS.Web.UI.Constants;
+using Defra.PTS.Web.UI.Extensions;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
+using System.Security.Claims;
+
+namespace Defra.PTS.Web.UI.Controllers;
+
+[Authorize]
+public partial class TravelDocumentController : BaseTravelDocumentController
+{
+
+    private readonly IValidationService _validationService;
+    private readonly IMediator _mediator;
+    private readonly ILogger<TravelDocumentController> _logger;
+    private readonly PtsSettings _ptsSettings;
+
+
+    public TravelDocumentController(
+          IValidationService validationService,
+          IMediator mediator,
+          ILogger<TravelDocumentController> logger,
+          IOptions<PtsSettings> ptsSettings
+          )
+    {
+        ArgumentNullException.ThrowIfNull(validationService);
+        ArgumentNullException.ThrowIfNull(mediator);
+        ArgumentNullException.ThrowIfNull(logger);
+        ArgumentNullException.ThrowIfNull(ptsSettings);
+
+        _validationService = validationService;
+        _mediator = mediator;
+        _logger = logger;
+        _ptsSettings = ptsSettings.Value;
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> Index()
+    {
+        try
+        {
+            var magicWordData = GetMagicWordFormData(true);
+
+            if (_ptsSettings.MagicWordEnabled && magicWordData != null && !magicWordData.HasUserPassedPasswordCheck)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            else
+            {
+                SaveMagicWordFormData(new MagicWordViewModel { HasUserPassedPasswordCheck = true });
+
+                SetBackUrl(string.Empty);
+
+                await AddOrUpdateUser();
+
+                var statuses = new List<string>()
+                {
+                    AppConstants.ApplicationStatus.APPROVED,
+                    AppConstants.ApplicationStatus.AWAITINGVERIFICATION,
+                };
+
+                var userId = CurrentUserId();
+                var response = await _mediator.Send(new GetApplicationsQueryRequest(userId, statuses));
+                return View(response.Applications);
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("An error has occurred: ", ex);
+            throw;
+        }
+    }
+
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult ApplicationDetailRecord(string id, string status)
+    {
+        
+        HttpContext.Session.SetString("ApplicationId", id);        
+
+        if (status == AppConstants.ApplicationStatus.APPROVED)
+            return RedirectToAction(nameof(ApplicationCertificate));
+        else
+            return RedirectToAction(nameof(ApplicationDetails));
+
+
+    }
+
+    #region Private Methods
+    private async Task AddOrUpdateUser()
+    {
+        try
+        {
+            var userInfo = GetCurrentUserInfo();
+
+            var response = await _mediator.Send(new AddUserRequest(userInfo));
+            if (response.IsSuccess)
+            {
+                var identity = HttpContext.User.Identities.FirstOrDefault();
+                if (identity != null)
+                {
+                    identity.AddClaim(new Claim(WebAppConstants.IdentityKeys.PTSUserId, response.UserId.ToString()));
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Unable to save user details", ex);
+            throw;
+        }
+    }
+
+
+    public override HttpContext GetHttpContext()
+    {
+        return HttpContext;
+    }
+
+    protected Guid CurrentUserContactId()
+    {
+        if (GetHttpContext().User.Identity.IsAuthenticated)
+        {
+            var contactId = GetHttpContext().User.GetLoggedInContactId();
+            return contactId;
+        }
+
+        return Guid.Empty;
+    }
+
+    protected User GetCurrentUserInfo()
+    {
+        var identity = GetHttpContext().User.Identities.FirstOrDefault();
+        if (identity == null)
+        {
+            return new User();
+        }
+
+        var claims = identity.Claims;
+
+        var user = new User();
+        foreach (var claim in claims)
+        {
+            switch (claim.Type)
+            {
+                case "contactId":
+                    user.ContactId = claim.Value;
+                    break;
+                case "uniqueReference":
+                    user.UniqueReference = claim.Value;
+                    break;
+                case "firstName":
+                    user.FirstName = claim.Value;
+                    break;
+                case "lastName":
+                    user.LastName = claim.Value;
+                    break;
+                case "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress":
+                    user.EmailAddress = claim.Value;
+                    break;
+                case "http://schemas.microsoft.com/ws/2008/06/identity/claims/role":
+                    user.Role = claim.Value;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        return user;
+    }
+
+    #endregion Private Methods
+}

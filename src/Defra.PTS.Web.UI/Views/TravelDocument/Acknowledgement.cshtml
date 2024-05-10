@@ -1,0 +1,53 @@
+﻿@model AcknowledgementViewModel
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.Domain.Enums;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    this.SetMetaTitle(Model.FormTitle);
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <br />
+        <div class="govuk-panel govuk-panel--confirmation govuk-!-static-margin-bottom-7">
+            <h1 id="documents" class="govuk-panel__title">
+                @Model.FormTitle
+            </h1>
+            <div class="govuk-panel__body">
+                Your reference number<br><strong>@Model.Reference</strong>
+            </div>
+        </div>
+
+        <p class="govuk-body">We have sent you a confirmation email.</p>
+
+        <h2 class="govuk-heading-m">What happens next</h2>
+        <p class="govuk-body">We’ve sent your application to the Animal and Plant Health Agency (APHA) for review.</p>
+        <p class="govuk-body">You will receive a response to your application within 5 working days.</p>
+        <p class="govuk-body">APHA may contact you and ask for more evidence to support your application.</p>
+
+        <h2 class="govuk-heading-m">If someone else is taking your pet</h2>
+        <p class="govuk-body">They will need:</p>
+        <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
+            <li>the lifelong pet travel document</li>
+            <li>written approval from you, like a letter or email</li>
+            <li>to sign a declaration, if asked to, at the ferry port or airport</li>
+        </ul>
+
+        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
+
+
+        <p class="govuk-body">
+            <a href="@WebAppConstants.Pages.TravelDocument.Index" class="govuk-link">
+                Apply for another lifelong pet travel document
+            </a>.
+        </p>
+        <p class="govuk-body govuk-!-static-padding-bottom-4">
+            <a href="@WebAppConstants.Pages.TravelDocument.Index" class="govuk-link">
+                View all your lifelong pet travel documents
+            </a>.
+        </p>
+
+    </div>
+</div>

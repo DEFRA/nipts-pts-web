@@ -1,0 +1,56 @@
+﻿@model PetKeeperPostcodeViewModel
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.Domain.Enums;
+@using Defra.PTS.Web.UI.Constants;
+@using System.Web;
+@using Defra.PTS.Web.Domain.ViewModels;
+@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    this.SetMetaTitle(Model.FormTitle);
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        @using (Html.BeginForm("PetKeeperPostcode", "TravelDocument", FormMethod.Post, new { @class = "form PetKeeperPostcode" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.IsCompleted)
+            @Html.HiddenFor(x => x.PostcodeRegion)
+
+            <partial name="_ErrorSummary" />
+
+            <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+
+                <h1 id="documents" class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--xl" for="postcode">
+                        @Model.FormTitle
+                    </label>
+                </h1>
+
+                <div id="postcode-hint" class="govuk-hint">
+                    Enter a valid address in England, Scotland or Wales. If you cannot find your address you can add it manually below.
+                </div>
+
+                <div class="govuk-form-group">
+                    @Html.ValidationMessageFor(x => x.Postcode, string.Empty, new { @class = "govuk-error-message" })
+                    @Html.TextBoxFor(x => x.Postcode, new { @class = "govuk-input govuk-input--width-10", @spellcheck = "false", @autocomplete = "postal-code", @pattern = @"^[0-9a-zA-Z'\- ]+$", @title = "Please enter a postcode using only alphanumeric characters", @aria_describedby = "postcode-hint" })
+                </div>
+            </div>
+
+            <div class="govuk-button-group">
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Find address
+                </button>
+            </div>
+        }
+
+        <p class="govuk-body">
+            <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.PetKeeperAddressManual">
+                Enter the address manually
+            </a>
+        </p>
+
+    </div>
+</div>

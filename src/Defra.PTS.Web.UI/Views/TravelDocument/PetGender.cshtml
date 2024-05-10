@@ -1,0 +1,72 @@
+﻿@model PetGenderViewModel
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.Domain.Enums;
+@using Defra.PTS.Web.Domain.ViewModels;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Female" };
+    this.SetMetaTitle(Model.FormTitle);
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        @using (Html.BeginForm("PetGender", "TravelDocument", FormMethod.Post, new { @class = "form PetGender" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.IsCompleted)
+
+            <partial name="_ErrorSummary" />
+
+            <div id="formroot" class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+
+                <fieldset class="govuk-fieldset">
+
+                    <partial name="_FieldsetLegend" model=fieldsetLegend />
+
+                    @Html.ValidationMessageFor(x => x.Gender, string.Empty, new { @class="govuk-error-message"})
+
+                    <div class="govuk-form-group" id="Gender">
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                @Html.RadioButtonFor(m => m.Gender, PetGender.Female, new {@class="govuk-radios__input", id="Female", data_aria_controls="conditional-MicrochipNumber"})
+                                <label class="govuk-label govuk-radios__label" for="Female">
+                                    Female
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                @Html.RadioButtonFor(m => m.Gender, PetGender.Male, new {@class="govuk-radios__input", id="Male", data_aria_controls="conditional-MicrochipNumber"})
+                                <label class="govuk-label govuk-radios__label" for="Male">
+                                    Male
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group">
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Continue
+                </button>
+            </div>
+        }
+
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".govuk-radios__input").click(function () {
+                $('.govuk-error-summary').hide();
+                $('.govuk-error-message').hide();
+                $('#formroot').removeClass("govuk-form-group--error");
+            });
+        })
+    </script>
+}
+

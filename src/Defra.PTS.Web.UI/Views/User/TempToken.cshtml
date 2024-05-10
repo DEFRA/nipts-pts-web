@@ -1,0 +1,49 @@
+﻿@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    var pageTitle = "Temp Token";
+    this.SetMetaTitle(pageTitle);
+}
+
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-three-quarters">
+
+            <h1 id="owner" class="govuk-heading-xl govuk-!-margin-bottom-4">
+                @pageTitle
+            </h1>
+
+            <p class="govuk-body">
+                <h1>@ViewBag.Token</h1>
+            </p>
+
+        </div>
+        
+    </div>
+    <div>
+        <button id="copyButton" style="font-size:larger">Copy Token</button>
+    </div>
+
+
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $("#copyButton").click(function () {                
+                var textToCopy = '@ViewBag.Token';
+                var $textarea = $("<textarea>")
+                    .val(textToCopy)
+                    .css({
+                        position: "absolute",
+                        left: "-9999px",
+                        top: "0"
+                    });
+                                    
+                $("body").append($textarea);
+                $textarea.select();
+                document.execCommand("copy");                
+                $textarea.remove();
+                alert("Token has been copied to the clipboard");
+        });
+        });
+    </script>
+}

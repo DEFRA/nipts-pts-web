@@ -1,0 +1,13 @@
+.input-validation-error {
+    border-color: #d4351c;
+}
+
+.autocomplete__dropdown-arrow-down {
+    z-index: 10 !important;
+    pointer-events: none;
+}
+
+govuk-tag {
+    white-space: nowrap;
+    max-width: 200px;
+}

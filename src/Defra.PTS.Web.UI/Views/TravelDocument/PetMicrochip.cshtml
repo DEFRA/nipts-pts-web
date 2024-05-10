@@ -1,0 +1,113 @@
+﻿@model PetMicrochipViewModel
+@using Defra.PTS.Web.Domain.Models;
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.Domain.Enums;
+@using Defra.PTS.Web.Domain.ViewModels;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Yes" };
+    this.SetMetaTitle(Model.FormTitle);
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <div class="govuk-form-group ">
+
+            @using (Html.BeginForm("PetMicrochip", "TravelDocument", FormMethod.Post, new { @class = "form PetMicrochip", @id = "PetMicrochip" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(x => x.IsCompleted)
+
+                <partial name="_ErrorSummary" />
+
+                <div id="formroot", class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+                    <fieldset class="govuk-fieldset" aria-describedby="microchip-hint">
+
+                        <partial name="_FieldsetLegend" model=fieldsetLegend />
+
+                        <div id="microchip-hint" class="govuk-hint">
+                            Check your pet's microchip certificate for the microchip number.
+                        </div>
+
+                        @Html.ValidationMessageFor(x => x.Microchipped, string.Empty, new { @class = "govuk-error-message" })
+
+                        <div class="govuk-radios" data-module="govuk-radios" id="Microchipped">
+
+                            <div class="govuk-radios__item">
+                                @Html.RadioButtonFor(m => m.Microchipped, YesNoOptions.Yes, new { @class = "govuk-radios__input", id = "Yes", data_aria_controls = "conditional-MicrochipNumber" })
+                                <label class="govuk-label govuk-radios__label" for="Yes">
+                                    Yes
+                                </label>
+                            </div>
+
+                            <div id="conditional-MicrochipNumber" class="govuk-radios__conditional govuk-radios__conditional--hidden">
+                                <div class="govuk-form-group" id="MicrochipNumber">
+                                    <label class="govuk-label govuk-label--s" for="microchipinput">
+                                        Enter your pet's microchip number
+                                    </label>
+                                    <div id="account-number-hint" class="govuk-hint">
+                                        Must be 15 digits long
+                                    </div>
+                                    @Html.ValidationMessageFor(x => x.MicrochipNumber, string.Empty, new { @class = "govuk-error-message" })
+                                    @Html.TextBoxFor(x => x.MicrochipNumber, new { @id = "microchipinput", @class = "govuk-input govuk-input--width-20", @spellcheck = "false", @autocomplete = "microchip", @pattern = @"^[0-9]+$", @title = "Please enter a valid microchip number" })
+                                </div>
+                            </div>
+
+                            <div class="govuk-radios__item">
+                                @Html.RadioButtonFor(m => m.Microchipped, YesNoOptions.No, new { @class = "govuk-radios__input", id = "No" })
+                                <label class="govuk-label govuk-radios__label" for="No">
+                                    No
+                                </label>
+                            </div>
+
+                        </div>
+                    </fieldset>
+                </div>
+
+                <div class="govuk-form-group">
+                    <button class="govuk-button" data-module="govuk-button" type="submit">
+                        Continue
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+
+            if ($("#formroot").hasClass("govuk-form-group--error") ||
+                @Model.Microchipped === @YesNoOptions.Yes) {
+                $("#conditional-MicrochipNumber").show();
+                $('#formroot').removeClass("govuk-form-group--error");
+                $('#MicrochipNumber').addClass("govuk-form-group--error");
+            }
+            else {
+                $("#conditional-MicrochipNumber").hide();
+            }
+
+            $("#No").click(function () {
+                $('input[type="text"]').val('');
+                $('.govuk-error-summary').hide();
+                $('.govuk-error-message').hide();
+                $('#formroot').removeClass("govuk-form-group--error");
+                $('#MicrochipNumber').removeClass("govuk-form-group--error");
+                $('#microchipinput').removeClass("input-validation-error");
+            });
+
+            $("#Yes").click(function () {
+                $('.govuk-error-summary').hide();
+                $('.govuk-error-message').hide();
+                $('#formroot').removeClass("govuk-form-group--error");
+                $('#MicrochipNumber').removeClass("govuk-form-group--error");
+                $('#microchipinput').removeClass("input-validation-error");
+            });
+        })
+    </script>
+}

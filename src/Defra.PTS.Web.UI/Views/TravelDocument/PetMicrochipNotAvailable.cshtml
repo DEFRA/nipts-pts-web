@@ -1,0 +1,24 @@
+﻿@model PetMicrochipNotAvailableViewModel
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    this.SetMetaTitle(Model.FormTitle);
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-xl">
+            @Model.FormTitle
+        </h1>
+
+        <p class="govuk-body">Your pet dog, cat or ferret must be fitted with a microchip and registered on a UK database before you can apply for a lifelong pet travel document.</p>
+
+        <p class="govuk-body">
+            <a class="govuk-link" href="https://www.gov.uk/get-your-dog-cat-microchipped" target="_blank" rel="noopener noreferrer">Check how to get your pet microchipped (opens in new tab)</a>.
+        </p>
+
+    </div>
+</div>

@@ -1,0 +1,172 @@
+﻿@model DeclarationViewModel
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.Domain.Enums;
+@using Defra.PTS.Web.UI.ViewComponents;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    this.SetMetaTitle(Model.FormTitle);
+    var errorOrder = new string[] { "Postcode", "Phone","AgreedToAccuracy", "AgreedToPrivacyPolicy", "AgreedToDeclaration" };
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        @using (Html.BeginForm("Declaration", "TravelDocument", FormMethod.Post, new { @id = "DeclarationForm", @class = "form Declaration" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.IsCompleted)
+            @Html.HiddenFor(x => x.RequestId)
+            @Html.HiddenFor(x => x.Postcode)
+            @Html.HiddenFor(x => x.Phone)
+            @Html.HiddenFor(x => x.IsManualAddress)
+
+            <partial name="_ErrorSummaryOrdered" model=errorOrder />
+
+            <div class="govuk-form-group">
+
+                <h1 class="govuk-heading-xl">
+                    @Model.FormTitle
+                </h1>
+
+                @await Component.InvokeAsync(nameof(MicrochipInformationCard))
+                @await Component.InvokeAsync(nameof(PetDetailsCard))
+                @await Component.InvokeAsync(nameof(PetKeeperDetailsCard))
+
+                <div id="formroot-accuracy" class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+                    @Html.ValidationMessageFor(x => x.AgreedToAccuracy, string.Empty, new {@id="accuracy-error-message", @class = "govuk-error-message" })
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            @Html.CheckBoxFor(m => m.AgreedToAccuracy, new { @class = "govuk-checkboxes__input", id = "AgreedToAccuracy" })
+                            <label class="govuk-label govuk-checkboxes__label" for="AgreedToAccuracy">
+                                I have provided accurate and truthful information.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="formroot-privacy" class="govuk-form-group govuk-!-static-margin-bottom-9 @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+                    @Html.ValidationMessageFor(x => x.AgreedToPrivacyPolicy, string.Empty, new {@id="privacy-error-message", @class = "govuk-error-message" })
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            @Html.CheckBoxFor(m => m.AgreedToPrivacyPolicy, new { @class = "govuk-checkboxes__input", id = "AgreedToPrivacyPolicy" })
+                            <label class="govuk-label govuk-checkboxes__label" for="AgreedToPrivacyPolicy">
+                                I agree to <a class="govuk-link" href="@WebAppConstants.ExternalLinks.PrivacyNotice" target="_blank" rel="noopener noreferrer">Defra's privacy policy (opens in a new tab)</a>.
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="formroot-declaration" class="@(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+                    <h2 class="govuk-heading-l">Declaration</h2>
+                    <p class="govuk-body">I declare that:</p>
+                    <ul class="govuk-list govuk-list--bullet">
+                        <li>I will only use the lifelong travel document to travel with my dog, cat or ferret from Great Britain (England, Scotland and Wales) to Northern Ireland</li>
+                        <li>I need an EU pet passport or animal health certificate to travel from Northern Ireland to the EU</li>
+                    </ul>
+
+                    <div class="govuk-form-group govuk-!-static-margin-top-4">
+                        @Html.ValidationMessageFor(x => x.AgreedToDeclaration, string.Empty, new {@id="declaration-error-message", @class = "govuk-error-message" })
+                        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                            <div class="govuk-checkboxes__item">
+                                @Html.CheckBoxFor(m => m.AgreedToDeclaration, new { @class = "govuk-checkboxes__input", id = "AgreedToDeclaration" })
+                                <label class="govuk-label govuk-checkboxes__label" for="AgreedToDeclaration">
+                                    I agree to the declaration
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="govuk-button-group">
+                <button class="govuk-button" data-module="govuk-button" type="submit" onClick='return submitForm()' id="submitButton">
+                    Send application
+                </button>
+            </div>
+        }
+
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script>
+        let submitting = false;
+        $(document).ready(function () {
+            submitting = false;
+            $('#submitButton').prop('disabled', false);
+
+            $("#AgreedToDeclaration").click(function () {
+                $('#declaration-error-message').hide();
+                $('#formroot-declaration').removeClass("govuk-form-group--error");
+                $('#AgreedToDeclaration').removeClass("input-validation-error");
+                $('#error-list #AgreedToDeclaration-error').remove();
+                if ($('#AgreedToDeclaration-error').length == 0 && $('#AgreedToPrivacyPolicy-error').length == 0 && $('#AgreedToAccuracy-error').length == 0) {
+                    $('.govuk-error-summary').hide();
+                }
+            });
+
+            if ($("#AgreedToDeclaration").is(":checked")) {
+                $('#declaration-error-message').hide();
+                $('#formroot-declaration').removeClass("govuk-form-group--error");
+                $('#AgreedToDeclaration').removeClass("input-validation-error");
+                $('#error-list #AgreedToDeclaration-error').remove();
+            };
+
+            $("#AgreedToPrivacyPolicy").click(function () {
+                $('#privacy-error-message').hide();
+                $('#formroot-privacy').removeClass("govuk-form-group--error");
+                $('#AgreedToPrivacy').removeClass("input-validation-error");
+                $('#error-list #AgreedToPrivacyPolicy-error').remove();
+                if ($('#AgreedToDeclaration-error').length == 0 && $('#AgreedToPrivacyPolicy-error').length == 0 && $('#AgreedToAccuracy-error').length == 0) {
+                    $('.govuk-error-summary').hide();
+                }
+            });
+
+            if ($("#AgreedToPrivacyPolicy").is(":checked")) {
+                $('#privacy-error-message').hide();
+                $('#formroot-privacy').removeClass("govuk-form-group--error");
+                $('#AgreedToPrivacy').removeClass("input-validation-error");
+                $('#error-list #AgreedToPrivacyPolicy-error').remove();
+            };
+
+            $("#AgreedToAccuracy").click(function () {
+                $('#accuracy-error-message').hide();
+                $('#formroot-accuracy').removeClass("govuk-form-group--error");
+                $('#AgreedToAccuracy').removeClass("input-validation-error");
+                $('#error-list #AgreedToAccuracy-error').remove();
+                if ($('#AgreedToDeclaration-error').length == 0 && $('#AgreedToPrivacyPolicy-error').length == 0 && $('#AgreedToAccuracy-error').length == 0) {
+                    $('.govuk-error-summary').hide();
+                }
+            });
+
+            if ($("#AgreedToAccuracy").is(":checked")) {
+                $('#accuracy-error-message').hide();
+                $('#formroot-accuracy').removeClass("govuk-form-group--error");
+                $('#AgreedToAccuracy').removeClass("input-validation-error");
+                $('#error-list #AgreedToAccuracy-error').remove();
+            };
+        })
+
+        function submitForm() {
+            if (!submitting) {
+                submitting = true;
+                $('#submitButton').prop('disabled', true);
+                $('#DeclarationForm').submit();
+                return true;
+            }
+
+            return false;
+        }
+
+    </script>
+}
+

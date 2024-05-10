@@ -1,0 +1,58 @@
+﻿@model PetKeeperAddressViewModel
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.Domain.Enums;
+@using Defra.PTS.Web.UI.Constants;
+@using System.Web;
+@using Defra.PTS.Web.Domain.ViewModels;
+@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Address" };
+    this.SetMetaTitle(Model.FormTitle);
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        @using (Html.BeginForm("PetKeeperAddress", "TravelDocument", FormMethod.Post, new { @class = "form PetKeeperAddress" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.IsCompleted)
+            @Html.HiddenFor(x => x.Postcode)
+            @Html.HiddenFor(x => x.PostcodeRegion)
+
+            <partial name="_ErrorSummary" />
+            <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+
+                <fieldset class="govuk-fieldset">
+
+                    <partial name="_FieldsetLegend" model=fieldsetLegend />
+
+                    <div class="govuk-form-group">
+                        <div id="address-hint" class="govuk-hint">
+                            <p>
+                                Postcode:
+                                <strong class="bold-xsmall">@Model.Postcode</strong>&nbsp;&nbsp;<a href="@WebAppConstants.Pages.TravelDocument.PetKeeperPostcode">Change</a>
+                            </p>
+                        </div>
+
+                        @Html.ValidationMessageFor(x => x.Address, string.Empty, new { @class="govuk-error-message"})
+
+                        @Html.DropDownListFor(m => m.Address, (IEnumerable<SelectListItem>)ViewBag.AddressList, htmlAttributes: new { @class="govuk-select govuk-!-width-full", id="Address", @aria_describedby="address-hint"})
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-button-group">
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Continue
+                </button>
+            </div>
+        }
+
+        <p>
+            <a href="@WebAppConstants.Pages.TravelDocument.PetKeeperAddressManual">I cannot find the address in the list</a>
+        </p>
+
+    </div>
+</div>

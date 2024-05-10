@@ -1,0 +1,110 @@
+﻿@model PetKeeperUserDetailsViewModel
+
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.Domain.Enums;
+@using Defra.PTS.Web.Domain.ViewModels;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.PetKeeperUserDetailsFormTitle, LabelFor = "Yes" };
+    this.SetMetaTitle(Model.PetKeeperUserDetailsFormTitle);
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+        @using (Html.BeginForm("PetKeeperUserDetails", "TravelDocument", FormMethod.Post, new { @class = "form PetKeeperUserDetails" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.IsCompleted)
+            @Html.HiddenFor(x => x.Name)
+            @Html.HiddenFor(x => x.Email)
+            @Html.HiddenFor(x => x.Phone)
+            @Html.HiddenFor(x => x.AddressLineOne)
+            @Html.HiddenFor(x => x.TownOrCity)
+            @Html.HiddenFor(x => x.Postcode)
+            @Html.HiddenFor(x => x.PostcodeRegion)
+
+            <partial name="_ErrorSummary" />
+
+            <div id="formroot" class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+
+                <fieldset class="govuk-fieldset">
+
+                    <partial name="_FieldsetLegend" model=fieldsetLegend />
+
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">Name</dt>
+                            <dd class="govuk-summary-list__value">@Model.Name</dd>
+
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">Email</dt>
+                            <dd class="govuk-summary-list__value">@Model.Email</dd>
+
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Address
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                @Model.AddressLineOne<br />
+                                @Model.TownOrCity<br />
+                                @Model.Postcode
+                            </dd>
+
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">Phone number</dt>
+                            <dd class="govuk-summary-list__value">@Model.Phone</dd>
+
+                        </div>
+                    </dl>
+
+                    @Html.ValidationMessageFor(x => x.UserDetailsAreCorrect, string.Empty, new { @class="govuk-error-message"})
+
+                    <div class="govuk-form-group">
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-radios__item">
+                                @Html.RadioButtonFor(m => m.UserDetailsAreCorrect, YesNoOptions.Yes, new { @class = "govuk-radios__input", id = "Yes" })
+                                <label class="govuk-label govuk-radios__label" for="Yes">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="govuk-radios__item">
+                                @Html.RadioButtonFor(m => m.UserDetailsAreCorrect, YesNoOptions.No, new { @class = "govuk-radios__input", id = "No" })
+                                <label class="govuk-label govuk-radios__label" for="No">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group">
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Continue
+                </button>
+            </div>
+        }
+
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+            $(".govuk-radios__input").click(function () {
+                $('.govuk-error-summary').hide();
+                $('.govuk-error-message').hide();
+                $('#formroot').removeClass("govuk-form-group--error");
+            });
+        })
+    </script>
+}

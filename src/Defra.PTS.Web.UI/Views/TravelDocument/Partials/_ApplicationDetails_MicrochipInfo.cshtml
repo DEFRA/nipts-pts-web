@@ -1,0 +1,41 @@
+﻿@model Defra.PTS.Web.Application.DTOs.Services.MicrochipInformationDto;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.Application.Extensions;
+
+<div id="document-microchip-card" class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Microchip information</h2>
+    </div>
+    <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Microchip number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.MicrochipNumber
+                </dd>
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Implant location
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.MicrochipImplantLocation
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Implant or scan date
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.MicrochipDate.ToUKDateString()
+                </dd>
+            </div>
+        </dl>
+    </div>
+</div>

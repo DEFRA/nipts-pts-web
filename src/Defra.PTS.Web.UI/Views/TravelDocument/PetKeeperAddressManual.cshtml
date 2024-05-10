@@ -1,0 +1,86 @@
+﻿@model PetKeeperAddressManualViewModel
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.Domain.Enums;
+@using System.Web;
+@using Defra.PTS.Web.Domain.ViewModels;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
+@using Defra.PTS.Web.Application.Constants;
+
+@{
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "AddressLineOne" };
+    this.SetMetaTitle(Model.FormTitle);
+    var errorOrder = new string[] { "AddressLineOne", "AddressLineTwo", "TownOrCity", "County", "Postcode" };
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+        @using (Html.BeginForm("PetKeeperAddressManual", "TravelDocument", FormMethod.Post, new { @class = "form PetKeeperAddressManual" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.IsCompleted)
+            @Html.HiddenFor(x => x.PostcodeRegion)
+
+            <partial name="_ErrorSummaryOrdered" model=errorOrder />
+
+            <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+                <fieldset class="govuk-fieldset">
+
+                    <partial name="_FieldsetLegend" model=fieldsetLegend />
+
+                    <div id="address-hint" class="govuk-hint">
+                        Enter a valid address in England, Scotland or Wales.
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="AddressLineOne">
+                            Address line 1
+                        </label>
+                        @Html.ValidationMessageFor(x => x.AddressLineOne, string.Empty, new { @class="govuk-error-message"})
+                        @Html.TextBoxFor(x => x.AddressLineOne, new { @class = "govuk-input", @spellcheck = "false", @autocomplete = @WebAppConstants.FormAutofill.AddressLineOne, @pattern = @AppConstants.RegularExpressions.AddressText, @title = "Please enter a valid address for Address Line One" })
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="AddressLineTwo">
+                            Address line 2 (optional)
+                        </label>
+                        @Html.TextBoxFor(x => x.AddressLineTwo, new { @class = "govuk-input", @spellcheck = "false", @autocomplete = @WebAppConstants.FormAutofill.AddressLineTwo, @pattern = @AppConstants.RegularExpressions.AddressText, @title = "Please enter a valid address for Address Line Two" })
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="TownOrCity">
+                            Town or city
+                        </label>
+                        @Html.ValidationMessageFor(x => x.TownOrCity, string.Empty, new { @class="govuk-error-message"})
+                        @Html.TextBoxFor(x => x.TownOrCity, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false", @autocomplete = @WebAppConstants.FormAutofill.CityOrTown, @pattern = @AppConstants.RegularExpressions.AddressText, @title = "Please enter a valid Town or City" })
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="County">
+                            County (optional)
+                        </label>
+                        @Html.TextBoxFor(x => x.County, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false", @pattern = @AppConstants.RegularExpressions.AddressText, @title = "Please enter a valid county" })
+                    </div>
+
+                    <div class="govuk-form-group">
+                        <label class="govuk-label" for="Postcode">
+                            Postcode
+                        </label>
+                        @Html.ValidationMessageFor(x => x.Postcode, string.Empty, new { @class="govuk-error-message"})
+                        @Html.TextBoxFor(x => x.Postcode, new { @class = "govuk-input govuk-input--width-10", @spellcheck = "false", @autocomplete = @WebAppConstants.FormAutofill.PostalCode, @pattern = @"^[0-9a-zA-Z ]+$", @title = "Please enter a postcode using only alphanumeric characters" })
+                    </div>
+
+                </fieldset>
+            </div>
+
+            <div class="govuk-button-group">
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Continue
+                </button>
+            </div>
+        }
+
+    </div>
+</div>

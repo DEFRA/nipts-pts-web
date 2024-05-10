@@ -1,0 +1,16 @@
+﻿@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    var pageTitle = "Access denied";
+    this.SetMetaTitle(pageTitle);
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        <h1 class="govuk-heading-l">@pageTitle</h1>
+        <p class="govuk-body">
+            You do not have permissions to access this resource. Please contact your system administrator for further help.
+        </p>
+    </div>
+</div>

@@ -1,0 +1,160 @@
+name: "V1-B$(Date:yyyyMMdd)-$(BuildID)"
+
+parameters:
+  - name: forceDevDeploy
+    displayName: "Force deployment to DEV"
+    type: boolean
+    default: false
+  - name: deployToSecondary
+    displayName: "Select Secondary Region"
+    type: string
+    default: PRD
+    values:
+      - None
+      - DEV
+      - TST
+      - PRE
+      - PRD
+  
+
+trigger:
+  batch: true
+  branches:
+    include:
+      #- "master"
+      #- "dev"
+      - '*'
+  paths:
+    include:
+      - src/Defra.PTS.Web.UI/*
+      #- test/*
+
+resources:
+  repositories:
+    - repository: PipelineCommon
+      name: DEFRA-TRD/Defra.TRD.Pipeline.Common
+      type: git
+      ref: master
+
+variables:
+  APIName: Defra.PTS.Web.UI
+  UseProductionData: $[ne(variables['environment'], 'dev')]
+
+extends:
+  template: /templates/basic-webapp-deploy-pipeline.yaml@PipelineCommon
+  parameters:
+    forceDevDeploy: ${{ parameters.forceDevDeploy }}
+    deployToSecondary: ${{ parameters.deployToSecondary }}
+    appName: $(APIName)
+    appProject: PTS
+    appInstanceNumber: $(nc-region-id)01
+    buildProjects: 'src\$(APIName)\$(APIName).csproj'
+    publishProject: 'src\$(APIName)\$(APIName).csproj'
+    publishArguments: "--configuration Release"
+    runHealthCheck: false    
+    setupSlotKeyVaultAccess: true
+    appSettingsEnv:
+     dev: >-
+       -AddressApi:BaseUrl "https://$(internalAPIMUrl)/trade-address-api/v1/"
+       -AppSettings:UseAuth "true"
+       -AppSettings:UseMockCs "false"
+       -AppSettings:UseTempToken "true"
+       -AppSettings:ManagementUrl "https://your-account.cp$(environment).cui.$(defraGovUKApplicationDomain)/management"
+       -AppSettings:PetServiceUrl "https://$(internalAPIMUrl)/pts-pets/v1/"
+       -AppSettings:ApplicationServiceUrl "https://$(internalAPIMUrl)/application-creator/v1/"
+       -AppSettings:UserServiceUrl "https://$(internalAPIMUrl)/user-creator/v1/"
+       -AppSettings:DynamicServiceUrl "https://$(internalAPIMUrl)/dynamic-integration/v1/"
+       -Cookie:Name "PTS"
+       -Cookie:ExpireTimespan "00:30:00"
+       -ConfigurationServer:Uri "https://$(Environment.Name)TRD$(nc-function-infrastructure)$(nc-resource-appconfiguration)1001.azconfig.io"
+       -AzureAdB2C:MetadataAddress "https://$(v2idmUrl)/$(ptsB2cUrl)/.well-known/openid-configuration"
+       -AzureAdB2C:Instance "https://$(v2idmUrl)/$(ptsB2cUrl)"
+       -AzureAdB2C:CallbackPath "https://$(ptsUrl)/signin-oidc"     
+       -AzureAdB2C:SignedOutCallbackPath "https://$(v2idmUrl)/$(ptsB2cUrl)/signout"
+       -AzureAdB2C:Nonce "defaultNonce"
+       -KeyVaultUri "https://$(environment)trd$(nc-function-infrastructure-lower)$(nc-resource-keyvault-lower)1001.vault.azure.net/"
+       -PTS:MagicWordEnabled "true"
+     tst: >-      
+       -AddressApi:BaseUrl "https://$(internalAPIMUrl)/trade-address-api/v1/"
+       -AppSettings:UseAuth "true"
+       -AppSettings:UseMockCs "false"
+       -AppSettings:UseTempToken "true"
+       -AppSettings:ManagementUrl "https://your-account.cp$(environment).cui.$(defraGovUKApplicationDomain)/management"
+       -AppSettings:PetServiceUrl "https://$(internalAPIMUrl)/pts-pets/v1/"
+       -AppSettings:ApplicationServiceUrl "https://$(internalAPIMUrl)/application-creator/v1/"
+       -AppSettings:UserServiceUrl "https://$(internalAPIMUrl)/user-creator/v1/"
+       -AppSettings:DynamicServiceUrl "https://$(internalAPIMUrl)/dynamic-integration/v1/"       
+       -Cookie:Name "PTS"
+       -Cookie:ExpireTimespan "00:30:00"
+       -ConfigurationServer:Uri "https://$(Environment.Name)TRD$(nc-function-infrastructure)$(nc-resource-appconfiguration)1001.azconfig.io"
+       -AzureAdB2C:MetadataAddress "https://$(v2idmUrl)/$(ptsB2cUrl)/.well-known/openid-configuration"
+       -AzureAdB2C:Instance "https://$(v2idmUrl)/$(ptsB2cUrl)"
+       -AzureAdB2C:CallbackPath "https://$(ptsUrl)/signin-oidc"       
+       -AzureAdB2C:SignedOutCallbackPath "https://$(v2idmUrl)/$(ptsB2cUrl)/signout"
+       -AzureAdB2C:Nonce "defaultNonce"
+       -KeyVaultUri "https://$(environment)trd$(nc-function-infrastructure-lower)$(nc-resource-keyvault-lower)1001.vault.azure.net/"
+       -PTS:MagicWordEnabled "true"
+     snd: >-
+       -AddressApi:BaseUrl "https://$(internalAPIMUrl)/trade-address-api/v1/"
+       -AppSettings:UseAuth "true"
+       -AppSettings:UseMockCs "false"
+       -AppSettings:UseTempToken "false"
+       -AppSettings:ManagementUrl "https://your-account.cp$(environment).cui.$(defraGovUKApplicationDomain)/management"
+       -AppSettings:PetServiceUrl "https://$(environment)pts$(nc-function-web-lower)$(nc-resource-functionapp-lower)1003.azurewebsites.net/"
+       -AppSettings:ApplicationServiceUrl "https://$(environment)pts$(nc-function-web-lower)$(nc-resource-functionapp-lower)1001.azurewebsites.net/"
+       -AppSettings:UserServiceUrl "https://$(environment)pts$(nc-function-web-lower)$(nc-resource-functionapp-lower)1004.azurewebsites.net/"
+       -AppSettings:DynamicServiceUrl "https://$(environment)pts$(nc-function-web-lower)$(nc-resource-functionapp-lower)1007.azurewebsites.net/"
+       -Cookie:Name "PTS"
+       -Cookie:ExpireTimespan "00:30:00"
+       -ConfigurationServer:Uri "https://$(Environment.Name)TRD$(nc-function-infrastructure)$(nc-resource-appconfiguration)1001.azconfig.io"
+       -AzureAdB2C:MetadataAddress "https://$(v2idmUrl)/$(ptsB2cUrl)/.well-known/openid-configuration"
+       -AzureAdB2C:Instance "https://$(v2idmUrl)/$(ptsB2cUrl)"
+       -AzureAdB2C:CallbackPath "https://$(ptsUrl)/signin-oidc"       
+       -AzureAdB2C:SignedOutCallbackPath "https://$(v2idmUrl)/$(ptsB2cUrl)/signout"
+       -AzureAdB2C:Nonce "defaultNonce"
+       -KeyVaultUri "https://$(environment)trd$(nc-function-infrastructure-lower)$(nc-resource-keyvault-lower)1001.vault.azure.net/"
+       -PTS:MagicWordEnabled "true"
+     pre: >-
+       -AddressApi:BaseUrl "https://$(internalAPIMUrl)/trade-address-api/v1/"
+       -AppSettings:UseAuth "true"
+       -AppSettings:UseMockCs "false"
+       -AppSettings:UseTempToken "true"
+       -AppSettings:ManagementUrl "https://your-account.$(environment).cui.$(defraGovUKApplicationDomain)/management"
+       -AppSettings:PetServiceUrl "https://$(internalAPIMUrl)/pts-pets/v1/"
+       -AppSettings:ApplicationServiceUrl "https://$(internalAPIMUrl)/application-creator/v1/"
+       -AppSettings:UserServiceUrl "https://$(internalAPIMUrl)/user-creator/v1/"
+       -AppSettings:DynamicServiceUrl "https://$(internalAPIMUrl)/dynamic-integration/v1/"
+       -Cookie:Name "PTS"
+       -Cookie:ExpireTimespan "00:30:00"
+       -ConfigurationServer:Uri "https://$(Environment.Name)TRD$(nc-function-infrastructure)$(nc-resource-appconfiguration)1001.azconfig.io"
+       -AzureAdB2C:MetadataAddress "https://$(v2idmUrl)/$(ptsB2cUrl)/.well-known/openid-configuration"
+       -AzureAdB2C:Instance "https://$(ptsDcidurl)/$(ptsB2cUrl)"
+       -AzureAdB2C:CallbackPath "https://$(ptsUrl)/signin-oidc"       
+       -AzureAdB2C:SignedOutCallbackPath "https://$(v2idmUrl)/$(ptsB2cUrl)/signout"
+       -AzureAdB2C:Nonce "defaultNonce"
+       -KeyVaultUri "https://$(environment)trd$(nc-function-infrastructure-lower)$(nc-resource-keyvault-lower)1001.vault.azure.net/"
+       -PTS:MagicWordEnabled "true"
+     prd: >-
+       -AddressApi:BaseUrl "https://$(internalAPIMUrl)/trade-address-api/v1/"
+       -AppSettings:UseAuth "true"
+       -AppSettings:UseMockCs "false"
+       -AppSettings:UseTempToken "false"
+       -AppSettings:ManagementUrl "https://your-account.$(defraGovUKApplicationDomain)/management"
+       -AppSettings:PetServiceUrl "https://$(internalAPIMUrl)/pts-pets/v1/"
+       -AppSettings:ApplicationServiceUrl "https://$(internalAPIMUrl)/application-creator/v1/"
+       -AppSettings:UserServiceUrl "https://$(internalAPIMUrl)/user-creator/v1/"
+       -AppSettings:DynamicServiceUrl "https://$(internalAPIMUrl)/dynamic-integration/v1/"
+       -Cookie:Name "PTS"
+       -Cookie:ExpireTimespan "00:30:00"
+       -ConfigurationServer:Uri "https://$(Environment.Name)TRD$(nc-function-infrastructure)$(nc-resource-appconfiguration)1001.azconfig.io"
+       -AzureAdB2C:MetadataAddress "https://$(v2idmUrl)/$(ptsB2cUrl)/.well-known/openid-configuration"
+       -AzureAdB2C:Instance "https://$(ptsDcidurl)/$(ptsB2cUrl)"
+       -AzureAdB2C:CallbackPath "https://$(ptsUrl)/signin-oidc"       
+       -AzureAdB2C:SignedOutCallbackPath "https://$(v2idmUrl)/$(ptsB2cUrl)/signout"
+       -AzureAdB2C:Nonce "defaultNonce"
+       -KeyVaultUri "https://$(environment)trd$(nc-function-infrastructure-lower)$(nc-resource-keyvault-lower)1001.vault.azure.net/"
+       -PTS:MagicWordEnabled "true"
+    runIntegrationTests: false
+    runSonarScan: true
+    sonarExclusionPaths: 'src/Defra.PTS.Web.UI/Program.cs, src/Defra.PTS.Web.UI/www**'
+    # useHostedAgent: true

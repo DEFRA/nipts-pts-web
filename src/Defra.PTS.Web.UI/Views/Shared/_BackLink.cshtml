@@ -1,0 +1,10 @@
+﻿@using Defra.PTS.Web.UI.Constants;
+@{
+    string backUrl = (ViewData[WebAppConstants.ViewKeys.BackUrl] ?? string.Empty) as string;
+
+    if (!string.IsNullOrWhiteSpace(backUrl))
+    {
+        <a href="@backUrl" class="govuk-back-link pet-travel-back-link">Back</a>
+        //<a href="@AppConstants.HistoryBack" class="govuk-back-link pet-travel-back-link">Back</a>
+    }
+}

@@ -1,0 +1,12 @@
+﻿@using Defra.PTS.Web.Application.Extensions;
+@using Microsoft.DotNet.Scaffolding.Shared.CodeModifier.CodeChange;
+@{
+    var options = new System.Text.Json.JsonSerializerOptions { WriteIndented = true };
+}
+
+<h2 class="govuk-heading-l">Json Model</h2>
+<div class="govuk-inset-text">
+    <pre>
+        @Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData.GetTravelDocument(), options))
+    </pre>
+</div>

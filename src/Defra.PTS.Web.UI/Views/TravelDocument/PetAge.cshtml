@@ -1,0 +1,96 @@
+﻿@model PetAgeViewModel
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.Domain.Enums;
+@using Defra.PTS.Web.Domain.ViewModels;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Yes" };
+    this.SetMetaTitle(Model.FormTitle);
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        @using (Html.BeginForm("PetAge", "TravelDocument", FormMethod.Post, new { @class = "form" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.IsCompleted)
+            @Html.HiddenFor(x => x.MicrochippedDate)
+
+            <partial name="_ErrorSummary" />
+
+            <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+
+                <fieldset class="govuk-fieldset" aria-describedby="pet-age-hint">
+
+                    <partial name="_FieldsetLegend" model=fieldsetLegend />
+
+                    <div id="pet-age-hint" class="govuk-hint">
+
+                        Your pet's date of birth should be displayed on their microchip certificate.
+
+                        Use an approximate date of birth if you are unsure.
+
+                    </div>
+
+                    <div class="govuk-form-group">
+
+                        <div id="petDOB-hint" class="govuk-hint">
+                            For example, 27 3 2020
+                        </div>
+
+                        <div class="govuk-radios" data-module="govuk-radios">
+                            <div class="govuk-form-group">
+
+                                <fieldset class="govuk-fieldset" role="group" aria-describedby="petDOB-hint">
+
+                                    @Html.ValidationMessageFor(x => x.BirthDate, string.Empty, new { @class="govuk-error-message"})
+                                    @Html.ValidationMessageFor(x => x.Day, string.Empty, new { @class="govuk-error-message"})
+                                    @Html.ValidationMessageFor(x => x.Month, string.Empty, new { @class="govuk-error-message"})
+                                    @Html.ValidationMessageFor(x => x.Year, string.Empty, new { @class="govuk-error-message"})
+
+                                    <div class="govuk-date-input" id="BirthDate">
+                                        <div class="govuk-date-input__item">
+                                            <div class="govuk-form-group">
+                                                <label class="govuk-label govuk-date-input__label" for="Day">
+                                                    Day
+                                                </label>
+                                                @Html.TextBoxFor(x => x.Day, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", id = "Day", @spellcheck = "false", @maxlength = 2, @inputmode = "numeric", type = "number", @pattern = @"^[0-9]", @title = "Please enter a valid day" })
+                                            </div>
+                                        </div>
+                                        <div class="govuk-date-input__item">
+                                            <div class="govuk-form-group">
+                                                <label class="govuk-label govuk-date-input__label" for="Month">
+                                                    Month
+                                                </label>
+                                                @Html.TextBoxFor(x => x.Month, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", id = "Month", @spellcheck = "false", @maxlength = 2, @inputmode = "numeric", type = "number", @pattern = @"^[0-9]", @title = "Please enter a valid month" })
+                                            </div>
+                                        </div>
+                                        <div class="govuk-date-input__item">
+                                            <div class="govuk-form-group">
+                                                <label class="govuk-label govuk-date-input__label" for="Year">
+                                                    Year
+                                                </label>
+                                                @Html.TextBoxFor(x => x.Year, new { @class = "govuk-input govuk-date-input__input govuk-input--width-4", id = "Year", @spellcheck = "false", @maxlength = 4, @inputmode = "numeric", type = "number", @pattern = @"^[0-9]", @title = "Please enter a valid year" })
+                                            </div>
+                                        </div>
+                                    </div>
+                                </fieldset>
+
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-button-group">
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Continue
+                </button>
+            </div>
+        }
+
+    </div>
+</div>

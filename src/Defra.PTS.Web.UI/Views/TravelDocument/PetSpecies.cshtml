@@ -1,0 +1,74 @@
+﻿@model PetSpeciesViewModel
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.Domain.Enums;
+@using Defra.PTS.Web.Domain.ViewModels;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Dog" };
+    this.SetMetaTitle(Model.FormTitle);
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        @using (Html.BeginForm("PetSpecies", "TravelDocument", FormMethod.Post, new { @class = "form PetSpecies" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.IsCompleted)
+
+            <partial name="_ErrorSummary" />
+
+            <div id="formroot" class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+                <fieldset class="govuk-fieldset">
+
+                    <partial name="_FieldsetLegend" model=fieldsetLegend />
+
+                    @Html.ValidationMessageFor(x => x.PetSpecies, string.Empty, new { @class="govuk-error-message"})
+
+                    <div class="govuk-radios" data-module="govuk-radios" id="PetSpecies">
+                        <div class="govuk-radios__item">
+                            @Html.RadioButtonFor(m => m.PetSpecies, PetSpecies.Dog, new {@class="govuk-radios__input", id="Dog"})
+                            <label class="govuk-label govuk-radios__label" for="Dog">
+                                Dog
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            @Html.RadioButtonFor(m => m.PetSpecies, PetSpecies.Cat, new {@class="govuk-radios__input", id="Cat"})
+                            <label class="govuk-label govuk-radios__label" for="Cat">
+                                Cat
+                            </label>
+                        </div>
+                        <div class="govuk-radios__item">
+                            @Html.RadioButtonFor(m => m.PetSpecies, PetSpecies.Ferret, new {@class="govuk-radios__input", id="Ferret"})
+                            <label class="govuk-label govuk-radios__label" for="Ferret">
+                                Ferret
+                            </label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group">
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Continue
+                </button>
+            </div>
+        }
+
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            $(".govuk-radios__input").click(function () {
+                $('.govuk-error-summary').hide();
+                $('.govuk-error-message').hide();
+                $('#formroot').removeClass("govuk-form-group--error");
+            });
+        })
+    </script>
+}

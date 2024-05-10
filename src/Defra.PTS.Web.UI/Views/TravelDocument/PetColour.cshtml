@@ -1,0 +1,119 @@
+﻿@model PetColourViewModel
+@using Defra.PTS.Web.Domain.DTOs;
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.Domain.Enums;
+@using Defra.PTS.Web.Domain.ViewModels;
+@using Defra.PTS.Web.Application.Extensions;
+@using Defra.PTS.Web.Application.DTOs.Services;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Black" };
+    this.SetMetaTitle(Model.FormTitle);
+
+    var colours = (List<ColourDto>)ViewBag.Colours;
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        @using (Html.BeginForm("PetColour", "TravelDocument", FormMethod.Post, new { @class = "form PetColour" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.IsCompleted)
+            @Html.HiddenFor(x => x.PetSpecies)
+            @Html.HiddenFor(x => x.OtherColourID)
+            @Html.HiddenFor(x => x.PetColourName)
+            
+            <partial name="_ErrorSummary" />
+
+            <div id="formroot" class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+                <fieldset class="govuk-fieldset">
+
+                    <partial name="_FieldsetLegend" model=fieldsetLegend />
+
+                    <div class="govuk-hint">
+                        Choose the main colour of your @Model.PetTypeNameLowered. For example, if your @Model.PetTypeNameLowered is mostly black with white spots, choose black.
+                    </div>
+
+                    @Html.ValidationMessageFor(x => x.PetColour, string.Empty, new { @class="govuk-error-message"})
+
+                    <div class="govuk-form-group" id="PetColour">
+                        <div class="govuk-radios" data-module="govuk-radios">
+
+                            @foreach (var petColour in colours)
+                            {
+                                <div class="govuk-radios__item">
+                                    @Html.RadioButtonFor(m => m.PetColour, petColour.Id, new {@class="govuk-radios__input", @id=petColour.Code})
+                                    <label class="govuk-label govuk-radios__label" for="@petColour.Code">
+                                        @petColour.Name
+                                    </label>
+                                </div>
+                            }
+
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-PetColourOther">
+                                <div class="govuk-form-group" id="OtherColour">
+                                    <label class="govuk-label govuk-label--s" for="PetColourOther">
+                                        Describe the colour of your @Model.PetTypeNameLowered
+                                    </label>
+                                    @Html.ValidationMessageFor(x => x.PetColourOther, string.Empty, new { @class="govuk-error-message"})
+                                    @Html.TextBoxFor(x => x.PetColourOther, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false", @autocomplete = "colour", @pattern = @"^[a-zA-Z ]+$", @title = "Please enter a colour using only letters" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="govuk-button-group">
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Continue
+                </button>
+            </div>
+
+        }
+
+    </div>
+</div>
+
+@section Scripts
+    {
+    <script>
+        $(document).ready(function () {
+
+            //if the form has an error, but it is specific to the other box, we relocate it
+
+            if ($("#formroot").hasClass("govuk-form-group--error") && $("#Other").is(":checked")) {
+                $('#formroot').removeClass("govuk-form-group--error");
+                $('#OtherColour').addClass("govuk-form-group--error");
+            }
+            
+            toggleOtherColourTextBox();
+
+            $(".govuk-radios__input").click(function () {
+
+                $('.govuk-error-summary').hide();
+                $('.govuk-error-message').hide();
+                $('#formroot').removeClass("govuk-form-group--error");
+                $('#OtherColour').removeClass("govuk-form-group--error");
+
+                toggleOtherColourTextBox();
+
+            });
+        })
+
+        function toggleOtherColourTextBox() {
+
+            const selectedColourId = $('input[type=radio][name=PetColour]:checked').val();
+            const otherColourId = $("#OtherColourID").val();
+
+            if (otherColourId && selectedColourId == otherColourId) {
+                $("#conditional-PetColourOther").show();
+            }
+            else
+            {
+                $("#conditional-PetColourOther").hide();
+            }
+        }
+    </script>
+}

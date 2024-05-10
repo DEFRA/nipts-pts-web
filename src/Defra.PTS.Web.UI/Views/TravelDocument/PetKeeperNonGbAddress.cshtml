@@ -1,0 +1,89 @@
+﻿@model PetKeeperUserDetailsViewModel
+
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.Domain.Enums;
+@using Defra.PTS.Web.Domain.ViewModels;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.PetKeeperNonGbAddressFormTitle, LabelFor = "Yes" };
+    this.SetMetaTitle(Model.PetKeeperNonGbAddressFormTitle);
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+        @using (Html.BeginForm("PetKeeperNonGbAddress", "TravelDocument", FormMethod.Post, new { @class = "form PetKeeperNonGbAddress" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.IsCompleted)
+            @Html.HiddenFor(x => x.Name)
+            @Html.HiddenFor(x => x.Email)
+            @Html.HiddenFor(x => x.Phone)
+            @Html.HiddenFor(x => x.AddressLineOne)
+            @Html.HiddenFor(x => x.TownOrCity)
+            @Html.HiddenFor(x => x.Postcode)
+            @Html.HiddenFor(x => x.PostcodeRegion)
+
+            <div class="govuk-form-group">
+
+                <fieldset class="govuk-fieldset">
+
+                    <partial name="_FieldsetLegend" model=fieldsetLegend />
+                    <div class="govuk-notification-banner govuk-!-static-margin-top-6" role="region"
+                         aria-labelledby="govuk-notification-banner-title"
+                         data-module="govuk-notification-banner">
+                        <div class="govuk-notification-banner__header">
+                            <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                                @Model.PetKeeperNonGbAddressFormMessageHeader
+                            </h2>
+                        </div>
+                        <div class="govuk-notification-banner__content">
+                            <p class="govuk-notification-banner__heading">
+                                @Model.PetKeeperNonGbAddressFormMessageBody
+                            </p>
+                        </div>
+                    </div>
+                    <dl class="govuk-summary-list">
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">Name</dt>
+                            <dd class="govuk-summary-list__value">@Model.Name</dd>
+
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">Email</dt>
+                            <dd class="govuk-summary-list__value">@Model.Email</dd>
+
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Address
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                @Model.AddressLineOne<br />
+                                @Model.TownOrCity<br />
+                                @Model.Postcode
+                            </dd>
+
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">Phone number</dt>
+                            <dd class="govuk-summary-list__value">@Model.Phone</dd>
+
+                        </div>
+                    </dl>                   
+
+                </fieldset>
+            </div>
+
+            <div class="govuk-form-group">
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Continue
+                </button>
+            </div>
+        }
+
+    </div>
+</div>

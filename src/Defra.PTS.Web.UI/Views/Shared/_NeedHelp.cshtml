@@ -1,0 +1,20 @@
+﻿@using Defra.PTS.Web.UI.Constants;
+
+@{
+    bool? hideNeedHelp = (ViewData[WebAppConstants.ViewKeys.HideNeedHelp] ?? false) as bool?;
+    if (!hideNeedHelp.GetValueOrDefault())
+    {
+        <div class="govuk-width-container govuk-!-display-none-print">
+            <div class="govuk-grid-row rtwr-no-print" role="region" aria-label="Need help using this service?">
+                <div class="govuk-grid-column-full">
+                    <div class="rtwr-help-bar">
+                        <p class="govuk-body">
+                            <strong class="rtwr-help-bar__question">Need help using this service? </strong><a class="govuk-link--inverse" href="@WebAppConstants.Pages.Content.Help">Get help</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+

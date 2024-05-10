@@ -1,0 +1,66 @@
+﻿@model Defra.PTS.Web.Application.DTOs.Services.PetKeeperDetailsDto;
+
+<div id="document-owner-card" class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Pet owner details</h2>
+    </div>
+    <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Name</dt>
+                <dd class="govuk-summary-list__value">@Model.Name</dd>
+
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Email</dt>
+                <dd class="govuk-summary-list__value">@Model.Email</dd>
+
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Address
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @if (!string.IsNullOrWhiteSpace(Model.AddressLine1))
+                    {
+                        @Model.AddressLine1
+
+                        <br />
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(Model.AddressLine2))
+                    {
+                        @Model.AddressLine2
+
+                        <br class="pet-br-print" />
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(Model.AddressLine3))
+                    {
+                        @Model.AddressLine3
+
+                        <br class="pet-br-print" />
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(Model.TownOrCity))
+                    {
+                        @Model.TownOrCity
+
+                        <br class="pet-br-print" />
+                    }
+
+                    @if (!string.IsNullOrWhiteSpace(Model.Postcode))
+                    {
+                        @Model.Postcode
+                    }
+                </dd>
+
+            </div>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">Phone number</dt>
+                <dd class="govuk-summary-list__value">@Model.Phone</dd>
+
+            </div>
+        </dl>
+    </div>
+</div>

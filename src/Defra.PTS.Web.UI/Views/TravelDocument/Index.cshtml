@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Defra.PTS.Web.Application.DTOs.Services.ApplicationSummaryDto>
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    var pageTitle = "Lifelong pet travel documents";
+    this.SetMetaTitle(pageTitle);
+    ViewData.SetKeyValue("MainCssClass", "govuk-!-margin-top-6");
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+        <h1 id="documents" class="govuk-heading-xl govuk-!-margin-bottom-4">
+            @pageTitle
+        </h1>
+        <p class="govuk-body govuk-body-l">The lifelong pet travel document is only for people living in England, Scotland and Wales travelling to Northern Ireland with their dog, cat or ferret.</p>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+        <form class="form" action="@WebAppConstants.Pages.TravelDocument.PetKeeperUserDetails" method="get">
+            <button class="govuk-button" data-module="govuk-button">
+                Apply for a document
+            </button>
+        </form>
+
+        <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationsList" model=@Model />
+
+    </div>
+</div>
+

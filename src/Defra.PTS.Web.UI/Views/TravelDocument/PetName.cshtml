@@ -1,0 +1,61 @@
+﻿@model PetNameViewModel
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.Domain.Enums;
+@using System.Web;
+@using Defra.PTS.Web.Domain.ViewModels;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    this.SetMetaTitle(Model.FormTitle);
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+
+        @using (Html.BeginForm("PetName", "TravelDocument", FormMethod.Post, new { @class = "form PetName" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.IsCompleted)
+
+            <partial name="_ErrorSummary" />
+
+            <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+                <h1 class="govuk-label-wrapper">
+                    <label class="govuk-label govuk-label--xl">
+                        @Model.FormTitle
+                    </label>
+                </h1>
+                @Html.ValidationMessageFor(x => x.PetName, string.Empty, new { @class="govuk-error-message"})
+                @Html.TextBoxFor(x => x.PetName, new { @class="govuk-input", @spellcheck = "false", @autocomplete = "name", @pattern = @"(?=^[A-Za-z'\- ]+$)((?!.*'-').*)", @title = "Please enter a name using only letters, hyphens or apostrophes"})
+                <label class="govuk-label govuk-label--s govuk-visually-hidden" for="PetName">@Model.FormTitle</label>
+
+            </div>
+
+            <div class="govuk-button-group">
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Continue
+                </button>
+            </div>
+        }
+
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+
+        $(document).ready(function () {
+            $("#PetName").on('input', function () {
+
+                var cleanValue = $(this).val().replace(/"/g, "'").replace(/</g, '').replace(/>/g, '');
+                $(this).val(cleanValue);
+
+                return false;
+            });
+        });
+
+    </script>
+}

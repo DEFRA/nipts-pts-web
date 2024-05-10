@@ -1,0 +1,60 @@
+﻿@model MicrochipInformationCvm
+
+@using Defra.PTS.Web.Domain.ViewModels.Components;
+@using Defra.PTS.Web.Domain.Enums;
+@using Defra.PTS.Web.UI.Constants;
+
+<div id="document-microchip-card" class="govuk-summary-card">
+    <div class="govuk-summary-card__title-wrapper">
+        <h2 class="govuk-summary-card__title">Microchip information</h2>
+    </div>
+    <div class="govuk-summary-card__content">
+        <dl class="govuk-summary-list">
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Microchip number
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.MicrochipNumber
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.PetMicrochip">
+                        Change<span class="govuk-visually-hidden"> microchip number</span>
+                    </a>
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Implant location
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.MicrochipImplantLocation
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+                </dd>
+
+            </div>
+
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Implant or scan date
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.MicrochipDate
+                </dd>
+
+                <dd class="govuk-summary-list__actions">
+                    <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.PetMicrochipDate">
+                        Change<span class="govuk-visually-hidden"> microchip date</span>
+                    </a>
+                </dd>
+
+            </div>
+        </dl>
+    </div>
+</div>

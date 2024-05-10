@@ -1,0 +1,91 @@
+﻿@model PetBreedViewModel
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.Domain.Enums;
+@using Defra.PTS.Web.Domain.ViewModels;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "BreedId" };
+    this.SetMetaTitle(Model.FormTitle);
+
+    var exampleText = string.Empty;
+    if (Model.PetSpecies == PetSpecies.Cat)
+    {
+        exampleText = "For example, Domestic shorthair, Bengal, Scottish Fold, Ragdoll.";
+    }
+    else if (Model.PetSpecies == PetSpecies.Dog)
+    {
+        exampleText = "For example, Labrador, Greyhound, Cockapoo, Labradoodle.";
+    }
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+
+        @using (Html.BeginForm("PetBreed", "TravelDocument", FormMethod.Post, new { @class = "form PetBreed" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => x.IsCompleted)
+            @Html.HiddenFor(x => x.PetSpecies)
+
+            <partial name="_ErrorSummary" />
+
+            <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+
+                <fieldset class="govuk-fieldset" aria-describedby="BreedId__assistiveHint">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                        <h1 class="govuk-fieldset__heading">
+                            <label class="govuk-label govuk-label--xl" for="Breeds">
+                                @Model.FormTitle
+                            </label>
+                        </h1>
+                    </legend>
+
+                    <div id="BreedId__assistiveHint" class="govuk-hint">
+                        @exampleText
+                    </div>
+                    <div class="govuk-form-group" id="BreedName">
+                        @Html.ValidationMessageFor(x => x.BreedName, string.Empty, new { @class = "govuk-error-message" })
+                        <label style="display: none;" for="Breeds-select">@Model.FormTitle</label>
+                        @Html.DropDownListFor(m => m.BreedId, (IEnumerable<SelectListItem>)ViewBag.BreedList, htmlAttributes: new {@id = "Breeds", @class = "govuk-select govuk-!-width-full", @spellcheck = "true", @autocomplete = "breeds"})
+                    </div>
+                </fieldset>
+            </div>
+            <div class="govuk-button-group">
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Continue
+                </button>
+            </div>
+         
+        }
+    </div>
+</div>
+
+@section Scripts
+ {
+    <script>
+        $(document).ready(function () {
+            accessibleAutocomplete.enhanceSelectElement({
+                selectElement: document.querySelector('#Breeds'),
+                autoselect: false,
+                showNoOptionsFound: false,
+                minLength: 2,
+                showAllValues: true,
+                name:"BreedName",
+                dropdownArrow: () => '<svg class="autocomplete__dropdown-arrow-down" style="top: 8px;" viewBox="0 0 512 512"><path d="M256,298.3L256,298.3L256,298.3l174.2-167.2c4.3-4.2,11.4-4.1,15.8,0.2l30.6,29.9c4.4,4.3,4.5,11.3,0.2,15.5L264.1,380.9  c-2.2,2.2-5.2,3.2-8.1,3c-3,0.1-5.9-0.9-8.1-3L35.2,176.7c-4.3-4.2-4.2-11.2,0.2-15.5L66,131.3c4.4-4.3,11.5-4.4,15.8-0.2L256,298.3  z"></path></svg>'
+            });
+
+            //This is to prevent massive messages from breaking the WAF rule
+            $("#Breeds").attr("maxlength", "200");
+
+            $("#Breeds").on('input', function () {
+
+                var cleanValue = $(this).val().replace(/"/g, "'").replace(/</g, '').replace(/>/g, '');
+                $(this).val(cleanValue);
+
+                return false;
+            });
+        });
+    </script>
+}
