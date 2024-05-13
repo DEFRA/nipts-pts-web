@@ -14,9 +14,10 @@ public class ApplicationHelperTests
 
         // Act
         var response = ApplicationHelper.BuildQRCodeUrl(text);
+        var result = response.Contains("base64");
 
         // Assert
-        Assert.Contains(response, "base64");
+        Assert.True(result);
     }
 
     [Fact]
@@ -34,5 +35,4 @@ public class ApplicationHelperTests
         // Assert
         Assert.Contains(expected,response);
     }
-
 }
