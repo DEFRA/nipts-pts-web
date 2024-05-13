@@ -1,59 +1,11 @@
 ﻿@model Defra.PTS.Web.Application.DTOs.Services.ApplicationCertificateDto;
+@using Defra.PTS.Web.Application.Extensions;
 @using Defra.PTS.Web.UI.Constants;
+
 @{
     var pageTitle = "Lifelong pet travel document and declaration";
     ViewData.SetKeyValue("BodyExtraCssClass", "pet-declaration-print");
     this.SetMetaTitle(pageTitle);
 }
 
-<div class="govuk-grid-row govuk-!-display-none-print">
-    <div class="govuk-grid-column-three-quarters">
-
-        <h1 id="documents" class="govuk-heading-xl govuk-!-margin-bottom-2">
-            @pageTitle
-        </h1>
-        <p class="gem-c-lead-paragraph">
-            For dogs, cats or ferrets travelling from Great Britain to Northern Ireland only.
-        </p>
-    </div>
-</div>
-
-<partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_PrintLogos" />
-
-<div class="govuk-grid-row pet-declaration-print-only">
-    <div class="govuk-grid-column-three-quarters">
-        <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
-            Lifelong pet travel document and declaration
-        </h1>
-        <p class="govuk-body govuk-body-s">
-            For dogs, cats and ferrets travelling from Great Britain to Northern Ireland only.
-        </p>
-    </div>
-</div>
-
-<partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_Issued" model=Model.CertificateIssued />
-
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-three-quarters">
-
-        <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_IssuingAuthority" model=Model.CertificateIssuingAuthority />
-
-    </div>
-</div>
-
-<div class="govuk-grid-row pet-declaration-row">
-    <div class="govuk-grid-column-three-quarters">
-
-        <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_MicrochipInfo" model=Model.MicrochipInformation />
-
-        <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_PetDetails" model=Model.PetDetails />
-
-        <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_PetKeeperDetails" model=Model.PetKeeperDetails />
-
-    </div>
-</div>
-
-<partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_Declaration" model=Model.Declaration />
-
-<partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_ActionLinks" />
-
+@Html.DisplayForModel()

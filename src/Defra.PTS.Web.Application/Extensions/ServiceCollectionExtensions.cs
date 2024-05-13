@@ -3,6 +3,8 @@ using Defra.PTS.Web.Application.Features.TravelDocument.Commands;
 using Defra.PTS.Web.Application.Services;
 using Defra.PTS.Web.Application.Services.Interfaces;
 using Defra.PTS.Web.Application.Validation;
+using Defra.PTS.Web.QRCoder.Services;
+using Defra.PTS.Web.QRCoder.Services.Interfaces;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,6 +30,8 @@ public static class ServiceCollectionExtensions
             cfg.RegisterServicesFromAssemblyContaining<CreateTravelDocumentRequest>();
             cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingPipeline<,>));
         });
+
+        services.AddScoped<IQRCodeService, QRCodeService>();
 
         return services;
     }

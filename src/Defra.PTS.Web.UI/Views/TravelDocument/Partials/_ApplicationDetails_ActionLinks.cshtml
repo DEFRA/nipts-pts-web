@@ -1,9 +1,16 @@
-﻿<div class="govuk-grid-row govuk-!-display-none-print">
+﻿@model Defra.PTS.Web.Application.DTOs.Services.ActionLinksDto;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.Application.Extensions;
+@using Defra.PTS.Web.Domain.Enums;
+@using Defra.PTS.Web.Application.Helpers;
+
+<div class="govuk-grid-row govuk-!-display-none-print">
 
     <div class="govuk-grid-column-three-quarters">
         <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible govuk-!-margin-top-4">
 
         <ul class="pet-print-download-nav">
+
             <li>
                 <span class="hod-icons-printer"></span>
                 <p class="govuk-body">
@@ -12,8 +19,28 @@
                     </a>
                 </p>
             </li>
+
+            @if (Model.ShowDownloadLink)
+            {
+                var pdfAction = Model.PdfType == PdfType.Certificate ? "DownloadCertificatePdf" : "DownloadApplicationDetailsPdf";
+                var downloadFilename = ApplicationHelper.BuildPdfDownloadFilename(Model.Id, Model.PdfType);
+
+                <li>
+                    <span class="hod-icons-download-button"></span>
+                    <p class="govuk-body">
+                        <a aria-label="Download PDF"
+                           class="govuk-link"
+                           download="@downloadFilename"
+                           href="@Url.Action(pdfAction)">
+                            Download PDF
+                        </a>
+                    </p>
+                </li>
+            }
+
         </ul>
 
     </div>
 
 </div>
+

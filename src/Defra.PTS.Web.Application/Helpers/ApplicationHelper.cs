@@ -1,4 +1,5 @@
 ﻿using Defra.PTS.Web.Application.Constants;
+using Defra.PTS.Web.Domain.Enums;
 
 namespace Defra.PTS.Web.Application.Helpers;
 
@@ -38,5 +39,16 @@ public static class ApplicationHelper
         };
 
         return nonGBPrefixes.Exists(x => postcode.ToUpper().StartsWith(x));
+    }
+
+    public static string BuildPdfDownloadFilename(Guid id, PdfType pdfType, string prefix = "pet-travel-document")
+    {
+        prefix ??= string.Empty;
+        return $"{prefix.ToLower()}-{pdfType.ToString().ToLower()}-{id}.pdf";
+    }
+
+    public static string BuildQRCodeUrl(string base64String)
+    {
+        return $"data:image/png;base64,{base64String}";
     }
 }

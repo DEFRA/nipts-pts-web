@@ -40,8 +40,15 @@ public static class AppConstants
 
     public static class Values
     {
+        public const int QRCodePixelsPerModule = 10;
+
         public const int PetMaxAgeInYears = 34;
         public const string OtherColourName = "Other";
+    }
+
+    public static class ContentTypes
+    {
+        public const string Pdf = "application/pdf";
     }
 
     public static class MaxLength

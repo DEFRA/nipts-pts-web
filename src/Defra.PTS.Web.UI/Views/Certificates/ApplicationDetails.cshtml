@@ -1,0 +1,132 @@
+﻿@model ApplicationDetailsViewModel
+@using Defra.PTS.Web.Application.Extensions;
+@using Defra.PTS.Web.CertificateGenerator.ViewModels;
+@using Defra.PTS.Web.UI.Constants;
+@{
+    var pageTitle = "Your application summary";
+    ViewData.SetKeyValue("BodyExtraCssClass", "pet-declaration-print");
+    this.SetMetaTitle(pageTitle);
+
+    var baseUrl = Context.Request.GetHostUrl();
+    var logoFile = $"{baseUrl}/assets/images/org_crest_18px_x2-d759444376a83ad439650d64c8de4158658aa1b5034e5a6080e66ebaa9594b0d.png";
+    
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en" class="govuk-template">
+<head>
+    <title>@ViewData[WebAppConstants.ViewKeys.Title] - @WebAppConstants.ServiceName</title>
+
+    @* Need to use an embedded style sheet as the html > pdf converter cannot resolve referenced resources*@
+    <style>
+        @@page {
+            size: A4;
+        }
+
+        html {
+            font-size: 10px;
+        }
+
+        .watermark {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 29.7cm;
+            height: 21cm;
+            transform: translate(-4.35cm, 4.35cm) rotate(-54.74deg);
+            color: rgba(0,0,0,0.2)
+        }
+
+            .watermark > span {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%)
+            }
+
+        .omitted-container {
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-size: 100% 100%, auto;
+            height: 100%;
+        }
+
+
+    </style>
+
+</head>
+<body class="govuk-template__body pet-declaration-print">
+
+    <div class="govuk-width-container ">
+        <main class="govuk-main-wrapper pet-main @ViewData["MainCssClass"]" id="main-content" role="main">
+            @Html.DisplayFor(x => x.Data)
+        </main>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model?.Watermark))
+    {
+        <div class="watermark">
+            <span>@Model.Watermark</span>
+        </div>
+    }
+
+    <script>
+        function setWatermarkSize(container) {
+            if (!(container instanceof Element)) {
+                for (const container of document.querySelectorAll('.watermark'))
+                    setWatermarkSize(container);
+                return;
+            }
+            const watermark = container.querySelector('span');
+            if (container.style.fontSize === '')
+                container.style.fontSize = '20px';
+            const scaleFactor = container.clientWidth / watermark.clientWidth;
+            const currentPx = parseFloat(container.style.fontSize);
+            container.style.fontSize = `${currentPx * scaleFactor}px`;
+
+        }
+        function drawOmittedPath(element) {
+            if (!(element instanceof Element)) {
+                for (const element of document.querySelectorAll('.omitted'))
+                    drawOmittedPath(element.parentElement);
+                return;
+            }
+            const { offsetHeight: h, offsetWidth: w } = element;
+            const svg = `<svg viewBox='0 0 ${w} ${h}' xmlns='http://www.w3.org/2000/svg'>` +
+                `<line x1='${-w}' y1='${h * 2}' x2='${w * 2}' y2='${-h}' stroke='black' stroke-width='1 px' />` +
+                '</svg>';
+            element.style.backgroundImage = `url("data:image/svg+xml;utf8,${svg}")`;
+            element.classList.add('omitted-container');
+        }
+
+        window.addEventListener('load', setWatermarkSize);
+        window.addEventListener('resize', setWatermarkSize);
+        window.addEventListener('load', drawOmittedPath);
+        window.addEventListener('resize', drawOmittedPath);
+    </script>
+
+    @* Need to use an embedded style sheet as the html > pdf converter cannot resolve referenced resources*@
+    <partial name="_ApplicationStyles" />
+
+    <style type="text/css">
+        .pet-declaration-print .pet-declaration-logos {
+            display: block !important;
+        }
+
+        .pet-declaration-print .pet-declaration-row-qrcode .pet-declaration-qrcode img {
+            width: 230px;
+        }
+
+        html {
+            -webkit-print-color-adjust: exact;
+        }
+
+        .pet-logo-print.gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--single-identity,
+        .pet-logo-print.gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--eo,
+        .pet-logo-print.gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--org {
+            background-image: url('@logoFile') !important;
+        }
+
+    </style>
+</body>
+</html>
