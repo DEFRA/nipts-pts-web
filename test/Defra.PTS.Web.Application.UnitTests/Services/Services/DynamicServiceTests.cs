@@ -1,22 +1,14 @@
-﻿using Defra.PTS.Web.Application.Services.Interfaces;
-using Defra.PTS.Web.Application.Services;
-using Microsoft.Extensions.Logging;
-using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using NUnit.Framework;
-using Microsoft.AspNetCore.Http;
+﻿using Defra.PTS.Web.Application.Services;
+using Defra.PTS.Web.Application.Services.Interfaces;
 using Defra.PTS.Web.Domain.Models;
-using Microsoft.Extensions.Options;
 using Defra.PTS.Web.Infrastructure.Models;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
+using Moq;
+using Moq.Protected;
+using NUnit.Framework;
 using System.Net;
 using Assert = NUnit.Framework.Assert;
-using Moq.Protected;
-using Azure;
-using static Microsoft.Azure.KeyVault.WebKey.JsonWebKeyVerifier;
 
 namespace Defra.PTS.Web.Application.UnitTests.Services.Services
 {
@@ -28,7 +20,6 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
         protected Mock<HttpMessageHandler> _mockHttpMessageHandler;
         private Mock<ILogger<DynamicService>> _mockLogger;
         private Mock<IOptions<AppSettings>> _options;
-        private Mock<HttpClient> _httpClientMock;
 
         [SetUp]
         public void SetUp()
@@ -36,7 +27,6 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
             _mockHttpMessageHandler = new Mock<HttpMessageHandler>();
             _mockLogger = new Mock<ILogger<DynamicService>>();
             _options = new Mock<IOptions<AppSettings>>();
-            _httpClientMock = new Mock<HttpClient>();
         }
 
         [Test]

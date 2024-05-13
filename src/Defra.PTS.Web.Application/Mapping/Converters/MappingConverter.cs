@@ -114,4 +114,14 @@ public static class MappingConverter
             TownOrCity = src.OwnerTownOrCity
         };
     }
+
+    public static ActionLinksDto MapActionLinks(Guid id, PdfType pdfType, bool showPdfDownloadLink = true)
+    {
+        return new ActionLinksDto
+        {
+            Id = id,
+            PdfType = pdfType,
+            ShowDownloadLink = showPdfDownloadLink
+        };
+    }
 }

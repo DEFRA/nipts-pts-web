@@ -95,6 +95,9 @@ public static class WebAppConstants
             public const string ApplicationDetails_Declaration = "~/Views/TravelDocument/Partials/_ApplicationDetails_Declaration.cshtml";
             public const string ApplicationDetails_PrintLogos = "~/Views/TravelDocument/Partials/_ApplicationDetails_PrintLogos.cshtml";
             public const string ApplicationDetails_ActionLinks = "~/Views/TravelDocument/Partials/_ApplicationDetails_ActionLinks.cshtml";
+            public const string ApplicationDetails_PreLoadAssets = "~/Views/TravelDocument/Partials/_ApplicationDetails_PreLoadAssets.cshtml";
+
+            
         }
     }
 

@@ -14,6 +14,10 @@ using Defra.Trade.Address.V1.ApiClient.Model;
 using static System.Net.Mime.MediaTypeNames;
 using Microsoft.Azure.Management.Compute.Fluent.Models;
 using Defra.PTS.Web.Application.Mapping;
+using Microsoft.Extensions.DependencyInjection;
+using Defra.PTS.Web.Application.Mapping.Converters;
+using Defra.PTS.Web.QRCoder.Services.Interfaces;
+using Defra.PTS.Web.QRCoder.Services;
 
 namespace Defra.PTS.Web.Application.UnitTests.Services.Services
 {
@@ -72,9 +76,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
         [Test]
         public async Task GetApplicationCertificate_Return_200()
         {
-            var applicationCertificateProfile = new ApplicationCertificateProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(applicationCertificateProfile));
-            IMapper mapper = new Mapper(configuration);
+            IMapper mapper = GetMapper();
 
             var isueDate = DateTime.UtcNow;
             var guid = new Guid(Guid.NewGuid().ToString());
@@ -120,9 +122,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
         [Test]
         public async Task GetApplicationDetails_Return_200()
         {
-            var applicationDetailsProfile = new ApplicationDetailsProfile();
-            var configuration = new MapperConfiguration(cfg => cfg.AddProfile(applicationDetailsProfile));
-            IMapper mapper = new Mapper(configuration);
+            IMapper mapper = GetMapper();
 
             var applicationDetails = new VwApplication
             {
@@ -188,7 +188,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
         [Test]
         public async Task GetApplications_Return_200()
         {
-            var applications = new List<ApplicationSummaryDto> { new ApplicationSummaryDto() { ApplicationId = Guid.NewGuid() } };
+            var applications = new List<ApplicationSummaryDto> { new() { ApplicationId = Guid.NewGuid() } };
             var jsonString = JsonConvert.SerializeObject(applications);
             var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
@@ -227,6 +227,15 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
             _sut = new ApplicationService(_mockLogger.Object, httpClient, _mapper.Object);
 
             Assert.ThrowsAsync<Exception>(async () => await _sut.GetUserApplications(userId: Guid.NewGuid()));
+        }
+
+        private static IMapper GetMapper()
+        {
+            var services = new ServiceCollection();
+            services.AddScoped<IQRCodeService, QRCodeService>();
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            var serviceProvider = services.BuildServiceProvider();
+            return serviceProvider.GetService<IMapper>();
         }
     }
 }

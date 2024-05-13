@@ -1,0 +1,73 @@
+﻿@model Defra.PTS.Web.Application.DTOs.Services.ApplicationCertificateDto;
+@using Defra.PTS.Web.UI.Constants;
+@{
+    var pageTitle = "Lifelong pet travel document and declaration";
+}
+
+
+
+<div style="overflow: hidden; height: 1px; width: 1px; visibility: hidden;">
+    <img src="/assets/images/org_crest_13px-02cd4dc76429840b335048d7ea971c06a2e01dee302feb05cec74fbaf927400a.png" />
+    <img src="/assets/images/org_crest_13px_x2-f412306c518f95598c202e3383932301f187c7e966d56e2e3f5112a4ecfcbde5.png" />
+    <img src="/assets/images/org_crest_18px-5863abda23ccb562f7ca4599038901db5a7f03eb277df5d86d51491033492b62.png" />
+    <img src="/assets/images/org_crest_18px_x2-d759444376a83ad439650d64c8de4158658aa1b5034e5a6080e66ebaa9594b0d.png" />
+    <img src="/assets/images/org_crest_18px_x2-d759444376a83ad439650d64c8de4158658aa1b5034e5a6080e66ebaa9594b0d.png" />
+</div>
+
+@* <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_PreLoadAssets" />
+ *@
+<div class="govuk-grid-row govuk-!-display-none-print">
+    <div class="govuk-grid-column-three-quarters">
+
+        <h1 id="documents" class="govuk-heading-xl govuk-!-margin-bottom-2">
+            @pageTitle
+        </h1>
+        <p class="gem-c-lead-paragraph">
+            For dogs, cats or ferrets travelling from Great Britain to Northern Ireland only.
+        </p>
+
+    </div>
+</div>
+
+<partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_PrintLogos" />
+
+<div class="govuk-grid-row pet-declaration-print-only">
+    <div class="govuk-grid-column-three-quarters">
+
+        <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
+            @pageTitle
+        </h1>
+        <p class="govuk-body govuk-body-s">
+            For dogs, cats and ferrets travelling from Great Britain to Northern Ireland only.
+        </p>
+
+    </div>
+</div>
+
+
+<partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_Issued" model=Model.CertificateIssued />
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+
+        <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_IssuingAuthority" model=Model.CertificateIssuingAuthority />
+
+    </div>
+</div>
+
+<div class="govuk-grid-row pet-declaration-row">
+    <div class="govuk-grid-column-three-quarters">
+
+        <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_MicrochipInfo" model=Model.MicrochipInformation />
+
+        <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_PetDetails" model=Model.PetDetails />
+
+        <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_PetKeeperDetails" model=Model.PetKeeperDetails />
+
+    </div>
+</div>
+
+<partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_Declaration" model=Model.Declaration />
+
+<partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_ActionLinks" model=Model.ActionLinks />
+

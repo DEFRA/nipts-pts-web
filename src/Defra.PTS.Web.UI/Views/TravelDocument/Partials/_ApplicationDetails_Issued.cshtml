@@ -1,6 +1,7 @@
 ﻿@model Defra.PTS.Web.Application.DTOs.Services.CertificateIssuedDto;
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.Application.Extensions;
+@using Defra.PTS.Web.Application.Helpers;
 
 <div class="govuk-grid-row pet-declaration-row pet-declaration-row-qrcode">
     <div class="govuk-grid-column-three-quarters">
@@ -29,6 +30,10 @@
                     </div>
                 </dl>
             </div>
+        </div>
+        <div class="pet-declaration-qrcode">
+            <img src="@ApplicationHelper.BuildQRCodeUrl(Model.DocumentReferenceNumberAsQRCode)"
+                 alt="Embedded QR Code for pet travel document" />
         </div>
     </div>
 </div>
