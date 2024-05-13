@@ -16,7 +16,7 @@ public class ApplicationHelperTests
         var response = ApplicationHelper.BuildQRCodeUrl(text);
 
         // Assert
-        Assert.True(response.Contains("base64"));
+        Assert.Contains(response, "base64");
     }
 
     [Fact]
