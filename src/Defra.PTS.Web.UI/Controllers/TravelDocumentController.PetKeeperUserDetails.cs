@@ -33,7 +33,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
         SaveFormData(formData);
 
-        var userDetail = await InitializeUserDetails();        
+        var userDetail = await InitializeUserDetails();
         if (userDetail != null)
         {
             formData.PetKeeperUserDetails.Name = userDetail.FullName;
@@ -42,17 +42,14 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             formData.PetKeeperUserDetails.AddressLineOne = userDetail.AddressLineOne + " " + userDetail.AddressLineTwo;
             formData.PetKeeperUserDetails.TownOrCity = userDetail.TownOrCity;
             formData.PetKeeperUserDetails.Postcode = userDetail.PostCode;
-            
+
             SaveFormData(formData.PetKeeperUserDetails);
         }
 
-        if (formData.PetKeeperUserDetails.IsPostcodeRegionUnknown())
-        {
-            var validGBAddress = await _mediator.Send(new ValidateGreatBritianAddressRequest(userDetail?.PostCode));
+        var validGBAddress = await _mediator.Send(new ValidateGreatBritianAddressRequest(userDetail?.PostCode));
 
-            formData.PetKeeperUserDetails.PostcodeRegion = validGBAddress ? PostcodeRegion.GB : PostcodeRegion.NonGB;
-            SaveFormData(formData.PetKeeperUserDetails);
-        }
+        formData.PetKeeperUserDetails.PostcodeRegion = validGBAddress ? PostcodeRegion.GB : PostcodeRegion.NonGB;
+        SaveFormData(formData.PetKeeperUserDetails);
 
         if (!formData.PetKeeperUserDetails.IsGBPostcode())
         {
