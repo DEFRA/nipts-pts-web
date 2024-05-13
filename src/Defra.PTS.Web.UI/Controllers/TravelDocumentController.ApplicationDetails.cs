@@ -27,25 +27,18 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     [HttpGet]
     public async Task<IActionResult> DownloadApplicationDetailsPdf()
     {
-        try
-        {
-            var id = new Guid(HttpContext.Session.GetString("ApplicationId"));
+        var id = new Guid(HttpContext.Session.GetString("ApplicationId"));
 
-            var response = await _mediator.Send(new GenerateApplicationPdfRequest(id));
+        _logger.LogInformation($"Downloading application PDF for {id}");
 
-            var fileName = ApplicationHelper.BuildPdfDownloadFilename(id, PdfType.Application);
-            return File(response.Content, response.MimeType, fileName);
-        }
-        catch (ApplicationDetailsNotFoundException ex)
-        {
-            _logger.LogError(ex, ex.Message);
-            return new NotFoundObjectResult(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, ex.Message);
-            return new StatusCodeResult(500);
-        }
+        var response = await _mediator.Send(new GenerateApplicationPdfRequest(id));
 
+        _logger.LogInformation($"Certificate Name: {response.Name}, FileLength: {response.Content.Length}, MimeType: {response.MimeType}");
+
+        var fileName = ApplicationHelper.BuildPdfDownloadFilename(id, PdfType.Application);
+
+        _logger.LogInformation($"Download file name {fileName}");
+
+        return File(response.Content, response.MimeType, fileName);
     }
 }
