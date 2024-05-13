@@ -16,7 +16,7 @@
 <!DOCTYPE html>
 <html lang="en" class="govuk-template">
 <head>
-    <title>@ViewData[WebAppConstants.ViewKeys.Title] - @WebAppConstants.ServiceName</title>
+    <title>@ViewData[WebAppConstants.ViewKeys.Title] - @WebAppConstants.ServiceName - @baseUrl</title>
 
     @* Need to use an embedded style sheet as the html > pdf converter cannot resolve referenced resources*@
     <style>
@@ -121,11 +121,11 @@
             -webkit-print-color-adjust: exact;
         }
 
-        .pet-logo-print.gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--single-identity,
+/*         .pet-logo-print.gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--single-identity,
         .pet-logo-print.gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--eo,
         .pet-logo-print.gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--org {
             background-image: url('@logoFile') !important;
-        }
+        } */
 
     </style>
 </body>
