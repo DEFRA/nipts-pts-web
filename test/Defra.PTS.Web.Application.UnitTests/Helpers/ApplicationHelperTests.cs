@@ -32,7 +32,7 @@ public class ApplicationHelperTests
         var response = ApplicationHelper.BuildPdfDownloadFilename(id, pdfType, prefix);
 
         // Assert
-        Assert.Equal(expected, response);
+        Assert.True(expected == response);
     }
 
 }
