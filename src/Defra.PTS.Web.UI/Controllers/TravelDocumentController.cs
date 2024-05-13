@@ -1,6 +1,10 @@
 ﻿using Defra.PTS.Web.Application.Constants;
+using Defra.PTS.Web.Application.DTOs.Services;
+using Defra.PTS.Web.Application.Features.DynamicsCrm.Commands;
 using Defra.PTS.Web.Application.Features.TravelDocument.Queries;
 using Defra.PTS.Web.Application.Features.Users.Commands;
+using Defra.PTS.Web.Application.Features.Users.Queries;
+
 using Defra.PTS.Web.Application.Services.Interfaces;
 using Defra.PTS.Web.Domain.Models;
 using Defra.PTS.Web.Domain.ViewModels;
@@ -47,6 +51,13 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     {
         try
         {
+            if (Response != null && Response.Headers != null)
+            {
+                Response.Headers.Add("Cache-Control", "no-cache, no-store, must-revalidate");
+                Response.Headers.Add("Pragma", "no-cache");
+                Response.Headers.Add("Expires", "0");
+            }
+
             var magicWordData = GetMagicWordFormData(true);
 
             if (_ptsSettings.MagicWordEnabled && magicWordData != null && !magicWordData.HasUserPassedPasswordCheck)
@@ -61,6 +72,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                 SetBackUrl(string.Empty);
 
                 await AddOrUpdateUser();
+                await InitializeUserDetails();
 
                 var statuses = new List<string>()
                 {
@@ -117,6 +129,31 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             _logger.LogError("Unable to save user details", ex);
             throw;
         }
+    }
+
+    private async Task<UserDetailDto> InitializeUserDetails()
+    {
+        // Save user
+        var userInfo = GetCurrentUserInfo();
+
+        try
+        {
+            await _mediator.Send(new AddAddressRequest(userInfo));
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Unable to save address details", ex);
+        }
+        var contactId = CurrentUserContactId();
+        var response = await _mediator.Send(new GetUserDetailQueryRequest(contactId));
+        if (response != null && response.UserDetail != null)
+        {
+
+            HttpContext.Session.SetString("FullName", response.UserDetail?.FullName);
+            return response.UserDetail;
+        }
+
+        return null;
     }
 
 

@@ -39,9 +39,9 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         {
             _mockControllerContext = new Mock<ControllerContext>();
             _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object)
-            {                
+            {
                 CallBase = true
-            };            
+            };
             _travelDocumentViewModel = new Mock<TravelDocumentViewModel>();
         }
 
@@ -51,7 +51,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         {
             // Arrange
             var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
-            var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = false};
+            var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = false };
             tempData.SetHasUserUsedMagicWord(magicWordViewModel);
             _travelDocumentController.Object.TempData = tempData;
 
@@ -81,9 +81,20 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _mockMediator.Setup(x => x.Send(It.IsAny<GetUserDetailQueryRequest>(), CancellationToken.None))
                   .ReturnsAsync(new GetUserDetailQueryResponse
                   {
-                      UserDetail = new UserDetailDto()
+                      UserDetail = new UserDetailDto { FullName = "John Doe" }
                   });
             MockHttpContext();
+
+            // Arrange
+            var mockHttpContext = new Mock<HttpContext>();
+            var mockSession = new Mock<ISession>();
+            mockHttpContext.SetupGet(x => x.Session).Returns(mockSession.Object);
+
+
+            _travelDocumentController.Object.ControllerContext = new ControllerContext()
+            {
+                HttpContext = mockHttpContext.Object
+            };
 
             var formData = new TravelDocumentViewModel
             {
@@ -92,7 +103,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                     IsCompleted = true,
                 }
             };
-           
+
 
             _travelDocumentController.Setup(x => x.GetFormData(false))
                  .Returns(formData);
@@ -121,7 +132,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                     Email = "john.doe@example.com",
                     IsCompleted = true,
                     UserDetailsAreCorrect = YesNoOptions.Yes,
-                    PetOwnerDetailsRequired=false,
+                    PetOwnerDetailsRequired = false,
                 },
 
 
@@ -152,13 +163,14 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var formData = new TravelDocumentViewModel
             {
                 PetKeeperUserDetails = new PetKeeperUserDetailsViewModel
-                {   Name = "John " + "Doe",
+                {
+                    Name = "John " + "Doe",
                     Email = "john.doe@example.com",
                     IsCompleted = true,
                     UserDetailsAreCorrect = YesNoOptions.Yes,
                     PetOwnerDetailsRequired = false,
                 },
-               
+
 
             };
             // Arrange
@@ -228,21 +240,21 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 new Claim(ClaimTypes.Role, "Admin")
             };
 
-            
+
             identities.Add(mockIdentity.Object);
             // Setup ClaimsIdentity
             mockIdentity.SetupGet(i => i.Claims).Returns(claims);
             // Setup User
             var user = new ClaimsPrincipal(new ClaimsIdentity(claims));
-            
-            
+
+
             mockHttpContext.Setup(c => c.User).Returns(user);
             // Setup Identities
             mockHttpContext.SetupGet(c => c.User.Identity).Returns(mockIdentity.Object);
             //mockHttpContext.SetupGet(c => c.User.Identity.IsAuthenticated).Returns(true);
             //mockHttpContext.SetupGet(c => c.User.GetLoggedInContactId()).Returns(new Guid());
             // Setup Identities
-            mockHttpContext.SetupGet(c => c.User.Identities).Returns(identities);    
+            mockHttpContext.SetupGet(c => c.User.Identities).Returns(identities);
             // Set up the behavior of GetHttpContext method on the controller
             _travelDocumentController.Setup(c => c.GetHttpContext()).Returns(mockHttpContext.Object);
 
