@@ -27,25 +27,31 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     [HttpGet]
     public async Task<IActionResult> DownloadApplicationDetailsPdf()
     {
-        try
-        {
-            var id = new Guid(HttpContext.Session.GetString("ApplicationId"));
+        var id = new Guid(HttpContext.Session.GetString("ApplicationId"));
 
-            var response = await _mediator.Send(new GenerateApplicationPdfRequest(id));
+        var response = await _mediator.Send(new GenerateApplicationPdfRequest(id));
 
-            var fileName = ApplicationHelper.BuildPdfDownloadFilename(id, PdfType.Application);
-            return File(response.Content, response.MimeType, fileName);
-        }
-        catch (ApplicationDetailsNotFoundException ex)
-        {
-            _logger.LogError(ex, ex.Message);
-            return new NotFoundObjectResult(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, ex.Message);
-            return new StatusCodeResult(500);
-        }
+        var fileName = ApplicationHelper.BuildPdfDownloadFilename(id, PdfType.Application);
+        return File(response.Content, response.MimeType, fileName);
 
+        //try
+        //{
+        //    var id = new Guid(HttpContext.Session.GetString("ApplicationId"));
+
+        //    var response = await _mediator.Send(new GenerateApplicationPdfRequest(id));
+
+        //    var fileName = ApplicationHelper.BuildPdfDownloadFilename(id, PdfType.Application);
+        //    return File(response.Content, response.MimeType, fileName);
+        //}
+        //catch (ApplicationDetailsNotFoundException ex)
+        //{
+        //    _logger.LogError(ex, ex.Message);
+        //    return new NotFoundObjectResult(ex.Message);
+        //}
+        //catch (Exception ex)
+        //{
+        //    _logger.LogError(ex, ex.Message);
+        //    return new StatusCodeResult(500);
+        //}
     }
 }

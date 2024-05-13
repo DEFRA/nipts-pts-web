@@ -32,24 +32,31 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     [HttpGet]
     public async Task<IActionResult> DownloadCertificatePdf()
     {
-        try
-        {
-            var id = new Guid(HttpContext.Session.GetString("ApplicationId"));
+        var id = new Guid(HttpContext.Session.GetString("ApplicationId"));
 
-            var response = await _mediator.Send(new GenerateCertificatePdfRequest(id));
+        var response = await _mediator.Send(new GenerateCertificatePdfRequest(id));
 
-            var fileName = ApplicationHelper.BuildPdfDownloadFilename(id, PdfType.Certificate);
-            return File(response.Content, response.MimeType, fileName);
-        }
-        catch (ApplicationCertificateNotFoundException ex)
-        {
-            _logger.LogError(ex, ex.Message);
-            return new NotFoundObjectResult(ex.Message);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, ex.Message);
-            return new StatusCodeResult(500);
-        }
+        var fileName = ApplicationHelper.BuildPdfDownloadFilename(id, PdfType.Certificate);
+        return File(response.Content, response.MimeType, fileName);
+
+        //try
+        //{
+        //    var id = new Guid(HttpContext.Session.GetString("ApplicationId"));
+
+        //    var response = await _mediator.Send(new GenerateCertificatePdfRequest(id));
+
+        //    var fileName = ApplicationHelper.BuildPdfDownloadFilename(id, PdfType.Certificate);
+        //    return File(response.Content, response.MimeType, fileName);
+        //}
+        //catch (ApplicationCertificateNotFoundException ex)
+        //{
+        //    _logger.LogError(ex, ex.Message);
+        //    return new NotFoundObjectResult(ex.Message);
+        //}
+        //catch (Exception ex)
+        //{
+        //    _logger.LogError(ex, ex.Message);
+        //    return new StatusCodeResult(500);
+        //}
     }
 }
