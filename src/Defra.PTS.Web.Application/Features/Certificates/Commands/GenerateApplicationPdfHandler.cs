@@ -48,7 +48,7 @@ public class GenerateApplicationPdfHandler : IRequestHandler<GenerateApplication
         }
         catch (Exception ex)
         {
-            var logMessage = $"{nameof(_applicationService)}: Unable to get application details for id {request?.ApplicationId}";
+            var logMessage = $"{nameof(_applicationService)}: Unable to generate application PDF for id {request?.ApplicationId}";
             _logger.LogError(ex, logMessage);
             return null;
         }

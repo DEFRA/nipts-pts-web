@@ -29,10 +29,16 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     {
         var id = new Guid(HttpContext.Session.GetString("ApplicationId"));
 
+        _logger.LogInformation($"Downloading application PDF for {id}");
+
         var response = await _mediator.Send(new GenerateApplicationPdfRequest(id));
 
-        var fileName = ApplicationHelper.BuildPdfDownloadFilename(id, PdfType.Application);
-        return File(response.Content, response.MimeType, fileName);
+        _logger.LogInformation($"Certificate Name: {response.Name}, FileLength: {response.Content.Length}, MimeType: {response.MimeType}");
 
+        var fileName = ApplicationHelper.BuildPdfDownloadFilename(id, PdfType.Application);
+
+        _logger.LogInformation($"Download file name {fileName}");
+
+        return File(response.Content, response.MimeType, fileName);
     }
 }
