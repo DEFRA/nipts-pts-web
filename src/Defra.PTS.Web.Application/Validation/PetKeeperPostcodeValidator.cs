@@ -13,7 +13,7 @@ public class PetKeeperPostcodeValidator : AbstractValidator<PetKeeperPostcodeVie
         ArgumentNullException.ThrowIfNull(mediator);
         _mediator = mediator;
 
-        RuleFor(x => x.Postcode).NotEmpty().WithMessage(x => $"Enter a postcode");
+        RuleFor(x => x.Postcode).NotEmpty().WithMessage(x => $"Enter your postcode");
         
         When(x => !string.IsNullOrWhiteSpace(x.Postcode), () =>
         {
