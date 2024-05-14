@@ -1,6 +1,7 @@
 ﻿using Defra.PTS.Web.CertificateGenerator.Interfaces;
 using Defra.PTS.Web.CertificateGenerator.Services;
 using Defra.PTS.Web.CertificateGenerator.ViewModels;
+using Defra.PTS.Web.Domain.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -15,6 +16,8 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddCertificateServices(this IServiceCollection services, ConfigurationManager configuration)
     {
+        _ = services.Configure<PuppeteerSettings>(configuration.GetSection("Puppeteer"));
+
         _ = services.AddCertificateGeneration();
         _ = services.AddPuppeteerPdfRendering(configuration.GetSection("Puppeteer"));
         _ = services.AddHtmlToPdfRendering<ApplicationCertificateViewModel>();
