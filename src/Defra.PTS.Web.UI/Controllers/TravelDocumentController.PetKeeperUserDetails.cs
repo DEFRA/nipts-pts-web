@@ -96,28 +96,5 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
         return RedirectToAction(nameof(PetKeeperName));
     }
-
-    [NonAction]
-    private async Task<UserDetailDto> InitializeUserDetails()
-    {
-        // Save user
-        var userInfo = GetCurrentUserInfo();
-
-        try
-        {
-            await _mediator.Send(new AddAddressRequest(userInfo));
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError("Unable to save address details", ex);
-        }
-        var contactId = CurrentUserContactId();
-        var response = await _mediator.Send(new GetUserDetailQueryRequest(contactId));
-        if (response.UserDetail != null)
-        {
-            return response.UserDetail;
-        }
-
-        return null;
-    }
+        
 }
