@@ -81,17 +81,6 @@
 {
     <script>
         $(document).ready(function () {
-
-            if ($("#formroot").hasClass("govuk-form-group--error") ||
-                @Model.Microchipped === @YesNoOptions.Yes) {
-                $("#conditional-MicrochipNumber").show();
-                $('#formroot').removeClass("govuk-form-group--error");
-                $('#MicrochipNumber').addClass("govuk-form-group--error");
-            }
-            else {
-                $("#conditional-MicrochipNumber").hide();
-            }
-
             $("#No").click(function () {
                 $('input[type="text"]').val('');
                 $('.govuk-error-summary').hide();
