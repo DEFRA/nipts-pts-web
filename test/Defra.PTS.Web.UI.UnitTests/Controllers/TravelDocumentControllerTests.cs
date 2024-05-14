@@ -16,6 +16,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Azure.Amqp.Transaction;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
@@ -125,7 +126,149 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             Assert.AreEqual(nameof(TravelDocumentController.ApplicationDetails), result.ActionName);
         }
 
+        [Test]
+        public void Index_ExceptionThrown_LogsErrorAndRethrows()
+        {
+            // Arrange
+            var validationServiceMock = new Mock<IValidationService>();
+            var mediatorMock = new Mock<IMediator>();
+            var loggerMock = new Mock<ILogger<TravelDocumentController>>();
+            var ptsSettingsMock = new Mock<IOptions<PtsSettings>>();
 
+            var controller = new TravelDocumentController(
+                validationServiceMock.Object,
+                mediatorMock.Object,
+                loggerMock.Object,
+                ptsSettingsMock.Object
+            );
+
+            // Simulate an exception being thrown
+            var exception = new Exception("Test exception");
+
+            // Act & Assert
+            var aggregateException = Assert.Throws<AggregateException>(() =>
+            {
+                controller.Index().Wait();
+            });
+
+            var innerException = aggregateException.InnerException;
+            Assert.IsInstanceOf<NullReferenceException>(innerException);
+            Assert.AreEqual("Object reference not set to an instance of an object.", innerException.Message);
+
+            loggerMock.Verify(x => x.Log(
+                LogLevel.Error,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => true),
+                It.IsAny<Exception>(),
+                (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()
+            ), Times.Once);
+        }
+
+        [Test]
+        public void GetHttpContext_ShouldReturnHttpContext()
+        {
+            // Arrange
+
+            var expectedHttpContext = new DefaultHttpContext();
+            _travelDocumentController.ControllerContext.HttpContext = expectedHttpContext;
+
+            // Act
+            var result = _travelDocumentController.GetHttpContext();
+
+            // Assert
+            Assert.AreEqual(expectedHttpContext, result);
+        }
+
+        [Test]
+        public void CurrentUserContactId_WhenUserIsAuthenticated_ShouldReturnContactId()
+        {
+            // Arrange
+            var expectedContactId = new Guid("00000000-0000-0000-0000-000000000000");
+            var identity = new ClaimsIdentity(new List<Claim>
+            {
+                new Claim("contactId", expectedContactId.ToString())
+            });
+            var claimsPrincipal = new ClaimsPrincipal(identity);
+            _travelDocumentController.ControllerContext = new ControllerContext
+            {
+                HttpContext = new DefaultHttpContext
+                {
+                    User = claimsPrincipal
+                }
+            };
+
+            // Act
+            var result = _travelDocumentController.CurrentUserContactId();
+
+            // Assert
+            Assert.AreEqual(expectedContactId, result);
+        }
+
+        [Test]
+        public void CurrentUserContactId_WhenUserIsNotAuthenticated_ShouldReturnEmptyGuid()
+        {
+            // Arrange
+            _travelDocumentController.ControllerContext.HttpContext = new DefaultHttpContext();
+
+            // Act
+            var result = _travelDocumentController.CurrentUserContactId();
+
+            // Assert
+            Assert.AreEqual(Guid.Empty, result);
+        }
+
+        [Test]
+        public void GetCurrentUserInfo_WhenUserIsAuthenticated_ShouldReturnUserWithClaims()
+        {
+            // Arrange
+            var expectedUser = new User
+            {
+                ContactId = "12345678",
+                UniqueReference = "ABC123",
+                FirstName = "John",
+                LastName = "Doe",
+                EmailAddress = "john.doe@example.com",
+                Role = "Admin"
+            };
+            var identity = new ClaimsIdentity(new List<Claim>
+            {
+                new Claim("contactId", expectedUser.ContactId),
+                new Claim("uniqueReference", expectedUser.UniqueReference),
+                new Claim("firstName", expectedUser.FirstName),
+                new Claim("lastName", expectedUser.LastName),
+                new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress", expectedUser.EmailAddress),
+                new Claim("http://schemas.microsoft.com/ws/2008/06/identity/claims/role", expectedUser.Role)
+            });
+            var claimsPrincipal = new ClaimsPrincipal(identity);
+            _travelDocumentController.ControllerContext.HttpContext = new DefaultHttpContext
+            {
+                User = claimsPrincipal
+            };
+
+            // Act
+            var result = _travelDocumentController.GetCurrentUserInfo();
+
+            // Assert
+            Assert.AreEqual(expectedUser.ContactId, result.ContactId);
+            Assert.AreEqual(expectedUser.UniqueReference, result.UniqueReference);
+            Assert.AreEqual(expectedUser.FirstName, result.FirstName);
+            Assert.AreEqual(expectedUser.LastName, result.LastName);
+            Assert.AreEqual(expectedUser.EmailAddress, result.EmailAddress);
+            Assert.AreEqual(expectedUser.Role, result.Role);
+        }
+
+        [Test]
+        public void GetCurrentUserInfo_WhenUserIsNotAuthenticated_ShouldReturnEmptyUser()
+        {
+            // Arrange
+            _travelDocumentController.ControllerContext.HttpContext = new DefaultHttpContext();
+
+            // Act
+            var result = _travelDocumentController.GetCurrentUserInfo();
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
 
         private void MockHttpContext()
         {

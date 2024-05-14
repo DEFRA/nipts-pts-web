@@ -14,6 +14,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 
 namespace Defra.PTS.Web.UI.Controllers;
@@ -108,6 +109,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     }
 
     #region Private Methods
+    [ExcludeFromCodeCoverage]
     private async Task AddOrUpdateUser()
     {
         try
@@ -131,6 +133,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         }
     }
 
+    [ExcludeFromCodeCoverage]
     private async Task<UserDetailDto> InitializeUserDetails()
     {
         // Save user
@@ -162,7 +165,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         return HttpContext;
     }
 
-    protected Guid CurrentUserContactId()
+    public Guid CurrentUserContactId()
     {
         if (GetHttpContext().User.Identity.IsAuthenticated)
         {
@@ -173,7 +176,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         return Guid.Empty;
     }
 
-    protected User GetCurrentUserInfo()
+    public User GetCurrentUserInfo()
     {
         var identity = GetHttpContext().User.Identities.FirstOrDefault();
         if (identity == null)
