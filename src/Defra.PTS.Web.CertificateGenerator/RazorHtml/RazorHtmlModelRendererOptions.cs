@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Defra.PTS.Web.CertificateGenerator.Services;
+namespace Defra.PTS.Web.CertificateGenerator.RazorHtml;
 
 public class RazorHtmlModelRendererOptions<TModel>
 {

@@ -1,7 +1,6 @@
 ﻿using Defra.PTS.Web.CertificateGenerator.Interfaces;
 using Defra.PTS.Web.CertificateGenerator.Models;
-using Defra.PTS.Web.Domain.Models;
-using Microsoft.Extensions.Options;
+using Defra.PTS.Web.CertificateGenerator.Puppeteer;
 using PuppeteerSharp;
 using PuppeteerSharp.Media;
 using System;
@@ -15,24 +14,20 @@ namespace Defra.PTS.Web.CertificateGenerator.Services;
 [ExcludeFromCodeCoverage]
 public class HtmlToPdfConverter : IHtmlToPdfConverter
 {
-    private readonly PuppeteerSettings _settings;
-    public HtmlToPdfConverter(IOptions<PuppeteerSettings> settingOptions)
+    private readonly IBrowser _browser;
+    public HtmlToPdfConverter(IBrowser browser)
     {
-        ArgumentNullException.ThrowIfNull(settingOptions);
+        ArgumentNullException.ThrowIfNull(browser);
 
-        _settings = settingOptions.Value;
+        _browser = browser;
     }
 
     public async Task<Stream> ConvertAsync(HtmlToPdfContext context, CancellationToken cancellationToken = default)
     {
         ArgumentNullException.ThrowIfNull(context);
 
-        var browser = await GetBrowser(_settings.BrowserURL);
-
-        await using var page = await browser.NewPageAsync();
+        await using var page = await _browser.NewPageAsync();
         await page.SetContentAsync(context.Content).ConfigureAwait(false);
-        await page.EmulateMediaTypeAsync(MediaType.Print);
-
         return await page.PdfStreamAsync(new PdfOptions
         {
             Format = PaperFormat.A4,
@@ -48,29 +43,5 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
                 Right = $"{context.Margin.Right}px",
             }
         }).ConfigureAwait(false);
-    }
-
-    [ExcludeFromCodeCoverage]
-    private async Task<IBrowser> GetBrowser(string browserUrl = "")
-    {
-
-        // Where Puppeteer can download chromium
-        if (string.IsNullOrWhiteSpace(browserUrl)) 
-        {
-            // Download the Chromium revision if it does not already exist
-            using var browserFetcher = new BrowserFetcher();
-            await browserFetcher.DownloadAsync();
-
-            return await Puppeteer.LaunchAsync(new LaunchOptions
-            {
-                Headless = true,
-            });
-        }
-
-        // Azure doesn't allow chromium download, use a url
-        return await Puppeteer.LaunchAsync(new LaunchOptions
-        {
-            ExecutablePath = browserUrl
-        });
     }
 }
