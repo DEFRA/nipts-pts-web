@@ -13,11 +13,12 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         if (!IsApplicationInProgress())
         {
             return RedirectToAction(nameof(PetKeeperUserDetails));
-        }
-
-        SetBackUrl(WebAppConstants.Pages.TravelDocument.PetKeeperAddress);
+        }                
 
         var formData = GetFormData();
+
+        SetBackUrlManualOrLookupAddress(formData);
+
         if (!formData.DoesPageMeetPreConditions(formData.PetKeeperPhone.PageType, out string actionName))
         {
             return RedirectToAction(actionName);
@@ -30,7 +31,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     [ValidateAntiForgeryToken]
     public IActionResult PetKeeperPhone(PetKeeperPhoneViewModel model)
     {
-        SetBackUrl(WebAppConstants.Pages.TravelDocument.PetKeeperPostcode);
+        SetBackUrlManualOrLookupAddress(GetFormData());
 
         if (!ModelState.IsValid)
         {   
@@ -41,5 +42,17 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         SaveFormData(model);
 
         return RedirectToAction(nameof(PetMicrochip));
+    }
+
+    public void SetBackUrlManualOrLookupAddress(TravelDocumentViewModel model)
+    {
+        if (model.PetKeeperAddress.IsCompleted)
+        {
+            SetBackUrl(WebAppConstants.Pages.TravelDocument.PetKeeperAddress);
+        }
+        else
+        {
+            SetBackUrl(WebAppConstants.Pages.TravelDocument.PetKeeperAddressManual);
+        }
     }
 }
