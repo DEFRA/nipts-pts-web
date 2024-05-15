@@ -12,7 +12,7 @@ public class PetBreedValidator : AbstractValidator<PetBreedViewModel>
             switch
             {
                 "dog" => "Enter your dog's breed, for example, Labrador",
-                "cat" => "Enter your cat's breed, for example, Domestic Shorthair, Bengal, Scottish Fold, Ragdoll",
+                "cat" => "Enter your cat's breed, for example, Scottish Fold",
                 _ => "Invalid pet type selected",
             };
         });        
