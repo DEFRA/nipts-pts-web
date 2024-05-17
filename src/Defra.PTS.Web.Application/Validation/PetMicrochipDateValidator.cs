@@ -52,7 +52,7 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
         var fromDate = DateTime.Now.Date.AddYears(-AppConstants.Values.PetMaxAgeInYears).AddDays(1);
         var toDate = DateTime.Now.Date;
 
-        errorMessage = $"Microchip date must be on or after {fromDate.ToUKDateString()}";
+        errorMessage = "The date you entered is too far in the past";
 
         var chipDate = date.Value.Date;
         return chipDate >= fromDate && chipDate <= toDate;
