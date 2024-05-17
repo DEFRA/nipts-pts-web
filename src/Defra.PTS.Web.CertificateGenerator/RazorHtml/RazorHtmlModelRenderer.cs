@@ -15,7 +15,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Defra.PTS.Web.CertificateGenerator.Services;
+namespace Defra.PTS.Web.CertificateGenerator.RazorHtml;
 
 public class RazorHtmlModelRenderer<TModel> : IHtmlModelRenderer<TModel>
 {

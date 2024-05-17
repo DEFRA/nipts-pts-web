@@ -2,7 +2,6 @@
 using Defra.PTS.Web.Application.Features.Users.Commands;
 using Defra.PTS.Web.Domain.Models;
 using Defra.PTS.Web.UI.Configuration.Authentication;
-using Defra.PTS.Web.UI.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;

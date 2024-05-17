@@ -1,5 +1,4 @@
-﻿using Defra.PTS.Web.Application.Exceptions;
-using Defra.PTS.Web.Application.Features.Certificates.Commands;
+﻿using Defra.PTS.Web.Application.Features.Certificates.Commands;
 using Defra.PTS.Web.Application.Features.TravelDocument.Queries;
 using Defra.PTS.Web.Application.Helpers;
 using Defra.PTS.Web.Domain.Enums;

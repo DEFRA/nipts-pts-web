@@ -1,4 +1,6 @@
 ﻿using Defra.PTS.Web.CertificateGenerator.Interfaces;
+using Defra.PTS.Web.CertificateGenerator.Puppeteer;
+using Defra.PTS.Web.CertificateGenerator.RazorHtml;
 using Defra.PTS.Web.CertificateGenerator.Services;
 using Defra.PTS.Web.CertificateGenerator.ViewModels;
 using Defra.PTS.Web.Domain.Models;
@@ -52,6 +54,7 @@ public static class ServiceCollectionExtensions
     {
         return services.Configure<ConnectOptions>(configuration)
             .AddTransient<Launcher>()
+            .AddTransient<IBrowser, PuppeteerBrowserAdapter>()
             .AddTransient<IHtmlToPdfConverter, HtmlToPdfConverter>();
     }
 
