@@ -1,4 +1,6 @@
 using Defra.PTS.Web.Application.Extensions;
+using Defra.PTS.Web.CertificateGenerator.Extensions;
+using Defra.PTS.Web.CertificateGenerator.ViewModels;
 using Defra.PTS.Web.Domain.Models;
 using Defra.PTS.Web.Infrastructure.Extensions;
 using Defra.PTS.Web.UI.Configuration.Startup;
@@ -19,50 +21,55 @@ builder.Configuration.AddJsonFile("appsettings.Development.json", true, true);
 
 builder.Configuration.AddEnvironmentVariables();
 
-builder.Services
+_ = builder.Services
     .AddTradeAppConfiguration(builder.Configuration)
     .AddApimAuthentication(builder.Configuration.GetSection(ApimSettings.InternalApim));
 
 // Add services to the container.
-builder.Services.AddTradeApi(builder.Configuration);
-builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
-builder.Services.AddHttpClient();
-builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
-builder.Services.Configure<PtsSettings>(builder.Configuration.GetSection("PTS"));
+_ = builder.Services.AddTradeApi(builder.Configuration);
+_ = builder.Services.AddControllersWithViews();
+_ = builder.Services.AddRazorPages();
+_ = builder.Services.AddHttpClient();
+_ = builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+_ = builder.Services.Configure<PtsSettings>(builder.Configuration.GetSection("PTS"));
 
-builder.Services.AddApplicationServices();
-builder.Services.AddInfrastructureServices(builder.Configuration);
-builder.Services.AddApplicationApis(builder.Configuration);
+_ = builder.Services.AddApplicationServices();
+_ = builder.Services.AddInfrastructureServices(builder.Configuration);
+_ = builder.Services.AddApplicationApis(builder.Configuration);
 
-builder.Services.AddMediatR(cfg =>
+_ = builder.Services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssemblyContaining<Program>();
 });
-builder.Services.AddHttpContextAccessor();
-builder.Services.AddMvc().AddSessionStateTempDataProvider();
-builder.Services.AddSession();
-builder.Services.AddApplicationInsightsTelemetry();
-builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
-builder.Logging.AddConsole();
-builder.Logging.AddDebug();
-builder.Logging.AddEventSourceLogger();
-builder.Services.AddCors(o => o.AddPolicy("AllowOrigins", builder =>
+
+_ = builder.Services.AddHttpContextAccessor();
+_ = builder.Services.AddMvc().AddSessionStateTempDataProvider();
+_ = builder.Services.AddSession();
+_ = builder.Services.AddApplicationInsightsTelemetry();
+
+_ = builder.Services.AddCertificateServices(builder.Configuration);
+
+_ = builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
+_ = builder.Logging.AddConsole();
+_ = builder.Logging.AddDebug();
+_ = builder.Logging.AddEventSourceLogger();
+_ = builder.Services.AddCors(o => o.AddPolicy("AllowOrigins", builder =>
 {
     builder.WithOrigins("*")
            .AllowAnyMethod()
            .AllowAnyHeader();
 }));
-builder.Services.AddKeyVault(builder.Configuration);
-builder.Services.AddAntiforgery();
+
+_ = builder.Services.AddKeyVault(builder.Configuration);
+_ = builder.Services.AddAntiforgery();
 var secretClient = builder.Services.AddKeyVault(builder.Configuration);
-builder.Services.AddSingleton(secretClient);
+_ = builder.Services.AddSingleton(secretClient);
 var useAuth = builder.Configuration.GetValue<bool>("AppSettings:UseAuth");
 if (useAuth)
     builder.Services.AddAuthentications(builder.Configuration, secretClient);
 
 var app = builder.Build();
-app.Use(async (context, next) =>
+_ = app.Use(async (context, next) =>
 {
     context.Response.OnStarting(state =>
     {
@@ -75,26 +82,26 @@ app.Use(async (context, next) =>
 
     await next.Invoke();
 });
-app.UseHttpsRedirection();
-app.UseCookiePolicy();
-app.UseStaticFiles(new StaticFileOptions
+_ = app.UseHttpsRedirection();
+_ = app.UseCookiePolicy();
+_ = app.UseStaticFiles(new StaticFileOptions
 {
     ServeUnknownFileTypes = true,
 });
 
-app.UseRequestLocalization();
-app.UseSession();
-app.UseStatusCodePagesWithReExecute("/Error/HandleError/{0}");
-app.UseRouting();
-app.UseCors("AllowOrigins");
+_ = app.UseRequestLocalization();
+_ = app.UseSession();
+_ = app.UseStatusCodePagesWithReExecute("/Error/HandleError/{0}");
+_ = app.UseRouting();
+_ = app.UseCors("AllowOrigins");
 if (useAuth)
 {
     // UseAuthentication() must be before UseAuthorization()
-    app.UseAuthentication();
-    app.UseAuthorization();
+    _ = app.UseAuthentication();
+    _ = app.UseAuthorization();
 }
 
-app.MapControllerRoute(
+_ = app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 

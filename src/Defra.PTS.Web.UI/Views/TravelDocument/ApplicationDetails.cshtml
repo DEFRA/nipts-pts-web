@@ -1,79 +1,11 @@
 ﻿@model Defra.PTS.Web.Application.DTOs.Services.ApplicationDetailsDto;
 @using Defra.PTS.Web.Application.Extensions;
 @using Defra.PTS.Web.UI.Constants;
+
 @{
     var pageTitle = "Your application summary";
     ViewData.SetKeyValue("BodyExtraCssClass", "pet-declaration-print");
     this.SetMetaTitle(pageTitle);
 }
 
-<div class="govuk-grid-row govuk-!-display-none-print">
-    <div class="govuk-grid-column-three-quarters">
-        <h1 id="documents" class="govuk-heading-xl">
-            @pageTitle
-        </h1>
-    </div>
-</div>
-
-<partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_PrintLogos" />
-
-<div class="govuk-grid-row pet-declaration-print-only">
-    <div class="govuk-grid-column-three-quarters">
-        <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
-            Your application summary
-        </h1>
-    </div>
-</div>
-
-
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-three-quarters">
-
-        <div id="document-issued-card" class="govuk-summary-card">
-            <div class="govuk-summary-card__title-wrapper">
-                <h2 class="govuk-summary-card__title">Application</h2>
-            </div>
-            <div class="govuk-summary-card__content">
-                <dl class="govuk-summary-list">
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Reference number
-                        </dt>
-                        <dd class="govuk-summary-list__value">
-                            @Model.ReferenceNumber
-                        </dd>
-                    </div>
-
-                    <div class="govuk-summary-list__row">
-                        <dt class="govuk-summary-list__key">
-                            Date
-                        </dt>
-                        <dd class="govuk-summary-list__value">
-                            @Model.Declaration.ApplicationDate.ToUKDateString()
-                        </dd>
-                    </div>
-
-                </dl>
-            </div>
-        </div>
-
-    </div>
-</div>
-
-
-<div class="govuk-grid-row pet-declaration-row">
-    <div class="govuk-grid-column-three-quarters">
-
-        <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_MicrochipInfo" model=Model.MicrochipInformation />
-
-        <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_PetDetails" model=Model.PetDetails />
-
-        <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_PetKeeperDetails" model=Model.PetKeeperDetails />
-
-    </div>
-</div>
-
-<partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_Declaration" model=Model.Declaration />
-
-<partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_ActionLinks" />
-
+@Html.DisplayForModel()

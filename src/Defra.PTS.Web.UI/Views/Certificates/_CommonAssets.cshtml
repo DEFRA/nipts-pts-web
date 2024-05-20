@@ -1,0 +1,71 @@
+﻿@* Need to use an embedded style sheet as the html > pdf converter cannot resolve referenced resources*@
+<style type="text/css">
+    @@page {
+        size: A4;
+    }
+
+    html {
+        font-size: 10px;
+    }
+
+    .watermark {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 29.7cm;
+        height: 21cm;
+        transform: translate(-4.35cm, 4.35cm) rotate(-54.74deg);
+        color: rgba(0,0,0,0.2)
+    }
+
+        .watermark > span {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%)
+        }
+
+    .omitted-container {
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 100% 100%, auto;
+        height: 100%;
+    }
+
+</style>
+
+    <script>
+        function setWatermarkSize(container) {
+            if (!(container instanceof Element)) {
+                for (const container of document.querySelectorAll('.watermark'))
+                    setWatermarkSize(container);
+                return;
+            }
+            const watermark = container.querySelector('span');
+            if (container.style.fontSize === '')
+                container.style.fontSize = '20px';
+            const scaleFactor = container.clientWidth / watermark.clientWidth;
+            const currentPx = parseFloat(container.style.fontSize);
+            container.style.fontSize = `${currentPx * scaleFactor}px`;
+
+        }
+        function drawOmittedPath(element) {
+            if (!(element instanceof Element)) {
+                for (const element of document.querySelectorAll('.omitted'))
+                    drawOmittedPath(element.parentElement);
+                return;
+            }
+            const { offsetHeight: h, offsetWidth: w } = element;
+            const svg = `<svg viewBox='0 0 ${w} ${h}' xmlns='http://www.w3.org/2000/svg'>` +
+                `<line x1='${-w}' y1='${h * 2}' x2='${w * 2}' y2='${-h}' stroke='black' stroke-width='1 px' />` +
+                '</svg>';
+            element.style.backgroundImage = `url("data:image/svg+xml;utf8,${svg}")`;
+            element.classList.add('omitted-container');
+        }
+
+        window.addEventListener('load', setWatermarkSize);
+        window.addEventListener('resize', setWatermarkSize);
+        window.addEventListener('load', drawOmittedPath);
+        window.addEventListener('resize', drawOmittedPath);
+    </script>
+
+

@@ -1,5 +1,4 @@
 ﻿using Defra.PTS.Web.Application.Extensions;
-using Defra.PTS.Web.Domain.Models;
 using Defra.PTS.Web.Domain.ViewModels;
 using Defra.PTS.Web.UI.Constants;
 using Defra.PTS.Web.UI.Extensions;

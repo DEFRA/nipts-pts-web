@@ -1,8 +1,5 @@
-﻿using Defra.PTS.Web.Application.DTOs.Services;
-using Defra.PTS.Web.Application.Extensions;
+﻿using Defra.PTS.Web.Application.Extensions;
 using Defra.PTS.Web.Application.Features.Address.Queries;
-using Defra.PTS.Web.Application.Features.DynamicsCrm.Commands;
-using Defra.PTS.Web.Application.Features.Users.Queries;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Constants;
@@ -33,7 +30,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
         SaveFormData(formData);
 
-        var userDetail = await InitializeUserDetails();        
+        var userDetail = await InitializeUserDetails();
         if (userDetail != null)
         {
             formData.PetKeeperUserDetails.Name = userDetail.FullName;
@@ -42,17 +39,14 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             formData.PetKeeperUserDetails.AddressLineOne = userDetail.AddressLineOne + " " + userDetail.AddressLineTwo;
             formData.PetKeeperUserDetails.TownOrCity = userDetail.TownOrCity;
             formData.PetKeeperUserDetails.Postcode = userDetail.PostCode;
-            
+
             SaveFormData(formData.PetKeeperUserDetails);
         }
 
-        if (formData.PetKeeperUserDetails.IsPostcodeRegionUnknown())
-        {
-            var validGBAddress = await _mediator.Send(new ValidateGreatBritianAddressRequest(userDetail?.PostCode));
+        var validGBAddress = await _mediator.Send(new ValidateGreatBritianAddressRequest(userDetail?.PostCode));
 
-            formData.PetKeeperUserDetails.PostcodeRegion = validGBAddress ? PostcodeRegion.GB : PostcodeRegion.NonGB;
-            SaveFormData(formData.PetKeeperUserDetails);
-        }
+        formData.PetKeeperUserDetails.PostcodeRegion = validGBAddress ? PostcodeRegion.GB : PostcodeRegion.NonGB;
+        SaveFormData(formData.PetKeeperUserDetails);
 
         if (!formData.PetKeeperUserDetails.IsGBPostcode())
         {
@@ -99,28 +93,5 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
         return RedirectToAction(nameof(PetKeeperName));
     }
-
-    [NonAction]
-    private async Task<UserDetailDto> InitializeUserDetails()
-    {
-        // Save user
-        var userInfo = GetCurrentUserInfo();
-
-        try
-        {
-            await _mediator.Send(new AddAddressRequest(userInfo));
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError("Unable to save address details", ex);
-        }
-        var contactId = CurrentUserContactId();
-        var response = await _mediator.Send(new GetUserDetailQueryRequest(contactId));
-        if (response.UserDetail != null)
-        {
-            return response.UserDetail;
-        }
-
-        return null;
-    }
+        
 }

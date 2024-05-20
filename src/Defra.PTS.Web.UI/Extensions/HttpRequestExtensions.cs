@@ -29,4 +29,20 @@ public static class HttpRequestExtensions
 
         return false;
     }
+
+    /// <summary>
+    /// Returns host url e.g. http://localhost:5000
+    /// </summary>
+    /// <param name="req"></param>
+    /// <returns></returns>
+    public static string GetHostUrl(this HttpRequest req)
+    {
+        if (!req.Host.HasValue)
+        {
+            return string.Empty;
+        }
+
+        var httpPrefix = req.IsHttps ? "https" : "http";
+        return $"{httpPrefix}://{req.Host.Value}";
+    }
 }
