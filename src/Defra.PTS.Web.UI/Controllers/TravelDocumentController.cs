@@ -88,7 +88,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         }
         catch (Exception ex)
         {
-            _logger.LogError("An error has occurred: ", ex);
+            _logger.LogError(ex, "An error has occurred");
             throw;
         }
     }
