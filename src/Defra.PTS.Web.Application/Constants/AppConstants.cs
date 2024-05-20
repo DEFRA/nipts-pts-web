@@ -40,7 +40,7 @@ public static class AppConstants
 
     public static class Values
     {
-        public const int QRCodePixelsPerModule = 10;
+        public const int QRCodePixelsPerModule = 8;
 
         public const int PetMaxAgeInYears = 34;
         public const string OtherColourName = "Other";
