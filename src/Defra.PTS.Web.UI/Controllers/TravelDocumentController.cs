@@ -11,6 +11,8 @@ using Defra.PTS.Web.Domain.ViewModels;
 using Defra.PTS.Web.UI.Constants;
 using Defra.PTS.Web.UI.Extensions;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -52,12 +54,12 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     {
         try
         {
-            if (Response != null && Response.Headers != null)
+            if (HttpContext.Request.Cookies.TryGetValue("ManagementLinkClicked", out string managementLinkClicked) && managementLinkClicked == "true")
             {
-                Response.Headers.Add("Cache-Control", "no-cache, no-store, must-revalidate");
-                Response.Headers.Add("Pragma", "no-cache");
-                Response.Headers.Add("Expires", "0");
+                return RedirectToAction("CheckIdm2SignOut", "User");
             }
+            HandleCache();
+
 
             var magicWordData = GetMagicWordFormData(true);
 
@@ -215,6 +217,27 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         }
 
         return user;
+    }
+    public  void HandleCache()
+    {
+        if (Response != null && Response.Headers != null)
+        {
+            if (!Response.Headers.ContainsKey("Cache-Control"))
+            {
+                Response.Headers.Add("Cache-Control", "no-cache, no-store, must-revalidate");
+            }
+
+            if (!Response.Headers.ContainsKey("Pragma"))
+            {
+                Response.Headers.Add("Pragma", "no-cache"); // HTTP 1.0 backward compatibility
+            }
+
+            if (!Response.Headers.ContainsKey("Expires"))
+            {
+                Response.Headers.Add("Expires", "0"); // Expire immediately
+            }
+
+        }
     }
 
     #endregion Private Methods

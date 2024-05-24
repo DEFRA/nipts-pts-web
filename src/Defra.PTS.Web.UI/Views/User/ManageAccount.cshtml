@@ -23,8 +23,9 @@
 
 
         <p class="govuk-body">
-            You can
-            <a class="govuk-link" href="@Configuration["AppSettings:ManagementUrl"]">manage your account</a>
+            You can           
+            <a class="govuk-link" href="@Url.Action("RedirectToExternal", "User")">manage your account</a>
+
             to change your sign in details.
         </p>
         <p class="govuk-body">

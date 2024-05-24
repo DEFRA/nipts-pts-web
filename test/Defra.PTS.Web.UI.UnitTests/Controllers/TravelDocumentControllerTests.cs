@@ -58,6 +58,21 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         public void If_MagicWordEnabled_True_RedirectTo_Index()
         {
             // Arrange
+            
+            var mockHttpContext = new Mock<Microsoft.AspNetCore.Http.IHttpContextAccessor>();
+            var mockRequest = new Mock<Microsoft.AspNetCore.Http.HttpRequest>();
+            var mockResponse = new Mock<Microsoft.AspNetCore.Http.HttpResponse>();
+            var mockCookies = new Mock<Microsoft.AspNetCore.Http.IRequestCookieCollection>();
+
+            mockHttpContext.Setup(x => x.HttpContext.Request).Returns(mockRequest.Object);
+            mockHttpContext.Setup(x => x.HttpContext.Response).Returns(mockResponse.Object);
+            mockRequest.Setup(x => x.Cookies).Returns(mockCookies.Object);
+            mockCookies.Setup(x => x.TryGetValue("ManagementLinkClicked", out It.Ref<string>.IsAny)).Returns(true);
+            mockCookies.Setup(x => x["ManagementLinkClicked"]).Returns("true");
+
+            _travelDocumentController.ControllerContext.HttpContext = mockHttpContext.Object.HttpContext;
+
+            // Arrange
             var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
             var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = false};
             tempData.SetHasUserUsedMagicWord(magicWordViewModel);
@@ -269,6 +284,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // Assert
             Assert.IsNotNull(result);
         }
+
+       
 
         private void MockHttpContext()
         {
