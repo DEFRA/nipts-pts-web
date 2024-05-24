@@ -71,6 +71,31 @@ public class UserController : BaseController
         return Redirect(adB2cSection.SignedOutCallbackPath);
     }
 
+
+    [HttpGet]
+    public IActionResult CheckIdm2SignOut()
+    {        
+        try
+        {            
+            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).GetAwaiter().GetResult();
+            HttpContext.Response.Cookies.Append("ManagementLinkClicked", "false");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError("Error", ex);
+            
+        }
+        return RedirectToAction("Index", "TravelDocument");
+    }
+
+    [HttpGet]
+    public IActionResult RedirectToExternal()
+    {
+        HttpContext.Response.Cookies.Append("ManagementLinkClicked", "true");
+        string managementUrl = _configuration["AppSettings:ManagementUrl"];
+        return Redirect(managementUrl);
+    }
+
     [HttpGet]
     public IActionResult TempToken()
     {
