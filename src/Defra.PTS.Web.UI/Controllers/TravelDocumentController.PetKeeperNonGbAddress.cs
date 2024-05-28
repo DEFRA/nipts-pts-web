@@ -21,13 +21,8 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
         var formData = GetFormData(createIfNull: true);
 
-        if (formData.PetKeeperUserDetails.PostcodeRegion == PostcodeRegion.GB)
-        {
-            return RedirectToAction(nameof(PetKeeperUserDetails));            
-        }
-
         SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);
-        
+
         if (!formData.DoesPageMeetPreConditions(formData.PetKeeperUserDetails.PageType, out string actionName))
         {
             return RedirectToAction(actionName);
@@ -49,12 +44,14 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             SaveFormData(formData.PetKeeperUserDetails);
         }
 
-        if (formData.PetKeeperUserDetails.IsPostcodeRegionUnknown())
-        {
-            var validGBAddress = await _mediator.Send(new ValidateGreatBritianAddressRequest(userDetail?.PostCode));
+        var validGBAddress = await _mediator.Send(new ValidateGreatBritianAddressRequest(userDetail?.PostCode));
 
-            formData.PetKeeperUserDetails.PostcodeRegion = validGBAddress ? PostcodeRegion.GB : PostcodeRegion.NonGB;
-            SaveFormData(formData.PetKeeperUserDetails);
+        formData.PetKeeperUserDetails.PostcodeRegion = validGBAddress ? PostcodeRegion.GB : PostcodeRegion.NonGB;
+        SaveFormData(formData.PetKeeperUserDetails);
+
+        if (formData.PetKeeperUserDetails.IsGBPostcode())
+        {
+            return RedirectToAction(nameof(PetKeeperUserDetails));
         }
 
         return View(formData.PetKeeperUserDetails);
@@ -63,7 +60,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult PetKeeperNonGbAddress(PetKeeperUserDetailsViewModel model)
-    {        
+    {
         SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);
 
         model.IsCompleted = true;
