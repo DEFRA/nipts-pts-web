@@ -8929,6 +8929,15 @@ time {
     color: #000000;
   }
 }
+
+.pet-long-text {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 200px;
+}
+
 .login-nav__list {
   margin: 0;
   padding: 0;
