@@ -51,4 +51,10 @@ public static class ApplicationHelper
     {
         return $"data:image/png;base64,{base64String}";
     }
+
+    public static string BuildPdfDownloadUrl(Guid id, PdfType pdfType)
+    {
+        var pdfAction = pdfType == PdfType.Certificate ? "DownloadCertificatePdf" : "DownloadApplicationDetailsPdf";
+        return $"/TravelDocument/{pdfAction}/{id}";
+    }
 }

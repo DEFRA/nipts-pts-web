@@ -25,12 +25,13 @@ public static class MiscExtensions
     {
         string cssClass = application.Status switch
         {
-            AppConstants.ApplicationStatus.APPROVED => WebAppConstants.Pages.TravelDocument.ApplicationCertificate,
-            _ => WebAppConstants.Pages.TravelDocument.ApplicationDetails,
+            AppConstants.ApplicationStatus.APPROVED => $"{WebAppConstants.Pages.TravelDocument.ApplicationCertificate}/{application.ApplicationId}",
+            _ => $"{WebAppConstants.Pages.TravelDocument.ApplicationDetails}/{application.ApplicationId}",
         };
 
         return cssClass;
     }
+
 
     public static List<SelectListItem> ToSelectListItems(this List<Address> addressList, bool hasSelectRow = true)
     {

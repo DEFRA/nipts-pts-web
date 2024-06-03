@@ -16,6 +16,7 @@ public class GenerateCertificatePdfHandlerTests
     public async Task Handle_ReturnsSuccessResponse()
     {
         // Arrange
+        var userId = Guid.NewGuid();
         var applicationId = Guid.NewGuid();
         var applicationServiceMock = new Mock<IApplicationService>();
         var certificateGeneratorMock = new Mock<ICertificateGenerator>();
@@ -26,11 +27,11 @@ public class GenerateCertificatePdfHandlerTests
             certificateGeneratorMock.Object,
             loggerMock.Object);
 
-        var request = new GenerateCertificatePdfRequest(applicationId);
+        var request = new GenerateCertificatePdfRequest(applicationId, userId);
 
         var cancellationToken = CancellationToken.None;
 
-        var applicationDetails = new ApplicationCertificateDto(); // Assuming some application certificate
+        var applicationDetails = new ApplicationCertificateDto() { UserId = userId }; // Assuming some application certificate
         applicationServiceMock
             .Setup(x => x.GetApplicationCertificate(applicationId))
             .ReturnsAsync(applicationDetails);
@@ -52,6 +53,7 @@ public class GenerateCertificatePdfHandlerTests
     public async Task Handle_ReturnsNullResponse()
     {
         // Arrange
+        var userId = Guid.NewGuid();
         var applicationId = Guid.NewGuid();
         var applicationServiceMock = new Mock<IApplicationService>();
         var certificateGeneratorMock = new Mock<ICertificateGenerator>();
@@ -62,11 +64,11 @@ public class GenerateCertificatePdfHandlerTests
             certificateGeneratorMock.Object,
             loggerMock.Object);
 
-        var request = new GenerateCertificatePdfRequest(applicationId);
+        var request = new GenerateCertificatePdfRequest(applicationId, userId);
 
         var cancellationToken = CancellationToken.None;
 
-        var applicationDetails = new ApplicationCertificateDto(); // Assuming some application details
+        var applicationDetails = new ApplicationCertificateDto() { UserId = userId }; // Assuming some application details
         applicationServiceMock
             .Setup(x => x.GetApplicationCertificate(applicationId))
             .ReturnsAsync(applicationDetails);

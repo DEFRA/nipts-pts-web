@@ -35,4 +35,35 @@ public class ApplicationHelperTests
         // Assert
         Assert.Contains(expected,response);
     }
+
+    [Fact]
+    public void BuildPdfDownloadUrl_ApplicationDetails()
+    {
+        // Arrange
+        var id = Guid.NewGuid();
+        var pdfType = PdfType.Application;
+        var expected = $"/TravelDocument/DownloadApplicationDetailsPdf/{id}";
+
+        // Act
+        var response = ApplicationHelper.BuildPdfDownloadUrl(id, pdfType);
+
+        // Assert
+        Assert.Contains(expected, response);
+    }
+
+
+    [Fact]
+    public void BuildPdfDownloadUrl_Certificate()
+    {
+        // Arrange
+        var id = Guid.NewGuid();
+        var pdfType = PdfType.Certificate;
+        var expected = $"/TravelDocument/DownloadCertificatePdf/{id}";
+
+        // Act
+        var response = ApplicationHelper.BuildPdfDownloadUrl(id, pdfType);
+
+        // Assert
+        Assert.Contains(expected, response);
+    }
 }

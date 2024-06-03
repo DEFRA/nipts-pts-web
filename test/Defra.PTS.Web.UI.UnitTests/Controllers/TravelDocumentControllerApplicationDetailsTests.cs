@@ -1,4 +1,5 @@
-﻿using Defra.PTS.Web.Application.DTOs.Features;
+﻿using Defra.PTS.Web.Application.Constants;
+using Defra.PTS.Web.Application.DTOs.Features;
 using Defra.PTS.Web.Application.DTOs.Services;
 using Defra.PTS.Web.Application.Extensions;
 using Defra.PTS.Web.Application.Features.DynamicsCrm.Commands;
@@ -62,21 +63,77 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         public void PetKeeperUserDetails_Returns_RedirectToAction_When_Application_NotInProgress()
         {
             // Arrange
-
+            var applicationId = Guid.NewGuid();
+            
             _mockMediator.Setup(x => x.Send(It.IsAny<GetApplicationDetailsQueryRequest>(), CancellationToken.None))
                  .ReturnsAsync(new GetApplicationDetailsQueryResponse
                  {
                      ApplicationDetails = new ApplicationDetailsDto()
                      {
-                         ApplicationId = Guid.NewGuid()
+                         ApplicationId = applicationId
                      }
                  });
 
-            var result =  _travelDocumentController.Object.ApplicationDetails().Result as ViewResult;
+            var result =  _travelDocumentController.Object.ApplicationDetails(applicationId).Result as ViewResult;
 
             Assert.IsNotNull(result);
         }
 
+        [Test]
+        public void ApplicationDetails_Returns_View()
+        {
+            // Arrange
+            var userId = Guid.NewGuid();
+            var applicationId = Guid.NewGuid();
+            var applicationDetails = new ApplicationDetailsDto()
+            {
+                ApplicationId = applicationId,
+                UserId = userId,
+            };
+            applicationDetails.Status = AppConstants.ApplicationStatus.AWAITINGVERIFICATION;
+
+
+            _mockMediator.Setup(x => x.Send(It.IsAny<GetApplicationDetailsQueryRequest>(), CancellationToken.None))
+                 .ReturnsAsync(new GetApplicationDetailsQueryResponse
+                 {
+                     ApplicationDetails = applicationDetails
+                 });
+
+            // different UserId
+            _travelDocumentController.Setup(x => x.CurrentUserId()).Returns(userId);
+
+            var result = _travelDocumentController.Object.ApplicationDetails(applicationId).Result as ViewResult;
+
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void ApplicationDetails_Returns_Error()
+        {
+            // Arrange
+            var userId = Guid.NewGuid();
+            var applicationId = Guid.NewGuid();
+            var applicationDetails = new ApplicationDetailsDto()
+            {
+                ApplicationId = applicationId,
+                UserId = userId,
+            };
+            applicationDetails.Status = AppConstants.ApplicationStatus.AWAITINGVERIFICATION;
+
+
+            _mockMediator.Setup(x => x.Send(It.IsAny<GetApplicationDetailsQueryRequest>(), CancellationToken.None))
+                 .ReturnsAsync(new GetApplicationDetailsQueryResponse
+                 {
+                     ApplicationDetails = applicationDetails
+                 });
+
+            // different UserId
+            _travelDocumentController.Setup(x => x.CurrentUserId()).Returns(Guid.NewGuid());
+
+            var result = _travelDocumentController.Object.ApplicationDetails(applicationId).Result as ViewResult;
+
+            Assert.IsNull(result);
+        }
 
         public class MockHttpSession : ISession
         {

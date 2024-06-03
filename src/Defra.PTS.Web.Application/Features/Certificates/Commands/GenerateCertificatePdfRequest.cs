@@ -6,8 +6,10 @@ namespace Defra.PTS.Web.Application.Features.Certificates.Commands;
 public class GenerateCertificatePdfRequest : IRequest<CertificateResult>
 {
     public Guid ApplicationId { get; }
-    public GenerateCertificatePdfRequest(Guid applicationId)
+    public Guid UserId { get; }   
+    public GenerateCertificatePdfRequest(Guid applicationId, Guid userId)
     {
         ApplicationId = applicationId;
+        UserId = userId;
     }
 }

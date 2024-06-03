@@ -4,58 +4,49 @@
 @using Defra.PTS.Web.Application.Extensions;
 
 @if (Model != null && Model.Any())
-{<div class="scroll-container" id="scrollContainer">
-    <table class="govuk-table">
-        <thead class="govuk-table__head">
-            <tr class="govuk-table__row">
-                <th scope="col" class="govuk-table__header">Pet name</th>
-                <th scope="col" class="govuk-table__header">Species</th>
-                <th scope="col" class="govuk-table__header">Pet owner</th>
-                <th scope="col" class="govuk-table__header"><span class="govuk-visually-hidden">Status</span></th>
-                <th scope="col" class="govuk-table__header"><span class="govuk-visually-hidden">View</span></th>
-            </tr>
-        </thead>
-        <tbody class="govuk-table__body">
-
-            @foreach (var application in Model)
-            {
-                var statusCssClass = application.StatusBasedCssClass();
-                var detailsUrl = application.StatusBasedDetailsUrl();
-
+{
+    <div class="scroll-container" id="scrollContainer">
+        <table class="govuk-table">
+            <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
-                    <th scope="row" class="govuk-table__header">@application.PetName</th>
-                    <td class="govuk-table__cell">@application.Species</td>
-                    <td class="govuk-table__cell">@application.OwnerName</td>
-                    <td class="govuk-table__cell">
-                        <strong class="govuk-tag @statusCssClass">
-                            @application.Status
-                        </strong>
-                    </td>
-                    <td class="govuk-table__cell govuk-table__cell--numeric">
-                        <ul class="govuk-summary-list__actions-list">
-
-                            <li class="govuk-summary-list__actions-list-item">
-                                @{
-                                    var formId = $"form-{application.ApplicationId}";
-                                    using (Html.BeginForm("ApplicationDetailRecord", "TravelDocument", FormMethod.Post, new { id = formId }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        @Html.Hidden("id", @application.ApplicationId)
-                                        @Html.Hidden("status", @application.Status)
-
-                                        <a class="govuk-link" href="#" onClick="return submitForm('@formId')">
-                                            View<span class="govuk-visually-hidden"> document</span>
-                                        </a>
-                                    }
-                                }
-                            </li>
-                        </ul>
-                    </td>
+                    <th scope="col" class="govuk-table__header">Pet name</th>
+                    <th scope="col" class="govuk-table__header">Species</th>
+                    <th scope="col" class="govuk-table__header">Pet owner</th>
+                    <th scope="col" class="govuk-table__header"><span class="govuk-visually-hidden">Status</span></th>
+                    <th scope="col" class="govuk-table__header"><span class="govuk-visually-hidden">View</span></th>
                 </tr>
-            }
+            </thead>
+            <tbody class="govuk-table__body">
 
-        </tbody>
-    </table>
+                @foreach (var application in Model)
+                {
+                    var statusCssClass = application.StatusBasedCssClass();
+                    var detailsUrl = application.StatusBasedDetailsUrl();
+
+                    <tr class="govuk-table__row">
+                        <th scope="row" class="govuk-table__header">@application.PetName</th>
+                        <td class="govuk-table__cell">@application.Species</td>
+                        <td class="govuk-table__cell">@application.OwnerName</td>
+                        <td class="govuk-table__cell">
+                            <strong class="govuk-tag @statusCssClass">
+                                @application.Status
+                            </strong>
+                        </td>
+                        <td class="govuk-table__cell govuk-table__cell--numeric">
+                            <ul class="govuk-summary-list__actions-list">
+
+                                <li class="govuk-summary-list__actions-list-item">
+                                    <a class="govuk-link" href="@detailsUrl">
+                                        View<span class="govuk-visually-hidden"> document</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
     </div>
 }
 

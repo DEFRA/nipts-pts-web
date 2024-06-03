@@ -63,9 +63,12 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         public void ApplicationCertificate_Returns_RedirectTo_ApplicationDetails()
         {
             // Arrange
+            var userId = Guid.NewGuid();
+            var applicationId = Guid.NewGuid();
             var applicationCertificate = new ApplicationCertificateDto()
             {
-                ApplicationId = Guid.NewGuid(),
+                ApplicationId = applicationId,
+                UserId = userId,
                 CertificateIssued = new CertificateIssuedDto() { DocumentReferenceNumber = "123" }
             };
             applicationCertificate.Status = "";
@@ -76,7 +79,9 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                      ApplicationCertificate = applicationCertificate
                  });
 
-            var result = _travelDocumentController.Object.ApplicationCertificate().Result as RedirectToActionResult;
+            _travelDocumentController.Setup(x => x.CurrentUserId()).Returns(userId);
+
+            var result = _travelDocumentController.Object.ApplicationCertificate(applicationId).Result as RedirectToActionResult;
 
             Assert.IsNotNull(result);
             Assert.AreEqual(nameof(TravelDocumentController.ApplicationDetails), result.ActionName);
@@ -86,9 +91,12 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         public void ApplicationCertificate_Returns_ViewResult()
         {
             // Arrange
+            var userId = Guid.NewGuid();
+            var applicationId = Guid.NewGuid();
             var applicationCertificate = new ApplicationCertificateDto()
             {
-                ApplicationId = Guid.NewGuid(),
+                ApplicationId = applicationId,
+                UserId = userId,
                 CertificateIssued = new CertificateIssuedDto() { DocumentReferenceNumber = "123" }
             };
             applicationCertificate.Status = AppConstants.ApplicationStatus.APPROVED;
@@ -100,9 +108,41 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                      ApplicationCertificate = applicationCertificate
                  });
 
-            var result = _travelDocumentController.Object.ApplicationCertificate().Result as ViewResult;
+            _travelDocumentController.Setup(x => x.CurrentUserId()).Returns(userId);
+
+            var result = _travelDocumentController.Object.ApplicationCertificate(applicationId).Result as ViewResult;
 
             Assert.IsNotNull(result);
+        }
+
+
+        [Test]
+        public void ApplicationCertificate_Returns_Error()
+        {
+            // Arrange
+            var userId = Guid.NewGuid();
+            var applicationId = Guid.NewGuid();
+            var applicationCertificate = new ApplicationCertificateDto()
+            {
+                ApplicationId = applicationId,
+                UserId = userId,
+                CertificateIssued = new CertificateIssuedDto() { DocumentReferenceNumber = "123" }
+            };
+            applicationCertificate.Status = AppConstants.ApplicationStatus.APPROVED;
+
+
+            _mockMediator.Setup(x => x.Send(It.IsAny<GetApplicationCertificateQueryRequest>(), CancellationToken.None))
+                 .ReturnsAsync(new GetApplicationCertificateQueryResponse
+                 {
+                     ApplicationCertificate = applicationCertificate
+                 });
+
+            // different UserId
+            _travelDocumentController.Setup(x => x.CurrentUserId()).Returns(Guid.NewGuid());
+
+            var result = _travelDocumentController.Object.ApplicationCertificate(applicationId).Result as ViewResult;
+
+            Assert.IsNull(result);
         }
 
 
