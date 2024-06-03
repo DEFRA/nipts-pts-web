@@ -81,7 +81,7 @@ namespace Defra.PTS.Web.UI.Configuration.Authentication
                 var response = await mediator.Send(new AddUserRequest(userInfo));
                 if (response.IsSuccess)
                 {
-                    identity?.AddClaim(new Claim(WebAppConstants.IdentityKeys.PTSUserId, response.UserId.ToString()));
+                    identity.AddClaim(new Claim(WebAppConstants.IdentityKeys.PTSUserId, response.UserId.ToString()));
                 }
             }
 
