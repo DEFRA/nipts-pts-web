@@ -46,10 +46,14 @@ public class MiscExtensionsTests
     public void StatusBasedDetailsUrlReturnsCorrectUrl(string status, string expectedUrl)
     {
         // Arrange
+        var id = Guid.NewGuid();
         var model = new ApplicationSummaryDto
         {
-            Status = status
+            Status = status,
+            ApplicationId = id,
         };
+
+        expectedUrl += $"/{id}";
 
         // Act
         var result = model.StatusBasedDetailsUrl();

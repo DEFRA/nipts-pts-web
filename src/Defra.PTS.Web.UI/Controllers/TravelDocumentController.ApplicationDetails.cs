@@ -13,22 +13,32 @@ namespace Defra.PTS.Web.UI.Controllers;
 public partial class TravelDocumentController : BaseTravelDocumentController
 {
     [HttpGet]
-    public async Task<IActionResult> ApplicationDetails()
+    public async Task<IActionResult> ApplicationDetails(Guid id)
     {
-        var applicationId =new Guid(HttpContext.Session.GetString("ApplicationId")) ;
         SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);
 
-        var response = await _mediator.Send(new GetApplicationDetailsQueryRequest(applicationId));
+        var response = await _mediator.Send(new GetApplicationDetailsQueryRequest(id));
+
+        var userId = CurrentUserId();
+        if (!response.ApplicationDetails.UserId.Equals(userId))
+        {
+            return RedirectToAction("HandleError", "Error", new { code = 404 });
+        }
+
         return View(response.ApplicationDetails);
     }
 
     [ExcludeFromCodeCoverage]
     [HttpGet]
-    public async Task<IActionResult> DownloadApplicationDetailsPdf()
+    public async Task<IActionResult> DownloadApplicationDetailsPdf(Guid id)
     {
-        var id = new Guid(HttpContext.Session.GetString("ApplicationId"));
+        var userId = CurrentUserId();
 
-        var response = await _mediator.Send(new GenerateApplicationPdfRequest(id));
+        var response = await _mediator.Send(new GenerateApplicationPdfRequest(id, userId));
+        if (response == null)
+        {
+            return new NotFoundObjectResult("Unable to download the PDF");
+        }
 
         var fileName = ApplicationHelper.BuildPdfDownloadFilename(id, PdfType.Application);
 

@@ -35,6 +35,11 @@ public class GenerateCertificatePdfHandler : IRequestHandler<GenerateCertificate
                 ApplicationCertificate = await _applicationService.GetApplicationCertificate(request.ApplicationId),
             };
 
+            if (!response.ApplicationCertificate.UserId.Equals(request.UserId))
+            {
+                return null;
+            }
+
             var model = new ApplicationCertificateViewModel
             {
                 Data = response.ApplicationCertificate

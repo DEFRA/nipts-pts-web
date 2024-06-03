@@ -35,6 +35,11 @@ public class GenerateApplicationPdfHandler : IRequestHandler<GenerateApplication
                 ApplicationDetails = await _applicationService.GetApplicationDetails(request.ApplicationId),
             };
 
+            if (!response.ApplicationDetails.UserId.Equals(request.UserId))
+            {
+                return null;
+            }
+
             var model = new ApplicationDetailsViewModel
             {
                 Data = response.ApplicationDetails

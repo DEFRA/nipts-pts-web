@@ -22,8 +22,8 @@
 
             @if (Model.ShowDownloadLink)
             {
-                var pdfAction = Model.PdfType == PdfType.Certificate ? "DownloadCertificatePdf" : "DownloadApplicationDetailsPdf";
                 var downloadFilename = ApplicationHelper.BuildPdfDownloadFilename(Model.Id, Model.PdfType);
+                var downloadUrl = ApplicationHelper.BuildPdfDownloadUrl(Model.Id, Model.PdfType);
 
                 <li>
                     <span class="hod-icons-download-button"></span>
@@ -31,7 +31,7 @@
                         <a aria-label="Download PDF"
                            class="govuk-link"
                            download="@downloadFilename"
-                           href="@Url.Action(pdfAction)">
+                           href="@downloadUrl">
                             Download PDF
                         </a>
                     </p>
