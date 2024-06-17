@@ -14,7 +14,7 @@ public abstract class BaseController : Controller
         ViewData.SetKeyValue(WebAppConstants.ViewKeys.BackUrl, string.IsNullOrWhiteSpace(backUrl) ? null : backUrl);
     }
 
-    protected Guid CurrentUserId()
+    public virtual Guid CurrentUserId()
     {
         if (GetHttpContext().User.Identity.IsAuthenticated)
         {

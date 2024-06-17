@@ -37,7 +37,7 @@ resources:
       ref: master
 
 variables:
-  APIName: Defra.PTS.Web.UI
+  APIName: DEFRA_nipts-pts-web
   UseProductionData: $[ne(variables['environment'], 'dev')]
 
 extends:

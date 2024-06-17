@@ -25,7 +25,7 @@ public class PetAgeValidator : AbstractValidator<PetAgeViewModel>
 
         When(x => x.BirthDate.HasValue, () =>
         {
-            RuleFor(x => x.BirthDate).Must(BePastDate).WithMessage("Date of birth must be in the past");
+            RuleFor(x => x.BirthDate).Must(BePastDate).WithMessage("The date you entered must be in the past");
             RuleFor(x => x.BirthDate).LessThan(m => m.MicrochippedDate).WithMessage("Date of birth must be older than microchip date");
 
             var message = $"Date of birth is not valid";
@@ -49,7 +49,7 @@ public class PetAgeValidator : AbstractValidator<PetAgeViewModel>
         var fromDate = DateTime.Now.Date.AddYears(-AppConstants.Values.PetMaxAgeInYears);
         var toDate = DateTime.Now.Date.AddDays(-1);
 
-        errorMessage = $"Date of birth must be on or after {fromDate.ToUKDateString()}";
+        errorMessage = "The date you entered is too far in the past, check your pet's date of birth again";
 
         var dob = date.Value.Date;
 

@@ -19,9 +19,9 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             return RedirectToAction(nameof(Index));
         }
 
-        SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);
-
         var formData = GetFormData(createIfNull: true);
+
+        SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);        
 
         if (!formData.DoesPageMeetPreConditions(formData.PetKeeperUserDetails.PageType, out string actionName))
         {

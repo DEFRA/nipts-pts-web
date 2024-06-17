@@ -1,11 +1,17 @@
 ﻿using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
+using Defra.PTS.Web.Application.Features.Users.Commands;
+using Defra.PTS.Web.UI.Constants;
+using Defra.PTS.Web.UI.Extensions;
 using Defra.PTS.Web.UI.Helpers;
+using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Caching;
+using System.Security.Claims;
 using static Defra.PTS.Web.UI.Constants.WebAppConstants;
 
 namespace Defra.PTS.Web.UI.Configuration.Authentication
@@ -13,7 +19,7 @@ namespace Defra.PTS.Web.UI.Configuration.Authentication
     [ExcludeFromCodeCoverage]
     public class OpenIdConnectB2CConfiguration
     {
-        
+
         public string CallbackPath { get; set; }
         public string ClientSecret { get; set; }
         public string Scope { get; set; }
@@ -61,12 +67,25 @@ namespace Defra.PTS.Web.UI.Configuration.Authentication
             ctx.HandleResponse();
         }
 
-        public Task HandleTicketReceived(TicketReceivedContext context)
-        {         
+        public async Task HandleTicketReceived(TicketReceivedContext context)
+        {
             var metadata = context.Properties;
             var accessTokenValue = metadata.GetTokenValue(Pages.User.AccessTokenKey);
             MemoryCache.Default[Pages.User.AccessTokenKey] = accessTokenValue;
-            return Task.CompletedTask;
+
+            if (context is { Principal.Identity: ClaimsIdentity identity })
+            {
+                var mediator = context.HttpContext.RequestServices.GetRequiredService<IMediator>();
+
+                var userInfo = identity.ToUserInfo();
+                var response = await mediator.Send(new AddUserRequest(userInfo));
+                if (response.IsSuccess)
+                {
+                    identity.AddClaim(new Claim(WebAppConstants.IdentityKeys.PTSUserId, response.UserId.ToString()));
+                }
+            }
+
+            await Task.CompletedTask;
         }
 
     }

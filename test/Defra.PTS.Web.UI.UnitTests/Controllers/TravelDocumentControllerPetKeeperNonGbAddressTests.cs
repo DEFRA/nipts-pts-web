@@ -117,7 +117,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                  .Returns(formData);
 
             // Act
-            var result = _travelDocumentController.Object.PetKeeperNonGbAddressAsync().Result as ViewResult;
+            var result = _travelDocumentController.Object.PetKeeperNonGbAddressAsync().Result as RedirectToActionResult;
 
             // Assert
             Assert.IsNotNull(result);
