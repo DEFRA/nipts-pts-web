@@ -6,8 +6,6 @@ public abstract class TravelDocumentFormPage
 {
     public bool IsCompleted { get; set; }
 
-    public string Locale { get; set; } = "cy";
-
     public abstract void TrimUnwantedData();
 
     public abstract void ClearData();
