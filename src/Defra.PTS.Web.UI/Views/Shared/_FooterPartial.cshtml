@@ -1,4 +1,9 @@
 ﻿@using Defra.PTS.Web.UI.Constants;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor context
+
+@{
+    var locale = context.HttpContext.Request.Cookies["locale"];
+}
 
 <footer class="govuk-footer rtwr-footer" role="contentinfo">
     <div class="govuk-width-container">
@@ -22,11 +27,23 @@
                         </a>
                     </li>
 
-                    <li class="govuk-footer__inline-list-item">
-                        <a class="govuk-footer__link" href="#">
-                            Cymraeg
-                        </a>
-                    </li>
+                    @if(locale != "cy")
+                    {
+                        <li class="govuk-footer__inline-list-item">
+                            <a class="govuk-footer__link" href="" id="localeCy">
+                                Cymraeg
+                            </a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="govuk-footer__inline-list-item">
+                            <a class="govuk-footer__link" href="" id="localeEn">
+                                English
+                            </a>
+                        </li>
+                    }
+
 
                     <li class="govuk-footer__inline-list-item">
                         <a class="govuk-footer__link" href="@WebAppConstants.ExternalLinks.PrivacyNotice" rel="noopener noreferrer">

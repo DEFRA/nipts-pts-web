@@ -1,5 +1,5 @@
 ﻿@model PetKeeperUserDetailsViewModel
-
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor context
 @using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 @using Defra.PTS.Web.Domain.Enums;
 @using Defra.PTS.Web.Domain.ViewModels;
@@ -7,13 +7,26 @@
 @using Defra.PTS.Web.UI.Extensions;
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.PetKeeperUserDetailsFormTitle, LabelFor = "Yes" };
-    this.SetMetaTitle(Model.PetKeeperUserDetailsFormTitle);
+    var locale = context.HttpContext.Request.Cookies["locale"];
 }
+
+@{
+    var title = "";
+    if(locale != "cy")
+    {
+        title = Model.PetKeeperUserDetailsFormTitle;
+    }
+    else
+    {
+        title = "Ydy’ch manylion chi’n gywir?";
+    }
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = title, LabelFor = "Yes" };
+    this.SetMetaTitle(title);
+}
+
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
-
 
         @using (Html.BeginForm("PetKeeperUserDetails", "TravelDocument", FormMethod.Post, new { @class = "form PetKeeperUserDetails" }))
         {
@@ -26,71 +39,141 @@
             @Html.HiddenFor(x => x.TownOrCity)
             @Html.HiddenFor(x => x.Postcode)
             @Html.HiddenFor(x => x.PostcodeRegion)
+            @if(locale != "cy")
+            {
+                <partial name="_ErrorSummary" />
 
-            <partial name="_ErrorSummary" />
+                <div id="formroot" class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
 
-            <div id="formroot" class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+                    <fieldset class="govuk-fieldset">
 
-                <fieldset class="govuk-fieldset">
+                        <partial name="_FieldsetLegend" model=fieldsetLegend />
 
-                    <partial name="_FieldsetLegend" model=fieldsetLegend />
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Name</dt>
+                                <dd class="govuk-summary-list__value">@Model.Name</dd>
 
-                    <dl class="govuk-summary-list">
-                        <div class="govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">Name</dt>
-                            <dd class="govuk-summary-list__value">@Model.Name</dd>
-
-                        </div>
-                        <div class="govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">Email</dt>
-                            <dd class="govuk-summary-list__value">@Model.Email</dd>
-
-                        </div>
-                        <div class="govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">
-                                Address
-                            </dt>
-                            <dd class="govuk-summary-list__value">
-                                @Model.AddressLineOne<br />
-                                @Model.TownOrCity<br />
-                                @Model.Postcode
-                            </dd>
-
-                        </div>
-                        <div class="govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">Phone number</dt>
-                            <dd class="govuk-summary-list__value">@Model.Phone</dd>
-
-                        </div>
-                    </dl>
-
-                    @Html.ValidationMessageFor(x => x.UserDetailsAreCorrect, string.Empty, new { @class="govuk-error-message"})
-
-                    <div class="govuk-form-group">
-                        <div class="govuk-radios" data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                @Html.RadioButtonFor(m => m.UserDetailsAreCorrect, YesNoOptions.Yes, new { @class = "govuk-radios__input", id = "Yes" })
-                                <label class="govuk-label govuk-radios__label" for="Yes">
-                                    Yes
-                                </label>
                             </div>
-                            <div class="govuk-radios__item">
-                                @Html.RadioButtonFor(m => m.UserDetailsAreCorrect, YesNoOptions.No, new { @class = "govuk-radios__input", id = "No" })
-                                <label class="govuk-label govuk-radios__label" for="No">
-                                    No
-                                </label>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Email</dt>
+                                <dd class="govuk-summary-list__value">@Model.Email</dd>
+
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    Address
+                                </dt>
+                                <dd class="govuk-summary-list__value">
+                                    @Model.AddressLineOne<br />
+                                    @Model.TownOrCity<br />
+                                    @Model.Postcode
+                                </dd>
+
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Phone number</dt>
+                                <dd class="govuk-summary-list__value">@Model.Phone</dd>
+
+                            </div>
+                        </dl>
+
+                        @Html.ValidationMessageFor(x => x.UserDetailsAreCorrect, string.Empty, new { @class = "govuk-error-message" })
+
+                        <div class="govuk-form-group">
+                            <div class="govuk-radios" data-module="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    @Html.RadioButtonFor(m => m.UserDetailsAreCorrect, YesNoOptions.Yes, new { @class = "govuk-radios__input", id = "Yes" })
+                                    <label class="govuk-label govuk-radios__label" for="Yes">
+                                        Yes
+                                    </label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    @Html.RadioButtonFor(m => m.UserDetailsAreCorrect, YesNoOptions.No, new { @class = "govuk-radios__input", id = "No" })
+                                    <label class="govuk-label govuk-radios__label" for="No">
+                                        No
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                </fieldset>
-            </div>
+                    </fieldset>
+                </div>
 
-            <div class="govuk-form-group">
-                <button class="govuk-button" data-module="govuk-button" type="submit">
-                    Continue
-                </button>
-            </div>
+                <div class="govuk-form-group">
+                    <button class="govuk-button" data-module="govuk-button" type="submit">
+                        Continue
+                    </button>
+                </div>
+            }
+            else
+            {
+                <partial name="_ErrorSummary" />
+
+                <div id="formroot" class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+
+                    <fieldset class="govuk-fieldset">
+
+                        <partial name="_FieldsetLegend" model=fieldsetLegend />
+
+                        <dl class="govuk-summary-list">
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Enw</dt>
+                                <dd class="govuk-summary-list__value">@Model.Name</dd>
+
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Ebost</dt>
+                                <dd class="govuk-summary-list__value">@Model.Email</dd>
+
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">
+                                    Cyfeiriad
+                                </dt>
+                                <dd class="govuk-summary-list__value">
+                                    @Model.AddressLineOne<br />
+                                    @Model.TownOrCity<br />
+                                    @Model.Postcode
+                                </dd>
+
+                            </div>
+                            <div class="govuk-summary-list__row">
+                                <dt class="govuk-summary-list__key">Rhif ffôn</dt>
+                                <dd class="govuk-summary-list__value">@Model.Phone</dd>
+
+                            </div>
+                        </dl>
+
+                        @Html.ValidationMessageFor(x => x.UserDetailsAreCorrect, string.Empty, new { @class = "govuk-error-message" })
+
+                        <div class="govuk-form-group">
+                            <div class="govuk-radios" data-module="govuk-radios">
+                                <div class="govuk-radios__item">
+                                    @Html.RadioButtonFor(m => m.UserDetailsAreCorrect, YesNoOptions.Yes, new { @class = "govuk-radios__input", id = "Yes" })
+                                    <label class="govuk-label govuk-radios__label" for="Yes">
+                                        Ydyn
+                                    </label>
+                                </div>
+                                <div class="govuk-radios__item">
+                                    @Html.RadioButtonFor(m => m.UserDetailsAreCorrect, YesNoOptions.No, new { @class = "govuk-radios__input", id = "No" })
+                                    <label class="govuk-label govuk-radios__label" for="No">
+                                        Nac ydyn
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </div>
+
+                <div class="govuk-form-group">
+                    <button class="govuk-button" data-module="govuk-button" type="submit">
+                        Parhau
+                    </button>
+                </div>
+            }
+
         }
 
     </div>
