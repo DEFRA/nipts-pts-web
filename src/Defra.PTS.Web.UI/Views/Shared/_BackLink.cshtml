@@ -1,10 +1,25 @@
 ﻿@using Defra.PTS.Web.UI.Constants;
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor context
+
+@{
+    var locale = context.HttpContext.Request.Cookies["locale"];
+    var backWording = "";
+    if (locale != "cy")
+    {
+        backWording = "back";
+    }
+    else
+    {
+        backWording = "Yn ôl";
+    }
+}
+
 @{
     string backUrl = (ViewData[WebAppConstants.ViewKeys.BackUrl] ?? string.Empty) as string;
 
     if (!string.IsNullOrWhiteSpace(backUrl))
     {
-        <a href="@backUrl" class="govuk-back-link pet-travel-back-link">Back</a>
+        <a href="@backUrl" class="govuk-back-link pet-travel-back-link">@backWording</a>
         //<a href="@AppConstants.HistoryBack" class="govuk-back-link pet-travel-back-link">Back</a>
     }
 }

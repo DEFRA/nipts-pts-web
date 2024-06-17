@@ -174,3 +174,28 @@ function initializeNumberOnlyFields() {
         }
     });
 }
+
+//locale
+function setLocaleEn() {
+    var name = "locale";
+    var value = "en";
+    var now = new Date();
+    now.setTime(now.getTime + (1 * 60 * 60 * 1000));
+    document.cookie = name + "=" + value + ";expires " + now.toUTCString() + ";path=/";
+}
+
+function setLocaleCy() {
+    var name = "locale";
+    var value = "cy";
+    var now = new Date();
+    now.setTime(now.getTime + (1 * 60 * 60 * 1000));
+    document.cookie = name + "=" + value + ";expires " + now.toUTCString() + ";path=/";
+}
+
+$("#localeEn").on("click", function () {
+    setLocaleEn();
+});
+
+$("#localeCy").on("click", function () {
+    setLocaleCy();
+});
