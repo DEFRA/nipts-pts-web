@@ -13,19 +13,6 @@ public abstract class BaseController : Controller
 {
     public abstract HttpContext GetHttpContext();
 
-    public override void OnActionExecuting(ActionExecutingContext filterContext)
-    {
-        var locale = HttpContext.Request.Cookies["locale"];
-
-        base.OnActionExecuting(filterContext);
-        if(locale != null)
-        {
-            var cultureInfo = CultureInfo.GetCultureInfo(locale);
-            Thread.CurrentThread.CurrentCulture = cultureInfo;
-            Thread.CurrentThread.CurrentUICulture = cultureInfo;
-        }
-    }
-
     protected void SetBackUrl(string backUrl)
     {
         ViewData.SetKeyValue(WebAppConstants.ViewKeys.BackUrl, string.IsNullOrWhiteSpace(backUrl) ? null : backUrl);

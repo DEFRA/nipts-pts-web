@@ -53,13 +53,4 @@
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
   </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Update="Resources\Resource.en-GB.resx">
-      <SubType>Designer</SubType>
-      <LastGenOutput>Resource.en-GB.Designer.cs</LastGenOutput>
-      <Generator>ResXFileCodeGenerator</Generator>
-    </EmbeddedResource>
-  </ItemGroup>
-
 </Project>

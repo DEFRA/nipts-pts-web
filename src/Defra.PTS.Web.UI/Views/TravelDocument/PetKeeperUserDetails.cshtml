@@ -1,5 +1,4 @@
 ﻿@model PetKeeperUserDetailsViewModel
-@inject Microsoft.AspNetCore.Http.IHttpContextAccessor context
 @using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 @using Defra.PTS.Web.Domain.Enums;
 @using Defra.PTS.Web.Domain.ViewModels;
@@ -7,23 +6,10 @@
 @using Defra.PTS.Web.UI.Extensions;
 
 @{
-    var locale = context.HttpContext.Request.Cookies["locale"];
-}
-
-@{
-    var title = "";
-    if(locale != "cy")
-    {
-        title = Model.PetKeeperUserDetailsFormTitle;
-    }
-    else
-    {
-        title = "Ydy’ch manylion chi’n gywir?";
-    }
+    string title = Thread.CurrentThread.CurrentCulture.EnglishName != "Welsh" ? Model.PetKeeperUserDetailsFormTitle : "Ydy’ch manylion chi’n gywir?";
     var fieldsetLegend = new FieldsetLegendViewModel { Label = title, LabelFor = "Yes" };
     this.SetMetaTitle(title);
 }
-
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
@@ -39,7 +25,7 @@
             @Html.HiddenFor(x => x.TownOrCity)
             @Html.HiddenFor(x => x.Postcode)
             @Html.HiddenFor(x => x.PostcodeRegion)
-            @if(locale != "cy")
+            @if (Thread.CurrentThread.CurrentCulture.EnglishName != "Welsh")
             {
                 <partial name="_ErrorSummary" />
 
