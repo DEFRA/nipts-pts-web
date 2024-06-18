@@ -14,15 +14,15 @@
     {
         { "en-SignOut", "Sign out" },
         { "cy-SignOut", "Allgofnodi" },
-        { "en-TravelDocuments", "Lifelong pet travel documents" },
-        { "cy-TravelDocuments", "Dogfennau teithio anifeiliaid anwes gydol oes" },
-        { "en-ManageAccount", "Manage Account" },
-        { "cy-ManageAccount", "Rheoli Cyfrif" }
+        // { "en-TravelDocuments", "Lifelong pet travel documents" },
+        // { "cy-TravelDocuments", "Dogfennau teithio anifeiliaid anwes gydol oes" },
+        // { "en-ManageAccount", "Manage Account" },
+        // { "cy-ManageAccount", "Rheoli Cyfrif" }
     };
 
     var signOutText = translations[$"{locale}-SignOut"];
-    var travelDocumentsText = translations[$"{locale}-TravelDocuments"];
-    var manageAccountText = translations[$"{locale}-ManageAccount"];
+    //var travelDocumentsText = translations[$"{locale}-TravelDocuments"];
+    //var manageAccountText = translations[$"{locale}-ManageAccount"];
 }
 
 <div class="login-nav govuk-!-display-none-print">
@@ -39,17 +39,19 @@
 
         <li class="login-nav__list-item">
             <a href="@WebAppConstants.Pages.TravelDocument.Index" class="govuk-link login-nav__link govuk-link--no-visited-state profile">
-                @travelDocumentsText
+                Lifelong pet travel documents
             </a>@conditionalSeparator
         </li>
+
 
         @if (isAuthenticated)
         {
             <li class="login-nav__list-item">
                 <a href="@WebAppConstants.Pages.User.ManageAccount" class="govuk-link login-nav__link govuk-link--no-visited-state profile">
-                    @manageAccountText
+                    Manage Account
                 </a>@separator
             </li>
+
 
             <li class="login-nav__list-item">
                 <a href="@WebAppConstants.Pages.User.SignOut" class="govuk-link login-nav__link govuk-link--no-visited-state">
