@@ -1,11 +1,4 @@
-﻿@using Defra.PTS.Web.UI.Constants
-@inject Microsoft.AspNetCore.Http.IHttpContextAccessor context
-
-@{
-    var locale = context.HttpContext.Request.Cookies["locale"] ?? "en";
-    ViewData["Language"] = locale;
-    var toggleButtonText = (locale == "en") ? "Cymraeg" : "English";
-}
+﻿@using Defra.PTS.Web.UI.Constants;
 
 <footer class="govuk-footer rtwr-footer" role="contentinfo">
     <div class="govuk-width-container">
@@ -30,8 +23,8 @@
                     </li>
 
                     <li class="govuk-footer__inline-list-item">
-                        <a class="govuk-footer__link" onclick="toggleLanguage()">
-                            <span data-lang="@locale">@toggleButtonText</span>
+                        <a class="govuk-footer__link" href="#">
+                            Cymraeg
                         </a>
                     </li>
 
@@ -77,15 +70,3 @@
         </div>
     </div>
 </footer>
-
-<!-- Language toggle script -->
-<script>
-    function toggleLanguage() {
-        const currentLang = '@locale';
-        const newLang = currentLang === 'en' ? 'cy' : 'en';
-
-        document.cookie = `locale=${newLang}; path=/;`;
-
-        location.reload();
-    }
-</script>

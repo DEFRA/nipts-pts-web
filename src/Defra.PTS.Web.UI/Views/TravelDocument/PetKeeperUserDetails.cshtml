@@ -1,20 +1,20 @@
 ﻿@model PetKeeperUserDetailsViewModel
-@inject Microsoft.AspNetCore.Http.IHttpContextAccessor context
 
-@using Defra.PTS.Web.Domain.ViewModels.TravelDocument
-@using Defra.PTS.Web.Domain.Enums
-@using Defra.PTS.Web.Domain.ViewModels
-@using Defra.PTS.Web.UI.Constants
-@using Defra.PTS.Web.UI.Extensions
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.Domain.Enums;
+@using Defra.PTS.Web.Domain.ViewModels;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
 
 @{
     var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.PetKeeperUserDetailsFormTitle, LabelFor = "Yes" };
     this.SetMetaTitle(Model.PetKeeperUserDetailsFormTitle);
-    var locale = context.HttpContext.Request.Cookies["locale"];
 }
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
+
+
         @using (Html.BeginForm("PetKeeperUserDetails", "TravelDocument", FormMethod.Post, new { @class = "form PetKeeperUserDetails" }))
         {
             @Html.AntiForgeryToken()
@@ -30,59 +30,41 @@
             <partial name="_ErrorSummary" />
 
             <div id="formroot" class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+
                 <fieldset class="govuk-fieldset">
+
                     <partial name="_FieldsetLegend" model=fieldsetLegend />
 
                     <dl class="govuk-summary-list">
-                        @if (locale == "cy")
-                        {
-                            <div class="govuk-summary-list__row">
-                                <dt class="govuk-summary-list__key">Enw</dt>
-                                <dd class="govuk-summary-list__value">@Model.Name</dd>
-                            </div>
-                            <div class="govuk-summary-list__row">
-                                <dt class="govuk-summary-list__key">E-bost</dt>
-                                <dd class="govuk-summary-list__value">@Model.Email</dd>
-                            </div>
-                            <div class="govuk-summary-list__row">
-                                <dt class="govuk-summary-list__key">Cyfeiriad</dt>
-                                <dd class="govuk-summary-list__value">
-                                    @Model.AddressLineOne<br />
-                                    @Model.TownOrCity<br />
-                                    @Model.Postcode
-                                </dd>
-                            </div>
-                            <div class="govuk-summary-list__row">
-                                <dt class="govuk-summary-list__key">Rhif ffôn</dt>
-                                <dd class="govuk-summary-list__value">@Model.Phone</dd>
-                            </div>
-                        }
-                        else
-                        {
-                            <div class="govuk-summary-list__row">
-                                <dt class="govuk-summary-list__key">Name</dt>
-                                <dd class="govuk-summary-list__value">@Model.Name</dd>
-                            </div>
-                            <div class="govuk-summary-list__row">
-                                <dt class="govuk-summary-list__key">Email</dt>
-                                <dd class="govuk-summary-list__value">@Model.Email</dd>
-                            </div>
-                            <div class="govuk-summary-list__row">
-                                <dt class="govuk-summary-list__key">Address</dt>
-                                <dd class="govuk-summary-list__value">
-                                    @Model.AddressLineOne<br />
-                                    @Model.TownOrCity<br />
-                                    @Model.Postcode
-                                </dd>
-                            </div>
-                            <div class="govuk-summary-list__row">
-                                <dt class="govuk-summary-list__key">Phone number</dt>
-                                <dd class="govuk-summary-list__value">@Model.Phone</dd>
-                            </div>
-                        }
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">Name</dt>
+                            <dd class="govuk-summary-list__value">@Model.Name</dd>
+
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">Email</dt>
+                            <dd class="govuk-summary-list__value">@Model.Email</dd>
+
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                Address
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                @Model.AddressLineOne<br />
+                                @Model.TownOrCity<br />
+                                @Model.Postcode
+                            </dd>
+
+                        </div>
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">Phone number</dt>
+                            <dd class="govuk-summary-list__value">@Model.Phone</dd>
+
+                        </div>
                     </dl>
 
-                    @Html.ValidationMessageFor(x => x.UserDetailsAreCorrect, string.Empty, new { @class = "govuk-error-message" })
+                    @Html.ValidationMessageFor(x => x.UserDetailsAreCorrect, string.Empty, new { @class="govuk-error-message"})
 
                     <div class="govuk-form-group">
                         <div class="govuk-radios" data-module="govuk-radios">
@@ -101,14 +83,21 @@
                         </div>
                     </div>
 
-                    <button class="govuk-button" data-module="govuk-button" type="submit">Continue</button>
                 </fieldset>
             </div>
+
+            <div class="govuk-form-group">
+                <button class="govuk-button" data-module="govuk-button" type="submit">
+                    Continue
+                </button>
+            </div>
         }
+
     </div>
 </div>
 
-@section Scripts {
+@section Scripts
+    {
     <script>
         $(document).ready(function () {
             $(".govuk-radios__input").click(function () {
@@ -116,6 +105,6 @@
                 $('.govuk-error-message').hide();
                 $('#formroot').removeClass("govuk-form-group--error");
             });
-        });
+        })
     </script>
 }
