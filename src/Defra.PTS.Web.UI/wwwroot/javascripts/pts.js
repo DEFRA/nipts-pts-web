@@ -177,16 +177,16 @@ function initializeNumberOnlyFields() {
 
 //locale
 function setLocaleEn() {
-    var name = "locale";
-    var value = "en";
+    var name = ".AspNetCore.Culture";
+    var value = "c=en-GB|uic=en-GB";
     var now = new Date();
     now.setTime(now.getTime + (1 * 60 * 60 * 1000));
     document.cookie = name + "=" + value + ";expires " + now.toUTCString() + ";path=/";
 }
 
 function setLocaleCy() {
-    var name = "locale";
-    var value = "cy";
+    var name = ".AspNetCore.Culture";
+    var value = "c=cy|uic=cy";
     var now = new Date();
     now.setTime(now.getTime + (1 * 60 * 60 * 1000));
     document.cookie = name + "=" + value + ";expires " + now.toUTCString() + ";path=/";

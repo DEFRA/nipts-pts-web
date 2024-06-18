@@ -1,10 +1,8 @@
 ﻿@using Defra.PTS.Web.UI.Constants;
-@inject Microsoft.AspNetCore.Http.IHttpContextAccessor context
 
 @{
-    var locale = context.HttpContext.Request.Cookies["locale"];
     var backWording = "";
-    if (locale != "cy")
+    if (Thread.CurrentThread.CurrentCulture.EnglishName != "Welsh")
     {
         backWording = "back";
     }
