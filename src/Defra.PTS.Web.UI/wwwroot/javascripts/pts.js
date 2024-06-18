@@ -178,7 +178,7 @@ function initializeNumberOnlyFields() {
 //locale
 function setLocaleEn() {
     var name = "locale";
-    var value = "en";
+    var value = "en-GB";
     var now = new Date();
     now.setTime(now.getTime + (1 * 60 * 60 * 1000));
     document.cookie = name + "=" + value + ";expires " + now.toUTCString() + ";path=/";

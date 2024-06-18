@@ -36,6 +36,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Resources\Resource.en-GB.Designer.cs">
+      <DependentUpon>Resource.en-GB.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="Views\TravelDocument\Components\MicrochipInformationCard\Default.cshtml">
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
@@ -44,6 +52,14 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\Resource.en-GB.resx">
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resource.en-GB.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
