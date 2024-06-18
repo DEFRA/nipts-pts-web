@@ -9,7 +9,7 @@
     var conditionalSeparator = isAuthenticated ? "|" : string.Empty;
     var fullName = Context.Session.GetString("FullName");
 
-    var locale = HttpContextAccessor.HttpContext.Request.Cookies["locale"] ?? "en";
+    var locale = HttpContextAccessor.HttpContext.Request.Cookies["locale"] ?? "en-GB";
     var translations = new Dictionary<string, string>
     {
         { "en-SignOut", "Sign out" },
