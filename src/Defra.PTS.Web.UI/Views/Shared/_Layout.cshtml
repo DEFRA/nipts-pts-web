@@ -1,6 +1,14 @@
-﻿@using Defra.PTS.Web.UI.Constants;
+﻿@using Defra.PTS.Web.UI.Constants
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor context
+
+@{
+    var locale = context.HttpContext.Request.Cookies["locale"] ?? "en";
+    var toggleButtonText = (locale == "en") ? "Cymraeg" : "English";
+}
+
 <!DOCTYPE html>
 <html lang="en" class="govuk-template">
+
 <head>
     <meta charset="utf-8">
     <title>@ViewData[WebAppConstants.ViewKeys.Title] - @WebAppConstants.ServiceName</title>
@@ -28,12 +36,9 @@
 
     <partial name=@WebAppConstants.PartialViews.Header />
 
-    <div class="govuk-width-container ">
-
+    <div class="govuk-width-container">
         <partial name=@WebAppConstants.PartialViews.BetaPanel />
-
         <partial name=@WebAppConstants.PartialViews.Navigation />
-
         <partial name=@WebAppConstants.PartialViews.BackLink />
 
         <main class="govuk-main-wrapper pet-main @ViewData["MainCssClass"]" id="main-content" role="main">
@@ -42,8 +47,19 @@
     </div>
 
     <partial name=@WebAppConstants.PartialViews.NeedHelp />
-
     <partial name=@WebAppConstants.PartialViews.Footer />
+
+    <!-- Language toggle script -->
+    <script>
+        function toggleLanguage() {
+            const currentLang = '@locale';
+            const newLang = currentLang === 'cy' ? 'en' : 'cy';
+
+            document.cookie = `locale=${newLang}; path=/;`;
+
+            location.reload();
+        }
+    </script>
 
     <script type="module" src="~/javascripts/govuk-frontend.min.js"></script>
     <script type="module">
