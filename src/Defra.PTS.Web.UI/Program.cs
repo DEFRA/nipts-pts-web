@@ -7,6 +7,7 @@ using Defra.PTS.Web.UI.Configuration.Startup;
 using Defra.Trade.Common.Api.Infrastructure;
 using Defra.Trade.Common.AppConfig;
 using Defra.Trade.Common.Security.Authentication.Infrastructure;
+using System.Globalization;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -84,12 +85,29 @@ _ = app.Use(async (context, next) =>
 });
 _ = app.UseHttpsRedirection();
 _ = app.UseCookiePolicy();
+var supportedCultures = new[]
+{
+    new CultureInfo("en-GB"),
+    new CultureInfo("cy")
+};
+
+app.UseRequestLocalization(options =>
+{
+    var questStringCultureProvider = options.RequestCultureProviders[0];
+    options.RequestCultureProviders.RemoveAt(0);
+    options.RequestCultureProviders.Insert(1, questStringCultureProvider);
+    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-GB");
+    options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
+    options.ApplyCurrentCultureToResponseHeaders = true;
+});
+
+
 _ = app.UseStaticFiles(new StaticFileOptions
 {
     ServeUnknownFileTypes = true,
 });
 
-_ = app.UseRequestLocalization();
 _ = app.UseSession();
 _ = app.UseStatusCodePagesWithReExecute("/Error/HandleError/{0}");
 _ = app.UseRouting();
