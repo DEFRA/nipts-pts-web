@@ -4,6 +4,9 @@ using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation.TestHelper;
 using MediatR;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -15,6 +18,14 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 {
     public class PetKeeperPostcodeValidatorShould
     {
+        private readonly IStringLocalizer<PetKeeperPostcodeViewModel> _localizer;
+        public PetKeeperPostcodeValidatorShould()
+        {
+            var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
+            var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
+            _localizer = new StringLocalizer<PetKeeperPostcodeViewModel>(factory);
+        }
+
         [Fact]
         public async Task NotHaveErrorPostCode()
         {
@@ -23,10 +34,10 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
                 Postcode = "SW1A 2AA"
             };
             var mockMediator = new Mock<IMediator>();
-            mockMediator.Setup(x => x.Send(It.IsAny<ValidateGreatBritianAddressRequest>(), It.IsAny<CancellationToken>()))
-                .Returns(Task.FromResult(true));                
-
-            var validator = new PetKeeperPostcodeValidator(mockMediator.Object);
+            mockMediator
+                .Setup(x => x.Send(It.IsAny<ValidateGreatBritianAddressRequest>(), It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult(true));
+            var validator = new PetKeeperPostcodeValidator(mockMediator.Object, _localizer);
 
             var result = await validator.TestValidateAsync(model);
 
@@ -42,10 +53,10 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
                 Postcode = postcode                
             };
             var mockMediator = new Mock<IMediator>();
-            mockMediator.Setup(x => x.Send(It.IsAny<ValidateGreatBritianAddressRequest>(), It.IsAny<CancellationToken>()))
+            mockMediator
+                .Setup(x => x.Send(It.IsAny<ValidateGreatBritianAddressRequest>(), It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult(false));
-
-            var validator = new PetKeeperPostcodeValidator(mockMediator.Object);
+            var validator = new PetKeeperPostcodeValidator(mockMediator.Object, _localizer);
 
             var result = await validator.TestValidateAsync(model);            
 
