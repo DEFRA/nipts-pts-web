@@ -37,6 +37,7 @@
                     Manage Account
                 </a>@separator
             </li>
+
             <li class="login-nav__list-item">
                 <a href="@WebAppConstants.Pages.User.SignOut" class="govuk-link login-nav__link govuk-link--no-visited-state">
                     @signOutText
@@ -51,8 +52,14 @@
     <script>
         $(document).ready(function () {
             if (!Cookies.get("locale")) {
-            Cookies.set("locale", "en-GB", { expires: 365, path: "/" });
+                Cookies.set("locale", "en-GB");
             }
+
+            $(".govuk-radios__input").click(function () {
+                $('.govuk-error-summary').hide();
+                $('.govuk-error-message').hide();
+                $('#formroot').removeClass("govuk-form-group--error");
+            });
         });
     </script>
 }
