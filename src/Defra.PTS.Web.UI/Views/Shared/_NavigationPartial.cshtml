@@ -9,14 +9,7 @@
     var conditionalSeparator = isAuthenticated ? "|" : string.Empty;
     var fullName = Context.Session.GetString("FullName");
 
-    var locale = HttpContextAccessor.HttpContext.Request.Cookies["locale"] ?? "en-GB";
-    var translations = new Dictionary<string, string>
-    {
-        { "en-GB-SignOut", "Sign out" },
-        { "cy-SignOut", "Allgofnodi" },
-    };
-
-    var signOutText = translations[$"{locale}-SignOut"];
+    var signOutText = Thread.CurrentThread.CurrentCulture.EnglishName != "Welsh" ? "Sign out" : "Allgofnodi";
 }
 
 <div class="login-nav govuk-!-display-none-print">
@@ -37,7 +30,6 @@
             </a>@conditionalSeparator
         </li>
 
-
         @if (isAuthenticated)
         {
             <li class="login-nav__list-item">
@@ -45,14 +37,22 @@
                     Manage Account
                 </a>@separator
             </li>
-
-
             <li class="login-nav__list-item">
                 <a href="@WebAppConstants.Pages.User.SignOut" class="govuk-link login-nav__link govuk-link--no-visited-state">
                     @signOutText
                 </a>
             </li>
         }
-
     </ul>
 </div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            if (!Cookies.get("locale")) {
+            Cookies.set("locale", "en-GB", { expires: 365, path: "/" });
+            }
+        });
+    </script>
+}

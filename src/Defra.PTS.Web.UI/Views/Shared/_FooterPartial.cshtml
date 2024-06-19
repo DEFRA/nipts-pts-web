@@ -30,7 +30,7 @@
                     @if(Thread.CurrentThread.CurrentCulture.EnglishName != "Welsh")
                     {
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="#" id="localeCy" onclick="changeLanguage('cy')">
+                            <a class="govuk-footer__link" href="#" id="localeCy">
                                 Cymraeg
                             </a>
                         </li>
@@ -38,7 +38,7 @@
                     else
                     {
                         <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="#" id="localeEn" onclick="changeLanguage('en-GB')">
+                            <a class="govuk-footer__link" href="#" id="localeEn">
                                 English
                             </a>
                         </li>
@@ -87,9 +87,3 @@
     </div>
 </footer>
 
-<script>
-    function changeLanguage(locale) {
-        document.cookie = `locale=${locale}; path=/;`;
-        location.reload();
-    }
-</script>
