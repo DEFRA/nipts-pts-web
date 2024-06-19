@@ -26,7 +26,7 @@ public class PetKeeperAddressManualValidator : AbstractValidator<PetKeeperAddres
         RuleFor(x => x.Postcode).NotEmpty().WithMessage(x => $"Enter postcode");
         When(x => !string.IsNullOrWhiteSpace(x.Postcode), () =>
         {
-            RuleFor(x => x.Postcode).Matches(AppConstants.RegularExpressions.UKPostcode).WithMessage("Postcode is not valid");
+            RuleFor(x => x.Postcode).Matches(AppConstants.RegularExpressions.UKPostcode).WithMessage("Enter a full postcode in the correct format, for example TF7 5AY or TF75AY");
             RuleFor(x => x.Postcode).MaximumLength(AppConstants.MaxLength.Postcode).WithMessage($"Postcode must be {AppConstants.MaxLength.Postcode} characters or less");
             When(x => x.PostcodeStartsWithNonGBPrefix(), () =>
             {
