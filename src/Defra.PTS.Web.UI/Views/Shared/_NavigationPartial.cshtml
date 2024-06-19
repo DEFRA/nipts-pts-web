@@ -6,6 +6,7 @@
     var separator = "|";
     var conditionalSeparator = isAuthenticated ? "|" : string.Empty;
     var fullName = Context.Session.GetString("FullName");
+    var signoutText = Thread.CurrentThread.CurrentCulture.EnglishName != "Welsh" ? "Sign Out" : "Allgofnodi";
 }
 
 <div class="login-nav govuk-!-display-none-print">
@@ -36,7 +37,7 @@
 
             <li class="login-nav__list-item">
                 <a href="@WebAppConstants.Pages.User.SignOut" class="govuk-link login-nav__link govuk-link--no-visited-state">
-                    Sign out
+                    @signoutText
                 </a>
             </li>
 
