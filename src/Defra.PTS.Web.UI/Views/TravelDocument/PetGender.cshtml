@@ -4,10 +4,12 @@
 @using Defra.PTS.Web.Domain.ViewModels;
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer Localizer
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Female" };
-    this.SetMetaTitle(Model.FormTitle);
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = @Localizer["What sex is your pet?"].Value, LabelFor = "Female" };
+    this.SetMetaTitle(@Localizer["What sex is your pet?"].Value);
 }
 
 <div class="govuk-grid-row">
@@ -26,20 +28,20 @@
 
                     <partial name="_FieldsetLegend" model=fieldsetLegend />
 
-                    @Html.ValidationMessageFor(x => x.Gender, string.Empty, new { @class="govuk-error-message"})
+                    @Html.ValidationMessageFor(x => x.Gender, string.Empty, new { @class = "govuk-error-message" })
 
                     <div class="govuk-form-group" id="Gender">
                         <div class="govuk-radios" data-module="govuk-radios">
                             <div class="govuk-radios__item">
-                                @Html.RadioButtonFor(m => m.Gender, PetGender.Female, new {@class="govuk-radios__input", id="Female", data_aria_controls="conditional-MicrochipNumber"})
+                                @Html.RadioButtonFor(m => m.Gender, PetGender.Female, new { @class = "govuk-radios__input", id = "Female", data_aria_controls = "conditional-MicrochipNumber" })
                                 <label class="govuk-label govuk-radios__label" for="Female">
-                                    Female
+                                    @Localizer["Female"]
                                 </label>
                             </div>
                             <div class="govuk-radios__item">
-                                @Html.RadioButtonFor(m => m.Gender, PetGender.Male, new {@class="govuk-radios__input", id="Male", data_aria_controls="conditional-MicrochipNumber"})
+                                @Html.RadioButtonFor(m => m.Gender, PetGender.Male, new { @class = "govuk-radios__input", id = "Male", data_aria_controls = "conditional-MicrochipNumber" })
                                 <label class="govuk-label govuk-radios__label" for="Male">
-                                    Male
+                                    @Localizer["Male"]
                                 </label>
                             </div>
                         </div>
@@ -49,7 +51,7 @@
 
             <div class="govuk-form-group">
                 <button class="govuk-button" data-module="govuk-button" type="submit">
-                    Continue
+                    @Localizer["Continue"]
                 </button>
             </div>
         }
@@ -69,4 +71,3 @@
         })
     </script>
 }
-
