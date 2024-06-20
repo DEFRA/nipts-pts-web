@@ -1,4 +1,5 @@
 ﻿using Defra.PTS.Web.Application.Validation;
+using Defra.PTS.Web.Domain;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation.TestHelper;
 using Microsoft.Extensions.Localization;
@@ -15,12 +16,12 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 {
     public class PetKeeperUserDetailsValidatorShould
     {
-        private readonly IStringLocalizer<PetKeeperUserDetailsViewModel> _localizer;
+        private readonly IStringLocalizer<SharedResource> _localizer;
         public PetKeeperUserDetailsValidatorShould()
         {
             var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
-            _localizer = new StringLocalizer<PetKeeperUserDetailsViewModel>(factory);
+            _localizer = new StringLocalizer<SharedResource>(factory);
         }
 
         [Fact]
