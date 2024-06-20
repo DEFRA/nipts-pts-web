@@ -4,10 +4,12 @@
 @using Defra.PTS.Web.Domain.ViewModels;
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Dog" };
-    this.SetMetaTitle(Model.FormTitle);
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = @Localizer["Is your pet a dog, cat or ferret?"].Value, LabelFor = "Yes" };
+    this.SetMetaTitle(@Localizer["Is your pet a dog, cat or ferret?"].Value);
 }
 
 <div class="govuk-grid-row">
@@ -31,19 +33,19 @@
                         <div class="govuk-radios__item">
                             @Html.RadioButtonFor(m => m.PetSpecies, PetSpecies.Dog, new {@class="govuk-radios__input", id="Dog"})
                             <label class="govuk-label govuk-radios__label" for="Dog">
-                                Dog
+                                @Localizer["Dog"]
                             </label>
                         </div>
                         <div class="govuk-radios__item">
                             @Html.RadioButtonFor(m => m.PetSpecies, PetSpecies.Cat, new {@class="govuk-radios__input", id="Cat"})
                             <label class="govuk-label govuk-radios__label" for="Cat">
-                                Cat
+                                @Localizer["Cat"]
                             </label>
                         </div>
                         <div class="govuk-radios__item">
                             @Html.RadioButtonFor(m => m.PetSpecies, PetSpecies.Ferret, new {@class="govuk-radios__input", id="Ferret"})
                             <label class="govuk-label govuk-radios__label" for="Ferret">
-                                Ferret
+                                @Localizer["Ferret"]
                             </label>
                         </div>
                     </div>
@@ -52,7 +54,7 @@
 
             <div class="govuk-form-group">
                 <button class="govuk-button" data-module="govuk-button" type="submit">
-                    Continue
+                    @Localizer["Continue"]
                 </button>
             </div>
         }
