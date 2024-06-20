@@ -20,7 +20,6 @@ public class PetKeeperPostcodeValidator : AbstractValidator<PetKeeperPostcodeVie
         {
             RuleFor(x => x.Postcode).Matches(AppConstants.RegularExpressions.UKPostcode).WithMessage(localizer["Postcode is not valid"]);
             RuleFor(x => x.Postcode).MaximumLength(AppConstants.MaxLength.Postcode).WithMessage($"Postcode must be {AppConstants.MaxLength.Postcode} characters or less");
-            
             RuleFor(x => x.Postcode).Must(BeValidUKPostcode).WithMessage(localizer["Enter a postcode in England, Scotland or Wales"]);
         });
     }
