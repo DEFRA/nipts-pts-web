@@ -1,4 +1,4 @@
-﻿using Defra.PTS.Web.Application.Services.Interfaces;
+﻿using Defra.PTS.Web.Domain;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation;
 using Microsoft.Extensions.Localization;
@@ -6,7 +6,7 @@ using Microsoft.Extensions.Localization;
 namespace Defra.PTS.Web.Application.Validation;
 public class PetKeeperUserDetailsValidator : AbstractValidator<PetKeeperUserDetailsViewModel>
 {
-    public PetKeeperUserDetailsValidator(IStringLocalizer<PetKeeperUserDetailsViewModel> localizer)
+    public PetKeeperUserDetailsValidator(IStringLocalizer<SharedResource> localizer)
     {
         RuleFor(x => x.UserDetailsAreCorrect).NotEmpty().WithMessage(localizer["Tell us if your details are correct"]);
     }

@@ -1,5 +1,6 @@
 ﻿using Defra.PTS.Web.Application.Features.Address.Queries;
 using Defra.PTS.Web.Application.Validation;
+using Defra.PTS.Web.Domain;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation.TestHelper;
@@ -18,12 +19,12 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 {
     public class PetKeeperPostcodeValidatorShould
     {
-        private readonly IStringLocalizer<PetKeeperPostcodeViewModel> _localizer;
+        private readonly IStringLocalizer<SharedResource> _localizer;
         public PetKeeperPostcodeValidatorShould()
         {
             var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
-            _localizer = new StringLocalizer<PetKeeperPostcodeViewModel>(factory);
+            _localizer = new StringLocalizer<SharedResource>(factory);
         }
 
         [Fact]
