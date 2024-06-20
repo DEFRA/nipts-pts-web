@@ -7,10 +7,19 @@ using Defra.PTS.Web.UI.Configuration.Startup;
 using Defra.Trade.Common.Api.Infrastructure;
 using Defra.Trade.Common.AppConfig;
 using Defra.Trade.Common.Security.Authentication.Infrastructure;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Azure.Management.Storage.Fluent.Models;
 using System.Globalization;
 using System.Reflection;
-
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddLocalization(opts => { opts.ResourcesPath = "Resources"; });
+builder.Services.AddMvc()
+        .AddViewLocalization(
+            LanguageViewLocationExpanderFormat.Suffix,
+            opts => { opts.ResourcesPath = "Resources"; })
+        .AddDataAnnotationsLocalization();
+
 builder.Configuration.ConfigureTradeAppConfiguration(true, "RemosSignUpService:Sentinel");
 
 builder.Configuration.AddUserSecrets(Assembly.GetExecutingAssembly(), true);

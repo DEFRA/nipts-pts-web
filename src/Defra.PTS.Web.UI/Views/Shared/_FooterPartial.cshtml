@@ -2,7 +2,8 @@
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor context
 
 @{
-    var locale = context.HttpContext.Request.Cookies["locale"];
+    var language = Thread.CurrentThread.CurrentCulture.EnglishName == "Welsh" ? "English" : "Cymraeg";
+    var languageId = Thread.CurrentThread.CurrentCulture.EnglishName == "Welsh" ? "localeEn" : "localeCy";
 }
 
 <footer class="govuk-footer rtwr-footer" role="contentinfo">
@@ -27,23 +28,11 @@
                         </a>
                     </li>
 
-                    @if(Thread.CurrentThread.CurrentCulture.EnglishName != "Welsh")
-                    {
-                        <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="" id="localeCy">
-                                Cymraeg
-                            </a>
-                        </li>
-                    }
-                    else
-                    {
-                        <li class="govuk-footer__inline-list-item">
-                            <a class="govuk-footer__link" href="" id="localeEn">
-                                English
-                            </a>
-                        </li>
-                    }
-
+                    <li class="govuk-footer__inline-list-item">
+                        <a class="govuk-footer__link" href="" id=@languageId>
+                            @language
+                        </a>
+                    </li>
 
                     <li class="govuk-footer__inline-list-item">
                         <a class="govuk-footer__link" href="@WebAppConstants.ExternalLinks.PrivacyNotice" target="_blank" rel="noopener noreferrer">

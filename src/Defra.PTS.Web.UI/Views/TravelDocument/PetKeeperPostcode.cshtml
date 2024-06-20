@@ -5,6 +5,8 @@
 @using System.Web;
 @using Defra.PTS.Web.Domain.ViewModels;
 @using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     this.SetMetaTitle(Model.FormTitle);
@@ -25,12 +27,12 @@
 
                 <h1 id="documents" class="govuk-label-wrapper">
                     <label class="govuk-label govuk-label--xl" for="postcode">
-                        @Model.FormTitle
+                        @Localizer[Model.FormTitle]
                     </label>
                 </h1>
 
                 <div id="postcode-hint" class="govuk-hint">
-                    Enter a valid address in England, Scotland or Wales. If you cannot find your address you can add it manually below.
+                    @Localizer["Enter a valid address in England, Scotland or Wales. If you cannot find your address you can add it manually below."]
                 </div>
 
                 <div class="govuk-form-group">
@@ -41,14 +43,14 @@
 
             <div class="govuk-button-group">
                 <button class="govuk-button" data-module="govuk-button" type="submit">
-                    Find address
+                    @Localizer["Find address"]
                 </button>
             </div>
         }
 
         <p class="govuk-body">
             <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.PetKeeperAddressManual">
-                Enter the address manually
+                @Localizer["Enter the address manually"]
             </a>
         </p>
 
