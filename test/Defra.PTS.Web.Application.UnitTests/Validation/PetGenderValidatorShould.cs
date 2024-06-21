@@ -4,6 +4,7 @@ using Defra.PTS.Web.Application.Validation;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Microsoft.Extensions.Localization;
+using Defra.PTS.Web.Domain;
 
 namespace Defra.PTS.Web.Application.UnitTests.Validation
 {
@@ -42,8 +43,8 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 
         private static PetGenderValidator CreateValidator()
         {
-            // Mock IStringLocalizer<PetGenderViewModel>
-            var mockLocalizer = new Mock<IStringLocalizer<PetGenderViewModel>>();
+            // Mock IStringLocalizer<SharedResource>
+            var mockLocalizer = new Mock<IStringLocalizer<SharedResource>>();
             mockLocalizer.Setup(l => l["Tell us if your pet is male or female"]).Returns(new LocalizedString("Tell us if your pet is male or female", "Tell us if your pet is male or female"));
 
             // Create PetGenderValidator with mocked localizer
