@@ -129,6 +129,9 @@
   <data name="Enter your full name" xml:space="preserve">
     <value>Rhowch eich enw llawn</value>
   </data>
+  <data name="Tell us if your details are correct" xml:space="preserve">
+    <value>Dwedwch a yw eich manylion chi’n gywir</value>
+  </data>
   <data name="Tell us if your pet is male or female" xml:space="preserve">
     <value>Dwedwch a yw'ch anifail anwes yn wryw ynteu'n fenyw</value>
   </data>
