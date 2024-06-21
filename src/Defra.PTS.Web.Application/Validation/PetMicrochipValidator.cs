@@ -1,27 +1,36 @@
 ﻿using FluentValidation;
-
-namespace Defra.PTS.Web.Application.Validation;
-
 using Defra.PTS.Web.Application.Constants;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 
-public class PetMicrochipValidator : AbstractValidator<PetMicrochipViewModel>
+namespace Defra.PTS.Web.Application.Validation
 {
-    public PetMicrochipValidator()
+    public class PetMicrochipValidator : AbstractValidator<PetMicrochipViewModel>
     {
-        RuleFor(x => x.Microchipped).NotEmpty().WithMessage("Tell us if your pet is microchipped");
-
-        When(x => x.Microchipped == YesNoOptions.Yes, () =>
+        public PetMicrochipValidator()
         {
-            RuleFor(x => x.MicrochipNumber).NotEmpty().WithMessage("Enter your pet's microchip number in the correct format");
+            RuleFor(x => x.Microchipped).NotEmpty().WithMessage("Tell us if your pet is microchipped");
 
-            When(x => !string.IsNullOrWhiteSpace(x.MicrochipNumber), () =>
+            When(x => x.Microchipped == YesNoOptions.Yes, () =>
             {
-                RuleFor(x => x.MicrochipNumber).MinimumLength(AppConstants.MaxLength.PetMicrochipNumber).WithMessage($"Microchip number must be {AppConstants.MaxLength.PetMicrochipNumber} digits long");
-                RuleFor(x => x.MicrochipNumber).MaximumLength(AppConstants.MaxLength.PetMicrochipNumber).WithMessage($"Microchip number must be {AppConstants.MaxLength.PetMicrochipNumber} digits long");
-                RuleFor(x => x.MicrochipNumber).Matches(AppConstants.RegularExpressions.DigitOnly).WithMessage("Microchip number must be a numeric value");
+                RuleFor(x => x.MicrochipNumber).NotEmpty().WithMessage("Enter your pet's microchip number");
+
+                When(x => !string.IsNullOrWhiteSpace(x.MicrochipNumber), () =>
+                {
+                    RuleFor(x => x.MicrochipNumber)
+                        .Length(AppConstants.MaxLength.PetMicrochipNumber)
+                        .WithMessage("Enter your pet’s 15-digit microchip number")
+                        .Unless(x => string.IsNullOrEmpty(x.MicrochipNumber) || x.MicrochipNumber.Length == 15);
+
+                    RuleFor(x => x.MicrochipNumber)
+                        .Matches(@"^\d{15}$")
+                        .WithMessage("Enter a 15-digit number, using only numbers")
+                    .When(x => !string.IsNullOrEmpty(x.MicrochipNumber) && x.MicrochipNumber.Length == 15);
+
+
+
+                });
             });
-        });
+        }
     }
 }
