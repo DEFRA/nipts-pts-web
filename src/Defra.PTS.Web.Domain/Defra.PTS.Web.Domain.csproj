@@ -7,7 +7,7 @@
 
   <ItemGroup>
     <EmbeddedResource Update="Resources\SharedResource.cy.resx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
 
