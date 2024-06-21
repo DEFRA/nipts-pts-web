@@ -129,4 +129,7 @@
   <data name="Enter your full name" xml:space="preserve">
     <value>Rhowch eich enw llawn</value>
   </data>
+  <data name="Tell us if you are taking a pet dog, cat or ferret" xml:space="preserve">
+    <value>Dwedwch a ydych chi'n mynd â chi anwes, cath anwes neu ffured anwes</value>
+  </data>
 </root>
