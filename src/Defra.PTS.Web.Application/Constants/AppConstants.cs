@@ -17,8 +17,8 @@ public static class AppConstants
         // Defra Regular Expression for Postcode
         public const string UKPostcode = @"^([Gg][Ii][Rr] 0[Aa]{2}|([A-Za-z][0-9]{1,2}|[A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2}|[A-Za-z][0-9][A-Za-z]|[A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z]) ?[0-9][A-Za-z]{2})$";
 
-        // https://github.com/alphagov/govuk-design-system-backlog/issues/82
-        public const string UKPhone = @"^(?:(?:\(?(?:0(?:0|11)\)?[\s-]?\(?|\+)44\)?[\s-]?(?:\(?0\)?[\s-]?)?)|(?:\(?0))(?:(?:\d{5}\)?[\s-]?\d{4,5})|(?:\d{4}\)?[\s-]?(?:\d{5}|\d{3}[\s-]?\d{3}))|(?:\d{3}\)?[\s-]?\d{3}[\s-]?\d{3,4})|(?:\d{2}\)?[\s-]?\d{4}[\s-]?\d{4}))(?:[\s-]?(?:x|ext\.?|\#)\d{3,4})?$";
+        // tweaked to be alot more accepting as was too locked down
+        public const string UKPhone = @"^[0-9\s+]*$";
 
         // Defra Regular Expression for Name (using only letters, hyphens or apostrophes)
         public const string Name = @"^[a-zA-Z\s-']*$";
@@ -72,7 +72,7 @@ public static class AppConstants
         public const int PetKeeperName = 300;
 
         // PetKeeperPhone
-        public const int PetKeeperPhone = 50;
+        public const int PetKeeperPhone = 20;
 
         // PetMicrochipNumber
         public const int PetMicrochipNumber = 15;

@@ -1,34 +1,31 @@
 ﻿using Defra.PTS.Web.Application.Constants;
 using Defra.PTS.Web.Application.Helpers;
+using Defra.PTS.Web.Domain;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation;
+using Microsoft.Extensions.Localization;
 
 namespace Defra.PTS.Web.Application.Validation;
 public class PetKeeperPhoneValidator : AbstractValidator<PetKeeperPhoneViewModel>
 {
-    public PetKeeperPhoneValidator()
+    public PetKeeperPhoneValidator(IStringLocalizer<SharedResource> localizer)
     {
         RuleFor(x => x.Phone)
             .NotEmpty()
-            .WithMessage(x => $"Enter your phone number");
+            .WithMessage(localizer["Enter your phone number"]);
 
         When(x => !string.IsNullOrWhiteSpace(x.Phone), () =>
         {
             RuleFor(x => x.Phone)
             .MaximumLength(AppConstants.MaxLength.PetKeeperPhone)
-            .WithMessage($"Phone number must be {AppConstants.MaxLength.PetKeeperPhone} characters or less");
+            .WithMessage(localizer["Enter a phone number, like 01632 960 001 or 07700 900 982"]);
 
             When(x => x.Phone.Length <= AppConstants.MaxLength.PetKeeperPhone, () =>
             {
                 RuleFor(x => x.Phone)
-                .Must(BeValidUKPhone)
-                .WithMessage("Phone number is not valid UK number");
+                .Matches(AppConstants.RegularExpressions.UKPhone)
+                .WithMessage(localizer["Enter a phone number, like 01632 960 001 or 07700 900 982"]);
             });
         });
-    }
-
-    private static bool BeValidUKPhone(string phone)
-    {
-        return PhoneNumberHelper.IsValidUKPhoneNumber(phone);
     }
 }
