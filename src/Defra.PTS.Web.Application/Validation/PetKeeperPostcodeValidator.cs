@@ -21,7 +21,7 @@ public class PetKeeperPostcodeValidator : AbstractValidator<PetKeeperPostcodeVie
         {
             RuleFor(x => x.Postcode).Matches(AppConstants.RegularExpressions.UKPostcode).WithMessage(localizer["Enter a full postcode in the correct format, for example TF7 5AY or TF75AY"]);
             RuleFor(x => x.Postcode).MaximumLength(AppConstants.MaxLength.Postcode).WithMessage(localizer["Enter a full postcode in the correct format, for example TF7 5AY or TF75AY"]);
-            RuleFor(x => x.Postcode).Must(BeValidUKPostcode).WithMessage(localizer["Enter a postcode in England, Scotland or Wales"]);
+            RuleFor(x => x.Postcode).Must(BeValidUKPostcode).WithMessage(localizer["Enter a full postcode in the correct format, for example TF7 5AY or TF75AY"]);
         });
     }
 
