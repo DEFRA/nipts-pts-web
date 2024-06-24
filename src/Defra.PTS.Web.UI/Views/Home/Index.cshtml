@@ -9,7 +9,7 @@
     var fieldsetLegend = new FieldsetLegendViewModel { Label = "Password Information", LabelFor = "EnteredPassword" };
 }
 
-@if Legen(Model.MagicWordEnabled)
+@if (Model.MagicWordEnabled)
 {
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
