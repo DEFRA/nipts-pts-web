@@ -10,21 +10,21 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
     {
         When(x => IsEmptyDate(x), () =>
         {
-            RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage("Enter the date your pet was microchipped or last scanned");
+            RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage("Enter your pet's microchip date in the correct format, for example 11 04 2021");
         });
 
         When(x => !IsEmptyDate(x), () =>
         {
-            RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage("Microchip date must be a valid date");
+            RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage("Enter your pet's microchip date in the correct format, for example 11 04 2021");
 
-            RuleFor(x => x.Day).NotEmpty().WithMessage("Microchip date must indicate a day");
-            RuleFor(x => x.Month).NotEmpty().WithMessage("Microchip date must indicate a month");
-            RuleFor(x => x.Year).NotEmpty().WithMessage("Microchip date must indicate a year");
+            RuleFor(x => x.Day).NotEmpty().WithMessage("Enter your pet's microchip date in the correct format, for example 11 04 2021");
+            RuleFor(x => x.Month).NotEmpty().WithMessage("Enter your pet's microchip date in the correct format, for example 11 04 2021");
+            RuleFor(x => x.Year).NotEmpty().WithMessage("Enter your pet's microchip date in the correct format, for example 11 04 2021");
         });
 
         When(x => x.MicrochippedDate.HasValue, () =>
         {
-            RuleFor(x => x.MicrochippedDate).Must(BeTodayOrPastDate).WithMessage("Microchip date must must be today or in the past");
+            RuleFor(x => x.MicrochippedDate).Must(BeTodayOrPastDate).WithMessage("Enter a date that is in the past");
 
             var message = $"Microchip date is not valid";
             RuleFor(x => x.MicrochippedDate).Must((x, e) => MeetsDateLimits(x.MicrochippedDate, out message)).WithMessage(x => message);
@@ -32,7 +32,7 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
 
         When(x => x.BirthDate.HasValue && x.MicrochippedDate.HasValue, () =>
         {
-            RuleFor(x => x.MicrochippedDate).GreaterThan(m => m.BirthDate).WithMessage("Microchip date must be after the date of birth");
+            RuleFor(x => x.MicrochippedDate).GreaterThan(m => m.BirthDate).WithMessage("Enter a date that is after the pet’s date of birth");
         });
     }
 
@@ -55,6 +55,6 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
         errorMessage = "The date you entered is too far in the past";
 
         var chipDate = date.Value.Date;
-        return chipDate >= fromDate && chipDate <= toDate;
+        return chipDate >= fromDate;
     }
 }
