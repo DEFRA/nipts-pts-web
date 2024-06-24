@@ -5,6 +5,7 @@ using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Localization;
+using System.Diagnostics.Metrics;
 
 namespace Defra.PTS.Web.Application.Validation;
 public class PetKeeperPostcodeValidator : AbstractValidator<PetKeeperPostcodeViewModel>
@@ -21,9 +22,9 @@ public class PetKeeperPostcodeValidator : AbstractValidator<PetKeeperPostcodeVie
         {
             RuleFor(x => x.Postcode).Matches(AppConstants.RegularExpressions.UKPostcode).WithMessage(localizer["Enter a full postcode in the correct format, for example TF7 5AY or TF75AY"]);
             RuleFor(x => x.Postcode).MaximumLength(AppConstants.MaxLength.Postcode).WithMessage(localizer["Enter a full postcode in the correct format, for example TF7 5AY or TF75AY"]);
-            RuleFor(x => x.Postcode).Must(BeValidUKPostcode).WithMessage(localizer["Enter a full postcode in the correct format, for example TF7 5AY or TF75AY"]);
+            RuleFor(x => x.Postcode).Must(BeValidUKPostcode).WithMessage(localizer["Enter a postcode in England, Scotland or Wales"]);
         });
-    }
+    }    
 
     private bool BeValidUKPostcode(string postcode)
     {
