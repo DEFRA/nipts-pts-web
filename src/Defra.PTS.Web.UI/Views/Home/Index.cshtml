@@ -6,7 +6,6 @@
 @{
     var pageTitle = "Taking your dog, cat or ferret from Great Britain to Northern Ireland";
     this.SetMetaTitle(pageTitle);
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = "Password Information", LabelFor = "EnteredPassword" };
 }
 
 @if (Model.MagicWordEnabled)
@@ -25,12 +24,10 @@
             {
                 @Html.AntiForgeryToken()
 
-                <partial name="_ErrorSummary" />
 
                 <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
 
                     <fieldset class="govuk-fieldset">
-                        <partial name="_FieldsetLegend" model=fieldsetLegend />
 
                         <div class="govuk-form-group">
 
