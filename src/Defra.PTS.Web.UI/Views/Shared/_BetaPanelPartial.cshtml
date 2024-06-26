@@ -1,12 +1,14 @@
 ﻿@using Defra.PTS.Web.UI.Constants;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SharedResource> sharedlocalizer
 
 <div class="govuk-phase-banner">
     <p class="govuk-phase-banner__content">
         <strong class="govuk-tag govuk-phase-banner__content__tag">
-            Beta
+            @sharedlocalizer["Beta"]
         </strong>
         <span class="govuk-phase-banner__text">
-            This is a new service – your <a class="govuk-link" href="@WebAppConstants.ExternalLinks.BetaServiceFeedback" target="_blank" rel="noopener noreferrer">feedback (opens in a new tab)</a> will help us to improve it.
+            @sharedlocalizer["This is a new service - your"] <a class="govuk-link" href="@WebAppConstants.ExternalLinks.BetaServiceFeedback" target="_blank" rel="noopener noreferrer"> @sharedlocalizer["feedback (opens in a new tab)"]</a> @sharedlocalizer["will help us to improve it."]
         </span>
     </p>
 </div>
