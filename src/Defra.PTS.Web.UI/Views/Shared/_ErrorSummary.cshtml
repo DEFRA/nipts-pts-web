@@ -8,8 +8,7 @@
             error = x.ErrorMessage
         }));
 
-string title = Thread.CurrentThread.CurrentCulture.EnglishName != "Welsh" ? "There is a problem" : "Mae yna broblem";
-
+    string title = Thread.CurrentThread.CurrentCulture.EnglishName != "Welsh" ? "There is a problem" : "Mae yna broblem";
 
     <div class="govuk-error-summary" data-module="govuk-error-summary">
         <div role="alert">
@@ -29,4 +28,3 @@ string title = Thread.CurrentThread.CurrentCulture.EnglishName != "Welsh" ? "The
         </div>
     </div>
 }
-
