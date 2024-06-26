@@ -21,7 +21,7 @@ public class PetMicrochipValidator : AbstractValidator<PetMicrochipViewModel>
                         {
                             context.AddFailure("MicrochipNumber", "Enter your pet’s 15-digit microchip number");
                         }
-                        else if (!IsAllDigits(microchipNumber))
+                        else if (!IsAllDigits(microchipNumber) || microchipNumber.Length != 15)
                         {
                             context.AddFailure("MicrochipNumber", "Enter a 15-digit number, using only numbers");
                         }
@@ -29,7 +29,6 @@ public class PetMicrochipValidator : AbstractValidator<PetMicrochipViewModel>
             });
         });
     }
-
 
     private bool IsAllDigits(string microchipNumber)
     {
