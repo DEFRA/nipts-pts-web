@@ -6,27 +6,28 @@ using FluentValidation;
 namespace Defra.PTS.Web.Application.Validation;
 public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewModel>
 {
+    private static string MicrochipError = "Enter your pet's microchip date in the correct format, for example 11 04 2021";
     public PetMicrochipDateValidator()
     {
         When(x => IsEmptyDate(x), () =>
         {
-            RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage("Enter your pet's microchip date in the correct format, for example 11 04 2021");
+            RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage(x => MicrochipError);
         });
 
         When(x => !IsEmptyDate(x), () =>
         {
-            RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage("Enter your pet's microchip date in the correct format, for example 11 04 2021");
+            RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage(x => MicrochipError);
 
-            RuleFor(x => x.Day).NotEmpty().WithMessage("Enter your pet's microchip date in the correct format, for example 11 04 2021");
-            RuleFor(x => x.Month).NotEmpty().WithMessage("Enter your pet's microchip date in the correct format, for example 11 04 2021");
-            RuleFor(x => x.Year).NotEmpty().WithMessage("Enter your pet's microchip date in the correct format, for example 11 04 2021");
+            RuleFor(x => x.Day).NotEmpty().WithMessage(x => MicrochipError);
+            RuleFor(x => x.Month).NotEmpty().WithMessage(x => MicrochipError);
+            RuleFor(x => x.Year).NotEmpty().WithMessage(x => MicrochipError);
         });
 
         When(x => x.MicrochippedDate.HasValue, () =>
         {
             RuleFor(x => x.MicrochippedDate).Must(BeTodayOrPastDate).WithMessage("Enter a date that is in the past");
 
-            var message = $"Microchip date is not valid";
+            var message = "Enter a date that is less than 34 years ago";
             RuleFor(x => x.MicrochippedDate).Must((x, e) => MeetsDateLimits(x.MicrochippedDate, out message)).WithMessage(x => message);
         });
 
@@ -52,7 +53,7 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
         var fromDate = DateTime.Now.Date.AddYears(-AppConstants.Values.PetMaxAgeInYears).AddDays(1);
         var toDate = DateTime.Now.Date;
 
-        errorMessage = "The date you entered is too far in the past";
+        errorMessage = "Enter a date that is less than 34 years ago";
 
         var chipDate = date.Value.Date;
         return chipDate >= fromDate;
