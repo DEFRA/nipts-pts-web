@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Identity" Version="1.11.2" />
+    <PackageReference Include="Azure.Identity" Version="1.12.0" />
     <PackageReference Include="Azure.Security.KeyVault.Secrets" Version="4.6.0" />
     <PackageReference Include="BeginCollectionItemCore" Version="1.1.0" />
     <PackageReference Include="BuildBundlerMinifier" Version="3.2.449" />
@@ -33,14 +33,6 @@
     <ProjectReference Include="..\Defra.PTS.Web.CertificateGenerator\Defra.PTS.Web.CertificateGenerator.csproj" />
     <ProjectReference Include="..\Defra.PTS.Web.Domain\Defra.PTS.Web.Domain.csproj" />
     <ProjectReference Include="..\Defra.PTS.Web.Infrastructure\Defra.PTS.Web.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Update="Resources\Resource.en-GB.Designer.cs">
-      <DependentUpon>Resource.en-GB.resx</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
   </ItemGroup>
 
   <ItemGroup>

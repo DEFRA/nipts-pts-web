@@ -1,7 +1,12 @@
 ﻿using Defra.PTS.Web.Application.Validation;
+using Defra.PTS.Web.Domain;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation.TestHelper;
 using Microsoft.Azure.WebJobs;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +17,25 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 {
     public class PetKeeperNameValidatorShould
     {
+        private readonly IStringLocalizer<SharedResource> _localizer;
+        public PetKeeperNameValidatorShould()
+        {
+            var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
+            var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
+            _localizer = new StringLocalizer<SharedResource>(factory);
+        }
+
         [Fact]
         public async Task NotHaveErrorName()
         {
+            // Arrange
             var model = new PetKeeperNameViewModel() { Name = "Name" };
-            var validator = new PetKeeperNameValidator();
+            var validator = new PetKeeperNameValidator(_localizer);
 
+            // Act
             var result = await validator.TestValidateAsync(model);
 
+            // Assert
             result.ShouldNotHaveValidationErrorFor(x => x.Name);
         }
 
@@ -27,11 +43,14 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
         [MemberData(nameof(PetKeeperNameTestData))]
         public async Task HaveErrorIfNameInvalid(string name)
         {
+            // Arrange
             var model = new PetKeeperNameViewModel() { Name = name };
-            var validator = new PetKeeperNameValidator();
+            var validator = new PetKeeperNameValidator(_localizer);
 
+            // Act
             var result = await validator.TestValidateAsync(model);
 
+            // Assert
             result.ShouldHaveValidationErrorFor(x => x.Name);
         }
 

@@ -1,17 +1,24 @@
 ﻿using Defra.PTS.Web.Application.Validation;
+using Defra.PTS.Web.Domain;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation.TestHelper;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 
 namespace Defra.PTS.Web.Application.UnitTests.Validation
 {
     public class PetKeeperPhoneValidatorShould
     {
+        private readonly IStringLocalizer<SharedResource> _localizer;
+
+        public PetKeeperPhoneValidatorShould()
+        {
+            var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
+            var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
+            _localizer = new StringLocalizer<SharedResource>(factory);
+        }
         [Fact]
         public async Task NotHaveErrorPhoneNumber()
         {
@@ -20,7 +27,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
                 Phone = "07398141999"
             };
 
-            var validator = new PetKeeperPhoneValidator();
+            var validator = new PetKeeperPhoneValidator(_localizer);
 
             var result = await validator.TestValidateAsync(model);
 
@@ -36,7 +43,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
                 Phone = phone
             };
 
-            var validator = new PetKeeperPhoneValidator();
+            var validator = new PetKeeperPhoneValidator(_localizer);
 
             var result = await validator.TestValidateAsync(model);            
 
@@ -47,8 +54,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
         {
             new object[] { string.Empty },
             new object[] { new string('a', 51) },
-            new object[] { "073962345g" },
-            new object[] { "073962345++" },
+            new object[] { "0739 62345g" },
         };
     }
 }
