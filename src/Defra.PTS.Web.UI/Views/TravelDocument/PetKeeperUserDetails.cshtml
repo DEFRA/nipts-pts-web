@@ -67,7 +67,7 @@
                     @Html.ValidationMessageFor(x => x.UserDetailsAreCorrect, string.Empty, new { @class = "govuk-error-message" })
 
                     <div class="govuk-form-group">
-                        <div class="govuk-radios" data-module="govuk-radios">
+                        <div class="govuk-radios" data-module="govuk-radios" id="UserDetailsAreCorrect">
                             <div class="govuk-radios__item">
                                 @Html.RadioButtonFor(m => m.UserDetailsAreCorrect, YesNoOptions.Yes, new { @class = "govuk-radios__input", id = "Yes" })
                                 <label class="govuk-label govuk-radios__label" for="Yes">

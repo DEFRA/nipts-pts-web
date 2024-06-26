@@ -19,13 +19,9 @@
                 <ul class="govuk-list govuk-error-summary__list">
                     @foreach (var error in errorsFlattened)
                     {
-                        // Generate a unique ID for each error field
-                        var id = $"{error.field}"; 
-
                         <li>
-                            <a href="#@id" >@error.error</a>
+                            <a href="#@error.field">@error.error</a>
                         </li>
-                        <div id="@id"></div> 
                     }
                 </ul>
             </div>
