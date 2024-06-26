@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 

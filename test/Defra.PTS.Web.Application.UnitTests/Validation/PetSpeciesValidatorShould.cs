@@ -1,7 +1,10 @@
 ﻿using Defra.PTS.Web.Application.Validation;
+using Defra.PTS.Web.Domain;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation.TestHelper;
+using Microsoft.Extensions.Localization;
+using Moq;
 
 namespace Defra.PTS.Web.Application.UnitTests.Validation;
 
@@ -42,5 +45,14 @@ public class PetSpeciesValidatorShould
         result.ShouldNotHaveValidationErrorFor(x => x.PetSpecies);
     }
 
-    private static PetSpeciesValidator CreateValidator() => new();
+    private static PetSpeciesValidator CreateValidator() 
+    {
+        //Mock localizer
+        var mockStringLocalizer = new Mock<IStringLocalizer<SharedResource>>();
+        string key = "Hello my dear friend!";
+        var localizedString = new LocalizedString(key, key);
+        mockStringLocalizer.Setup(_ => _[key]).Returns(localizedString);
+        var _localizer = mockStringLocalizer.Object;
+        return new PetSpeciesValidator(_localizer);
+    }
 }
