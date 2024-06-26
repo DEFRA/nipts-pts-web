@@ -1,8 +1,4 @@
 ﻿using FluentValidation;
-
-namespace Defra.PTS.Web.Application.Validation;
-
-using Defra.PTS.Web.Application.Constants;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 
@@ -16,12 +12,26 @@ public class PetMicrochipValidator : AbstractValidator<PetMicrochipViewModel>
         {
             RuleFor(x => x.MicrochipNumber).NotEmpty().WithMessage("Enter your pet's microchip number in the correct format");
 
-            When(x => !string.IsNullOrWhiteSpace(x.MicrochipNumber), () =>
-            {
-                RuleFor(x => x.MicrochipNumber).MinimumLength(AppConstants.MaxLength.PetMicrochipNumber).WithMessage($"Microchip number must be {AppConstants.MaxLength.PetMicrochipNumber} digits long");
-                RuleFor(x => x.MicrochipNumber).MaximumLength(AppConstants.MaxLength.PetMicrochipNumber).WithMessage($"Microchip number must be {AppConstants.MaxLength.PetMicrochipNumber} digits long");
-                RuleFor(x => x.MicrochipNumber).Matches(AppConstants.RegularExpressions.DigitOnly).WithMessage("Microchip number must be a numeric value");
+                When(x => !string.IsNullOrWhiteSpace(x.MicrochipNumber), () =>
+                {                    
+                    RuleFor(x => x.MicrochipNumber)
+                        .Custom((microchipNumber, context) =>
+                        {
+                            if (IsAllDigits(microchipNumber) && microchipNumber.Length != 15)
+                            {
+                                context.AddFailure("MicrochipNumber", "Enter your pet’s 15-digit microchip number");
+                            }
+                            else if (!IsAllDigits(microchipNumber))
+                            {
+                                context.AddFailure("MicrochipNumber", "Enter a 15-digit number, using only numbers");
+                            }
+                        });
+                });
             });
-        });
-    }
+        }
+
+        private bool IsAllDigits(string microchipNumber)
+        {
+            return microchipNumber.All(char.IsDigit);
+        }
 }
