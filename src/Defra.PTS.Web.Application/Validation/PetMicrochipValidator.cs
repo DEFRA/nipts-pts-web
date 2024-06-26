@@ -10,7 +10,7 @@ public class PetMicrochipValidator : AbstractValidator<PetMicrochipViewModel>
 
         When(x => x.Microchipped == YesNoOptions.Yes, () =>
         {
-            RuleFor(x => x.MicrochipNumber).NotEmpty().WithMessage("Enter your pet's microchip number in the correct format");
+            RuleFor(x => x.MicrochipNumber).NotEmpty().WithMessage("Enter your pet's microchip number");
 
             When(x => !string.IsNullOrWhiteSpace(x.MicrochipNumber), () =>
             {
