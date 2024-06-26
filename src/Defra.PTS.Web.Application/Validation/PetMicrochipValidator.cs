@@ -30,6 +30,7 @@ public class PetMicrochipValidator : AbstractValidator<PetMicrochipViewModel>
             });
         }
 
+
         private bool IsAllDigits(string microchipNumber)
         {
             return microchipNumber.All(char.IsDigit);
