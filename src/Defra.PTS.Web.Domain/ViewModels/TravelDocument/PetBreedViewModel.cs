@@ -9,7 +9,6 @@ public class PetBreedViewModel : TravelDocumentFormPage
 
     public PetSpecies PetSpecies { get; set; }
 
-    [StringLength(150, ErrorMessage = "The breed name must be less than or equal to 150 characters.")]
     public string BreedName { get; set; }    
 
     public int BreedId { get; set; }

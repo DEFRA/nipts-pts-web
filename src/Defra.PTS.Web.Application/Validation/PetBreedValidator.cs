@@ -6,16 +6,7 @@ public class PetBreedValidator : AbstractValidator<PetBreedViewModel>
 {
     public PetBreedValidator()
     {
-        RuleFor(x => x.BreedName).NotEmpty().WithMessage(x =>
-        {
-            return x.PetTypeNameLowered 
-            switch
-            {
-                "dog" => "Enter your dog's breed, for example, Labrador",
-                "cat" => "Enter your cat's breed, for example, Scottish Fold",
-                _ => "Invalid pet type selected",
-            };
-        });        
-        RuleFor(x => x.BreedName).MaximumLength(150).WithMessage(x => $"The breed name must be less than or equal to 150 characters.");
+        RuleFor(x => x.BreedName).NotEmpty().WithMessage(x => $"Select or enter the breed of your pet");        
+        RuleFor(x => x.BreedName).MaximumLength(150).WithMessage(x => $"Enter a breed using 150 characters or less");
     }
 }
