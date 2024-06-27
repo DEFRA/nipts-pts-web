@@ -46,7 +46,8 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 
             var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.MicrochipNumber).WithErrorMessage(expectedErrorMessage);
+            result.ShouldHaveValidationErrorFor(x => x.MicrochipNumber)
+                  .WithErrorMessage(expectedErrorMessage);
         }
 
         public static IEnumerable<object[]> PetMicrochipValidatorNumberTestData => new List<object[]>

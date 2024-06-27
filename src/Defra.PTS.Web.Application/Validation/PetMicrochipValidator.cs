@@ -1,5 +1,4 @@
 ﻿using FluentValidation;
-using Defra.PTS.Web.Application.Constants;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 
@@ -18,19 +17,24 @@ namespace Defra.PTS.Web.Application.Validation
                 When(x => !string.IsNullOrWhiteSpace(x.MicrochipNumber), () =>
                 {
                     RuleFor(x => x.MicrochipNumber)
-                        .Length(AppConstants.MaxLength.PetMicrochipNumber)
-                        .WithMessage("Enter your pet’s 15-digit microchip number")
-                        .Unless(x => string.IsNullOrEmpty(x.MicrochipNumber) || x.MicrochipNumber.Length == 15);
-
-                    RuleFor(x => x.MicrochipNumber)
-                        .Matches(@"^\d{15}$")
-                        .WithMessage("Enter a 15-digit number, using only numbers")
-                    .When(x => !string.IsNullOrEmpty(x.MicrochipNumber) && x.MicrochipNumber.Length == 15);
-
-
-
+                        .Custom((microchipNumber, context) =>
+                        {
+                            if (IsAllDigits(microchipNumber) && microchipNumber.Length != 15)
+                            {
+                                context.AddFailure("MicrochipNumber", "Enter your pet’s 15-digit microchip number");
+                            }
+                            else if (!IsAllDigits(microchipNumber) || microchipNumber.Length != 15)
+                            {
+                                context.AddFailure("MicrochipNumber", "Enter a 15-digit number, using only numbers");
+                            }
+                        });
                 });
             });
+        }
+
+        private bool IsAllDigits(string microchipNumber)
+        {
+            return microchipNumber.All(char.IsDigit);
         }
     }
 }
