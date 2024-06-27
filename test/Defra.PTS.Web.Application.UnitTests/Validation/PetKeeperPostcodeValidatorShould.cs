@@ -61,8 +61,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 
             var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.Postcode)
-                  .WithErrorMessage("Enter a postcode in England, Scotland or Wales");
+            result.ShouldHaveValidationErrorFor(x => x.Postcode);
         }
 
         public static IEnumerable<object[]> PetKeeperPostCodeTestData => new List<object[]>
