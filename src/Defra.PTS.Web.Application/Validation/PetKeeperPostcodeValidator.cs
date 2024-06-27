@@ -5,13 +5,17 @@ using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Localization;
-using System.Diagnostics.Metrics;
+using System;
+using System.Text.RegularExpressions;
 
 namespace Defra.PTS.Web.Application.Validation
 {
     public class PetKeeperPostcodeValidator : AbstractValidator<PetKeeperPostcodeViewModel>
     {
         private readonly IMediator _mediator;
+    
+        private static readonly Regex UkPostcodeRegex = new Regex(AppConstants.RegularExpressions.UKPostcode, RegexOptions.Compiled, TimeSpan.FromSeconds(2));
+
         public PetKeeperPostcodeValidator(IMediator mediator, IStringLocalizer<SharedResource> localizer)
         {
             ArgumentNullException.ThrowIfNull(mediator);
@@ -24,14 +28,13 @@ namespace Defra.PTS.Web.Application.Validation
                 RuleFor(x => x.Postcode)
                     .Custom((postcode, context) =>
                     {
-                    if (!System.Text.RegularExpressions.Regex.IsMatch(postcode, AppConstants.RegularExpressions.UKPostcode) ||
-                        postcode.Length > AppConstants.MaxLength.Postcode)
+                        if (!UkPostcodeRegex.IsMatch(postcode) || postcode.Length > AppConstants.MaxLength.Postcode)
                         {
-                        context.AddFailure(localizer["Enter a full postcode in the correct format, for example TF7 5AY or TF75AY"]);
+                            context.AddFailure("Enter a full postcode in the correct format, for example TF7 5AY or TF75AY");
                         }
                         else if (!BeValidUKPostcode(postcode))
                         {
-                        context.AddFailure(localizer["Enter a postcode in England, Scotland or Wales"]);
+                            context.AddFailure("Enter a postcode in England, Scotland or Wales");
                         }
                     });
             });
