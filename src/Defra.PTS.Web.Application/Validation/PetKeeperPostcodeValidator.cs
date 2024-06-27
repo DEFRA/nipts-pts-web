@@ -5,6 +5,7 @@ using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Localization;
+using System;
 using System.Text.RegularExpressions;
 
 namespace Defra.PTS.Web.Application.Validation
@@ -12,7 +13,7 @@ namespace Defra.PTS.Web.Application.Validation
     public class PetKeeperPostcodeValidator : AbstractValidator<PetKeeperPostcodeViewModel>
     {
         private readonly IMediator _mediator;
-        private static readonly Regex UkPostcodeRegex = new Regex(AppConstants.RegularExpressions.UKPostcode, RegexOptions.Compiled);
+        private static readonly Regex UkPostcodeRegex = new Regex(AppConstants.RegularExpressions.UKPostcode, RegexOptions.Compiled, TimeSpan.FromMilliseconds(100));
 
         public PetKeeperPostcodeValidator(IMediator mediator, IStringLocalizer<SharedResource> localizer)
         {
