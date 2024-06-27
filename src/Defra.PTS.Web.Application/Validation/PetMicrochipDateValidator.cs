@@ -6,7 +6,7 @@ using FluentValidation;
 namespace Defra.PTS.Web.Application.Validation;
 public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewModel>
 {
-    private static string MicrochipError = "Enter your pet's microchip date in the correct format, for example 11 04 2021";
+    private static readonly string MicrochipError = "Enter your pet's microchip date in the correct format, for example 11 04 2021";
     public PetMicrochipDateValidator()
     {
         When(x => IsEmptyDate(x), () =>
@@ -16,7 +16,7 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
 
         When(x => !IsEmptyDate(x), () =>
         {
-            RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage(x => MicrochipError);
+            //RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage(x => MicrochipError);
 
             RuleFor(x => x.Day).NotEmpty().WithMessage(x => MicrochipError);
             RuleFor(x => x.Month).NotEmpty().WithMessage(x => MicrochipError);
@@ -39,11 +39,10 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
 
     private static bool IsEmptyDate(PetMicrochipDateViewModel model)
     {
-        if(int.TryParse(model.Day, out int d) && int.TryParse(model.Month, out int m) && int.TryParse(model.Year, out int y))
-            {
-            return d == 0 && m == 0 && y == 0;
-        }
-        return true;
+        _ = int.TryParse(model.Day, out int day);
+        _ = int.TryParse(model.Month, out int month);
+        _ = int.TryParse(model.Year, out int year);
+        return day == 0 && month == 0 && year == 0;
     }
 
     private static bool BeTodayOrPastDate(DateTime? date)

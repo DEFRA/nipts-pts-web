@@ -240,9 +240,9 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 PetMicrochipDate = new PetMicrochipDateViewModel
                 {
                     IsCompleted = true,
-                    Day = 01,
-                    Month = 1,
-                    Year = 2022,
+                    Day = "01",
+                    Month = "1",
+                    Year = "2022",
 
                 }
 

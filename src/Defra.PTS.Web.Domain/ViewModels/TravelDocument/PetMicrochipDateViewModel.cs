@@ -18,12 +18,11 @@ public class PetMicrochipDateViewModel : TravelDocumentFormPage
         {
             try
             {
-                //done because of validation issues
-                if(int.TryParse(Day, out int day) && int.TryParse(Month, out int month) && int.TryParse(Year, out int year))
-                {
-                    return new DateTime(year, month, day, 0, 0, 0, 0, DateTimeKind.Utc);
-                }
-                return null;
+                bool dayEntered = int.TryParse(Day, out int day);
+                bool monthEntered = int.TryParse(Month, out int month);
+                _ = int.TryParse(Year, out int year);
+                return new DateTime(year, month, day, 0, 0, 0, 0, DateTimeKind.Utc);
+                var test = "";
             }
             catch
             {

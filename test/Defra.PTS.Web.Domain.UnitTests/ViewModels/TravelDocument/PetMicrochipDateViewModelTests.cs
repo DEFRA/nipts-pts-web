@@ -97,16 +97,16 @@ namespace Defra.PTS.Web.Domain.UnitTests.ViewModels.TravelDocument
 
             // Act
             model.IsCompleted = true;
-            model.Day = 1;
-            model.Month = 12;
-            model.Year = 2020;
+            model.Day = "1";
+            model.Month = "12";
+            model.Year = "2020";
             model.BirthDate = DateTime.Now.AddYears(-5);
 
             // Assert
             using (new AssertionScope())
             {
                 model.PageType.Should().Be(Enums.TravelDocumentFormPageType.PetMicrochipDate);
-                model.MicrochippedDate.Should().Be(new DateTime(model.Year.GetValueOrDefault(), model.Month.GetValueOrDefault(), model.Day.GetValueOrDefault(), 0, 0, 0, 0, DateTimeKind.Utc));
+                model.MicrochippedDate.Should().Be(new DateTime(2020, 12, 1));
                 model.IsCompleted.Should().Be(true);
             }
         }
@@ -119,9 +119,9 @@ namespace Defra.PTS.Web.Domain.UnitTests.ViewModels.TravelDocument
 
             // Act
             model.IsCompleted = true;
-            model.Day = 0;
-            model.Month = 12;
-            model.Year = 2020;
+            model.Day = "0";
+            model.Month = "12";
+            model.Year = "2020";
             model.BirthDate = DateTime.Now.AddYears(-5);
 
             // Assert
@@ -140,9 +140,9 @@ namespace Defra.PTS.Web.Domain.UnitTests.ViewModels.TravelDocument
             var model = CreateModel();
 
             model.IsCompleted = true;
-            model.Day = 1;
-            model.Month = 12;
-            model.Year = 2020;
+            model.Day = "1";
+            model.Month = "12";
+            model.Year = "2020";
             model.BirthDate = DateTime.Now.AddYears(-5);
 
             // Act
@@ -166,9 +166,9 @@ namespace Defra.PTS.Web.Domain.UnitTests.ViewModels.TravelDocument
             var model = CreateModel();
 
             model.IsCompleted = true;
-            model.Day = 1;
-            model.Month = 12;
-            model.Year = 2020;
+            model.Day = "1";
+            model.Month = "12";
+            model.Year = "2020";
             model.BirthDate = DateTime.Now.AddYears(-5);
 
 
