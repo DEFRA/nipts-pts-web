@@ -51,7 +51,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
         {
             var model = new PetKeeperPostcodeViewModel()
             {
-                Postcode = postcode                
+                Postcode = postcode
             };
             var mockMediator = new Mock<IMediator>();
             mockMediator
@@ -59,9 +59,10 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
                 .Returns(Task.FromResult(false));
             var validator = new PetKeeperPostcodeValidator(mockMediator.Object, _localizer);
 
-            var result = await validator.TestValidateAsync(model);            
+            var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.Postcode);
+            result.ShouldHaveValidationErrorFor(x => x.Postcode)
+                  .WithErrorMessage("Enter a postcode in England, Scotland or Wales");
         }
 
         public static IEnumerable<object[]> PetKeeperPostCodeTestData => new List<object[]>
@@ -70,6 +71,5 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
             new object[] { "ED34 ER" },
             new object[] { new string('a', 21) },
         };
-            
     }
 }
