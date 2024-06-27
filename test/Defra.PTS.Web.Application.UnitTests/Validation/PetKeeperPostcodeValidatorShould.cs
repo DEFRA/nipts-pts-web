@@ -13,6 +13,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Defra.PTS.Web.Application.UnitTests.Validation
@@ -47,11 +48,11 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 
         [Theory]
         [MemberData(nameof(PetKeeperPostCodeTestData))]
-        public async Task HaveErrorPostCodeInvalid(string postcode)
+        public async Task HaveErrorPostCodeInvalid(string postcode, string expectedErrorMessage)
         {
             var model = new PetKeeperPostcodeViewModel()
             {
-                Postcode = postcode                
+                Postcode = postcode
             };
             var mockMediator = new Mock<IMediator>();
             mockMediator
@@ -59,17 +60,17 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
                 .Returns(Task.FromResult(false));
             var validator = new PetKeeperPostcodeValidator(mockMediator.Object, _localizer);
 
-            var result = await validator.TestValidateAsync(model);            
+            var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.Postcode);
+            result.ShouldHaveValidationErrorFor(x => x.Postcode).WithErrorMessage(expectedErrorMessage);
         }
 
         public static IEnumerable<object[]> PetKeeperPostCodeTestData => new List<object[]>
         {
-            new object[] { string.Empty },
-            new object[] { "ED34 ER" },
-            new object[] { new string('a', 21) },
+            new object[] { string.Empty, "Enter a postcode" },
+            new object[] { "ED34 ER", "Enter a full postcode in the correct format, for example TF7 5AY or TF75AY" },
+            new object[] { new string('a', 21), "Enter a full postcode in the correct format, for example TF7 5AY or TF75AY" },
+            new object[] { "SW1A 2AA", "Enter a postcode in England, Scotland or Wales" } // Add this to cover
         };
-            
-    }
+        }
 }
