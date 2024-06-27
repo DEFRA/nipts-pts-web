@@ -1,7 +1,6 @@
-﻿using Defra.PTS.Web.Domain.Enums;
+﻿namespace Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 
-namespace Defra.PTS.Web.Domain.ViewModels.TravelDocument;
-
+#pragma warning disable CS8632
 public class PetMicrochipDateViewModel : TravelDocumentFormPage
 {
     public string FormTitle => $"When was your pet microchipped or last scanned?";
@@ -18,11 +17,10 @@ public class PetMicrochipDateViewModel : TravelDocumentFormPage
         {
             try
             {
-                bool dayEntered = int.TryParse(Day, out int day);
-                bool monthEntered = int.TryParse(Month, out int month);
+                _ = int.TryParse(Day, out int day);
+                _ = int.TryParse(Month, out int month);
                 _ = int.TryParse(Year, out int year);
                 return new DateTime(year, month, day, 0, 0, 0, 0, DateTimeKind.Utc);
-                var test = "";
             }
             catch
             {
