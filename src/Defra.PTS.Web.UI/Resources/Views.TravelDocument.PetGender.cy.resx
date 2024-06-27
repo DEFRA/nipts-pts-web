@@ -121,12 +121,12 @@
     <value>Parhau</value>
   </data>
   <data name="Female" xml:space="preserve">
-    <value>Benywaidd</value>
+    <value>Benyw</value>
   </data>
   <data name="Male" xml:space="preserve">
-    <value>Gwrywaidd</value>
+    <value>Gwryw</value>
   </data>
   <data name="What sex is your pet?" xml:space="preserve">
-    <value>Pa ryw yw eich anifail anwes?</value>
+    <value>Beth yw rhyw eich anifail anwes</value>
   </data>
 </root>
