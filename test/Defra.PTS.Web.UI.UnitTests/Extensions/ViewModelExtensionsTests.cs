@@ -393,9 +393,9 @@ public class ViewModelExtensionsTests
         return new()
         {
             IsCompleted = isCompleted,
-            Day = 1,
-            Month = 1,
-            Year = 2024,
+            Day = "1",
+            Month = "1",
+            Year = "2024",
             BirthDate = new DateTime(2020, 1, 1)
         };
     }
