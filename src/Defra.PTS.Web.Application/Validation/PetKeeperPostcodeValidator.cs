@@ -5,7 +5,6 @@ using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Localization;
-using System;
 using System.Text.RegularExpressions;
 
 namespace Defra.PTS.Web.Application.Validation
@@ -13,20 +12,18 @@ namespace Defra.PTS.Web.Application.Validation
     public class PetKeeperPostcodeValidator : AbstractValidator<PetKeeperPostcodeViewModel>
     {
         private readonly IMediator _mediator;
-
-        private static readonly Regex UkPostcodeRegex = new Regex(AppConstants.RegularExpressions.UKPostcode, RegexOptions.Compiled, TimeSpan.FromSeconds(2));
+        private static readonly Regex UkPostcodeRegex = new Regex(AppConstants.RegularExpressions.UKPostcode, RegexOptions.Compiled);
 
         public PetKeeperPostcodeValidator(IMediator mediator, IStringLocalizer<SharedResource> localizer)
         {
             ArgumentNullException.ThrowIfNull(mediator);
             _mediator = mediator;
 
-            RuleFor(x => x.Postcode).NotEmpty().WithMessage(x => localizer[$"Enter a postcode"]);
-
-            When(x => !string.IsNullOrWhiteSpace(x.Postcode), () =>
-            {
-                RuleFor(x => x.Postcode)
-                    .Custom((postcode, context) =>
+            RuleFor(x => x.Postcode)
+                .NotEmpty().WithMessage(x => localizer["Enter a postcode"])
+                .Custom((postcode, context) =>
+                {
+                    if (!string.IsNullOrWhiteSpace(postcode))
                     {
                         if (!UkPostcodeRegex.IsMatch(postcode) || postcode.Length > AppConstants.MaxLength.Postcode)
                         {
@@ -36,8 +33,8 @@ namespace Defra.PTS.Web.Application.Validation
                         {
                             context.AddFailure("Enter a postcode in England, Scotland or Wales");
                         }
-                    });
-            });
+                    }
+                });
         }
 
         private bool BeValidUKPostcode(string postcode)
