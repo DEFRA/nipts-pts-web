@@ -16,8 +16,6 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
 
         When(x => !IsEmptyDate(x), () =>
         {
-            //RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage(x => MicrochipError);
-
             RuleFor(x => x.Day).NotEmpty().WithMessage(x => MicrochipError);
             RuleFor(x => x.Month).NotEmpty().WithMessage(x => MicrochipError);
             RuleFor(x => x.Year).NotEmpty().WithMessage(x => MicrochipError);
