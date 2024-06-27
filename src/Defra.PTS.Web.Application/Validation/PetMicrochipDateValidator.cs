@@ -39,7 +39,11 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
 
     private static bool IsEmptyDate(PetMicrochipDateViewModel model)
     {
-        return model.Day.GetValueOrDefault() == 0 && model.Month.GetValueOrDefault() == 0 && model.Year.GetValueOrDefault() == 0;
+        if(int.TryParse(model.Day, out int d) && int.TryParse(model.Month, out int m) && int.TryParse(model.Year, out int y))
+            {
+            return d == 0 && m == 0 && y == 0;
+        }
+        return true;
     }
 
     private static bool BeTodayOrPastDate(DateTime? date)
