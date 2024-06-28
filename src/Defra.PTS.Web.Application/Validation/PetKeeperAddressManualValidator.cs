@@ -2,6 +2,7 @@
 using Defra.PTS.Web.Application.Extensions;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation;
+using System.Diagnostics.Metrics;
 
 namespace Defra.PTS.Web.Application.Validation
 {
@@ -15,7 +16,8 @@ namespace Defra.PTS.Web.Application.Validation
             When(x => !string.IsNullOrWhiteSpace(x.AddressLineOne), () =>
             {
                 RuleFor(x => x.AddressLineOne)
-                    .MaximumLength(AppConstants.MaxLength.AddressLine).WithMessage($"Enter line 1 of your address using {AppConstants.MaxLength.AddressLine} characters or less");
+                    .MaximumLength(AppConstants.MaxLength.AddressLine).WithMessage($"Enter line 1 of your address using {AppConstants.MaxLength.AddressLine} characters or less")
+                    .Matches(AppConstants.RegularExpressions.AddressText).WithMessage($"Enter line 1 of your adderss using {AppConstants.MaxLength.AddressLine} characters or less ");
             });
 
             RuleFor(x => x.TownOrCity)
@@ -24,7 +26,8 @@ namespace Defra.PTS.Web.Application.Validation
             When(x => !string.IsNullOrWhiteSpace(x.TownOrCity), () =>
             {
                 RuleFor(x => x.TownOrCity)
-                    .MaximumLength(AppConstants.MaxLength.TownOrCity).WithMessage($"Enter a town or city using {AppConstants.MaxLength.TownOrCity} characters or less");
+                    .MaximumLength(AppConstants.MaxLength.TownOrCity).WithMessage($"Enter a town or city using {AppConstants.MaxLength.TownOrCity} characters or less")
+                    .Matches(AppConstants.RegularExpressions.AddressText).WithMessage($"Enter a town or city using { AppConstants.MaxLength.TownOrCity} characters or less");
             });
 
             RuleFor(x => x.Postcode)
@@ -45,14 +48,16 @@ namespace Defra.PTS.Web.Application.Validation
             When(x => !string.IsNullOrWhiteSpace(x.AddressLineTwo), () =>
             {
                 RuleFor(x => x.AddressLineTwo)
-                    .MaximumLength(AppConstants.MaxLength.AddressLine).WithMessage($"Enter line 2 of your address using {AppConstants.MaxLength.AddressLine} characters or less");
+                    .MaximumLength(AppConstants.MaxLength.AddressLine).WithMessage($"Enter line 2 of your address using {AppConstants.MaxLength.AddressLine} characters or less")
+                    .Matches(AppConstants.RegularExpressions.AddressText).WithMessage($"Enter line 2 of your adderss using {AppConstants.MaxLength.AddressLine} characters or less ");
 
             });
 
             When(x => !string.IsNullOrWhiteSpace(x.County), () =>
             {
                 RuleFor(x => x.County)
-                    .MaximumLength(AppConstants.MaxLength.County).WithMessage($"Enter a county using {AppConstants.MaxLength.County} characters or less");
+                    .MaximumLength(AppConstants.MaxLength.County).WithMessage($"Enter a county using {AppConstants.MaxLength.County} characters or less")
+                    .Matches(AppConstants.RegularExpressions.AddressText).WithMessage($"Enter a county using {AppConstants.MaxLength.County} characters or less");
 
             });
         }
