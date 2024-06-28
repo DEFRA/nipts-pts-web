@@ -13,7 +13,7 @@ public class PetKeeperNameValidator : AbstractValidator<PetKeeperNameViewModel>
 
         When(x => !string.IsNullOrWhiteSpace(x.Name), () =>
         {
-            RuleFor(x => x.Name).MaximumLength(AppConstants.MaxLength.PetKeeperName).WithMessage($"Name must be {AppConstants.MaxLength.PetKeeperName} characters or less");
+            RuleFor(x => x.Name).MaximumLength(AppConstants.MaxLength.PetKeeperName).WithMessage($"Enter your full name, using {AppConstants.MaxLength.PetKeeperName} characters or less");            
             RuleFor(x => x.Name).Matches(AppConstants.RegularExpressions.Name).WithMessage("Enter a name using only letters, hyphens or apostrophes");
         });
     }
