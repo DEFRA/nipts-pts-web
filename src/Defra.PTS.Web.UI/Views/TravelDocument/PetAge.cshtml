@@ -23,8 +23,7 @@
 
             <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
 
-                <fieldset class="govuk-fieldset" aria-describedby="pet-age-hint">
-
+                <fieldset class="govuk-fieldset" aria-describedby="pet-age-hint">                    
                     <partial name="_FieldsetLegend" model=fieldsetLegend />
 
                     <div id="pet-age-hint" class="govuk-hint">
@@ -45,6 +44,7 @@
                             <div class="govuk-form-group">
 
                                 <fieldset class="govuk-fieldset" role="group" aria-describedby="petDOB-hint">
+                                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl"></legend>
 
                                     @Html.ValidationMessageFor(x => x.BirthDate, string.Empty, new { @class="govuk-error-message"})
                                     @Html.ValidationMessageFor(x => x.Day, string.Empty, new { @class="govuk-error-message"})

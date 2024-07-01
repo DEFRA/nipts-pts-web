@@ -25,8 +25,12 @@
             <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
 
                 <fieldset class="govuk-fieldset">
-
-                    <partial name="_FieldsetLegend" model=fieldsetLegend />
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl"></legend>
+                    <h1 id="documents" class="govuk-label-wrapper">
+                        <label class="govuk-label govuk-label--xl" for="Address">
+                            What is your address?
+                        </label>
+                    </h1>                                       
 
                     <div class="govuk-form-group">
                         <div id="address-hint" class="govuk-hint">
