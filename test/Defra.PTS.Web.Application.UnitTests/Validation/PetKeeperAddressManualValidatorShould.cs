@@ -96,21 +96,18 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
         public static IEnumerable<object[]> PetKeeperAddressManualAddressLine1TestData => new List<object[]>
         {            
             new object[] { string.Empty },
-            new object[] { new string('a', 251) },
-            new object[] { "Address@£!" }
+            new object[] { new string('a', 251) }
         };
 
         public static IEnumerable<object[]> PetKeeperAddressManualAddressLine2TestData => new List<object[]>
         {            
-            new object[] { new string('a', 251) },
-            new object[] { "Address@£!" }
+            new object[] { new string('a', 251) }
         };
 
         public static IEnumerable<object[]> PetKeeperAddressManualTownOrCityTestData => new List<object[]>
         {
             new object[] { string.Empty },
-            new object[] { new string('a', 251) },
-            new object[] { "town@£!" }
+            new object[] { new string('a', 251) }
         };
 
         public static IEnumerable<object[]> PetKeeperAddressManualPostCodeTestData => new List<object[]>
@@ -122,8 +119,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 
         public static IEnumerable<object[]> PetKeeperAddressManualCountyTestData => new List<object[]>
         {            
-            new object[] { new string('a', 101) },
-            new object[] { "County£&*" }
+            new object[] { new string('a', 101) }
         };
     }
 }
