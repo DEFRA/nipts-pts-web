@@ -21,6 +21,11 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
             RuleFor(x => x.Year).NotEmpty().WithMessage(x => MicrochipError);
         });
 
+        When(x => IsEmptyDate(x) && x.Day.HasValue && x.Month.HasValue && x.Year.HasValue, () =>
+        {
+            RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage("Enter your pet's microchip date in the correct format, for example 11 04 2021");
+        });
+
         When(x => x.MicrochippedDate.HasValue, () =>
         {
             RuleFor(x => x.MicrochippedDate).Must(BeTodayOrPastDate).WithMessage("Enter a date that is in the past");
