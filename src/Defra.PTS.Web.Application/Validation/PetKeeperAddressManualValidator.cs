@@ -39,7 +39,7 @@ namespace Defra.PTS.Web.Application.Validation
                 When(x => x.PostcodeStartsWithNonGBPrefix(), () =>
                 {
                     var validPostcode = false;
-                    RuleFor(x => x.Postcode).Must(x => validPostcode).WithMessage("Enter a full postcode in the correct format, for example TF7 5AY or TF75AY");
+                    RuleFor(x => x.Postcode).Must(x => validPostcode).WithMessage("Enter a postcode in England, Scotland or Wales");
                 });
             });
 
