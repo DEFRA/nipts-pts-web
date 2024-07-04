@@ -52,8 +52,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 
             var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.Day);
-            result.ShouldHaveValidationErrorFor(x => x.Month);
+            result.ShouldHaveValidationErrorFor(x => x.MicrochippedDate);
         }
 
         [Fact]
@@ -64,7 +63,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 
             var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.Year);            
+            result.ShouldHaveValidationErrorFor(x => x.MicrochippedDate);
         }
 
         [Fact]
