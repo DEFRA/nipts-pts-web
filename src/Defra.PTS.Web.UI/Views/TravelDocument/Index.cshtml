@@ -3,9 +3,13 @@
 @using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Localization;
+@inject IViewLocalizer Localizer
+@inject IStringLocalizer<SharedResource> sharedlocalizer
 
 @{
-    var pageTitle = "Lifelong pet travel documents";
+    var pageTitle = sharedlocalizer["Lifelong pet travel documents"];
     this.SetMetaTitle(pageTitle);
     ViewData.SetKeyValue("MainCssClass", "govuk-!-margin-top-6");
 }
@@ -15,7 +19,7 @@
         <h1 id="documents" class="govuk-heading-xl govuk-!-margin-bottom-4">
             @pageTitle
         </h1>
-        <p class="govuk-body govuk-body-l">The lifelong pet travel document is only for people living in England, Scotland and Wales travelling to Northern Ireland with their dog, cat or ferret.</p>
+        <p class="govuk-body govuk-body-l">@Localizer["The lifelong pet travel document is only for people living in England, Scotland and Wales travelling to Northern Ireland with their dog, cat or ferret."]</p>
     </div>
 </div>
 
@@ -24,7 +28,7 @@
 
         <form class="form" action="@WebAppConstants.Pages.TravelDocument.PetKeeperUserDetails" method="get">
             <button class="govuk-button" data-module="govuk-button">
-                Apply for a document
+               @Localizer["Apply for a document"]
             </button>
         </form>
 
