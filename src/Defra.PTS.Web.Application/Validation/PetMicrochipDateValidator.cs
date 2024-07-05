@@ -6,7 +6,7 @@ using FluentValidation;
 namespace Defra.PTS.Web.Application.Validation;
 public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewModel>
 {
-    private static readonly string MicrochipError = "Enter your pet's microchip date in the correct format, for example 11 04 2021";
+    private static readonly string MicrochipError = "Enter a date in the correct format, for example 11 04 2021";
     public PetMicrochipDateValidator()
     {
         When(x => IsEmptyDate(x), () =>
@@ -14,16 +14,14 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
             RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage(x => MicrochipError);
         });
 
-        When(x => !IsEmptyDate(x), () =>
+        When(x => !IsEmptyDate(x) && (x.Day != null || x.Month != null || x.Year != null), () =>
         {
-            RuleFor(x => x.Day).NotEmpty().WithMessage(x => MicrochipError);
-            RuleFor(x => x.Month).NotEmpty().WithMessage(x => MicrochipError);
-            RuleFor(x => x.Year).NotEmpty().WithMessage(x => MicrochipError);
+            RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage(MicrochipError);
         });
 
         When(x => !x.MicrochippedDate.HasValue && x.Day != null && x.Month != null && x.Year != null, () =>
         {
-            RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage("Enter your pet's microchip date in the correct format, for example 11 04 2021");
+            RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage(MicrochipError);
         });
 
         When(x => x.MicrochippedDate.HasValue, () =>
