@@ -12,11 +12,11 @@ public class PetFeatureValidator : AbstractValidator<PetFeatureViewModel>
 
         When(x => x.HasUniqueFeature == YesNoOptions.Yes, () =>
         {
-            RuleFor(x => x.FeatureDescription).NotEmpty().WithMessage("Describe your pet's significant features");
+            RuleFor(x => x.FeatureDescription).NotEmpty().WithMessage("Describe your pet's significant feature");
 
             When(x => !string.IsNullOrWhiteSpace(x.FeatureDescription), () =>
             {
-                RuleFor(x => x.FeatureDescription).MaximumLength(AppConstants.MaxLength.PetFeatureDescription).WithMessage($"Describe your pet's significant features, using {AppConstants.MaxLength.PetFeatureDescription} characters or less characters");
+                RuleFor(x => x.FeatureDescription).MaximumLength(AppConstants.MaxLength.PetFeatureDescription).WithMessage($"Describe your pet's significant feature, using {AppConstants.MaxLength.PetFeatureDescription} characters or less characters");
             });
 
         });
