@@ -33,7 +33,7 @@ public class PuppeteerBrowserAdapter : IBrowser
         var ipAddressUrl = configuration["IpAddressUrl"];
         ArgumentNullException.ThrowIfNull(ipAddressUrl);
         var containerIP = await GetRequestBody(ipAddressUrl);
-        var containerURL = string.Format("http://{0}:3000", containerIP);
+        var containerURL = string.Format("http://{0}:3000/", containerIP);
         opt.BrowserURL = containerURL;
         var browser = await launcher.ConnectAsync(opt);
         try
