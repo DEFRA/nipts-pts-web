@@ -97,6 +97,8 @@ extends:
        -KeyVaultUri "https://$(environment)trd$(nc-function-infrastructure-lower)$(nc-resource-keyvault-lower)1001.vault.azure.net/"
        -PTS:MagicWordEnabled "true"
        -Puppeteer:BrowserURL "http://10.205.132.133:3000/"
+       -IpAddressUrl "https://devptswebaf1005.azurewebsites.net/api/getContainerIPAddress"
+
      snd: >-
        -AddressApi:BaseUrl "https://$(internalAPIMUrl)/trade-address-api/v1/"
        -AppSettings:UseAuth "true"
