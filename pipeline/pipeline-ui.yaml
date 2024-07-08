@@ -76,6 +76,7 @@ extends:
        -KeyVaultUri "https://$(environment)trd$(nc-function-infrastructure-lower)$(nc-resource-keyvault-lower)1001.vault.azure.net/"
        -PTS:MagicWordEnabled "true"
        -Puppeteer:BrowserURL "http://10.205.128.133:3000/"
+       -IpAddressUrl "https://devptswebaf1005.azurewebsites.net/api/getContainerIPAddress"
      tst: >-      
        -AddressApi:BaseUrl "https://$(internalAPIMUrl)/trade-address-api/v1/"
        -AppSettings:UseAuth "true"
@@ -97,6 +98,7 @@ extends:
        -KeyVaultUri "https://$(environment)trd$(nc-function-infrastructure-lower)$(nc-resource-keyvault-lower)1001.vault.azure.net/"
        -PTS:MagicWordEnabled "true"
        -Puppeteer:BrowserURL "http://10.205.132.133:3000/"
+       -IpAddressUrl "https://tstptswebaf1005.azurewebsites.net/api/getContainerIPAddress"
      snd: >-
        -AddressApi:BaseUrl "https://$(internalAPIMUrl)/trade-address-api/v1/"
        -AppSettings:UseAuth "true"
@@ -118,6 +120,7 @@ extends:
        -KeyVaultUri "https://$(environment)trd$(nc-function-infrastructure-lower)$(nc-resource-keyvault-lower)1001.vault.azure.net/"
        -PTS:MagicWordEnabled "true"
        -Puppeteer:BrowserURL "http://10.205.132.133:3000/"
+       -IpAddressUrl "https://sndptswebaf1005.azurewebsites.net/api/getContainerIPAddress"
      pre: >-
        -AddressApi:BaseUrl "https://$(internalAPIMUrl)/trade-address-api/v1/"
        -AppSettings:UseAuth "true"
@@ -139,6 +142,7 @@ extends:
        -KeyVaultUri "https://$(environment)trd$(nc-function-infrastructure-lower)$(nc-resource-keyvault-lower)1001.vault.azure.net/"
        -PTS:MagicWordEnabled "true"
        -Puppeteer:BrowserURL "http://10.205.132.133:3000/"
+       -IpAddressUrl "https://preptswebaf1005.azurewebsites.net/api/getContainerIPAddress"
      prd: >-
        -AddressApi:BaseUrl "https://$(internalAPIMUrl)/trade-address-api/v1/"
        -AppSettings:UseAuth "true"
@@ -160,6 +164,7 @@ extends:
        -KeyVaultUri "https://$(environment)trd$(nc-function-infrastructure-lower)$(nc-resource-keyvault-lower)1001.vault.azure.net/"
        -PTS:MagicWordEnabled "true"
        -Puppeteer:BrowserURL "http://10.205.132.133:3000/"
+       -IpAddressUrl "https://prdptswebaf1005.azurewebsites.net/api/getContainerIPAddress"
     runIntegrationTests: false
     runSonarScan: true
     sonarExclusionPaths: 'src/Defra.PTS.Web.UI/Program.cs, src/Defra.PTS.Web.UI/www**'
