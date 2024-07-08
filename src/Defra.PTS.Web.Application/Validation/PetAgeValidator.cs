@@ -18,28 +18,16 @@ public class PetAgeValidator : AbstractValidator<PetAgeViewModel>
         When(x => !IsEmptyDate(x), () =>
         {
             RuleFor(x => x.BirthDate).NotEmpty().WithMessage(BirthDateError);
-
-            //RuleFor(x => x.Day).NotEmpty().WithMessage("Date of birth must indicate a day");
-            //RuleFor(x => x.Month).NotEmpty().WithMessage("Date of birth must indicate a month");
-            //RuleFor(x => x.Year).NotEmpty().WithMessage("Date of birth must indicate a year");
         });
 
         When(x => x.BirthDate.HasValue, () =>
         {
-            RuleFor(x => x.BirthDate).Must(BePastDate).WithMessage("Enter a date that is in the past");
-            RuleFor(x => x.BirthDate).LessThan(m => m.MicrochippedDate).WithMessage("Enter a date that is before the pet’s microchip date");
-            
             var message = "Enter a date that is less than 34 years ago";
-            RuleFor(x => x.BirthDate).Must((x, e) => MeetsDateLimits(x.BirthDate, out message)).WithMessage(x => message);
 
-        });
-
-        When(x => x.BirthDate.HasValue && BePastDate(x.BirthDate), () =>
-        {
-            RuleFor(x => x.BirthDate).LessThan(m => m.MicrochippedDate).WithMessage("Enter a date that is before the pet’s microchip date");
-
-            var message = "Enter a date that is less than 34 years ago";
-            RuleFor(x => x.BirthDate).Must((x, e) => MeetsDateLimits(x.BirthDate, out message)).WithMessage(x => message);
+            RuleFor(x => x.BirthDate).Cascade(CascadeMode.Stop)
+                .Must(BePastDate).WithMessage("Enter a date that is in the past")
+                .Must((x, e) => MeetsDateLimits(x.BirthDate, out message)).WithMessage(x => message)
+                .LessThan(m => m.MicrochippedDate).WithMessage("Enter a date that is before the pet’s microchip date");
 
         });
 
