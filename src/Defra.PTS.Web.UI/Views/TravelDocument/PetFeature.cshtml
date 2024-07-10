@@ -1,4 +1,5 @@
 ﻿@model PetFeatureViewModel
+@using Defra.PTS.Web.Application.Extensions;
 @using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 @using Defra.PTS.Web.Domain.Enums;
 @using Defra.PTS.Web.Domain.ViewModels;
@@ -19,7 +20,7 @@
             @Html.HiddenFor(x => x.IsCompleted)
 
             <partial name="_ErrorSummary" />
-            <div id="formroot" class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+            <div id="formroot" class="govuk-form-group @(ViewData.ModelState.HasError("HasUniqueFeature") ? "govuk-form-group--error" : "")">
                 <fieldset class="govuk-fieldset" aria-describedby="feature-hint">
 
                     <partial name="_FieldsetLegend" model=fieldsetLegend />
@@ -43,14 +44,16 @@
                                 </label>
                             </div>
                             <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-FeatureDescription">
-                                    <div class="govuk-form-group">
+                                <div class="govuk-form-group">
+                                    <div class="govuk-form-group @(ViewData.ModelState.HasError("FeatureDescription") ? "govuk-form-group--error" : "")">
                                         <label class="govuk-label govuk-label--s" for="FeatureDescription">
                                             Briefly describe your pet's significant feature
                                         </label>
 
                                         @Html.ValidationMessageFor(x => x.FeatureDescription, string.Empty, new { @class = "govuk-error-message" })
-                                    @Html.TextAreaFor(x => x.FeatureDescription, new { @id="FeatureDescription",  @class = "govuk-textarea", @row = "5", @spellcheck = "false", @autocomplete = "feature" })
+                                        @Html.TextAreaFor(x => x.FeatureDescription, new { @id="FeatureDescription",  @class = "govuk-textarea", @row = "5", @spellcheck = "false", @autocomplete = "feature" })
                                     </div>
+                                </div>
                             </div>
                             <div class="govuk-radios__item">
                                 @Html.RadioButtonFor(m => m.HasUniqueFeature, YesNoOptions.No, new { @class = "govuk-radios__input", id = "No" })
@@ -75,7 +78,7 @@
 </div>
 
 @section Scripts
-{
+    {
 
     <script>
         $(document).ready(function () {
