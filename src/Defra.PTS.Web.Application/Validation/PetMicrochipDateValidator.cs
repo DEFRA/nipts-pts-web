@@ -11,30 +11,39 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
     {
         When(x => IsEmptyDate(x), () =>
         {
-            RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage(x => MicrochipError);
+            RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(x => MicrochipError);
         });
 
         When(x => !IsEmptyDate(x) && (x.Day != null || x.Month != null || x.Year != null), () =>
         {
-            RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage(MicrochipError);
+            RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(MicrochipError);
         });
 
         When(x => !x.MicrochippedDate.HasValue && x.Day != null && x.Month != null && x.Year != null, () =>
         {
-            RuleFor(x => x.MicrochippedDate).NotEmpty().WithMessage(MicrochipError);
+            RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(MicrochipError);
         });
 
-        When(x => x.MicrochippedDate.HasValue, () =>
+        When(x => x.MicrochippedDate.HasValue && !x.BirthDate.HasValue, () =>
         {
-            RuleFor(x => x.MicrochippedDate).Must(BeTodayOrPastDate).WithMessage("Enter a date that is in the past");
+            RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
+            .Must(BeTodayOrPastDate).WithMessage("Enter a date that is in the past");
 
             var message = "Enter a date that is less than 34 years ago";
             RuleFor(x => x.MicrochippedDate).Must((x, e) => MeetsDateLimits(x.MicrochippedDate, out message)).WithMessage(x => message);
+            
         });
 
         When(x => x.BirthDate.HasValue && x.MicrochippedDate.HasValue, () =>
         {
-            RuleFor(x => x.MicrochippedDate).GreaterThan(m => m.BirthDate).WithMessage("Enter a date that is after the pet’s date of birth");
+            var message = "Enter a date that is less than 34 years ago";
+            RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
+            .Must(BeTodayOrPastDate).WithMessage("Enter a date that is in the past")
+            .Must((x, e) => MeetsDateLimits(x.MicrochippedDate, out message)).WithMessage(x => message)
+            .GreaterThan(m => m.BirthDate).WithMessage("Enter a date that is after the pet’s date of birth");
         });
     }
 

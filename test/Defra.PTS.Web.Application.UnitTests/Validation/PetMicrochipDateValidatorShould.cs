@@ -74,7 +74,8 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
                 Year = "1980",
                 Month = "1",
                 Day = "1",
-            };
+                BirthDate = new DateTime(1990, 01, 01)
+            };             
 
             var validator = new PetMicrochipDateValidator();
 
