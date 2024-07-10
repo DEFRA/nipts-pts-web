@@ -117,43 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accessibility statement" xml:space="preserve">
-    <value>Datganiad hygyrchedd</value>
+  <data name="Date" xml:space="preserve">
+    <value>Dyddiad</value>
   </data>
-  <data name="Beta" xml:space="preserve">
-    <value>Beta</value>
+  <data name="Declaration" xml:space="preserve">
+    <value>Datganiad</value>
   </data>
-  <data name="Cookies" xml:space="preserve">
-    <value>Cwcis</value>
+  <data name="I declare that:" xml:space="preserve">
+    <value>Dwi’n datgan:</value>
   </data>
-  <data name="Download your application" xml:space="preserve">
-    <value>Lawrlwytho’ch dogfen</value>
+  <data name="I need an EU pet passport or animal health certificate to travel from Northern Ireland to the EU" xml:space="preserve">
+    <value>bod arna i angen pasbort anifeiliaid anwes neu dystysgrif iechyd anifeiliaid yr UE i deithio o Ogledd Iwerddon i'r UE</value>
   </data>
-  <data name="feedback (opens in a new tab)" xml:space="preserve">
-    <value>eich adborth (yn agor mewn tab newydd)</value>
+  <data name="I will only use the lifelong travel document to travel with my dog, cat or ferret from Great Britain (England, Scotland and Wales) to Northern Ireland" xml:space="preserve">
+    <value>mai dim ond i deithio gyda fy nghi, fy nghath neu fy ffured o Brydain Fawr (Cymru, Lloegr a'r Alban) i Ogledd Iwerddon y bydda i’n defnyddio’r ddogfen deithio gydol oes</value>
   </data>
-  <data name="Lifelong pet travel documents" xml:space="preserve">
-    <value>Dogfennau teithio gydol oes i anifeiliaid anwes</value>
-  </data>
-  <data name="Print your application" xml:space="preserve">
-    <value>Argraffu’ch dogfen</value>
-  </data>
-  <data name="Privacy notice" xml:space="preserve">
-    <value>Hysbysiad preifatrwydd</value>
-  </data>
-  <data name="Sign Out" xml:space="preserve">
-    <value>Allgofnodi</value>
-  </data>
-  <data name="Taking a pet from Great Britain to Northern Ireland" xml:space="preserve">
-    <value>Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon</value>
-  </data>
-  <data name="Terms and conditions" xml:space="preserve">
-    <value>Telerau ac amodau</value>
-  </data>
-  <data name="This is a new service - your" xml:space="preserve">
-    <value>Mae hwn yn wasanaeth newydd - bydd</value>
-  </data>
-  <data name="will help us to improve it." xml:space="preserve">
-    <value>yn ein helpu i'w wella.</value>
+  <data name="Name and signature of pet owner" xml:space="preserve">
+    <value>Enw a llofnod perchennog yr anifail anwes</value>
   </data>
 </root>

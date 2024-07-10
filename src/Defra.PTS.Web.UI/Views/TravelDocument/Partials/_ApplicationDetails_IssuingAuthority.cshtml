@@ -1,57 +1,36 @@
 ﻿@model Defra.PTS.Web.Application.DTOs.Services.CertificateIssuingAuthorityDto;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 <div id="document-authority-card" class="govuk-summary-card">
     <div class="govuk-summary-card__title-wrapper">
-        <h2 class="govuk-summary-card__title">Issuing authority</h2>
+        <h2 class="govuk-summary-card__title">@Localizer["Issuing authority"]</h2>
     </div>
     <div class="govuk-summary-card__content">
      
         <dl class="govuk-summary-list">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Name and address of competent authority
+                    @Localizer["Name and address of competent authority"]
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    <strong>@Model.AuthorityName</strong><br />
-                    @if (!string.IsNullOrWhiteSpace(Model.AddressLine1))
-                    {
-                        @Model.AddressLine1
-
-                        <br />
-                    }
-
-                    @if (!string.IsNullOrWhiteSpace(Model.AddressLine2))
-                    {
-                        @Model.AddressLine2
-
-                        <br class="pet-br-print" />
-                    }
-
-                    @if (!string.IsNullOrWhiteSpace(Model.AddressLine3))
-                    {
-                        @Model.AddressLine3
-
-                        <br class="pet-br-print" />
-                    }
-
-                    @if (!string.IsNullOrWhiteSpace(Model.TownOrCity))
-                    {
-                        @Model.TownOrCity
-
-                        <br class="pet-br-print" />
-                    }
-
-                    @if (!string.IsNullOrWhiteSpace(Model.Postcode))
-                    {
-                        @Model.Postcode
-                    }
-
+                    <strong>@Localizer["Animal and Plant Health Agency"]</strong><br />
+                    Pet Travel Section 
+                    <br />
+                    Eden Bridge House 
+                    <br />
+                    Lowther Street 
+                    <br />
+                    Carlisle 
+                    <br />
+                    CA3 8DX
+                    <br />
                 </dd>
             </div>
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Signed on behalf of the competent authority (APHA)
+                    @Localizer["Signed on behalf of the competent authority"] (APHA)
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @Model.SignedOnBehalfOfAPHA (Signed digitally)

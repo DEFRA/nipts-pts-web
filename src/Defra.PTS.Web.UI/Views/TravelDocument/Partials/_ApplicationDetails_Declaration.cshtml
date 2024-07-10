@@ -1,15 +1,17 @@
 ﻿@model Defra.PTS.Web.Application.DTOs.Services.DeclarationDto;
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.Application.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 <div class="govuk-grid-row pet-document-declaration-print">
     <div class="govuk-grid-column-three-quarters">
         <!-- explain what to do if they are travelling to Ireland or EU -->
-        <h2 class="govuk-heading-l">Declaration</h2>
-        <p class="govuk-body">I declare that:</p>
+        <h2 class="govuk-heading-l">@Localizer["Declaration"]</h2>
+        <p class="govuk-body">@Localizer["I declare that:"]</p>
         <ul class="govuk-list govuk-list--bullet">
-            <li>I will only use the lifelong travel document to travel with my dog, cat or ferret from Great Britain (England, Scotland and Wales) to Northern Ireland</li>
-            <li>I need an EU pet passport or animal health certificate to travel from Northern Ireland to the EU</li>
+            <li>@Localizer["I will only use the lifelong travel document to travel with my dog, cat or ferret from Great Britain (England, Scotland and Wales) to Northern Ireland"]</li>
+            <li>@Localizer["I need an EU pet passport or animal health certificate to travel from Northern Ireland to the EU"]</li>
         </ul>
 
         <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-display-none-print">
@@ -17,10 +19,10 @@
         <div class="govuk-grid-row pet-document-signature">
             <div class="govuk-grid-column-two-thirds">
 
-                <p class="govuk-body"><strong>Name and signature of pet owner</strong> <br />@Model.PetOwnerName (Signed digitally)</p>
+                <p class="govuk-body"><strong>@Localizer["Name and signature of pet owner"]</strong> <br />@Model.PetOwnerName (Signed digitally)</p>
             </div>
             <div class="govuk-grid-column-one-third">
-                <p class="govuk-body"><strong>Date</strong> <br />@Model.ApplicationDate.ToUKDateString()</p>
+                <p class="govuk-body"><strong>@Localizer["Date"]</strong> <br />@Model.ApplicationDate.ToUKDateString()</p>
             </div>
         </div>
     </div>
