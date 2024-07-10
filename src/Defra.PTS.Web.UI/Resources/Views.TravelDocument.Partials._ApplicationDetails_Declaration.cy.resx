@@ -135,4 +135,7 @@
   <data name="Name and signature of pet owner" xml:space="preserve">
     <value>Enw a llofnod perchennog yr anifail anwes</value>
   </data>
+  <data name="Signed digitally" xml:space="preserve">
+    <value>Wedi’i lofnodi’n ddigidol</value>
+  </data>
 </root>

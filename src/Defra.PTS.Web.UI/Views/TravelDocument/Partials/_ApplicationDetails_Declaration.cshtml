@@ -19,7 +19,7 @@
         <div class="govuk-grid-row pet-document-signature">
             <div class="govuk-grid-column-two-thirds">
 
-                <p class="govuk-body"><strong>@Localizer["Name and signature of pet owner"]</strong> <br />@Model.PetOwnerName (Signed digitally)</p>
+                <p class="govuk-body"><strong>@Localizer["Name and signature of pet owner"]</strong> <br />@Model.PetOwnerName (@Localizer["Signed digitally"])</p>
             </div>
             <div class="govuk-grid-column-one-third">
                 <p class="govuk-body"><strong>@Localizer["Date"]</strong> <br />@Model.ApplicationDate.ToUKDateString()</p>
