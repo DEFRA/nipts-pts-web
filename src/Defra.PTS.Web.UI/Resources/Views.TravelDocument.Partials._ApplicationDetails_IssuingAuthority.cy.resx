@@ -138,6 +138,9 @@
   <data name="Pet Travel Section" xml:space="preserve">
     <value>Adran Teithio Anifeiliaid Anwes</value>
   </data>
+  <data name="Signed digitally" xml:space="preserve">
+    <value>Wedi’i lofnodi’n ddigidol</value>
+  </data>
   <data name="Signed on behalf of the competent authority" xml:space="preserve">
     <value>Wedi'i llofnodi ar ran yr awdurdod cymwys</value>
   </data>
