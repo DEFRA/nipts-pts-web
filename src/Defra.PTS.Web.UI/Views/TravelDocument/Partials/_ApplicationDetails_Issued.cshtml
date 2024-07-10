@@ -2,18 +2,20 @@
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.Application.Extensions;
 @using Defra.PTS.Web.Application.Helpers;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 <div class="govuk-grid-row pet-declaration-row pet-declaration-row-qrcode">
     <div class="govuk-grid-column-three-quarters">
         <div id="document-issued-card" class="govuk-summary-card">
             <div class="govuk-summary-card__title-wrapper">
-                <h2 class="govuk-summary-card__title">Issued</h2>
+                <h2 class="govuk-summary-card__title">@Localizer["Issued"]</h2>
             </div>
             <div class="govuk-summary-card__content">
                 <dl class="govuk-summary-list">
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            Pet travel document number
+                            @Localizer["Pet travel document number"]
                         </dt>
                         <dd class="govuk-summary-list__value">
                             @Model.DocumentReferenceNumber
@@ -22,7 +24,7 @@
 
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
-                            Date
+                            @Localizer["Date"]
                         </dt>
                         <dd class="govuk-summary-list__value">
                             @Model.DocumentIssueDate.ToUKDateString()

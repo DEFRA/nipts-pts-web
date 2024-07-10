@@ -1,5 +1,8 @@
 ﻿@model Defra.PTS.Web.Application.DTOs.Services.ApplicationCertificateDto;
 @using Defra.PTS.Web.UI.Constants;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
 @{
     var pageTitle = "Lifelong pet travel document and declaration";
 }
@@ -13,7 +16,7 @@
             @pageTitle
         </h1>
         <p class="gem-c-lead-paragraph">
-            For dogs, cats or ferrets travelling from Great Britain to Northern Ireland only.
+            @Localizer["For dogs, cats or ferrets travelling from Great Britain to Northern Ireland only."]
         </p>
 
     </div>
@@ -28,7 +31,7 @@
             @pageTitle
         </h1>
         <p class="govuk-body govuk-body-s">
-            For dogs, cats and ferrets travelling from Great Britain to Northern Ireland only.
+            @Localizer["For dogs, cats and ferrets travelling from Great Britain to Northern Ireland only."]
         </p>
 
     </div>

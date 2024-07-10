@@ -117,43 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accessibility statement" xml:space="preserve">
-    <value>Datganiad hygyrchedd</value>
+  <data name="For dogs, cats or ferrets travelling from Great Britain to Northern Ireland only." xml:space="preserve">
+    <value>I gŵn, cathod neu ffuredau sy'n teithio o Brydain Fawr i Ogledd Iwerddon yn unig.</value>
   </data>
-  <data name="Beta" xml:space="preserve">
-    <value>Beta</value>
-  </data>
-  <data name="Cookies" xml:space="preserve">
-    <value>Cwcis</value>
-  </data>
-  <data name="Download your application" xml:space="preserve">
-    <value>Lawrlwytho’ch dogfen</value>
-  </data>
-  <data name="feedback (opens in a new tab)" xml:space="preserve">
-    <value>eich adborth (yn agor mewn tab newydd)</value>
-  </data>
-  <data name="Lifelong pet travel documents" xml:space="preserve">
-    <value>Dogfennau teithio gydol oes i anifeiliaid anwes</value>
-  </data>
-  <data name="Print your application" xml:space="preserve">
-    <value>Argraffu’ch dogfen</value>
-  </data>
-  <data name="Privacy notice" xml:space="preserve">
-    <value>Hysbysiad preifatrwydd</value>
-  </data>
-  <data name="Sign Out" xml:space="preserve">
-    <value>Allgofnodi</value>
-  </data>
-  <data name="Taking a pet from Great Britain to Northern Ireland" xml:space="preserve">
-    <value>Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon</value>
-  </data>
-  <data name="Terms and conditions" xml:space="preserve">
-    <value>Telerau ac amodau</value>
-  </data>
-  <data name="This is a new service - your" xml:space="preserve">
-    <value>Mae hwn yn wasanaeth newydd - bydd</value>
-  </data>
-  <data name="will help us to improve it." xml:space="preserve">
-    <value>yn ein helpu i'w wella.</value>
+  <data name="Lifelong pet travel document" xml:space="preserve">
+    <value>Dogfen deithio gydol oes i anifail anwes</value>
   </data>
 </root>
