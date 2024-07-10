@@ -1,4 +1,16 @@
 ﻿@using Defra.PTS.Web.UI.Constants;
+@{
+    var onPasswordPage = false;
+
+    var magicWordEnabled = (bool?)ViewData["MagicWordEnabled"] ?? false;
+    var hasUserPassedPasswordCheck = (bool?)ViewData["HasUserPassedPasswordCheck"] ?? true;
+
+    if (magicWordEnabled && !hasUserPassedPasswordCheck)
+    {
+        onPasswordPage = true;
+
+    }
+}
 <!DOCTYPE html>
 <html lang="en" class="govuk-template">
 <head>
@@ -23,16 +35,16 @@
 
 <body class="govuk-template__body @ViewData.GetKeyValue("BodyExtraCssClass")">
     <script>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
-
-    <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
+   <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
 
     <partial name=@WebAppConstants.PartialViews.Header />
 
     <div class="govuk-width-container ">
-
-        <partial name=@WebAppConstants.PartialViews.BetaPanel />
-
-        <partial name=@WebAppConstants.PartialViews.Navigation />
+        @if(!onPasswordPage)
+        {
+            <partial name=@WebAppConstants.PartialViews.BetaPanel />
+            <partial name=@WebAppConstants.PartialViews.Navigation />
+        }        
 
         <partial name=@WebAppConstants.PartialViews.BackLink />
 
@@ -40,10 +52,11 @@
             @RenderBody()
         </main>
     </div>
-
-    <partial name=@WebAppConstants.PartialViews.NeedHelp />
-
-    <partial name=@WebAppConstants.PartialViews.Footer />
+    @if (!onPasswordPage)
+    {
+        <partial name=@WebAppConstants.PartialViews.NeedHelp />
+        <partial name=@WebAppConstants.PartialViews.Footer />
+    }
 
     <script type="module" src="~/javascripts/govuk-frontend.min.js"></script>
     <script type="module">
