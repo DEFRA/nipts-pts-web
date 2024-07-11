@@ -28,13 +28,9 @@ public class PuppeteerBrowserAdapter : IBrowser
     }
 
     public async Task<IPage> NewPageAsync()
-    {
+    {        
         var opt = options.Value;
-        var ipAddressUrl = configuration["IpAddressUrl"];
-        ArgumentNullException.ThrowIfNull(ipAddressUrl);
-        var containerIP = await GetRequestBody(ipAddressUrl);
-        var containerURL = string.Format("http://{0}:3000/", containerIP);
-        opt.BrowserURL = containerURL;
+        await GetContainerIp(opt);
         var browser = await launcher.ConnectAsync(opt);
         try
         {
@@ -45,6 +41,19 @@ public class PuppeteerBrowserAdapter : IBrowser
         {
             await browser.DisposeAsync();
             throw;
+        }
+    }
+
+    private async Task GetContainerIp(ConnectOptions opt)
+    {
+        var useIpAddressUrl = configuration.GetValue<bool>("AppSettings:UseIpAddressUrl");
+        if (useIpAddressUrl)
+        {
+            var ipAddressUrl = configuration.GetValue<string>("AppSettings:IpAddressUrl");
+            ArgumentNullException.ThrowIfNull(ipAddressUrl);
+            var containerIP = await GetRequestBody(ipAddressUrl);
+            var containerURL = string.Format("http://{0}:3000/", containerIP);
+            opt.BrowserURL = containerURL;
         }
     }
 
