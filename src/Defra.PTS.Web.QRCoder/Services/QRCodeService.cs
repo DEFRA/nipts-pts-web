@@ -13,7 +13,7 @@ public class QRCodeService : IQRCodeService
         errorCorrectionLevel = ECCLevel.H;
     }
 
-    public async Task<byte[]> GetQRCode(string text, int pixelsPerModule = 10)
+    public async Task<byte[]> GetQRCode(string text, int pixelsPerModule = 4)
     {
 
         using var generator = new QRCodeGenerator();
@@ -25,7 +25,7 @@ public class QRCodeService : IQRCodeService
         return await Task.FromResult(byteArray);
     }
 
-    public async Task<string> GetQRCodeAsBase64String(string text, int pixelsPerModule = 10)
+    public async Task<string> GetQRCodeAsBase64String(string text, int pixelsPerModule = 4)
     {
         if (string.IsNullOrWhiteSpace(text))
         {
@@ -36,7 +36,7 @@ public class QRCodeService : IQRCodeService
         return Convert.ToBase64String(byteArray);
     }
 
-    public async Task<string> GetQRCodeAsImageUrl(string text, int pixelsPerModule = 10)
+    public async Task<string> GetQRCodeAsImageUrl(string text, int pixelsPerModule = 4)
     {
         if (string.IsNullOrWhiteSpace(text))
         {
