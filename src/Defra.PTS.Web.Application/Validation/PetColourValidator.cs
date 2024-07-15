@@ -14,8 +14,10 @@ public class PetColourValidator : AbstractValidator<PetColourViewModel>
             RuleFor(x => x.PetColourOther).NotEmpty().WithMessage(x => $"Describe the main colour of your {x.PetTypeNameLowered}");
 
             RuleFor(x => x.PetColourOther).Matches(AppConstants.RegularExpressions.AlphaNumeric).WithMessage("Enter alpha numeric characters only");
-            
-            RuleFor(x => x.PetColourOther).MaximumLength(AppConstants.MaxLength.PetColourOther).WithMessage($"Colour description must be {AppConstants.MaxLength.PetColourOther} characters or less");
+
+            RuleFor(x => x.PetColourOther)
+                .MaximumLength(AppConstants.MaxLength.PetColourOther)
+                .WithMessage(x => $"Describe the main colour of your {x.PetTypeNameLowered}, using {AppConstants.MaxLength.PetColourOther} characters or less");
         });
     }
 }

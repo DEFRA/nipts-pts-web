@@ -1,4 +1,5 @@
 ﻿@model PetMicrochipViewModel
+@using Defra.PTS.Web.Application.Extensions;
 @using Defra.PTS.Web.Domain.Models;
 @using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 @using Defra.PTS.Web.Domain.Enums;
@@ -23,7 +24,8 @@
 
                 <partial name="_ErrorSummary" />
 
-                <div id="formroot", class="govuk-form-group  @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+
+                <div id="formroot" , class="govuk-form-group  @(ViewData.ModelState.HasError("Microchipped") ? "govuk-form-group--error" : "")">
                     <fieldset class="govuk-fieldset" aria-describedby="microchip-hint">
 
                         <partial name="_FieldsetLegend" model=fieldsetLegend />
@@ -44,7 +46,7 @@
                             </div>
 
                             <div id="conditional-MicrochipNumber" class="govuk-radios__conditional govuk-radios__conditional--hidden">
-                                <div class="govuk-form-group" id="MicrochipNumber">
+                                <div class="govuk-form-group @(ViewData.ModelState.HasError("MicrochipNumber") ? "govuk-form-group--error" : "")" id="MicrochipNumber">
                                     <label class="govuk-label govuk-label--s" for="microchipinput">
                                         Enter your pet's microchip number
                                     </label>
@@ -52,7 +54,7 @@
                                         Must be 15 digits long
                                     </div>
                                     @Html.ValidationMessageFor(x => x.MicrochipNumber, string.Empty, new { @class = "govuk-error-message" })
-                                    @Html.TextBoxFor(x => x.MicrochipNumber, new { @id = "microchipinput", @class = "govuk-input govuk-input--width-20", @spellcheck = "false", @autocomplete = "microchip", @pattern = @"^[0-9]+$", @title = "Please enter a valid microchip number" })
+                                    @Html.TextBoxFor(x => x.MicrochipNumber, new { @id = "microchipinput", @class = "govuk-input govuk-input--width-20", @spellcheck = "false", @autocomplete = "microchip"})
                                 </div>
                             </div>
 

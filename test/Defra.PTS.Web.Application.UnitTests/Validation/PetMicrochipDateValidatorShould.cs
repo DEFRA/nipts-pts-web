@@ -19,9 +19,9 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
         {
             var model = new PetMicrochipDateViewModel()
             {
-                Year = 2024,
-                Month = 1,
-                Day = 1,
+                Year = "2024",
+                Month = "1",
+                Day = "1",
             };
             var validator = new PetMicrochipDateValidator();
 
@@ -47,24 +47,23 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
         [Fact]
         public async Task HaveErrorIfDayMonthEmpty()
         {
-            var model = new PetMicrochipDateViewModel() { Year = 2010 };
+            var model = new PetMicrochipDateViewModel() { Year = "2010" };
             var validator = new PetMicrochipDateValidator();
 
             var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.Day);
-            result.ShouldHaveValidationErrorFor(x => x.Month);
+            result.ShouldHaveValidationErrorFor(x => x.MicrochippedDate);
         }
 
         [Fact]
         public async Task HaveErrorIfYearEmpty()
         {
-            var model = new PetMicrochipDateViewModel() { Day = 1, Month = 1};
+            var model = new PetMicrochipDateViewModel() { Day = "1", Month = "1"};
             var validator = new PetMicrochipDateValidator();
 
             var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.Year);            
+            result.ShouldHaveValidationErrorFor(x => x.MicrochippedDate);
         }
 
         [Fact]
@@ -72,10 +71,11 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
         {
             var model = new PetMicrochipDateViewModel()
             {
-                Year = 1980,
-                Month = 1,
-                Day = 1,
-            };
+                Year = "1980",
+                Month = "1",
+                Day = "1",
+                BirthDate = new DateTime(1990, 01, 01)
+            };             
 
             var validator = new PetMicrochipDateValidator();
 

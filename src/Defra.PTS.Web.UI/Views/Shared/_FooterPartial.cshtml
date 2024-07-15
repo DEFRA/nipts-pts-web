@@ -1,4 +1,12 @@
 ﻿@using Defra.PTS.Web.UI.Constants;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SharedResource> sharedlocalizer
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor context
+
+@{
+    var language = Thread.CurrentThread.CurrentCulture.EnglishName == "Welsh" ? "English" : "Cymraeg";
+    var languageId = Thread.CurrentThread.CurrentCulture.EnglishName == "Welsh" ? "localeEn" : "localeCy";
+}
 
 <footer class="govuk-footer rtwr-footer" role="contentinfo">
     <div class="govuk-width-container">
@@ -12,31 +20,32 @@
 
                     <li class="govuk-footer__inline-list-item">
                         <a class="govuk-footer__link" href="@WebAppConstants.Pages.Content.AccessibilityStatement">
-                            Accessibility statement
+                            @sharedlocalizer["Accessibility statement"]
                         </a>
                     </li>
 
                     <li class="govuk-footer__inline-list-item">
                         <a class="govuk-footer__link" href="@WebAppConstants.Pages.Content.Cookies">
-                            Cookies
+                            @sharedlocalizer["Cookies"]
                         </a>
                     </li>
 
                     <li class="govuk-footer__inline-list-item">
-                        <a class="govuk-footer__link" href="#">
-                            Cymraeg
+                        <a class="govuk-footer__link" href="" id=@languageId>
+                            @language
                         </a>
                     </li>
 
                     <li class="govuk-footer__inline-list-item">
-                        <a class="govuk-footer__link" href="@WebAppConstants.ExternalLinks.PrivacyNotice" rel="noopener noreferrer">
-                            Privacy notice
+                        <a class="govuk-footer__link" href="@WebAppConstants.ExternalLinks.PrivacyNotice" target="_blank" rel="noopener noreferrer">
+                            @sharedlocalizer["Privacy notice"]
+
                         </a>
                     </li>
 
                     <li class="govuk-footer__inline-list-item">
                         <a class="govuk-footer__link" href="@WebAppConstants.Pages.Content.TermsAndConditions">
-                            Terms and conditions
+                            @sharedlocalizer["Terms and conditions"]
                         </a>
                     </li>
 

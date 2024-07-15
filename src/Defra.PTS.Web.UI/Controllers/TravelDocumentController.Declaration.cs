@@ -55,13 +55,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             return View(model);
         }
 
-        var validationResult = _validationService.ValidateTravelDocument(formData);
-        if (!validationResult.IsValid)
-        {
-            validationResult.AddToModelState(this.ModelState);
-            return View(model);
-        }
-
         model.IsCompleted = true;
         SaveFormData(model);
 

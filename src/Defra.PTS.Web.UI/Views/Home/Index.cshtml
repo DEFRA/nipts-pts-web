@@ -24,17 +24,16 @@
             {
                 @Html.AntiForgeryToken()
 
-                <partial name="_ErrorSummary" />
 
                 <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
 
-                    <fieldset class="govuk-fieldset" aria-describedby="pet-age-hint">
+                    <fieldset class="govuk-fieldset">
 
                         <div class="govuk-form-group">
 
                             <div class="govuk-radios" data-module="govuk-radios">
                                 <div class="govuk-form-group">
-                                    <label class="govuk-label" for="password">
+                                    <label class="govuk-label" for="EnteredPassword">
                                         Password
                                     </label>
                                     <p id="PasswordError" class="govuk-error-message" gds-validation-for="Password"></p>

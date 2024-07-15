@@ -3,6 +3,8 @@
 @using Defra.PTS.Web.Application.Extensions;
 @using Defra.PTS.Web.Domain.Enums;
 @using Defra.PTS.Web.Application.Helpers;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SharedResource> sharedlocalizer
 
 <div class="govuk-grid-row govuk-!-display-none-print">
 
@@ -14,8 +16,8 @@
             <li>
                 <span class="hod-icons-printer"></span>
                 <p class="govuk-body">
-                    <a class="govuk-link" aria-label="Print this page" href="javascript:()" id="print-this-page" onclick="window.print()">
-                        Print this page
+                    <a class="govuk-link" aria-label="Print your application" href="" id="print-this-page" onclick="window.print()">
+                        @sharedlocalizer["Print your application"]
                     </a>
                 </p>
             </li>
@@ -28,11 +30,11 @@
                 <li>
                     <span class="hod-icons-download-button"></span>
                     <p class="govuk-body">
-                        <a aria-label="Download PDF"
+                        <a aria-label="Download your application"
                            class="govuk-link"
                            download="@downloadFilename"
                            href="@downloadUrl">
-                            Download PDF
+                            @sharedlocalizer["Download your application"]
                         </a>
                     </p>
                 </li>

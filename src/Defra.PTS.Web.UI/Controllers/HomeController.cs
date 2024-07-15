@@ -24,7 +24,10 @@ public class HomeController : BaseController
     {
         var magicWordData = GetMagicWordFormData(true);
 
-        if (_ptsSettings.Value.MagicWordEnabled && magicWordData != null && !magicWordData.HasUserPassedPasswordCheck)
+        ViewData.Add("HasUserPassedPasswordCheck", magicWordData.HasUserPassedPasswordCheck);
+        ViewData.Add("MagicWordEnabled", _ptsSettings.Value.MagicWordEnabled);
+
+        if (_ptsSettings.Value.MagicWordEnabled && !magicWordData.HasUserPassedPasswordCheck)
         {
             var model = new HomePageViewModel { MagicWordEnabled = _ptsSettings.Value.MagicWordEnabled };
             return View(model);

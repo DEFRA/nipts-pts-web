@@ -2,6 +2,9 @@
 @using Defra.PTS.Web.Application.DTOs.Services;
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.Application.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Defra.PTS.Web.Application.Constants;
+@inject IViewLocalizer Localizer
 
 @if (Model != null && Model.Any())
 {
@@ -9,11 +12,11 @@
         <table class="govuk-table">
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header">Pet name</th>
-                    <th scope="col" class="govuk-table__header">Species</th>
-                    <th scope="col" class="govuk-table__header">Pet owner</th>
-                    <th scope="col" class="govuk-table__header"><span class="govuk-visually-hidden">Status</span></th>
-                    <th scope="col" class="govuk-table__header"><span class="govuk-visually-hidden">View</span></th>
+                    <th scope="col" class="govuk-table__header">@Localizer["Pet name"]</th>
+                    <th scope="col" class="govuk-table__header">@Localizer["Species"]</th>
+                    <th scope="col" class="govuk-table__header">@Localizer["Pet owner"]</th>
+                    <th scope="col" class="govuk-table__header"><span class="govuk-visually-hidden">@Localizer["Status"]</span></th>
+                    <th scope="col" class="govuk-table__header"><span class="govuk-visually-hidden">@Localizer["View"]</span></th>
                 </tr>
             </thead>
             <tbody class="govuk-table__body">
@@ -38,7 +41,9 @@
                         </td>
                         <td class="govuk-table__cell">
                             <strong class="govuk-tag @statusCssClass">
-                                @application.Status
+                                @(application.Status == @AppConstants.ApplicationStatus.APPROVED 
+                                ? @Localizer["Approved"] 
+                                : @Localizer["Awaiting verification"])
                             </strong>
                         </td>
                         <td class="govuk-table__cell govuk-table__cell--numeric">
@@ -46,7 +51,7 @@
 
                                 <li class="govuk-summary-list__actions-list-item">
                                     <a class="govuk-link" href="@detailsUrl">
-                                        View<span class="govuk-visually-hidden"> document</span>
+                                        @Localizer["View"]<span class="govuk-visually-hidden">@Localizer["document"]</span>
                                     </a>
                                 </li>
                             </ul>

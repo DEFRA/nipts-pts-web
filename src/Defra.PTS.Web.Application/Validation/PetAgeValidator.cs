@@ -6,30 +6,29 @@ using FluentValidation;
 namespace Defra.PTS.Web.Application.Validation;
 public class PetAgeValidator : AbstractValidator<PetAgeViewModel>
 {
+    private static readonly string BirthDateError = "Enter a date in the correct format, for example 11 04 2021";
+
     public PetAgeValidator()
     {
         When(x => IsEmptyDate(x), () =>
         {
-            RuleFor(x => x.BirthDate).NotEmpty().WithMessage("Enter your pet's date of birth");
+            RuleFor(x => x.BirthDate).NotEmpty().WithMessage(BirthDateError);
         });
 
         When(x => !IsEmptyDate(x), () =>
         {
-            RuleFor(x => x.BirthDate).NotEmpty().WithMessage("Date of birth must be a valid date");
-
-            RuleFor(x => x.Day).NotEmpty().WithMessage("Date of birth must indicate a day");
-            RuleFor(x => x.Month).NotEmpty().WithMessage("Date of birth must indicate a month");
-            RuleFor(x => x.Year).NotEmpty().WithMessage("Date of birth must indicate a year");
-            RuleFor(x => x.Month).InclusiveBetween(1, 12).WithMessage("Month must be between {From} to {To}");
+            RuleFor(x => x.BirthDate).NotEmpty().WithMessage(BirthDateError);
         });
 
         When(x => x.BirthDate.HasValue, () =>
         {
-            RuleFor(x => x.BirthDate).Must(BePastDate).WithMessage("The date you entered must be in the past");
-            RuleFor(x => x.BirthDate).LessThan(m => m.MicrochippedDate).WithMessage("Date of birth must be older than microchip date");
+            var message = "Enter a date that is less than 34 years ago";
 
-            var message = $"Date of birth is not valid";
-            RuleFor(x => x.BirthDate).Must((x, e) => MeetsDateLimits(x.BirthDate, out message)).WithMessage(x => message);
+            RuleFor(x => x.BirthDate).Cascade(CascadeMode.Stop)
+                .Must(BePastDate).WithMessage("Enter a date that is in the past")
+                .Must((x, e) => MeetsDateLimits(x.BirthDate, out message)).WithMessage(x => message)
+                .LessThan(m => m.MicrochippedDate).WithMessage("Enter a date that is before the pet’s microchip date");
+
         });
 
     }
@@ -49,7 +48,7 @@ public class PetAgeValidator : AbstractValidator<PetAgeViewModel>
         var fromDate = DateTime.Now.Date.AddYears(-AppConstants.Values.PetMaxAgeInYears);
         var toDate = DateTime.Now.Date.AddDays(-1);
 
-        errorMessage = "The date you entered is too far in the past, check your pet's date of birth again";
+        errorMessage = "Enter a date that is less than 34 years ago";
 
         var dob = date.Value.Date;
 

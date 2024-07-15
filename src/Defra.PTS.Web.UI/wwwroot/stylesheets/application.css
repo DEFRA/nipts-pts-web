@@ -8496,10 +8496,13 @@ time {
   border: 1px solid #b1b4b6;
   box-sizing: border-box;
   margin-bottom: 30px;
+  padding-top: 1px;
+  padding-left: 1px;
+  padding-right: 1px;
   flex-shrink: 1;
 }
 .pet-declaration-print .pet-declaration-row-qrcode .pet-declaration-qrcode svg {
-  width: 230px;
+  width: 100px;
 }
 .pet-declaration-print .pet-declaration-wet-signature {
   border: 1px solid #b1b4b6;

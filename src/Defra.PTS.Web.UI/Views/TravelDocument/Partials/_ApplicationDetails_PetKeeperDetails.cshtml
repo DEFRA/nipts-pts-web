@@ -1,24 +1,26 @@
 ﻿@model Defra.PTS.Web.Application.DTOs.Services.PetKeeperDetailsDto;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 <div id="document-owner-card" class="govuk-summary-card">
     <div class="govuk-summary-card__title-wrapper">
-        <h2 class="govuk-summary-card__title">Pet owner details</h2>
+        <h2 class="govuk-summary-card__title">@Localizer["Pet owner details"]</h2>
     </div>
     <div class="govuk-summary-card__content">
         <dl class="govuk-summary-list">
             <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">Name</dt>
+                <dt class="govuk-summary-list__key">@Localizer["Name"]</dt>
                 <dd class="govuk-summary-list__value">@Model.Name</dd>
 
             </div>
             <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">Email</dt>
+                <dt class="govuk-summary-list__key">@Localizer["Email"]</dt>
                 <dd class="govuk-summary-list__value">@Model.Email</dd>
 
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Address
+                    @Localizer["Address"]
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @if (!string.IsNullOrWhiteSpace(Model.AddressLine1))
@@ -57,7 +59,7 @@
 
             </div>
             <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">Phone number</dt>
+                <dt class="govuk-summary-list__key">@Localizer["Phone number"]</dt>
                 <dd class="govuk-summary-list__value">@Model.Phone</dd>
 
             </div>

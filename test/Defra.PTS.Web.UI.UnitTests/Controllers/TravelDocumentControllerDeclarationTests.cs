@@ -208,50 +208,6 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
 
         [Test]
-        public async Task Declaration_Post_ReturnsViewWithModel_WhenFormIsNotSubmittedModelStateIsvalidWithValidationError()
-        {
-            // Arrange
-            var tempDatamodel = new TravelDocumentViewModel
-            {
-                RequestId = Guid.NewGuid(),
-                IsApplicationInProgress = true,
-                PetKeeperUserDetails = new PetKeeperUserDetailsViewModel() { IsCompleted = true },
-                PetMicrochip = new PetMicrochipViewModel() { IsCompleted = true },
-                PetMicrochipDate = new PetMicrochipDateViewModel() { IsCompleted = true },
-                PetSpecies = new PetSpeciesViewModel() { IsCompleted = true },
-                PetName = new PetNameViewModel() { IsCompleted = true },
-                PetGender = new PetGenderViewModel() { IsCompleted = true },
-                PetAge = new PetAgeViewModel() { IsCompleted = true },
-                PetColour = new PetColourViewModel() { IsCompleted = true },
-                PetFeature = new PetFeatureViewModel() { IsCompleted = true },
-                IsSubmitted = false,
-            };
-
-            var validationResult = new ValidationResult();
-            validationResult.Errors.Add(new ValidationFailure("PropertyName", "Error Message"));
-
-            _mockValidationService.Setup(a => a.ValidateTravelDocument(It.IsAny<TravelDocumentViewModel>())).Returns(validationResult);
-
-            var tempData = TempData();
-            tempData.SetTravelDocument(tempDatamodel);
-            Guid submissionId = Guid.NewGuid();
-            tempData.AddToFormSubmissionQueue(submissionId);
-            _travelDocumentController.TempData = tempData;
-
-            //_travelDocumentController.ModelState.AddModelError("PropertyName", "Error Message");
-            var model = new DeclarationViewModel();
-            //model.RequestId = submissionId;
-
-            // Act
-            var result = await _travelDocumentController.Declaration(model) as ViewResult;
-            var returnedModel = result.Model as DeclarationViewModel;
-
-            // Assert
-            Assert.IsNotNull(result);
-            Assert.IsNotNull(returnedModel);
-        }
-
-        [Test]
         public async Task Declaration_Post_ReturnsViewWithModel_WhenFormIsNotSubmittedModelStateIsvalidWithoutValidationError()
         {
             // Arrange

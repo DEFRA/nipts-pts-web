@@ -1,11 +1,13 @@
 ﻿@using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.Domain.Models;
 @using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SharedResource> sharedlocalizer
 @{
     var isAuthenticated = User.Identity.IsAuthenticated;
     var separator = "|";
     var conditionalSeparator = isAuthenticated ? "|" : string.Empty;
-    var fullName = Context.Session.GetString("FullName");
+    var fullName = Context.Session.GetString("FullName");    
 }
 
 <div class="login-nav govuk-!-display-none-print">
@@ -22,7 +24,7 @@
 
         <li class="login-nav__list-item">
             <a href="@WebAppConstants.Pages.TravelDocument.Index" class="govuk-link login-nav__link govuk-link--no-visited-state profile">
-                Lifelong pet travel documents
+                @sharedlocalizer["Lifelong pet travel documents"]
             </a>@conditionalSeparator
         </li>
 
@@ -36,7 +38,7 @@
 
             <li class="login-nav__list-item">
                 <a href="@WebAppConstants.Pages.User.SignOut" class="govuk-link login-nav__link govuk-link--no-visited-state">
-                    Sign out
+                    @sharedlocalizer["Sign Out"]
                 </a>
             </li>
 

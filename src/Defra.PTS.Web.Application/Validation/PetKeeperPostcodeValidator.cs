@@ -1,32 +1,47 @@
 ﻿using Defra.PTS.Web.Application.Constants;
 using Defra.PTS.Web.Application.Features.Address.Queries;
+using Defra.PTS.Web.Domain;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Localization;
+using System;
+using System.Text.RegularExpressions;
 
-namespace Defra.PTS.Web.Application.Validation;
-public class PetKeeperPostcodeValidator : AbstractValidator<PetKeeperPostcodeViewModel>
+namespace Defra.PTS.Web.Application.Validation
 {
-    private readonly IMediator _mediator;
-    public PetKeeperPostcodeValidator(IMediator mediator)
+    public class PetKeeperPostcodeValidator : AbstractValidator<PetKeeperPostcodeViewModel>
     {
-        ArgumentNullException.ThrowIfNull(mediator);
-        _mediator = mediator;
+        private readonly IMediator _mediator;
+        private static readonly Regex UkPostcodeRegex = new Regex(AppConstants.RegularExpressions.UKPostcode, RegexOptions.Compiled, TimeSpan.FromMilliseconds(100));
 
-        RuleFor(x => x.Postcode).NotEmpty().WithMessage(x => $"Enter your postcode");
-        
-        When(x => !string.IsNullOrWhiteSpace(x.Postcode), () =>
+        public PetKeeperPostcodeValidator(IMediator mediator, IStringLocalizer<SharedResource> localizer)
         {
-            RuleFor(x => x.Postcode).Matches(AppConstants.RegularExpressions.UKPostcode).WithMessage("Postcode is not valid");
-            RuleFor(x => x.Postcode).MaximumLength(AppConstants.MaxLength.Postcode).WithMessage($"Postcode must be {AppConstants.MaxLength.Postcode} characters or less");
-            
-            RuleFor(x => x.Postcode).Must(BeValidUKPostcode).WithMessage("Enter a postcode in England, Scotland or Wales");
-        });
-    }
+            ArgumentNullException.ThrowIfNull(mediator);
+            _mediator = mediator;
 
-    private bool BeValidUKPostcode(string postcode)
-    {
-        var result = _mediator.Send(new ValidateGreatBritianAddressRequest(postcode)).Result;
-        return result;
+            RuleFor(x => x.Postcode)
+                .NotEmpty().WithMessage(x => localizer["Enter a postcode"])
+                .Custom((postcode, context) =>
+                {
+                    if (!string.IsNullOrWhiteSpace(postcode))
+                    {
+                        if (!UkPostcodeRegex.IsMatch(postcode) || postcode.Length > AppConstants.MaxLength.Postcode)
+                        {
+                            context.AddFailure("Enter a full postcode in the correct format, for example TF7 5AY or TF75AY");
+                        }
+                        else if (!BeValidUKPostcode(postcode))
+                        {
+                            context.AddFailure("Enter a postcode in England, Scotland or Wales");
+                        }
+                    }
+                });
+        }
+
+        private bool BeValidUKPostcode(string postcode)
+        {
+            var result = _mediator.Send(new ValidateGreatBritianAddressRequest(postcode)).Result;
+            return result;
+        }
     }
 }
