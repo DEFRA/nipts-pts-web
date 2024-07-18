@@ -17,7 +17,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             return RedirectToAction(nameof(PetKeeperUserDetails));
         }
 
-        SetBackUrl(WebAppConstants.Pages.TravelDocument.PetKeeperPostcode);
+        SetBackUrl(WebAppConstants.HistoryBack);
 
         var formData = GetFormData();
         if (!formData.DoesPageMeetPreConditions(formData.PetKeeperAddressManual.PageType, out string actionName))
@@ -32,7 +32,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     [ValidateAntiForgeryToken]
     public IActionResult PetKeeperAddressManual(PetKeeperAddressManualViewModel model)
     {
-        SetBackUrl(WebAppConstants.Pages.TravelDocument.PetKeeperPostcode);
+        SetBackUrl(WebAppConstants.HistoryBack);
 
         if (!ModelState.IsValid)
         {
