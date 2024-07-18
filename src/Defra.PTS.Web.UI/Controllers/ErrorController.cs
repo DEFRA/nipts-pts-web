@@ -31,7 +31,7 @@ public class ErrorController : BaseController
 
         if (code == 403)
         {
-            return View(WebAppConstants.Views.AccessDenied);
+            return View(WebAppConstants.Views.Forbidden);
         }
 
         if (code == 404)
