@@ -29,6 +29,11 @@ public class ErrorController : BaseController
             return View(WebAppConstants.Views.AccessDenied);
         }
 
+        if (code == 403)
+        {
+            return View(WebAppConstants.Views.AccessDenied);
+        }
+
         if (code == 404)
         {
             return View(WebAppConstants.Views.PageNotFound);
