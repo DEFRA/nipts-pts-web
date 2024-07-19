@@ -43,6 +43,7 @@
                         <label class="govuk-label" for="AddressLineTwo">
                             Address line 2 (optional)
                         </label>
+                        @Html.ValidationMessageFor(x => x.AddressLineTwo, string.Empty, new { @class = "govuk-error-message" })
                         @Html.TextBoxFor(x => x.AddressLineTwo, new { @class = "govuk-input", @spellcheck = "false", @autocomplete = @WebAppConstants.FormAutofill.AddressLineTwo })
                     </div>
 
@@ -58,6 +59,7 @@
                         <label class="govuk-label" for="County">
                             County (optional)
                         </label>
+                        @Html.ValidationMessageFor(x => x.County, string.Empty, new { @class = "govuk-error-message" })
                         @Html.TextBoxFor(x => x.County, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false" })
                     </div>
 
