@@ -1,5 +1,4 @@
-﻿using Defra.PTS.Web.Domain.Enums;
-using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+﻿using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Constants;
 using Defra.PTS.Web.UI.Extensions;
 using Microsoft.AspNetCore.Mvc;
