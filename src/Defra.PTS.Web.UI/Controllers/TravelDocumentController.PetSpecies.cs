@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Defra.PTS.Web.UI.Controllers;
 
 public partial class TravelDocumentController : BaseTravelDocumentController
-{
+{   
     [HttpGet]
     public IActionResult PetSpecies(int? id = null)
     {
@@ -17,7 +17,10 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
         SetBackUrl(WebAppConstants.Pages.TravelDocument.PetMicrochipDate);
 
-        var formData = GetFormData();
+        var formData = GetFormData();        
+        formData.PetSpecies.PreviousSelectedSpecies = formData.PetSpecies.PetSpecies;
+        SaveFormData(formData.PetSpecies);
+
         if (!formData.DoesPageMeetPreConditions(formData.PetSpecies.PageType, out string actionName))
         {
             return RedirectToAction(actionName);
@@ -38,8 +41,17 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         }
         
         model.IsCompleted = true;
-        SaveFormData(model);
+        var formData = GetFormData();        
 
+        if (formData.PetSpecies.PreviousSelectedSpecies != model.PetSpecies)
+        {            
+            formData.PetBreed.BreedId = 0;
+            formData.PetBreed.BreedName = "";
+            SaveFormData(formData.PetBreed);
+        }
+
+        SaveFormData(model);
+   
         if (model.PetSpecies == Domain.Enums.PetSpecies.Ferret)
         {
             return base.RedirectToAction(nameof(PetName));

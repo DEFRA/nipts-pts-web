@@ -7,6 +7,7 @@ public class PetSpeciesViewModel : TravelDocumentFormPage
     public string FormTitle => $"Is your pet a dog, cat or ferret?";
 
     public PetSpecies PetSpecies { get; set; }
+    public PetSpecies PreviousSelectedSpecies { get; set; }
 
     public override Enums.TravelDocumentFormPageType PageType => Enums.TravelDocumentFormPageType.PetSpecies;
 
