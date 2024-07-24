@@ -63,6 +63,17 @@ _ = builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging")
 _ = builder.Logging.AddConsole();
 _ = builder.Logging.AddDebug();
 _ = builder.Logging.AddEventSourceLogger();
+
+builder.Services.Configure<CookiePolicyOptions>(options =>
+{
+    // This lambda determines whether user consent for non-essential 
+    // cookies is needed for a given request.
+    //set to true when GA is implemented
+    options.CheckConsentNeeded = context => false;
+    options.MinimumSameSitePolicy = SameSiteMode.Strict;
+    options.Secure = CookieSecurePolicy.Always;
+});
+
 _ = builder.Services.AddCors(o => o.AddPolicy("AllowOrigins", builder =>
 {
     builder.WithOrigins("*")
@@ -81,16 +92,18 @@ if (useAuth)
 var app = builder.Build();
 _ = app.Use(async (context, next) =>
 {
-    context.Response.OnStarting(state =>
-    {
-        var httpContext = (HttpContext)state;
-        httpContext.Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
-        httpContext.Response.Headers["Pragma"] = "no-cache";
-        httpContext.Response.Headers["Expires"] = "0";
-        return Task.CompletedTask;
-    }, context);
-
-    await next.Invoke();
+    context.Response.Headers.Add("Cache-control", "no-cache, no-store, must-revalidate");
+    context.Response.Headers.Add("Pragma", "no-cache");
+    context.Response.Headers.Add(
+        "Content-Security-Policy",
+        $"default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' https:; img-src 'self' www.googletagmanager.com data:;");
+    context.Response.Headers.Add("X-Frame-Options", "DENY");
+    context.Response.Headers.Add("X-Xss-Protection", "1; mode=block");
+    context.Response.Headers.Add("X-Content-Type-Options", "nosniff");
+    context.Response.Headers.Add("Referrer-Policy", "same-origin");
+    context.Response.Headers.Add("X-Permitted-Cross-Domain-Policies", "none");
+    context.Response.Headers["Expires"] = "0";
+    await next();
 });
 _ = app.UseHttpsRedirection();
 _ = app.UseCookiePolicy();
