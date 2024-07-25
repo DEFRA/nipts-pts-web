@@ -181,7 +181,7 @@ function setLocaleEn() {
     var value = "c=en-GB|uic=en-GB";
     var now = new Date();
     now.setTime(now.getTime + (1 * 60 * 60 * 1000));
-    document.cookie = name + "=" + value + ";expires " + now.toUTCString() + ";path=/";
+    document.cookie = name + "=" + value + ";expires " + now.toUTCString() + ";path=/;SameSite=Strict;secure";
 }
 
 function setLocaleCy() {
@@ -189,7 +189,7 @@ function setLocaleCy() {
     var value = "c=cy|uic=cy";
     var now = new Date();
     now.setTime(now.getTime + (1 * 60 * 60 * 1000));
-    document.cookie = name + "=" + value + ";expires " + now.toUTCString() + ";path=/";
+    document.cookie = name + "=" + value + ";expires " + now.toUTCString() + ";path=/;SameSite=Strict;secure";
 }
 
 $("#localeEn").on("click", function () {
