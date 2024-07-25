@@ -78,7 +78,13 @@ public class UserController : BaseController
         try
         {            
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).GetAwaiter().GetResult();
-            HttpContext.Response.Cookies.Append("ManagementLinkClicked", "false");
+            CookieOptions options = new()
+            {
+                SameSite = SameSiteMode.Strict,
+                HttpOnly = true,
+                Secure = true
+            };
+            HttpContext.Response.Cookies.Append("ManagementLinkClicked", "false", options);
         }
         catch (Exception ex)
         {
@@ -91,7 +97,13 @@ public class UserController : BaseController
     [HttpGet]
     public IActionResult RedirectToExternal()
     {
-        HttpContext.Response.Cookies.Append("ManagementLinkClicked", "true");
+        CookieOptions options = new()
+        {
+            SameSite = SameSiteMode.Strict,
+            HttpOnly = true,
+            Secure = true
+        };
+        HttpContext.Response.Cookies.Append("ManagementLinkClicked", "true", options);
         string managementUrl = _configuration["AppSettings:ManagementUrl"];
         return Redirect(managementUrl);
     }
