@@ -26,7 +26,7 @@
                     </label>
                 </h1>
                 @Html.ValidationMessageFor(x => x.Name, string.Empty, new { @class = "govuk-error-message" })
-                @Html.TextBoxFor(x => x.Name, new { @class = "govuk-input", @spellcheck = "false", @autocomplete = "name", @pattern = @"^[a-zA-Z'\- ]+$", @title = "Please enter a name using only letters, hyphens or apostrophes"})
+                @Html.TextBoxFor(x => x.Name, new { @class = "govuk-input", @spellcheck = "false", @autocomplete = "name" })
             </div>
 
             <div class="govuk-button-group">

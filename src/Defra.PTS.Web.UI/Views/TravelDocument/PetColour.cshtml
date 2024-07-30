@@ -58,7 +58,7 @@
                                         Describe the colour of your @Model.PetTypeNameLowered
                                     </label>
                                     @Html.ValidationMessageFor(x => x.PetColourOther, string.Empty, new { @class="govuk-error-message"})
-                                    @Html.TextBoxFor(x => x.PetColourOther, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false", @autocomplete = "colour", @pattern = @"^[a-zA-Z ]+$", @title = "Please enter a colour using only letters" })
+                                    @Html.TextBoxFor(x => x.PetColourOther, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false", @autocomplete = "colour" })
                                 </div>
                             </div>
                         </div>
