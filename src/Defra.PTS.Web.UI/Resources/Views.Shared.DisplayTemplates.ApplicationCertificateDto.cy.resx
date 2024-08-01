@@ -120,7 +120,7 @@
   <data name="For dogs, cats or ferrets travelling from Great Britain to Northern Ireland only." xml:space="preserve">
     <value>I gŵn, cathod neu ffuredau sy'n teithio o Brydain Fawr i Ogledd Iwerddon yn unig.</value>
   </data>
-  <data name="Lifelong pet travel document" xml:space="preserve">
-    <value>Dogfen deithio gydol oes i anifail anwes</value>
+  <data name="Lifelong pet travel document and declaration" xml:space="preserve">
+    <value>Dogfen teithio a datganiad ar gyfer anifail anwes gydol oes</value>
   </data>
 </root>
