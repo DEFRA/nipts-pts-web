@@ -51,7 +51,7 @@
                                         </label>
 
                                         @Html.ValidationMessageFor(x => x.FeatureDescription, string.Empty, new { @class = "govuk-error-message" })
-                                        @Html.TextAreaFor(x => x.FeatureDescription, new { @id="FeatureDescription",  @class = "govuk-textarea", @rows = "5", @spellcheck = "false", @autocomplete = "feature" })
+                                        @Html.TextAreaFor(x => x.FeatureDescription, new { @id="FeatureDescription",  @class = "govuk-textarea", @rows = "5", @spellcheck = "false" })
                                     </div>
                                 </div>
                             </div>
@@ -90,14 +90,14 @@
             });
         })
 
-        $('input, textarea').bind("input", function (e) {
-            var blockSpecialRegex = /[!$(){}[\]:;<+?\\>]/g;
-            let txtOrig = $(this).val();
-            let txtFinal = txtOrig.replace(blockSpecialRegex, '');
-            if (txtOrig !== txtFinal) {
-                $(this).val(txtFinal);
-            }
-        })
+        // $('input, textarea').bind("input", function (e) {
+        //     var blockSpecialRegex = /[!$(){}[\]:;<+?\\>]/g;
+        //     let txtOrig = $(this).val();
+        //     let txtFinal = txtOrig.replace(blockSpecialRegex, '');
+        //     if (txtOrig !== txtFinal) {
+        //         $(this).val(txtFinal);
+        //     }
+        // })
     </script>
 }
 
