@@ -20,7 +20,7 @@
             @Html.HiddenFor(x => x.IsCompleted)
 
             <partial name="_ErrorSummary" />
-            <div id="formroot" class="govuk-form-group @(ViewData.ModelState.HasError("HasUniqueFeature") ? "govuk-form-group--error" : "")">
+            @* <div id="formroot" class="govuk-form-group @(ViewData.ModelState.HasError("HasUniqueFeature") ? "govuk-form-group--error" : "")">
                 <fieldset class="govuk-fieldset" aria-describedby="feature-hint">
 
                     <partial name="_FieldsetLegend" model=fieldsetLegend />
@@ -63,10 +63,55 @@
                             </div>
                         </div>
                     </div>
+                </fieldset>
+            </div> *@
 
+            <div class="govuk-form-group (@ViewData.ModelState.HasError("HasUniqueFeature") ? " govuk-form-group--error" : null)">
+                <fieldset class="govuk-fieldset govuk-!-margin-bottom-5" aria-describedby="@(ViewData.ModelState.HasError("HasUniqueFeature") ? "OptionSelected_Error": null)">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                        <h1 class="govuk-fieldset__heading">
+                            Does your pet have any significant features?
+                        </h1>
+                    </legend>
 
+                    <p class="govuk-hint">You will have an FBO number if you’ve registered with your local authority for a <a href="https://www.gov.uk/food-business-registration" target="_blank" rel="noopener noreferrer">food business licence</a>.</p>
+                    <p class="govuk-hint">If your business has both, you only need to provide your FBO number.</p>
+
+                    <p id="OptionSelected_Error" class="govuk-error-message" gds-validation-for="HasUniqueFeature"></p>
+                    <div class="govuk-form-group @(ViewData.ModelState.HasError("HasUniqueFeature") ? "govuk-form-group--error" : null)">
+                        <div class="govuk-radios" data-module="govuk-radios" id="HasUniqueFeature">
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" id="HasUniqueFeatureYes" asp-for="HasUniqueFeature" value="@YesNoOptions.Yes" aria-controls="conditional-feature" aria-expanded="false">
+                                <label class="govuk-label govuk-radios__label" for="HasUniqueFeatureYes">
+                                    Yes
+                                </label>
+                            </div>
+
+                            <div class="govuk-form-group @(ViewData.ModelState.HasError("FeatureDescription") ? "govuk-form-group--error" : null)">
+                                <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-feature">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label" for="FeatureDescription">
+                                            Briefly describe your pet's significant feature
+                                        </label>
+                                        <p id="Feature_Error" class="govuk-error-message" gds-validation-for="FboNumber"></p>
+                                        <textarea class="govuk-textarea" rows="5" asp-for="FeatureDescription" spellcheck="false"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" id="HasUniqueFeatureNo" asp-for="HasUniqueFeature" value="@YesNoOptions.No">
+                                <label class="govuk-label govuk-radios__label" for="HasUniqueFeatureNo">
+                                    No
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
                 </fieldset>
             </div>
+
+
             <div class="govuk-button-group">
                 <button class="govuk-button" data-module="govuk-button" type="submit">
                     Continue
