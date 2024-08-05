@@ -94,13 +94,13 @@
                                             Briefly describe your pet's significant feature
                                         </label>
                                         <p id="Feature_Error" class="govuk-error-message" gds-validation-for="FboNumber"></p>
-                                        <textarea class="govuk-textarea" rows="5" asp-for="FeatureDescription" spellcheck="false"></textarea>
+                                        <textarea class="govuk-textarea" id="FeatureDescription" rows="5" asp-for="FeatureDescription" spellcheck="false"></textarea>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="govuk-radios__item">
-                                <input class="govuk-radios__input" type="radio" id="HasUniqueFeatureNo" asp-for="HasUniqueFeature" value="@YesNoOptions.No">
+                                <input class="govuk-radios__input" type="radio" id="HasUniqueFeatureNo" asp-for="HasUniqueFeature" value="@YesNoOptions.No" onclick="clearInput()">
                                 <label class="govuk-label govuk-radios__label" for="HasUniqueFeatureNo">
                                     No
                                 </label>
@@ -143,6 +143,10 @@
         //         $(this).val(txtFinal);
         //     }
         // })
+
+        function clearInput() {
+            document.getElementById("FeatureDescription").value = "";
+        }
     </script>
 }
 
