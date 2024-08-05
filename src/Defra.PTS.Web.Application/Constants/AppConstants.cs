@@ -18,7 +18,7 @@ public static class AppConstants
         public const string UKPostcode = @"^[a-zA-Z0-9\s]*$";
 
         // tweaked to be alot more accepting as was too locked down
-        public const string UKPhone = @" ^[0-9\s+]*$";
+        public const string UKPhone = @"^[0-9\s+]*$";
 
         // Defra Regular Expression for Name (using only letters, hyphens or apostrophes)
         public const string Name = @"^[a-zA-Z\s-']*$";
