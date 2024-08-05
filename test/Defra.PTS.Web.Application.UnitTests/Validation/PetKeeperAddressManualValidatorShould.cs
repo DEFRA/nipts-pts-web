@@ -113,8 +113,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
         public static IEnumerable<object[]> PetKeeperAddressManualPostCodeTestData => new List<object[]>
         {
             new object[] { string.Empty },
-            new object[] { new string('a', 21) },
-            new object[] { "NI45 DRT" }
+            new object[] { new string('a', 21) }
         };
 
         public static IEnumerable<object[]> PetKeeperAddressManualCountyTestData => new List<object[]>

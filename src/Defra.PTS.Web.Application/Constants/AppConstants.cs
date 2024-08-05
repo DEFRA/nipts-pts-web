@@ -15,7 +15,7 @@ public static class AppConstants
         public const string AddressText = @"^[a-zA-Z0-9\s-./()]*$";
 
         // Defra Regular Expression for Postcode
-        public const string UKPostcode = @"^([Gg][Ii][Rr] 0[Aa]{2}|([A-Za-z][0-9]{1,2}|[A-Za-z][A-Ha-hJ-Yj-y][0-9]{1,2}|[A-Za-z][0-9][A-Za-z]|[A-Za-z][A-Ha-hJ-Yj-y][0-9]?[A-Za-z]) ?[0-9][A-Za-z]{2})$";
+        public const string UKPostcode = @"^[a-zA-Z0-9\s]*$";
 
         // tweaked to be alot more accepting as was too locked down
         public const string UKPhone = @"^[0-9\s+]*$";
