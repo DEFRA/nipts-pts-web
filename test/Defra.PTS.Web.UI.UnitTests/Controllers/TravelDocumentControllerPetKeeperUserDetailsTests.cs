@@ -43,6 +43,11 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 CallBase = true
             };
             _travelDocumentViewModel = new Mock<TravelDocumentViewModel>();
+
+            var mockHttpContext = new Mock<HttpContext>();
+            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
+            _travelDocumentController.Object.ControllerContext = new ControllerContext();
+            _travelDocumentController.Object.ControllerContext.HttpContext = mockHttpContext.Object;
         }
 
 
@@ -89,7 +94,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var mockHttpContext = new Mock<HttpContext>();
             var mockSession = new Mock<ISession>();
             mockHttpContext.SetupGet(x => x.Session).Returns(mockSession.Object);
-
+            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
 
             _travelDocumentController.Object.ControllerContext = new ControllerContext()
             {

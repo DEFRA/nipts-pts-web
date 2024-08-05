@@ -8,20 +8,23 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     [HttpGet]
     public IActionResult Acknowledgement()
     {
-        if (!IsApplicationInProgress())
+        var applicationReference =  GetApplicationReference();
+        
+        if (!IsApplicationInProgress() && string.IsNullOrEmpty(applicationReference))
         {
             return RedirectToAction(nameof(PetKeeperUserDetails));
         }
 
         var formData = GetFormData();
-        if (!formData.DoesPageMeetPreConditions(formData.Acknowledgement.PageType, out string actionName))
+
+        if (formData != null && !formData.DoesPageMeetPreConditions(formData.Acknowledgement.PageType, out string actionName))
         {
             return RedirectToAction(actionName);
         }
 
         SetBackUrl(string.Empty);
 
-        var viewModel = formData.Acknowledgement;
+        var viewModel = formData != null ? formData.Acknowledgement : new Domain.ViewModels.TravelDocument.AcknowledgementViewModel { Reference = applicationReference};
 
         // Clear data
         RemoveFormData();

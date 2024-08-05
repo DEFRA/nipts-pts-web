@@ -40,6 +40,10 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         {
             // Arrange
             _travelDocumentController = new TravelDocumentController(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object);
+            var mockHttpContext = new Mock<HttpContext>();
+            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
+            _travelDocumentController.ControllerContext = new ControllerContext();
+            _travelDocumentController.ControllerContext.HttpContext = mockHttpContext.Object;
         }
 
 
