@@ -84,7 +84,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var redirectResult = result as RedirectToActionResult;
 
             Assert.IsNotNull(redirectResult);
-            Assert.AreEqual("PetKeeperUserDetails", redirectResult.ActionName);
+            Assert.AreEqual("Index", redirectResult.ActionName);
         }
 
         [Test]
