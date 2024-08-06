@@ -43,7 +43,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         {
             var ptsSettings = new PtsSettings
             {
-               MagicWordEnabled = true,
+                MagicWordEnabled = true,
             };
             _mockControllerContext = new Mock<ControllerContext>();
             _optionsPtsSettings = Options.Create(ptsSettings);

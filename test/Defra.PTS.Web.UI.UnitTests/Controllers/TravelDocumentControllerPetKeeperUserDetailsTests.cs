@@ -29,6 +29,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private readonly Mock<IMediator> _mockMediator = new();
         private readonly Mock<ILogger<TravelDocumentController>> _mockLogger = new();
         private readonly Mock<IOptions<PtsSettings>> _mockPtsSettings = new();
+        private IOptions<PtsSettings> _optionsPtsSettings;
         private Mock<TravelDocumentController> _travelDocumentController;
         private Mock<ControllerContext> _mockControllerContext;
         private Mock<TravelDocumentViewModel> _travelDocumentViewModel;
@@ -37,8 +38,13 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         [SetUp]
         public void Setup()
         {
+            var ptsSettings = new PtsSettings
+            {
+                MagicWordEnabled = true,
+            };
+            _optionsPtsSettings = Options.Create(ptsSettings);
             _mockControllerContext = new Mock<ControllerContext>();
-            _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object)
+            _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _optionsPtsSettings)
             {
                 CallBase = true
             };
@@ -46,76 +52,75 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         }
 
 
-        //[Test]
-        //public void PetKeeperUserDetails_Returns_RedirectToAction_When_Application_NotInProgress()
-        //{
-        //    // Arrange
-        //    var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
-        //    var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = false };
-        //    tempData.SetHasUserUsedMagicWord(magicWordViewModel);
-        //    _travelDocumentController.Object.TempData = tempData;
+        [Test]
+        public void PetKeeperUserDetails_Returns_RedirectToAction_When_Application_NotInProgress()
+        {
+            // Arrange
+            var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
+            var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = false };
+            tempData.SetHasUserUsedMagicWord(magicWordViewModel);
+            _travelDocumentController.Object.TempData = tempData;
 
-        //    // Act
-        //    var result = _travelDocumentController.Object.PetKeeperUserDetails().Result as RedirectToActionResult;
+            // Act
+            var result = _travelDocumentController.Object.PetKeeperUserDetails().Result as RedirectToActionResult;
 
-        //    // Assert
-        //    Assert.IsNotNull(result);
-        //    Assert.AreEqual(nameof(TravelDocumentController.Index), result.ActionName);
-        //}
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(nameof(TravelDocumentController.Index), result.ActionName);
+        }
 
-        //[Test]
-        //public void PetKeeperUserDetails_Returns_RedirectToAction_When_Page_PreConditions()
-        //{
-        //    // Arrange
-        //    var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
-        //    _mockPtsSettings.Setup()
-        //    var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = true };
-        //    tempData.SetHasUserUsedMagicWord(magicWordViewModel);
-        //    _travelDocumentController.Object.TempData = tempData;
+        [Test]
+        public void PetKeeperUserDetails_Returns_RedirectToAction_When_Page_PreConditions()
+        {
+            // Arrange
+            var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
+            var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = true };
+            tempData.SetHasUserUsedMagicWord(magicWordViewModel);
+            _travelDocumentController.Object.TempData = tempData;
 
-        //    _mockMediator.Setup(x => x.Send(It.IsAny<AddAddressRequest>(), CancellationToken.None))
-        //          .ReturnsAsync(new AddAddressResponse
-        //          {
-        //              IsSuccess = true
-        //          });
+            _mockMediator.Setup(x => x.Send(It.IsAny<AddAddressRequest>(), CancellationToken.None))
+                  .ReturnsAsync(new AddAddressResponse
+                  {
+                      IsSuccess = true
+                  });
 
-        //    _mockMediator.Setup(x => x.Send(It.IsAny<GetUserDetailQueryRequest>(), CancellationToken.None))
-        //          .ReturnsAsync(new GetUserDetailQueryResponse
-        //          {
-        //              UserDetail = new UserDetailDto { FullName = "John Doe" }
-        //          });
-        //    MockHttpContext();
+            _mockMediator.Setup(x => x.Send(It.IsAny<GetUserDetailQueryRequest>(), CancellationToken.None))
+                  .ReturnsAsync(new GetUserDetailQueryResponse
+                  {
+                      UserDetail = new UserDetailDto { FullName = "John Doe" }
+                  });
+            MockHttpContext();
 
-        //    // Arrange
-        //    var mockHttpContext = new Mock<HttpContext>();
-        //    var mockSession = new Mock<ISession>();
-        //    mockHttpContext.SetupGet(x => x.Session).Returns(mockSession.Object);
-
-
-        //    _travelDocumentController.Object.ControllerContext = new ControllerContext()
-        //    {
-        //        HttpContext = mockHttpContext.Object
-        //    };
-
-        //    var formData = new TravelDocumentViewModel
-        //    {
-        //        PetKeeperUserDetails = new PetKeeperUserDetailsViewModel
-        //        {
-        //            IsCompleted = true,
-        //        }
-        //    };
+            // Arrange
+            var mockHttpContext = new Mock<HttpContext>();
+            var mockSession = new Mock<ISession>();
+            mockHttpContext.SetupGet(x => x.Session).Returns(mockSession.Object);
 
 
-        //    _travelDocumentController.Setup(x => x.GetFormData(false))
-        //         .Returns(formData);
+            _travelDocumentController.Object.ControllerContext = new ControllerContext()
+            {
+                HttpContext = mockHttpContext.Object
+            };
 
-        //    // Act
-        //    var result = _travelDocumentController.Object.PetKeeperUserDetails().Result as RedirectToActionResult;
+            var formData = new TravelDocumentViewModel
+            {
+                PetKeeperUserDetails = new PetKeeperUserDetailsViewModel
+                {
+                    IsCompleted = true,
+                }
+            };
 
-        //    // Assert
-        //    Assert.IsNotNull(result);
 
-        //}
+            _travelDocumentController.Setup(x => x.GetFormData(false))
+                 .Returns(formData);
+
+            // Act
+            var result = _travelDocumentController.Object.PetKeeperUserDetails().Result as RedirectToActionResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+
+        }
 
         [Test]
         public void PetName_WithValidModel_If_UserDetailsAreCorrect_Yes_RedirectsToIndex()
