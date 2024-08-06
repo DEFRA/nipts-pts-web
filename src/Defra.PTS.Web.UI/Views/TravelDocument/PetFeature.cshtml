@@ -20,52 +20,7 @@
             @Html.HiddenFor(x => x.IsCompleted)
 
             <partial name="_ErrorSummary" />
-            @* <div id="formroot" class="govuk-form-group @(ViewData.ModelState.HasError("HasUniqueFeature") ? "govuk-form-group--error" : "")">
-                <fieldset class="govuk-fieldset" aria-describedby="feature-hint">
-
-                    <partial name="_FieldsetLegend" model=fieldsetLegend />
-
-                    <div id="feature-hint" class="govuk-hint">
-                        <p class="govuk-body">
-                            A significant feature is anything that can help us to identify your pet.
-                            <br />
-                            For example, if your pet has one eye or a missing leg.
-                        </p>
-                    </div>
-
-                    @Html.ValidationMessageFor(x => x.HasUniqueFeature, string.Empty, new { @class = "govuk-error-message" })
-
-                    <div class="govuk-form-group" id="HasUniqueFeature">
-                        <div class="govuk-radios" data-module="govuk-radios">
-                            <div class="govuk-radios__item">
-                                @Html.RadioButtonFor(m => m.HasUniqueFeature, YesNoOptions.Yes, new { @class = "govuk-radios__input", id = "Yes", data_aria_controls = "conditional-FeatureDescription" })
-                                <label class="govuk-label govuk-radios__label" for="Yes">
-                                    Yes
-                                </label>
-                            </div>
-                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-FeatureDescription">
-                                <div class="govuk-form-group">
-                                    <div class="govuk-form-group @(ViewData.ModelState.HasError("FeatureDescription") ? "govuk-form-group--error" : "")">
-                                        <label class="govuk-label govuk-label--s" for="FeatureDescription">
-                                            Briefly describe your pet's significant feature
-                                        </label>
-
-                                        @Html.ValidationMessageFor(x => x.FeatureDescription, string.Empty, new { @class = "govuk-error-message" })
-                                        @Html.TextAreaFor(x => x.FeatureDescription, new { @id="FeatureDescription",  @class = "govuk-textarea", @rows = "5", @spellcheck = "false" })
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="govuk-radios__item">
-                                @Html.RadioButtonFor(m => m.HasUniqueFeature, YesNoOptions.No, new { @class = "govuk-radios__input", id = "No" })
-                                <label class="govuk-label govuk-radios__label" for="No">
-                                    No
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </fieldset>
-            </div> *@
-
+            
             <div class="govuk-form-group (@ViewData.ModelState.HasError("HasUniqueFeature") ? " govuk-form-group--error" : null)">
                 <fieldset class="govuk-fieldset govuk-!-margin-bottom-5" aria-describedby="@(ViewData.ModelState.HasError("HasUniqueFeature") ? "OptionSelected_Error": null)">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
@@ -74,8 +29,13 @@
                         </h1>
                     </legend>
 
-                    <p class="govuk-hint">You will have an FBO number if you’ve registered with your local authority for a <a href="https://www.gov.uk/food-business-registration" target="_blank" rel="noopener noreferrer">food business licence</a>.</p>
-                    <p class="govuk-hint">If your business has both, you only need to provide your FBO number.</p>
+                    <div id="feature-hint" class="govuk-hint">
+                        <p class="govuk-body">
+                            A significant feature is anything that can help us to identify your pet.
+                            <br />
+                            For example, if your pet has one eye or a missing leg.
+                        </p>
+                    </div>
 
                     <p id="OptionSelected_Error" class="govuk-error-message" gds-validation-for="HasUniqueFeature"></p>
                     <div class="govuk-form-group @(ViewData.ModelState.HasError("HasUniqueFeature") ? "govuk-form-group--error" : null)">

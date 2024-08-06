@@ -153,8 +153,10 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _travelDocumentController.TempData = tempData;
 
             _travelDocumentController.ModelState.AddModelError("PropertyName", "Error Message");
-            var model = new DeclarationViewModel();
-            model.RequestId = submissionId;
+            var model = new DeclarationViewModel
+            {
+                RequestId = submissionId
+            };
 
             // Act
             var result = await _travelDocumentController.Declaration(model) as ViewResult;
@@ -251,18 +253,18 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // Create claims
             var claims = new List<Claim>
             {
-                new Claim("contactId", "123"),
-                new Claim("uniqueReference", "abc"),
-                new Claim("firstName", "John"),
-                new Claim("lastName", "Doe"),
-                new Claim(ClaimTypes.Email, "john.doe@example.com"),
-                new Claim(ClaimTypes.Role, "Admin")
+                new("contactId", "123"),
+                new("uniqueReference", "abc"),
+                new("firstName", "John"),
+                new("lastName", "Doe"),
+                new(ClaimTypes.Email, "john.doe@example.com"),
+                new(ClaimTypes.Role, "Admin")
             };
             identities.Add(mockIdentity.Object);
 
             // Setup ClaimsIdentity
             mockIdentity.SetupGet(i => i.Claims).Returns(claims);
-            ClaimsPrincipal user = new ClaimsPrincipal(new ClaimsIdentity(claims));
+            ClaimsPrincipal user = new(new ClaimsIdentity(claims));
 
             var httpContext = new DefaultHttpContext();
             httpContext.Request.Scheme = "http";
