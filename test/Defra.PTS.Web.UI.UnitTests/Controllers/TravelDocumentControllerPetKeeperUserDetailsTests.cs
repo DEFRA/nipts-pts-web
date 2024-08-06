@@ -43,9 +43,13 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 CallBase = true
             };
             _travelDocumentViewModel = new Mock<TravelDocumentViewModel>();
+
+            var mockHttpContext = new Mock<HttpContext>();
+            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
+            _travelDocumentController.Object.ControllerContext = new ControllerContext();
+            _travelDocumentController.Object.ControllerContext.HttpContext = mockHttpContext.Object;
         }
-
-
+      
         //[Test]
         //public void PetKeeperUserDetails_Returns_RedirectToAction_When_Application_NotInProgress()
         //{

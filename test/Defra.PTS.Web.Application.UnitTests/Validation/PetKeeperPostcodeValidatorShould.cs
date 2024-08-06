@@ -68,7 +68,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
         public static IEnumerable<object[]> PetKeeperPostCodeTestData => new List<object[]>
         {
             new object[] { string.Empty, "Enter a postcode" },
-            new object[] { "ED34 ER", "Enter a full postcode in the correct format, for example TF7 5AY or TF75AY" },
+            new object[] { "ED34 ER", "Enter a postcode in England, Scotland or Wales" },
             new object[] { new string('a', 21), "Enter a full postcode in the correct format, for example TF7 5AY or TF75AY" },
             new object[] { "SW1A 2AA", "Enter a postcode in England, Scotland or Wales" } // Add this to cover
         };

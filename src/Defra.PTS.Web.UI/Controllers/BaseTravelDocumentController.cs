@@ -79,9 +79,10 @@ public class BaseTravelDocumentController : BaseController
     {
         var formData = GetFormData();
         
-        formData.Acknowledgement = model;
+        formData.Acknowledgement = model;        
 
         SaveFormData(formData);
+        SaveApplicationReference(model.Reference);
     }
 
     protected void SaveFormData(DeclarationViewModel model)
@@ -267,4 +268,16 @@ public class BaseTravelDocumentController : BaseController
         throw new NotImplementedException();
     }
     #endregion FormSubmissionQueue
+
+    #region ApplicationReference
+    protected void SaveApplicationReference(string applicationReference)
+    {
+        TempData.SetApplicationReference(applicationReference);
+    }
+    public string GetApplicationReference()
+    {
+        return TempData.GetApplicationReference();
+    }
+    #endregion ApplicationReference
+
 }
