@@ -5,11 +5,13 @@ using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Constants;
 using Defra.PTS.Web.UI.Controllers;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
+using Moq.Protected;
 using NUnit.Framework;
 using Assert = NUnit.Framework.Assert;
 
@@ -33,11 +35,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());              
             _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object)
             {
-                
                 CallBase = true
             };
             _travelDocumentController.Object.TempData = tempData;
             _travelDocumentViewModel = new Mock<TravelDocumentViewModel>();
+
+            var mockHttpContext = new Mock<HttpContext>();
+            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
+            _travelDocumentController.Object.ControllerContext = new ControllerContext();
+            _travelDocumentController.Object.ControllerContext.HttpContext = mockHttpContext.Object;
         }
 
 
@@ -126,6 +132,10 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // Arrange
             _travelDocumentController.Setup(x => x.IsApplicationInProgress())
                .Returns(true);
+            var mock = new Mock<BaseController>();
+
+            
+
 
             var formData = new TravelDocumentViewModel
             {
