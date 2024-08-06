@@ -29,18 +29,16 @@
 
             </div>
 
-            @if (Model.HasBreed)
-            {
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        @Localizer["Breed"]
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        @Model.Breed
-                    </dd>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    @Localizer["Breed"]
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @(Model.HasBreed ? Model.Breed : "-")
+                </dd>
 
-                </div>
-            }
+            </div>
+
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
