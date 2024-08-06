@@ -33,7 +33,7 @@ namespace Defra.PTS.Web.Application.Validation
 
             When(x => !string.IsNullOrWhiteSpace(x.Postcode), () =>
             {
-                RuleFor(x => x.Postcode).Matches(AppConstants.RegularExpressions.UKPostcode).WithMessage("Enter a full postcode in the correct format, for example TF7 5AY or TF75AY");
+                RuleFor(x => x.Postcode).Cascade(CascadeMode.Stop).Matches(AppConstants.RegularExpressions.UKPostcode).WithMessage("Enter a full postcode in the correct format, for example TF7 5AY or TF75AY");
                 RuleFor(x => x.Postcode).Cascade(CascadeMode.Stop).MaximumLength(AppConstants.MaxLength.Postcode).WithMessage($"Enter a full postcode in the correct format, for example TF7 5AY or TF75AY");
 
                 When(x => x.PostcodeStartsWithNonGBPrefix(), () =>
