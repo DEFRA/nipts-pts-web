@@ -29,6 +29,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private readonly Mock<IMediator> _mockMediator = new();
         private readonly Mock<ILogger<TravelDocumentController>> _mockLogger = new();
         private readonly Mock<IOptions<PtsSettings>> _mockPtsSettings = new();
+        private IOptions<PtsSettings> _optionsPtsSettings;
         private Mock<TravelDocumentController> _travelDocumentController;
         private Mock<ControllerContext> _mockControllerContext;
         private Mock<TravelDocumentViewModel> _travelDocumentViewModel;
@@ -37,8 +38,13 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         [SetUp]
         public void Setup()
         {
+            var ptsSettings = new PtsSettings
+            {
+                MagicWordEnabled = true,
+            };
+            _optionsPtsSettings = Options.Create(ptsSettings);
             _mockControllerContext = new Mock<ControllerContext>();
-            _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object)
+            _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _optionsPtsSettings)
             {
                 CallBase = true
             };
@@ -76,45 +82,27 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = true };
             tempData.SetHasUserUsedMagicWord(magicWordViewModel);
             _travelDocumentController.Object.TempData = tempData;
-
-            _mockMediator.Setup(x => x.Send(It.IsAny<AddAddressRequest>(), CancellationToken.None))
-                  .ReturnsAsync(new AddAddressResponse
-                  {
-                      IsSuccess = true
-                  });
-
-            _mockMediator.Setup(x => x.Send(It.IsAny<GetUserDetailQueryRequest>(), CancellationToken.None))
-                  .ReturnsAsync(new GetUserDetailQueryResponse
-                  {
-                      UserDetail = new UserDetailDto { FullName = "John Doe" }
-                  });
-            MockHttpContext();
-
-            // Arrange
-            var mockHttpContext = new Mock<HttpContext>();
-            var mockSession = new Mock<ISession>();
-            mockHttpContext.SetupGet(x => x.Session).Returns(mockSession.Object);
-            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
-
-            _travelDocumentController.Object.ControllerContext = new ControllerContext()
-            {
-                HttpContext = mockHttpContext.Object
-            };
-
             var formData = new TravelDocumentViewModel
             {
                 PetKeeperUserDetails = new PetKeeperUserDetailsViewModel
                 {
+                    Name = "John " + "Doe",
+                    Email = "john.doe@example.com",
                     IsCompleted = true,
-                }
+                    //UserDetailsAreCorrect = YesNoOptions.No,
+                    PetOwnerDetailsRequired = false,
+                },
+
+
             };
-
-
+            // Arrange
+            _travelDocumentController.Setup(x => x.IsApplicationInProgress())
+                .Returns(false);
             _travelDocumentController.Setup(x => x.GetFormData(false))
-                 .Returns(formData);
+                .Returns(formData);
 
             // Act
-            var result = _travelDocumentController.Object.PetKeeperUserDetails().Result as RedirectToActionResult;
+            var result = _travelDocumentController.Object.PetKeeperUserDetails(formData.PetKeeperUserDetails) as RedirectToActionResult;
 
             // Assert
             Assert.IsNotNull(result);

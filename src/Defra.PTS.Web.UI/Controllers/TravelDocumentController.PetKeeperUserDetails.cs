@@ -1,10 +1,12 @@
 ﻿using Defra.PTS.Web.Application.Extensions;
 using Defra.PTS.Web.Application.Features.Address.Queries;
 using Defra.PTS.Web.Domain.Enums;
+using Defra.PTS.Web.Domain.Models;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Constants;
 using Defra.PTS.Web.UI.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace Defra.PTS.Web.UI.Controllers;
 
@@ -14,7 +16,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     public async Task<IActionResult> PetKeeperUserDetails()
     {
         var magicWordData = GetMagicWordFormData();
-        if (magicWordData != null && !magicWordData.HasUserPassedPasswordCheck)
+        if (_ptsSettings.MagicWordEnabled && (magicWordData == null || !magicWordData.HasUserPassedPasswordCheck))
         {
             return RedirectToAction(nameof(Index));
         }

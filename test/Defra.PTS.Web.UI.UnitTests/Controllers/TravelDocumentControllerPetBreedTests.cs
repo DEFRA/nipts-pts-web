@@ -62,7 +62,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(nameof(TravelDocumentController.PetKeeperUserDetails), result.ActionName);
+            Assert.AreEqual(nameof(TravelDocumentController.Index), result.ActionName);
         }
 
         [Test]
@@ -144,7 +144,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                  .ReturnsAsync(new GetBreedsQueryResponse
                  {
                     PetType=PetSpecies.Cat,
-                    Breeds = new List<BreedDto> { new BreedDto { BreedId=1,BreedName="Test"} }
+                    Breeds = new List<BreedDto> { new() { BreedId=1,BreedName="Test"} }
                  });
 
             _travelDocumentController.Setup(x => x.GetFormData(false))

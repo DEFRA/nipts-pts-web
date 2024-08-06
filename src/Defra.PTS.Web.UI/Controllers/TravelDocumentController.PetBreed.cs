@@ -16,7 +16,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     {
         if (!IsApplicationInProgress())
         {
-            return RedirectToAction(nameof(PetKeeperUserDetails));
+            return RedirectToAction(nameof(Index));
         }
 
         SetBackUrl(WebAppConstants.Pages.TravelDocument.PetSpecies);

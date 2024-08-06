@@ -60,7 +60,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(nameof(TravelDocumentController.PetKeeperUserDetails), result.ActionName);
+            Assert.AreEqual(nameof(TravelDocumentController.Index), result.ActionName);
         }        
 
         [Test]
