@@ -23,7 +23,7 @@
             
             <div class="govuk-form-group (@ViewData.ModelState.HasError("HasUniqueFeature") ? " govuk-form-group--error" : null)">
                 <fieldset class="govuk-fieldset govuk-!-margin-bottom-5" aria-describedby="@(ViewData.ModelState.HasError("HasUniqueFeature") ? "OptionSelected_Error": null)">
-                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--l">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
                         <h1 class="govuk-fieldset__heading">
                             Does your pet have any significant features?
                         </h1>
@@ -38,8 +38,8 @@
                     </div>
 
                     <p id="OptionSelected_Error" class="govuk-error-message" gds-validation-for="HasUniqueFeature"></p>
-                    <div class="govuk-form-group @(ViewData.ModelState.HasError("HasUniqueFeature") ? "govuk-form-group--error" : null)">
-                        <div class="govuk-radios" data-module="govuk-radios" id="HasUniqueFeature">
+                    <div class="govuk-radios" data-module="govuk-radios" id="HasUniqueFeature">
+                        <div class="govuk-form-group @(ViewData.ModelState.HasError("HasUniqueFeature") ? "govuk-form-group--error" : null)">
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" type="radio" id="HasUniqueFeatureYes" asp-for="HasUniqueFeature" value="@YesNoOptions.Yes" aria-controls="conditional-feature" aria-expanded="false">
                                 <label class="govuk-label govuk-radios__label" for="HasUniqueFeatureYes">
@@ -47,8 +47,8 @@
                                 </label>
                             </div>
 
-                            <div class="govuk-form-group @(ViewData.ModelState.HasError("FeatureDescription") ? "govuk-form-group--error" : null)">
-                                <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-feature">
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-feature">
+                                <div class="govuk-form-group @(ViewData.ModelState.HasError("FeatureDescription") ? "govuk-form-group--error" : null)">
                                     <div class="govuk-form-group">
                                         <label class="govuk-label" for="FeatureDescription">
                                             Briefly describe your pet's significant feature
