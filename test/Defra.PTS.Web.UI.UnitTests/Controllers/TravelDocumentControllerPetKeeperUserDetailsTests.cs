@@ -82,45 +82,27 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = true };
             tempData.SetHasUserUsedMagicWord(magicWordViewModel);
             _travelDocumentController.Object.TempData = tempData;
-
-            _mockMediator.Setup(x => x.Send(It.IsAny<AddAddressRequest>(), CancellationToken.None))
-                  .ReturnsAsync(new AddAddressResponse
-                  {
-                      IsSuccess = true
-                  });
-
-            _mockMediator.Setup(x => x.Send(It.IsAny<GetUserDetailQueryRequest>(), CancellationToken.None))
-                  .ReturnsAsync(new GetUserDetailQueryResponse
-                  {
-                      UserDetail = new UserDetailDto { FullName = "John Doe" }
-                  });
-            MockHttpContext();
-
-            // Arrange
-            var mockHttpContext = new Mock<HttpContext>();
-            var mockSession = new Mock<ISession>();
-            mockHttpContext.SetupGet(x => x.Session).Returns(mockSession.Object);
-
-
-            _travelDocumentController.Object.ControllerContext = new ControllerContext()
-            {
-                HttpContext = mockHttpContext.Object
-            };
-
             var formData = new TravelDocumentViewModel
             {
                 PetKeeperUserDetails = new PetKeeperUserDetailsViewModel
                 {
+                    Name = "John " + "Doe",
+                    Email = "john.doe@example.com",
                     IsCompleted = true,
-                }
+                    //UserDetailsAreCorrect = YesNoOptions.No,
+                    PetOwnerDetailsRequired = false,
+                },
+
+
             };
-
-
+            // Arrange
+            _travelDocumentController.Setup(x => x.IsApplicationInProgress())
+                .Returns(false);
             _travelDocumentController.Setup(x => x.GetFormData(false))
-                 .Returns(formData);
+                .Returns(formData);
 
             // Act
-            var result = _travelDocumentController.Object.PetKeeperUserDetails().Result as RedirectToActionResult;
+            var result = _travelDocumentController.Object.PetKeeperUserDetails(formData.PetKeeperUserDetails) as RedirectToActionResult;
 
             // Assert
             Assert.IsNotNull(result);
