@@ -10,6 +10,7 @@ namespace Defra.PTS.Web.Application.Validation
     {
         public PetKeeperAddressManualValidator()
         {
+            RuleLevelCascadeMode = CascadeMode.Stop;
 
             RuleFor(x => x.AddressLineOne).NotEmpty().WithMessage("Enter line 1 of your address");
 
@@ -33,14 +34,9 @@ namespace Defra.PTS.Web.Application.Validation
 
             When(x => !string.IsNullOrWhiteSpace(x.Postcode), () =>
             {
-                RuleFor(x => x.Postcode).Cascade(CascadeMode.Stop).Matches(AppConstants.RegularExpressions.UKPostcode).WithMessage("Enter a full postcode in the correct format, for example TF7 5AY or TF75AY");
-                RuleFor(x => x.Postcode).Cascade(CascadeMode.Stop).MaximumLength(AppConstants.MaxLength.Postcode).WithMessage($"Enter a full postcode in the correct format, for example TF7 5AY or TF75AY");
-
-                When(x => x.PostcodeStartsWithNonGBPrefix(), () =>
-                {
-                    var validPostcode = false;
-                    RuleFor(x => x.Postcode).Must(x => validPostcode).WithMessage("Enter a postcode in England, Scotland or Wales");
-                });
+                RuleFor(x => x.Postcode).Cascade(CascadeMode.Stop).Matches(AppConstants.RegularExpressions.UKPostcode).WithMessage("Enter a full postcode in the correct format, for example TF7 5AY or TF75AY")
+                .MaximumLength(AppConstants.MaxLength.Postcode).WithMessage($"Enter a full postcode in the correct format, for example TF7 5AY or TF75AY")
+                .Matches($"^(?!BT|JE|GY|IM|bt|je|gy|im).*").WithMessage("Enter a postcode in England, Scotland or Wales");
             });
 
             When(x => !string.IsNullOrWhiteSpace(x.AddressLineTwo), () =>
