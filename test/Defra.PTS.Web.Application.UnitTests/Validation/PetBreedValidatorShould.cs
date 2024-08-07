@@ -25,7 +25,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 
         [Theory]
         [MemberData(nameof(PetBreedTestData))]
-        public async Task HaveErrorIfBreedNameEmpty(PetSpecies petSpecies, string breedName)
+        public async Task HaveErrorIfBreedIdEmpty(PetSpecies petSpecies, string breedName)
         {
             var model = new PetBreedViewModel() 
             { 
@@ -36,15 +36,29 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 
             var result = await validator.TestValidateAsync(model);
 
+            result.ShouldHaveValidationErrorFor(x => x.BreedId);
+        }
+
+        [Fact]
+        public async Task HaveErrorIfBreedNameTooLong()
+        {
+            var model = new PetBreedViewModel()
+            {
+                PetSpecies = PetSpecies.Dog,
+                BreedName = new string('a', 155)
+            };
+            var validator = new PetBreedValidator();
+
+            var result = await validator.TestValidateAsync(model);
+
             result.ShouldHaveValidationErrorFor(x => x.BreedName);
         }
 
         public static IEnumerable<object[]> PetBreedTestData => new List<object[]>()
         {
-            new object[] { PetSpecies.Dog, "" },
-            new object[] { PetSpecies.Cat, "" },
-            new object[] { PetSpecies.Ferret, "" },
-            new object[] { PetSpecies.Dog, new string('a', 155) }
+            new object[] { PetSpecies.Dog, null },
+            new object[] { PetSpecies.Cat, null },
+            new object[] { PetSpecies.Ferret, null },
         };
     }
 }
