@@ -61,11 +61,17 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
         List<SelectListItem> breeds = null;
 
+        if (!ModelState.IsValid)
+        {
+            ViewBag.BreedList = await GetBreedsAsSelectListItems(model.PetSpecies);
+            return View(model);
+        }
+
         if (model.PetSpecies.HasBreed())
         {
             breeds = await GetBreedsAsSelectListItems(model.PetSpecies);
-            ViewBag.BreedList = breeds;           
-            
+            ViewBag.BreedList = breeds;
+
             //BreedId = 0 (freetext, first entry), 98 (Cat, Mixed or Other), 99 (Dog, Mixed or Other)
             //We need to sort freetext entries to see if they match an item on our list first
             //If it is not found, we assign it as a mixed breed
@@ -99,7 +105,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             }
             else
             {
-                var breed = breeds.Find(x => x.Text == model.BreedName);
+                var breed = breeds.Find(x => x.Value == model.BreedId.ToString());
                 if (breed == null)
                 {
                     if (model.PetSpecies == Domain.Enums.PetSpecies.Dog)
@@ -122,13 +128,19 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                 else
                 {
                     model.BreedId = Int32.Parse(breed.Value);
+                    model.BreedName = breed.Text;
                     model.BreedAdditionalInfo = null;
+
+                    if (model.BreedName == null)
+                    {
+                        ModelState.AddModelError(nameof(model.BreedName), "Select or enter the breed of your pet");
+                    }
                 }
             }
         }
         else
         {
-            model.BreedName = string.Empty;
+            model.BreedName = null;
         }
 
         if (!ModelState.IsValid)
