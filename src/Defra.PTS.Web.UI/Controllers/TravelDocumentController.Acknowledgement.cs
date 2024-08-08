@@ -1,4 +1,5 @@
-﻿using Defra.PTS.Web.UI.Extensions;
+﻿using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+using Defra.PTS.Web.UI.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Defra.PTS.Web.UI.Controllers;
@@ -24,7 +25,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
         SetBackUrl(string.Empty);
 
-        var viewModel = formData != null ? formData.Acknowledgement : new Domain.ViewModels.TravelDocument.AcknowledgementViewModel { Reference = applicationReference};
+        var viewModel = formData != null ? formData.Acknowledgement : new AcknowledgementViewModel { Reference = applicationReference};
 
         // Clear data
         RemoveFormData();

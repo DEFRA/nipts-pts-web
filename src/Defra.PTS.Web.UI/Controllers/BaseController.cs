@@ -15,16 +15,7 @@ public abstract class BaseController : Controller
 
     protected void SetBackUrl(string backUrl)
     {
-        if (HttpContext.Request.Headers["Referer"].ToString().Contains(WebAppConstants.Pages.TravelDocument.Declaration) ||
-            HttpContext.Request.Headers["Referer"].ToString().Contains(WebAppConstants.Pages.TravelDocument.Acknowledgement))
-        {
-            ViewData.SetKeyValue(WebAppConstants.ViewKeys.BackUrl, WebAppConstants.HistoryBack);
-        }
-        else
-        {
-            ViewData.SetKeyValue(WebAppConstants.ViewKeys.BackUrl, string.IsNullOrWhiteSpace(backUrl) ? null : backUrl);
-        }
-            
+        ViewData.SetKeyValue(WebAppConstants.ViewKeys.BackUrl, string.IsNullOrWhiteSpace(backUrl) ? null : WebAppConstants.HistoryBack);
     }
 
     public virtual Guid CurrentUserId()
@@ -57,3 +48,4 @@ public abstract class BaseController : Controller
 
     #endregion
 }
+
