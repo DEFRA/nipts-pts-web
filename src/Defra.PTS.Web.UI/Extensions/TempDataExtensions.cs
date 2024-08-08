@@ -2,6 +2,7 @@
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Newtonsoft.Json;
+using System.Linq;
 using static Defra.PTS.Web.UI.Constants.WebAppConstants;
 
 namespace Defra.PTS.Web.Application.Extensions;
@@ -108,7 +109,10 @@ public static class TempDataExtensions
 
     public static void SetApplicationReference(this ITempDataDictionary tempData, string applicationReference)
     {
-        tempData.Add(TempDataKey.ApplicationReference, applicationReference);
+        if (!tempData.ContainsKey(TempDataKey.ApplicationReference))
+        {
+            tempData.Add(TempDataKey.ApplicationReference, applicationReference);
+        }        
     }
     public static string GetApplicationReference(this ITempDataDictionary tempData)
     {
