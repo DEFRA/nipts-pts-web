@@ -28,11 +28,11 @@ namespace Defra.PTS.Web.Application.Validation
                     {
                         if (!UkPostcodeRegex.IsMatch(postcode) || postcode.Length > AppConstants.MaxLength.Postcode)
                         {
-                            context.AddFailure("Enter a full postcode in the correct format, for example TF7 5AY or TF75AY");
+                            context.AddFailure(localizer["Enter a full postcode in the correct format, for example TF7 5AY or TF75AY"]);
                         }
                         else if (!BeValidUKPostcode(postcode))
                         {
-                            context.AddFailure("Enter a postcode in England, Scotland or Wales");
+                            context.AddFailure(localizer["Enter a postcode in England, Scotland or Wales"]);
                         }
                     }
                 });
