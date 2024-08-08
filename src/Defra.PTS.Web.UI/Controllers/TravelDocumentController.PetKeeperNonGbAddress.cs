@@ -14,12 +14,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     public async Task<IActionResult> PetKeeperNonGbAddressAsync()
     {
         var magicWordData = GetMagicWordFormData();
-        if (magicWordData != null && !magicWordData.HasUserPassedPasswordCheck)
-        {
-            return RedirectToAction(nameof(Index));
-        }
-
-        if (!IsApplicationInProgress())
+        if (_ptsSettings.MagicWordEnabled && (magicWordData == null || !magicWordData.HasUserPassedPasswordCheck))
         {
             return RedirectToAction(nameof(Index));
         }
