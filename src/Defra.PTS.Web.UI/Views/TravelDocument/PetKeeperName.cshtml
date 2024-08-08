@@ -4,6 +4,11 @@
 @using System.Web;
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization;
+@inject IViewLocalizer Localizer
+@inject IStringLocalizer<SharedResource> sharedlocalizer
+
 
 @{
     this.SetMetaTitle(Model.FormTitle);
@@ -22,7 +27,7 @@
             <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
                 <h1 class="govuk-label-wrapper">
                     <label class="govuk-label govuk-label--xl" for="Name">
-                        @Model.FormTitle
+                        @Localizer[Model.FormTitle]
                     </label>
                 </h1>
                 @Html.ValidationMessageFor(x => x.Name, string.Empty, new { @class = "govuk-error-message" })
@@ -31,7 +36,7 @@
 
             <div class="govuk-button-group">
                 <button class="govuk-button" data-module="govuk-button" type="submit">
-                    Continue
+                    @sharedlocalizer["Continue"]
                 </button>
             </div>
         }

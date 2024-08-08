@@ -123,6 +123,9 @@
   <data name="Beta" xml:space="preserve">
     <value>Beta</value>
   </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Parhau</value>
+  </data>
   <data name="Cookies" xml:space="preserve">
     <value>Cwcis</value>
   </data>

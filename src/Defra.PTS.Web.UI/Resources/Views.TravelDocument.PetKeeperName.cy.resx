@@ -117,34 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Enter a full postcode in the correct format, for example TF7 5AY or TF75AY" xml:space="preserve">
-    <value>Rhowch god post llawn yn y fformat cywir, er enghraifft, TF7 5AY neu TF75AY</value>
-  </data>
-  <data name="Enter a phone number, like 01632 960 001 or 07700 900 982" xml:space="preserve">
-    <value>Rhowch rif ffôn, fel 01632 960 001 neu 07700 900 982</value>
-  </data>
-  <data name="Enter a postcode" xml:space="preserve">
-    <value>Rhowch god post</value>
-  </data>
-  <data name="Enter a postcode in England, Scotland or Wales" xml:space="preserve">
-    <value>Rhowch gyfeiriad dilys yng Nghymru, Lloegr neu'r Alban. Os na allwch chi ddod o hyd i'ch cyfeiriad, gallwch ei ychwanegu eich hunan isod.</value>
-  </data>
-  <data name="Enter your full name" xml:space="preserve">
-    <value>Rhowch eich enw llawn</value>
-  </data>
-  <data name="Enter your phone number" xml:space="preserve">
-    <value>Rhowch eich rhif ffôn</value>
-  </data>
-  <data name="Tell us if your details are correct" xml:space="preserve">
-    <value>Dwedwch a yw eich manylion chi’n gywir</value>
-  </data>
-  <data name="Tell us if your pet is male or female" xml:space="preserve">
-    <value>Dwedwch a yw'ch anifail anwes yn wryw ynteu'n fenyw</value>
-  </data>
-  <data name="Tell us if you are taking a pet dog, cat or ferret" xml:space="preserve">
-    <value>Dwedwch a ydych chi'n mynd â chi anwes, cath anwes neu ffured anwes</value>
-  </data>
-  <data name="Enter your full name, using 300 characters or less" xml:space="preserve">
-    <value>Rhowch eich enw llawn, gan ddefnyddio 300 o gymeriadau neu lai</value>
+  <data name="What is your full name?" xml:space="preserve">
+    <value>Beth yw’ch enw llawn?</value>
   </data>
 </root>
