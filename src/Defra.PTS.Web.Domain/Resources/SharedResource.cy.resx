@@ -144,4 +144,7 @@
   <data name="Tell us if you are taking a pet dog, cat or ferret" xml:space="preserve">
     <value>Dwedwch a ydych chi'n mynd â chi anwes, cath anwes neu ffured anwes</value>
   </data>
+  <data name="Enter your full name, using 300 characters or less" xml:space="preserve">
+    <value>Rhowch eich enw llawn, gan ddefnyddio 300 o gymeriadau neu lai</value>
+  </data>
 </root>
