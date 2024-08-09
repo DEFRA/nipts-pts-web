@@ -6,7 +6,7 @@
 @using Defra.PTS.Web.UI.Extensions;
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Yes" };
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Day" }; //Make it Day and test
     this.SetMetaTitle(Model.FormTitle);
 }
 
@@ -44,7 +44,7 @@
                             <div class="govuk-form-group">
 
                                 <fieldset class="govuk-fieldset" role="group" aria-describedby="petDOB-hint">
-                                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl"></legend>
+                                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl govuk-visually-hidden">Enter date of birth</legend>
 
                                     @Html.ValidationMessageFor(x => x.BirthDate, string.Empty, new { @class="govuk-error-message"})
                                     @Html.ValidationMessageFor(x => x.Day, string.Empty, new { @class="govuk-error-message"})
