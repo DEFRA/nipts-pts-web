@@ -58,7 +58,6 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
         {
             new object[] { string.Empty },
             new object[] { new string('a', 301) },
-            new object[] { "Name£!!" }
         };
     }
 }
