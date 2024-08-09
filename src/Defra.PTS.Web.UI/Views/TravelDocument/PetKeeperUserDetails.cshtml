@@ -6,6 +6,8 @@
 @using Defra.PTS.Web.UI.Extensions;
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SharedResource> sharedlocalizer
 
 @{
     var fieldsetLegend = new FieldsetLegendViewModel { Label = @Localizer["Are your details correct?"].Value, LabelFor = "Yes" };
@@ -88,7 +90,7 @@
 
             <div class="govuk-form-group">
                 <button class="govuk-button" data-module="govuk-button" type="submit">
-                    @Localizer["Continue"]
+                    @sharedlocalizer["Continue"]
                 </button>
             </div>
         }
