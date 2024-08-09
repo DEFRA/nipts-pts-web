@@ -123,9 +123,6 @@
   <data name="Are your details correct?" xml:space="preserve">
     <value>Ydy’ch manylion chi’n gywir?</value>
   </data>
-  <data name="Continue" xml:space="preserve">
-    <value>Parhau</value>
-  </data>
   <data name="Email" xml:space="preserve">
     <value>Ebost</value>
   </data>
