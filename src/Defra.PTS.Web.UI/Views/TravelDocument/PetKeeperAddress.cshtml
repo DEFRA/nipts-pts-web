@@ -5,10 +5,13 @@
 @using System.Web;
 @using Defra.PTS.Web.Domain.ViewModels;
 @using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization;
+@inject IViewLocalizer Localizer
+@inject IStringLocalizer<SharedResource> sharedlocalizer
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Address" };
-    this.SetMetaTitle(Model.FormTitle);
+    this.SetMetaTitle(Localizer[Model.FormTitle].Value);
 }
 
 <div class="govuk-grid-row">
@@ -28,15 +31,15 @@
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl"></legend>
                     <h1 id="documents" class="govuk-label-wrapper">
                         <label class="govuk-label govuk-label--xl" for="Address">
-                            What is your address?
+                            @Localizer[Model.FormTitle]
                         </label>
                     </h1>                                       
 
                     <div class="govuk-form-group">
                         <div id="address-hint" class="govuk-hint">
                             <p>
-                                Postcode:
-                                <strong class="bold-xsmall">@Model.Postcode</strong>&nbsp;&nbsp;<a href="@WebAppConstants.Pages.TravelDocument.PetKeeperPostcode">Change</a>
+                                @Localizer["Postcode"]:
+                                <strong class="bold-xsmall">@Model.Postcode</strong>&nbsp;&nbsp;<a href="@WebAppConstants.Pages.TravelDocument.PetKeeperPostcode">@Localizer["Change"]</a>
                             </p>
                         </div>
 
@@ -49,13 +52,13 @@
 
             <div class="govuk-button-group">
                 <button class="govuk-button" data-module="govuk-button" type="submit">
-                    Continue
+                    @sharedlocalizer["Continue"]
                 </button>
             </div>
         }
 
         <p>
-            <a href="@WebAppConstants.Pages.TravelDocument.PetKeeperAddressManual">I cannot find the address in the list</a>
+            <a href="@WebAppConstants.Pages.TravelDocument.PetKeeperAddressManual">@Localizer["I cannot find the address in the list"]</a>
         </p>
 
     </div>

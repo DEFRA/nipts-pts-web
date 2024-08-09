@@ -1,17 +1,14 @@
 ﻿using Defra.PTS.Web.Application.Extensions;
+using Defra.PTS.Web.Domain;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation;
+using Microsoft.Extensions.Localization;
 
 namespace Defra.PTS.Web.Application.Validation;
 public class PetKeeperAddressValidator : AbstractValidator<PetKeeperAddressViewModel>
 {
-    public PetKeeperAddressValidator()
+    public PetKeeperAddressValidator(IStringLocalizer<SharedResource> localizer)
     {
-        RuleFor(x => x.Address).NotEmpty().WithMessage(x => $"Select your address");
-        When(x => x.PostcodeStartsWithNonGBPrefix(), () =>
-        {
-            var validPostcode = false;
-            RuleFor(x => x.Postcode).Must(x => validPostcode).WithMessage("Enter a postcode in England, Scotland or Wales");
-        });
+        RuleFor(x => x.Address).NotEmpty().WithMessage(x => localizer[$"Select your address from the list"]);
     }
 }
