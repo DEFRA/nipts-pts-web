@@ -46,10 +46,9 @@
                         @exampleText
                     </div>
                     <div class="govuk-form-group" id="BreedName">
-                        @Html.ValidationMessageFor(x => x.BreedName, string.Empty, new { @class = "govuk-error-message" })
-                        <label style="display: none;" for="Breeds-select">@Model.FormTitle</label>
-                        @* @Html.DropDownListFor(m => m.BreedId, (IEnumerable<SelectListItem>)ViewBag.BreedList, htmlAttributes: new {@id = "Breeds", @class = "govuk-select govuk-!-width-full", @spellcheck = "true"}) *@
-                        <select class="govuk-select govuk-!-width-full" id="Breeds" spellcheck="true" asp-for="BreedId" asp-items="ViewBag.BreedList"></select>
+                        @Html.ValidationMessageFor(x => x.BreedId, string.Empty, new { @class = "govuk-error-message" })
+                        <label style="display: none;" for="BreedId">@Model.FormTitle</label>
+                        <select class="govuk-select govuk-!-width-full" id="BreedId" spellcheck="true" asp-for="BreedId" asp-items="ViewBag.BreedList"></select>
                     </div>
                 </fieldset>
             </div>
