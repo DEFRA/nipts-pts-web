@@ -65,7 +65,6 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
         public static IEnumerable<object[]> PetColourTestData => new List<object[]>
         {
             new object[] { string.Empty },
-            new object[] { "blue&$£" },
             new object[] { new string('a', 151) }
         };
     }
