@@ -126,7 +126,7 @@
   <data name="Enter your dog's breed, for example, Labrador" xml:space="preserve">
     <value>Rhowch frid eich ci, er enghraifft, Labrador</value>
   </data>
-  <data name="For example, Domestic shorthair, Bengal, Scottish Fold, Ragdoll." xml:space="preserve">
+  <data name="For example, Domestic Shorthair, Bengal, Scottish Fold, Ragdoll." xml:space="preserve">
     <value>Er enghraifft, Cath ddomestig blew cwta, Cath Bengal, Cath clustiau plyg o’r Alban, Ragdoll.</value>
   </data>
   <data name="For example, Labrador, Greyhound, Cockapoo, Labradoodle." xml:space="preserve">
