@@ -117,55 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Enter a full postcode in the correct format, for example TF7 5AY or TF75AY" xml:space="preserve">
-    <value>Rhowch god post llawn yn y fformat cywir, er enghraifft TF7 5AY neu TF75AY</value>
+  <data name="Address line 1" xml:space="preserve">
+    <value>Llinell 1 y cyfeiriad</value>
   </data>
-  <data name="Enter a phone number, like 01632 960 001 or 07700 900 982" xml:space="preserve">
-    <value>Rhowch rif ffôn, fel 01632 960 001 neu 07700 900 982</value>
+  <data name="Address line 2 (optional)" xml:space="preserve">
+    <value>Llinell 2 y cyfeiriad (dewisol)</value>
   </data>
-  <data name="Enter a postcode" xml:space="preserve">
-    <value>Rhowch god post</value>
+  <data name="County (optional)" xml:space="preserve">
+    <value>Sir (dewisol)</value>
   </data>
-  <data name="Enter a postcode in England, Scotland or Wales" xml:space="preserve">
-    <value>Rhowch god post yng Nghymru, Lloegr neu'r Alban</value>
+  <data name="Enter a valid address in England, Scotland or Wales." xml:space="preserve">
+    <value>Rhowch gyfeiriad dilys yng Nghymru, Lloegr neu'r Alban.</value>
   </data>
-  <data name="Enter your full name" xml:space="preserve">
-    <value>Rhowch eich enw llawn</value>
+  <data name="Enter the address manually" xml:space="preserve">
+    <value>Rhowch y cyfeiriad eich hunan</value>
   </data>
-  <data name="Enter your phone number" xml:space="preserve">
-    <value>Rhowch eich rhif ffôn</value>
+  <data name="Find address" xml:space="preserve">
+    <value>Dod o hyd i gyfeiriad</value>
   </data>
-  <data name="Tell us if your details are correct" xml:space="preserve">
-    <value>Dwedwch a yw eich manylion chi’n gywir</value>
+  <data name="Postcode" xml:space="preserve">
+    <value>Cod post</value>
   </data>
-  <data name="Tell us if your pet is male or female" xml:space="preserve">
-    <value>Dwedwch a yw'ch anifail anwes yn wryw ynteu'n fenyw</value>
+  <data name="Town or city" xml:space="preserve">
+    <value>Tref neu ddinas</value>
   </data>
-  <data name="Tell us if you are taking a pet dog, cat or ferret" xml:space="preserve">
-    <value>Dwedwch a ydych chi'n mynd â chi anwes, cath anwes neu ffured anwes</value>
-  </data>
-  <data name="Enter your full name, using 300 characters or less" xml:space="preserve">
-    <value>Rhowch eich enw llawn, gan ddefnyddio 300 o gymeriadau neu lai</value>
-  </data>
-  <data name="Select your address from the list" xml:space="preserve">
-    <value>Dewiswch eich cyfeiriad o blith y rhestr</value>
-  </data>
-  <data name="Enter a county using 100 characters or less" xml:space="preserve">
-    <value>Rhowch sir gan ddefnyddio 100 o gymeriadau neu lai</value>
-  </data>
-  <data name="Enter a town or city" xml:space="preserve">
-    <value>Rhowch dref neu ddinas</value>
-  </data>
-  <data name="Enter a town or city using 250 characters or less" xml:space="preserve">
-    <value>Rhowch dref neu ddinas gan ddefnyddio 250 o gymeriadau neu lai</value>
-  </data>
-  <data name="Enter line 1 of your address" xml:space="preserve">
-    <value>Rhowch linell 1 eich cyfeiriad</value>
-  </data>
-  <data name="Enter line 1 of your address using 250 characters or less" xml:space="preserve">
-    <value>Rhowch linell 1 eich cyfeiriad gan ddefnyddio 250 o gymeriadau neu lai</value>
-  </data>
-  <data name="Enter line 2 of your address using 250 characters or less" xml:space="preserve">
-    <value>Rhowch linell 2 eich cyfeiriad gan ddefnyddio 250 o gymeriadau neu lai</value>
+  <data name="What is your address?" xml:space="preserve">
+    <value>Beth yw’ch cyfeiriad?</value>
   </data>
 </root>

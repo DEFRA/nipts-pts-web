@@ -56,7 +56,7 @@
                                 <label class="govuk-label govuk-date-input__label" for="Day">
                                     Day
                                 </label>
-                                @Html.TextBoxFor(x => x.Day, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", id = "Day", @spellcheck = "false", @maxlength = 2, @inputmode = "numeric", type = "number" })
+                                @Html.TextBoxFor(x => x.Day, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", id = "Day", @spellcheck = "false" })
                             </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -64,7 +64,7 @@
                                 <label class="govuk-label govuk-date-input__label" for="Month">
                                     Month
                                 </label>
-                                @Html.TextBoxFor(x => x.Month, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", id = "Month", @spellcheck = "false", @maxlength = 2, @inputmode = "numeric", type = "number" })
+                                @Html.TextBoxFor(x => x.Month, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", id = "Month", @spellcheck = "false" })
                             </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -72,7 +72,7 @@
                                 <label class="govuk-label govuk-date-input__label" for="Year">
                                     Year
                                 </label>
-                                @Html.TextBoxFor(x => x.Year, new { @class = "govuk-input govuk-date-input__input govuk-input--width-4", id = "Year", @spellcheck = "false", @maxlength = 4, @inputmode = "numeric", type = "number" })
+                                @Html.TextBoxFor(x => x.Year, new { @class = "govuk-input govuk-date-input__input govuk-input--width-4", id = "Year", @spellcheck = "false" })
                             </div>
                         </div>
                     </div>
@@ -85,8 +85,6 @@
                 </button>
             </div>
         }
-
-
     </div>
 </div>
 
