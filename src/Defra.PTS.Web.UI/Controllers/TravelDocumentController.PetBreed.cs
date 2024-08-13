@@ -10,7 +10,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace Defra.PTS.Web.UI.Controllers;
 
 public partial class TravelDocumentController : BaseTravelDocumentController
-{
+{   
+
     [HttpGet]
     public async Task<IActionResult> PetBreed()
     {
@@ -159,7 +160,15 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     private async Task<List<SelectListItem>> GetBreedsAsSelectListItems(PetSpecies petType)
     {
         var response = await _mediator.Send(new GetBreedsQueryRequest(petType));
-        return response.Breeds.ToSelectListItems();
+
+        var list = response.Breeds.ToList();
+
+        foreach (var breed in list)
+        {
+            breed.BreedName = _localizer[breed.BreedName];
+        }
+
+        return list.ToSelectListItems();
     }
 
     #endregion Private Methods

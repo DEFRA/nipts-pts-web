@@ -123,6 +123,9 @@
   <data name="Beta" xml:space="preserve">
     <value>Beta</value>
   </data>
+  <data name="Chihuahua" xml:space="preserve">
+    <value>Chihuahua</value>
+  </data>
   <data name="Continue" xml:space="preserve">
     <value>Parhau</value>
   </data>
@@ -137,6 +140,12 @@
   </data>
   <data name="Lifelong pet travel documents" xml:space="preserve">
     <value>Dogfennau teithio gydol oes i anifeiliaid anwes</value>
+  </data>
+  <data name="Mixed breed or unknown" xml:space="preserve">
+    <value>Brid cymysg neu anhysbys</value>
+  </data>
+  <data name="Pekingese" xml:space="preserve">
+    <value>Pecinî</value>
   </data>
   <data name="Print your document" xml:space="preserve">
     <value>Argraffu’ch dogfen</value>

@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
+using Microsoft.Extensions.Localization;
 
 namespace Defra.PTS.Web.UI.Controllers;
 
@@ -29,13 +30,15 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     private readonly IMediator _mediator;
     private readonly ILogger<TravelDocumentController> _logger;
     private readonly PtsSettings _ptsSettings;
+    private readonly IStringLocalizer<SharedResource> _localizer;
 
 
     public TravelDocumentController(
           IValidationService validationService,
           IMediator mediator,
           ILogger<TravelDocumentController> logger,
-          IOptions<PtsSettings> ptsSettings
+          IOptions<PtsSettings> ptsSettings,
+          IStringLocalizer<SharedResource> localizer
           )
     {
         ArgumentNullException.ThrowIfNull(validationService);
@@ -46,6 +49,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         _validationService = validationService;
         _mediator = mediator;
         _logger = logger;
+        _localizer = localizer;
         _ptsSettings = ptsSettings.Value;
     }
 
