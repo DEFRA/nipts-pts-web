@@ -20,7 +20,9 @@ namespace Defra.PTS.Web.Application.Validation
             When(x => !string.IsNullOrWhiteSpace(x.AddressLineOne), () =>
             {
                 RuleFor(x => x.AddressLineOne)
-                    .MaximumLength(AppConstants.MaxLength.AddressLine).WithMessage($"Enter line 1 of your address using {AppConstants.MaxLength.AddressLine} characters or less");
+                    .MaximumLength(AppConstants.MaxLength.AddressLine).WithMessage(x => localizer[$"Enter line 1 of your address using {AppConstants.MaxLength.AddressLine} characters or less"]);
+                // Will need to update shared resource max length number if max length changes
+
             });
 
             RuleFor(x => x.TownOrCity)
@@ -29,7 +31,7 @@ namespace Defra.PTS.Web.Application.Validation
             When(x => !string.IsNullOrWhiteSpace(x.TownOrCity), () =>
             {
                 RuleFor(x => x.TownOrCity)
-                    .MaximumLength(AppConstants.MaxLength.TownOrCity).WithMessage($"Enter a town or city using {AppConstants.MaxLength.TownOrCity} characters or less");
+                    .MaximumLength(AppConstants.MaxLength.TownOrCity).WithMessage(x => localizer[$"Enter a town or city using {AppConstants.MaxLength.TownOrCity} characters or less"]);
             });
 
             RuleFor(x => x.Postcode)
@@ -45,14 +47,14 @@ namespace Defra.PTS.Web.Application.Validation
             When(x => !string.IsNullOrWhiteSpace(x.AddressLineTwo), () =>
             {
                 RuleFor(x => x.AddressLineTwo)
-                    .MaximumLength(AppConstants.MaxLength.AddressLine).WithMessage($"Enter line 2 of your address using {AppConstants.MaxLength.AddressLine} characters or less");
+                    .MaximumLength(AppConstants.MaxLength.AddressLine).WithMessage(x => localizer[$"Enter line 2 of your address using {AppConstants.MaxLength.AddressLine} characters or less"]);
 
             });
 
             When(x => !string.IsNullOrWhiteSpace(x.County), () =>
             {
                 RuleFor(x => x.County)
-                    .MaximumLength(AppConstants.MaxLength.County).WithMessage($"Enter a county using {AppConstants.MaxLength.County} characters or less");
+                    .MaximumLength(AppConstants.MaxLength.County).WithMessage(x => localizer[$"Enter a county using {AppConstants.MaxLength.County} characters or less"]);
 
             });
         }

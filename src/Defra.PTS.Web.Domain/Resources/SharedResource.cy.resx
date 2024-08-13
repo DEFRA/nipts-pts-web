@@ -150,8 +150,8 @@
   <data name="Select your address from the list" xml:space="preserve">
     <value>Dewiswch eich cyfeiriad o blith y rhestr</value>
   </data>
-  <data name="Enter a county using 250 characters or less" xml:space="preserve">
-    <value>Rhowch sir gan ddefnyddio 250 o gymeriadau neu lai</value>
+  <data name="Enter a county using 100 characters or less" xml:space="preserve">
+    <value>Rhowch sir gan ddefnyddio 100 o gymeriadau neu lai</value>
   </data>
   <data name="Enter a town or city" xml:space="preserve">
     <value>Rhowch dref neu ddinas</value>
