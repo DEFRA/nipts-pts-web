@@ -15,7 +15,6 @@ public abstract class BaseController : Controller
 
     protected void SetBackUrl(string backUrl)
     {
-        var test = "";
         ViewData.SetKeyValue(WebAppConstants.ViewKeys.BackUrl, string.IsNullOrWhiteSpace(backUrl) ? null : backUrl);
     }
 
