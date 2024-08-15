@@ -9,6 +9,7 @@ using Defra.PTS.Web.Domain.Models;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Constants;
 using Defra.PTS.Web.UI.Controllers;
+using Defra.PTS.Web.UI.Helpers;
 using FluentValidation.Results;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -35,6 +36,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private readonly Mock<IMediator> _mockMediator = new();
         private readonly Mock<ILogger<TravelDocumentController>> _mockLogger = new();
         private readonly Mock<IOptions<PtsSettings>> _mockPtsSettings = new();
+        private readonly Mock<IBreedHelper> _breedHelper = new();
         private TravelDocumentController _travelDocumentController;
 
         private readonly IStringLocalizer<SharedResource> _localizer;
@@ -49,7 +51,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         public void Setup()
         {
             // Arrange
-            _travelDocumentController = new TravelDocumentController(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object, _localizer);
+            _travelDocumentController = new TravelDocumentController(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object, _breedHelper.Object);
             var mockHttpContext = new Mock<HttpContext>();
             mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
             _travelDocumentController.ControllerContext = new ControllerContext();

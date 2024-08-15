@@ -35,6 +35,7 @@ namespace Defra.PTS.Web.UI.Configuration.Startup
             }
             catch { }
 
+            services.AddScoped<IBreedHelper, BreedHelper>();
             services.Configure<CookieConfiguration>(configuration.GetSection("Cookie"));
             services.Configure<CookiePolicyOptions>(options =>
             {

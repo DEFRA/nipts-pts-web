@@ -12,6 +12,7 @@ using Defra.PTS.Web.Domain.Models;
 using Defra.PTS.Web.Domain.ViewModels;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Controllers;
+using Defra.PTS.Web.UI.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -39,13 +40,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private Mock<ControllerContext> _mockControllerContext;
         private Mock<TravelDocumentViewModel> _travelDocumentViewModel;
 
-        private readonly IStringLocalizer<SharedResource> _localizer;
-        public TravelDocumentControllerTests()
-        {
-            var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
-            var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
-            _localizer = new StringLocalizer<SharedResource>(factory);
-        }
+        private readonly Mock<IBreedHelper> _breedHelper = new();
 
         [SetUp]
         public void Setup()
@@ -56,7 +51,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
             _mockControllerContext = new Mock<ControllerContext>();
             _optionsPtsSettings = Options.Create(ptsSettings);
-            _travelDocumentController = new TravelDocumentController(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _optionsPtsSettings, _localizer);
+            _travelDocumentController = new TravelDocumentController(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _optionsPtsSettings, _breedHelper.Object);
             
             
             _travelDocumentViewModel = new Mock<TravelDocumentViewModel>();
@@ -164,7 +159,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 mediatorMock.Object,
                 loggerMock.Object,
                 ptsSettingsMock.Object,
-                 _localizer
+                _breedHelper.Object
             );
 
             // Simulate an exception being thrown

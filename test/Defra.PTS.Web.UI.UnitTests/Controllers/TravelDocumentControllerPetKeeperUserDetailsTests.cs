@@ -9,6 +9,7 @@ using Defra.PTS.Web.Domain.Models;
 using Defra.PTS.Web.Domain.ViewModels;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Controllers;
+using Defra.PTS.Web.UI.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -29,6 +30,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private readonly Mock<IMediator> _mockMediator = new();
         private readonly Mock<ILogger<TravelDocumentController>> _mockLogger = new();
         private readonly Mock<IOptions<PtsSettings>> _mockPtsSettings = new();
+        private readonly Mock<IBreedHelper> _mockBreedHelper = new();
         private IOptions<PtsSettings> _optionsPtsSettings;
         private Mock<TravelDocumentController> _travelDocumentController;
         private Mock<ControllerContext> _mockControllerContext;
@@ -44,7 +46,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
             _optionsPtsSettings = Options.Create(ptsSettings);
             _mockControllerContext = new Mock<ControllerContext>();
-            _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _optionsPtsSettings)
+            _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _optionsPtsSettings, _mockBreedHelper.Object)
             {
                 CallBase = true
             };
