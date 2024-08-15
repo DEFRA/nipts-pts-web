@@ -47,9 +47,9 @@
                     <div id="BreedId__assistiveHint" class="govuk-hint">
                         @exampleText
                     </div>
-                    <div class="govuk-form-group" id="BreedName">
+                    <div class="govuk-form-group">
                         @Html.ValidationMessageFor(x => x.BreedId, string.Empty, new { @class = "govuk-error-message" })
-                        <label style="display: none;" for="BreedId">@Model.FormTitle</label>
+                        @* <label style="display: none;" for="BreedId">@Model.FormTitle</label> *@
                         <select class="govuk-select govuk-!-width-full" id="BreedId" spellcheck="true" asp-for="BreedId" asp-items="ViewBag.BreedList"></select>
                     </div>
                 </fieldset>

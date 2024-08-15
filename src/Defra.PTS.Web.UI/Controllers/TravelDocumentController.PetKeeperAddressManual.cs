@@ -32,7 +32,14 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     [ValidateAntiForgeryToken]
     public IActionResult PetKeeperAddressManual(PetKeeperAddressManualViewModel model)
     {
-        SetBackUrl(WebAppConstants.HistoryBack);
+        if (Request.Headers["Referer"].Contains("PetKeeperAddress"))
+        {
+            SetBackUrl(WebAppConstants.Pages.TravelDocument.PetKeeperAddress);
+        }
+        else
+        {
+            SetBackUrl(WebAppConstants.Pages.TravelDocument.PetKeeperPostcode);
+        }
 
         if (!ModelState.IsValid)
         {
