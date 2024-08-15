@@ -15,7 +15,8 @@ public abstract class BaseController : Controller
 
     protected void SetBackUrl(string backUrl)
     {
-        ViewData.SetKeyValue(WebAppConstants.ViewKeys.BackUrl, string.IsNullOrWhiteSpace(backUrl) ? null : WebAppConstants.HistoryBack);
+        var test = "";
+        ViewData.SetKeyValue(WebAppConstants.ViewKeys.BackUrl, string.IsNullOrWhiteSpace(backUrl) ? null : backUrl);
     }
 
     public virtual Guid CurrentUserId()

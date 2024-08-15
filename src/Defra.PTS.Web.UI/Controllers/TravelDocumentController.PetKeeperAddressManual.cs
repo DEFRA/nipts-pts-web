@@ -3,6 +3,7 @@ using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Constants;
 using Defra.PTS.Web.UI.Extensions;
+using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Defra.PTS.Web.UI.Controllers;
@@ -10,14 +11,21 @@ namespace Defra.PTS.Web.UI.Controllers;
 public partial class TravelDocumentController : BaseTravelDocumentController
 {
     [HttpGet]
-    public IActionResult PetKeeperAddressManual()
+    public IActionResult PetKeeperAddressManual([FromHeader] string Referer)
     {
         if (!IsApplicationInProgress())
         {
             return RedirectToAction(nameof(Index));
         }
 
-        SetBackUrl(WebAppConstants.HistoryBack);
+        if (Referer.Contains("PetKeeperAddress"))
+        {
+            SetBackUrl(WebAppConstants.Pages.TravelDocument.PetKeeperAddress);
+        }
+        else
+        {
+            SetBackUrl(WebAppConstants.Pages.TravelDocument.PetKeeperPostcode);
+        }
 
         var formData = GetFormData();
         if (!formData.DoesPageMeetPreConditions(formData.PetKeeperAddressManual.PageType, out string actionName))
