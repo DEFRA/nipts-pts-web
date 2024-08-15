@@ -30,9 +30,9 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult PetKeeperAddressManual(PetKeeperAddressManualViewModel model)
+    public IActionResult PetKeeperAddressManual(PetKeeperAddressManualViewModel model, [FromHeader] string Referer)
     {
-        if (Request.Headers["Referer"].Contains("PetKeeperAddress"))
+        if (Referer.Contains("PetKeeperAddress"))
         {
             SetBackUrl(WebAppConstants.Pages.TravelDocument.PetKeeperAddress);
         }
