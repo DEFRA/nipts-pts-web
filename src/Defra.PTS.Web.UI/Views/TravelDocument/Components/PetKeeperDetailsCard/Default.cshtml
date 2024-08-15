@@ -37,6 +37,10 @@
                 <dd class="govuk-summary-list__value">
                     @Model.Address.AddressLineOne @Model.Address.AddressLineTwo<br class="pet-br-print" />
                     @Model.Address.TownOrCity<br class="pet-br-print" />
+                    @if (Model.Address.County != null && Model.Address.County != "")
+                    {
+                        @Model.Address.County<br class="pet-br-print" />
+                    }
                     @Model.Address.Postcode
                     @Html.ValidationMessage("Postcode", string.Empty, new { @class = "govuk-error-message" })
                 </dd>
