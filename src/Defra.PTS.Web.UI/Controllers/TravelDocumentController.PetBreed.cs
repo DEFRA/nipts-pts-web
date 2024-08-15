@@ -173,15 +173,3 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
     #endregion Private Methods
 }
-
-//if (hasSelectRow)
-//        {
-//            if (Thread.CurrentThread.CurrentCulture.EnglishName == "Welsh")
-//            {
-//                result.Insert(0, new SelectListItem { Text = $"{result.Count} o gyfeiriadau wedi'u canfod", Value = string.Empty });
-//            }
-//            else
-//{
-//    result.Insert(0, new SelectListItem { Text = $"{result.Count} addresses found", Value = string.Empty });
-//}
-//        }
