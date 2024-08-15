@@ -15,7 +15,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Azure.Amqp.Transaction;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUglify.Helpers;
@@ -35,11 +37,19 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private readonly Mock<IOptions<PtsSettings>> _mockPtsSettings = new();
         private TravelDocumentController _travelDocumentController;
 
+        private readonly IStringLocalizer<SharedResource> _localizer;
+        public TravelDocumentControllerDeclarationTests()
+        {
+            var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
+            var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
+            _localizer = new StringLocalizer<SharedResource>(factory);
+        }
+
         [SetUp]
         public void Setup()
         {
             // Arrange
-            _travelDocumentController = new TravelDocumentController(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object);
+            _travelDocumentController = new TravelDocumentController(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object, _localizer);
             var mockHttpContext = new Mock<HttpContext>();
             mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
             _travelDocumentController.ControllerContext = new ControllerContext();
