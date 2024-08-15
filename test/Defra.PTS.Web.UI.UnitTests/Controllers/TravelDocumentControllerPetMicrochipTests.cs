@@ -178,7 +178,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(WebAppConstants.HistoryBack, result.ViewData[WebAppConstants.ViewKeys.BackUrl]);
+            Assert.AreEqual(WebAppConstants.Pages.TravelDocument.PetMicrochip, result.ViewData[WebAppConstants.ViewKeys.BackUrl]);
 
         }
 

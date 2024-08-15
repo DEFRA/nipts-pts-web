@@ -1,6 +1,7 @@
 ﻿using Defra.PTS.Web.Application.Services.Interfaces;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.Models;
+using Defra.PTS.Web.Domain.ViewModels;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Constants;
 using Defra.PTS.Web.UI.Controllers;
@@ -55,7 +56,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 .Returns(false);
 
             // Act
-            var result = _travelDocumentController.Object.PetKeeperAddressManual() as RedirectToActionResult;
+            var result = _travelDocumentController.Object.PetKeeperAddressManual("test") as RedirectToActionResult;
 
             // Assert
             Assert.IsNotNull(result);
@@ -88,7 +89,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                  .Returns(formData);
 
             // Act
-            var result = _travelDocumentController.Object.PetKeeperAddressManual() as RedirectToActionResult;
+            var result = _travelDocumentController.Object.PetKeeperAddressManual("test") as RedirectToActionResult;
 
             // Assert
             Assert.IsNotNull(result);            
@@ -120,7 +121,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                  .Returns(formData);
 
             // Act
-            var result = _travelDocumentController.Object.PetKeeperAddressManual() as ViewResult;
+            var result = _travelDocumentController.Object.PetKeeperAddressManual("test") as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);
@@ -148,13 +149,14 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                     Postcode = "RM16 2GT"
                     
                 }
-
             };
+            _travelDocumentController.Setup(x => x.IsApplicationInProgress())
+                .Returns(true);
             _travelDocumentController.Setup(x => x.GetFormData(false))
                 .Returns(formData);
 
             // Act
-            var result = _travelDocumentController.Object.PetKeeperAddressManual(formData.PetKeeperAddressManual) as RedirectToActionResult;
+            var result = _travelDocumentController.Object.PetKeeperAddressManual(formData.PetKeeperAddressManual, "test")as RedirectToActionResult;
 
             // Assert
             Assert.IsNotNull(result);
