@@ -21,7 +21,7 @@ public class BreedHelper : IBreedHelper
         var response = await _mediator.Send(new GetBreedsQueryRequest(petType));
 
         var list = response.Breeds.ToList();
-
+    
         foreach (var breed in list)
         {
             breed.BreedName = localizer[breed.BreedName];
