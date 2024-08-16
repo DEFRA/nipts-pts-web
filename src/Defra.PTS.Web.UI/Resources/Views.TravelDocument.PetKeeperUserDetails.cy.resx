@@ -117,23 +117,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Address" xml:space="preserve">
-    <value>Cyfeiriad</value>
-  </data>
   <data name="Are your details correct?" xml:space="preserve">
     <value>Ydy’ch manylion chi’n gywir?</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>Ebost</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Enw</value>
-  </data>
   <data name="No" xml:space="preserve">
     <value>Nac ydyn</value>
-  </data>
-  <data name="Phone Number" xml:space="preserve">
-    <value>Rhif ffôn</value>
   </data>
   <data name="Yes" xml:space="preserve">
     <value>Ydyn</value>
