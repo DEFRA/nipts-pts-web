@@ -117,61 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Accessibility statement" xml:space="preserve">
-    <value>Datganiad hygyrchedd</value>
+  <data name="Enter a breed using 150 characters or less" xml:space="preserve">
+    <value>Rhowch frid gan ddefnyddio 150 o gymeriadau neu lai</value>
   </data>
-  <data name="Address" xml:space="preserve">
-    <value>Cyfeiriad</value>
+  <data name="Enter your cat's breed, for example, Scottish Fold" xml:space="preserve">
+    <value>Rhowch frid eich cath, er enghraifft, cath clustiau plyg o’r Alban</value>
   </data>
-  <data name="Beta" xml:space="preserve">
-    <value>Beta</value>
+  <data name="Enter your dog's breed, for example, Labrador" xml:space="preserve">
+    <value>Rhowch frid eich ci, er enghraifft, Labrador</value>
   </data>
-  <data name="Continue" xml:space="preserve">
-    <value>Parhau</value>
+  <data name="For example, Domestic Shorthair, Bengal, Scottish Fold, Ragdoll." xml:space="preserve">
+    <value>Er enghraifft, Cath ddomestig blew cwta, Cath Bengal, Cath clustiau plyg o’r Alban, Ragdoll.</value>
   </data>
-  <data name="Cookies" xml:space="preserve">
-    <value>Cwcis</value>
+  <data name="For example, Labrador, Greyhound, Cockapoo, Labradoodle." xml:space="preserve">
+    <value>Er enghraifft, Labrador, Milgi, Cockapoo, Labradoodle.</value>
   </data>
-  <data name="Download your document" xml:space="preserve">
-    <value>Lawrlwytho’ch dogfen</value>
+  <data name="Select or enter the breed of your pet" xml:space="preserve">
+    <value>Dewiswch frid neu rhowch frid eich anifail anwes</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>Ebost</value>
+  <data name="Select your pet's breed" xml:space="preserve">
+    <value>Dewiswch frid eich anifail anwes</value>
   </data>
-  <data name="feedback (opens in a new tab)" xml:space="preserve">
-    <value>adborth (yn agor mewn tab newydd)</value>
+  <data name="What breed is your cat?" xml:space="preserve">
+    <value>Pa frid yw’ch cath chi?</value>
   </data>
-  <data name="Lifelong pet travel documents" xml:space="preserve">
-    <value>Dogfennau teithio gydol oes i anifeiliaid anwes</value>
-  </data>
-  <data name="Manage account" xml:space="preserve">
-    <value>Rheoli’r cyfrif</value>
-  </data>
-  <data name="Name" xml:space="preserve">
-    <value>Enw</value>
-  </data>
-  <data name="Phone Number" xml:space="preserve">
-    <value>Rhif ffôn</value>
-  </data>
-  <data name="Print your document" xml:space="preserve">
-    <value>Argraffu’ch dogfen</value>
-  </data>
-  <data name="Privacy notice" xml:space="preserve">
-    <value>Hysbysiad preifatrwydd</value>
-  </data>
-  <data name="Sign out" xml:space="preserve">
-    <value>Allgofnodi</value>
-  </data>
-  <data name="Taking a pet from Great Britain to Northern Ireland" xml:space="preserve">
-    <value>Mynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon</value>
-  </data>
-  <data name="Terms and conditions" xml:space="preserve">
-    <value>Telerau ac amodau</value>
-  </data>
-  <data name="This is a new service - your" xml:space="preserve">
-    <value>Mae hwn yn wasanaeth newydd - bydd eich</value>
-  </data>
-  <data name="will help us to improve it." xml:space="preserve">
-    <value>yn ein helpu i'w wella.</value>
+  <data name="What breed is your dog?" xml:space="preserve">
+    <value>Pa frid yw’ch ci chi?</value>
   </data>
 </root>
