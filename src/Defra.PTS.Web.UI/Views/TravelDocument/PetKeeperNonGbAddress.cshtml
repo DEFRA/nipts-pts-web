@@ -5,10 +5,14 @@
 @using Defra.PTS.Web.Domain.ViewModels;
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.Extensions.Localization;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer localizer
+@inject IStringLocalizer<SharedResource> sharedlocalizer
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.PetKeeperNonGbAddressFormTitle, LabelFor = "Yes" };
-    this.SetMetaTitle(Model.PetKeeperNonGbAddressFormTitle);
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = localizer[Model.PetKeeperNonGbAddressFormTitle].Value, LabelFor = "Yes" };
+    this.SetMetaTitle(localizer[Model.PetKeeperNonGbAddressFormTitle].Value);
 }
 
 <div class="govuk-grid-row">
@@ -37,29 +41,29 @@
                          data-module="govuk-notification-banner">
                         <div class="govuk-notification-banner__header">
                             <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-                                @Model.PetKeeperNonGbAddressFormMessageHeader
+                                @localizer[@Model.PetKeeperNonGbAddressFormMessageHeader]
                             </h2>
                         </div>
                         <div class="govuk-notification-banner__content">
                             <p class="govuk-notification-banner__heading">
-                                @Model.PetKeeperNonGbAddressFormMessageBody
+                                @localizer[@Model.PetKeeperNonGbAddressFormMessageBody]
                             </p>
                         </div>
                     </div>
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">Name</dt>
+                            <dt class="govuk-summary-list__key">@sharedlocalizer["Name"]</dt>
                             <dd class="govuk-summary-list__value">@Model.Name</dd>
 
                         </div>
                         <div class="govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">Email</dt>
+                            <dt class="govuk-summary-list__key">@sharedlocalizer["Email"]</dt>
                             <dd class="govuk-summary-list__value">@Model.Email</dd>
 
                         </div>
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">
-                                Address
+                                @sharedlocalizer["Address"]
                             </dt>
                             <dd class="govuk-summary-list__value">
                                 @Model.AddressLineOne<br />
@@ -69,18 +73,18 @@
 
                         </div>
                         <div class="govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">Phone number</dt>
+                            <dt class="govuk-summary-list__key">@sharedlocalizer["Phone Number"]</dt>
                             <dd class="govuk-summary-list__value">@Model.Phone</dd>
 
                         </div>
-                    </dl>                   
+                    </dl>
 
                 </fieldset>
             </div>
 
             <div class="govuk-form-group">
                 <button class="govuk-button" data-module="govuk-button" type="submit">
-                    Continue
+                    @sharedlocalizer["Continue"]
                 </button>
             </div>
         }

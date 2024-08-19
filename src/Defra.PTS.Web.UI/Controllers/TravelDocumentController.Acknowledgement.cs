@@ -1,4 +1,5 @@
-﻿using Defra.PTS.Web.UI.Extensions;
+﻿using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+using Defra.PTS.Web.UI.Extensions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Defra.PTS.Web.UI.Controllers;
@@ -8,20 +9,23 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     [HttpGet]
     public IActionResult Acknowledgement()
     {
-        if (!IsApplicationInProgress())
+        var applicationReference =  GetApplicationReference();
+        
+        if (!IsApplicationInProgress() && string.IsNullOrEmpty(applicationReference))
         {
             return RedirectToAction(nameof(PetKeeperUserDetails));
         }
 
         var formData = GetFormData();
-        if (!formData.DoesPageMeetPreConditions(formData.Acknowledgement.PageType, out string actionName))
+
+        if (formData != null && !formData.DoesPageMeetPreConditions(formData.Acknowledgement.PageType, out string actionName))
         {
             return RedirectToAction(actionName);
         }
 
         SetBackUrl(string.Empty);
 
-        var viewModel = formData.Acknowledgement;
+        var viewModel = formData != null ? formData.Acknowledgement : new AcknowledgementViewModel { Reference = applicationReference};
 
         // Clear data
         RemoveFormData();

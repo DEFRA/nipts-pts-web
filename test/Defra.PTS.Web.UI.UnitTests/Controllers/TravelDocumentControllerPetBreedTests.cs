@@ -9,6 +9,7 @@ using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Constants;
 using Defra.PTS.Web.UI.Controllers;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
@@ -42,6 +43,11 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
             _travelDocumentController.Object.TempData = tempData;
             _travelDocumentViewModel = new Mock<TravelDocumentViewModel>();
+
+            var mockHttpContext = new Mock<HttpContext>();
+            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
+            _travelDocumentController.Object.ControllerContext = new ControllerContext();
+            _travelDocumentController.Object.ControllerContext.HttpContext = mockHttpContext.Object;
         }
 
         [Test]
@@ -56,7 +62,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(nameof(TravelDocumentController.PetKeeperUserDetails), result.ActionName);
+            Assert.AreEqual(nameof(TravelDocumentController.Index), result.ActionName);
         }
 
         [Test]
@@ -138,7 +144,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                  .ReturnsAsync(new GetBreedsQueryResponse
                  {
                     PetType=PetSpecies.Cat,
-                    Breeds = new List<BreedDto> { new BreedDto { BreedId=1,BreedName="Test"} }
+                    Breeds = new List<BreedDto> { new() { BreedId=1,BreedName="Test"} }
                  });
 
             _travelDocumentController.Setup(x => x.GetFormData(false))

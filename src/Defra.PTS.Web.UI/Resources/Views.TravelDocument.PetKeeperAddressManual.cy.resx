@@ -117,13 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Are your details correct?" xml:space="preserve">
-    <value>Ydy’ch manylion chi’n gywir?</value>
+  <data name="Address line 1" xml:space="preserve">
+    <value>Llinell 1 y cyfeiriad</value>
   </data>
-  <data name="No" xml:space="preserve">
-    <value>Nac ydyn</value>
+  <data name="Address line 2 (optional)" xml:space="preserve">
+    <value>Llinell 2 y cyfeiriad (dewisol)</value>
   </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Ydyn</value>
+  <data name="County (optional)" xml:space="preserve">
+    <value>Sir (dewisol)</value>
+  </data>
+  <data name="Enter a valid address in England, Scotland or Wales." xml:space="preserve">
+    <value>Rhowch gyfeiriad dilys yng Nghymru, Lloegr neu'r Alban.</value>
+  </data>
+  <data name="Enter the address manually" xml:space="preserve">
+    <value>Rhowch y cyfeiriad eich hunan</value>
+  </data>
+  <data name="Find address" xml:space="preserve">
+    <value>Dod o hyd i gyfeiriad</value>
+  </data>
+  <data name="Postcode" xml:space="preserve">
+    <value>Cod post</value>
+  </data>
+  <data name="Town or city" xml:space="preserve">
+    <value>Tref neu ddinas</value>
+  </data>
+  <data name="What is your address?" xml:space="preserve">
+    <value>Beth yw’ch cyfeiriad?</value>
   </data>
 </root>

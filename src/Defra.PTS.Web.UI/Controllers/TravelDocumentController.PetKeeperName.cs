@@ -13,7 +13,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     {
         if (!IsApplicationInProgress())
         {
-            return RedirectToAction(nameof(PetKeeperUserDetails));
+            return RedirectToAction(nameof(Index));
         }
 
         SetBackLink();

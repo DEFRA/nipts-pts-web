@@ -3,6 +3,8 @@
 @using Defra.PTS.Web.Domain.ViewModels;
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SharedResource> sharedlocalizer
 
 @{
     var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Day" };
@@ -54,7 +56,7 @@
                                 <label class="govuk-label govuk-date-input__label" for="Day">
                                     Day
                                 </label>
-                                @Html.TextBoxFor(x => x.Day, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", id = "Day", @spellcheck = "false"})
+                                @Html.TextBoxFor(x => x.Day, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", id = "Day", @spellcheck = "false" })
                             </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -62,7 +64,7 @@
                                 <label class="govuk-label govuk-date-input__label" for="Month">
                                     Month
                                 </label>
-                                @Html.TextBoxFor(x => x.Month, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", id = "Month", @spellcheck = "false"})
+                                @Html.TextBoxFor(x => x.Month, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", id = "Month", @spellcheck = "false" })
                             </div>
                         </div>
                         <div class="govuk-date-input__item">
@@ -70,7 +72,7 @@
                                 <label class="govuk-label govuk-date-input__label" for="Year">
                                     Year
                                 </label>
-                                @Html.TextBoxFor(x => x.Year, new { @class = "govuk-input govuk-date-input__input govuk-input--width-4", id = "Year", @spellcheck = "false"})
+                                @Html.TextBoxFor(x => x.Year, new { @class = "govuk-input govuk-date-input__input govuk-input--width-4", id = "Year", @spellcheck = "false" })
                             </div>
                         </div>
                     </div>
@@ -79,12 +81,10 @@
 
             <div class="govuk-button-group">
                 <button class="govuk-button" data-module="govuk-button">
-                    Continue
+                    @sharedlocalizer["Continue"]
                 </button>
             </div>
         }
-
-
     </div>
 </div>
 

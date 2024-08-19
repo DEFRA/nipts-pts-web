@@ -5,6 +5,8 @@
 @using Defra.PTS.Web.Domain.ViewModels;
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SharedResource> sharedlocalizer
 
 @{
     var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Yes" };
@@ -20,10 +22,14 @@
             @Html.HiddenFor(x => x.IsCompleted)
 
             <partial name="_ErrorSummary" />
-            <div id="formroot" class="govuk-form-group @(ViewData.ModelState.HasError("HasUniqueFeature") ? "govuk-form-group--error" : "")">
-                <fieldset class="govuk-fieldset" aria-describedby="feature-hint">
-
-                    <partial name="_FieldsetLegend" model=fieldsetLegend />
+            
+            <div class="govuk-form-group (@ViewData.ModelState.HasError("HasUniqueFeature") ? " govuk-form-group--error" : null)">
+                <fieldset class="govuk-fieldset govuk-!-margin-bottom-5" aria-describedby="@(ViewData.ModelState.HasError("HasUniqueFeature") ? "OptionSelected_Error": null)">
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                        <h1 class="govuk-fieldset__heading">
+                            Does your pet have any significant features?
+                        </h1>
+                    </legend>
 
                     <div id="feature-hint" class="govuk-hint">
                         <p class="govuk-body">
@@ -33,43 +39,44 @@
                         </p>
                     </div>
 
-                    @Html.ValidationMessageFor(x => x.HasUniqueFeature, string.Empty, new { @class = "govuk-error-message" })
-
-                    <div class="govuk-form-group" id="HasUniqueFeature">
-                        <div class="govuk-radios" data-module="govuk-radios">
+                    <p id="OptionSelected_Error" class="govuk-error-message" gds-validation-for="HasUniqueFeature"></p>
+                    <div class="govuk-radios" data-module="govuk-radios" id="HasUniqueFeature">
+                        <div class="govuk-form-group @(ViewData.ModelState.HasError("HasUniqueFeature") ? "govuk-form-group--error" : null)">
                             <div class="govuk-radios__item">
-                                @Html.RadioButtonFor(m => m.HasUniqueFeature, YesNoOptions.Yes, new { @class = "govuk-radios__input", id = "Yes", data_aria_controls = "conditional-FeatureDescription" })
-                                <label class="govuk-label govuk-radios__label" for="Yes">
+                                <input class="govuk-radios__input" type="radio" id="HasUniqueFeatureYes" asp-for="HasUniqueFeature" value="@YesNoOptions.Yes" aria-controls="conditional-feature" aria-expanded="false">
+                                <label class="govuk-label govuk-radios__label" for="HasUniqueFeatureYes">
                                     Yes
                                 </label>
                             </div>
-                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-FeatureDescription">
-                                <div class="govuk-form-group">
-                                    <div class="govuk-form-group @(ViewData.ModelState.HasError("FeatureDescription") ? "govuk-form-group--error" : "")">
-                                        <label class="govuk-label govuk-label--s" for="FeatureDescription">
+
+                            <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-feature">
+                                <div class="govuk-form-group @(ViewData.ModelState.HasError("FeatureDescription") ? "govuk-form-group--error" : null)">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label" for="FeatureDescription">
                                             Briefly describe your pet's significant feature
                                         </label>
-
-                                        @Html.ValidationMessageFor(x => x.FeatureDescription, string.Empty, new { @class = "govuk-error-message" })
-                                        @Html.TextAreaFor(x => x.FeatureDescription, new { @id="FeatureDescription",  @class = "govuk-textarea", @row = "5", @spellcheck = "false", @autocomplete = "feature" })
+                                        <p id="Feature_Error" class="govuk-error-message" gds-validation-for="FboNumber"></p>
+                                        <textarea class="govuk-textarea" id="FeatureDescription" rows="5" asp-for="FeatureDescription" spellcheck="false"></textarea>
                                     </div>
                                 </div>
                             </div>
+
                             <div class="govuk-radios__item">
-                                @Html.RadioButtonFor(m => m.HasUniqueFeature, YesNoOptions.No, new { @class = "govuk-radios__input", id = "No" })
-                                <label class="govuk-label govuk-radios__label" for="No">
+                                <input class="govuk-radios__input" type="radio" id="HasUniqueFeatureNo" asp-for="HasUniqueFeature" value="@YesNoOptions.No" onclick="clearInput()">
+                                <label class="govuk-label govuk-radios__label" for="HasUniqueFeatureNo">
                                     No
                                 </label>
                             </div>
+
                         </div>
                     </div>
-
-
                 </fieldset>
             </div>
+
+
             <div class="govuk-button-group">
                 <button class="govuk-button" data-module="govuk-button" type="submit">
-                    Continue
+                    @sharedlocalizer["Continue"]
                 </button>
             </div>
         }
@@ -90,14 +97,18 @@
             });
         })
 
-        $('input, textarea').bind("input", function (e) {
-            var blockSpecialRegex = /[!$(){}[\]:;<+?\\>]/g;
-            let txtOrig = $(this).val();
-            let txtFinal = txtOrig.replace(blockSpecialRegex, '');
-            if (txtOrig !== txtFinal) {
-                $(this).val(txtFinal);
-            }
-        })
+        // $('input, textarea').bind("input", function (e) {
+        //     var blockSpecialRegex = /[!$(){}[\]:;<+?\\>]/g;
+        //     let txtOrig = $(this).val();
+        //     let txtFinal = txtOrig.replace(blockSpecialRegex, '');
+        //     if (txtOrig !== txtFinal) {
+        //         $(this).val(txtFinal);
+        //     }
+        // })
+
+        function clearInput() {
+            document.getElementById("FeatureDescription").value = "";
+        }
     </script>
 }
 

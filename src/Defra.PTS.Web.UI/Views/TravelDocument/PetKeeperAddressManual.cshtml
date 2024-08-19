@@ -6,10 +6,14 @@
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.UI.Extensions;
 @using Defra.PTS.Web.Application.Constants;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SharedResource> sharedlocalizer
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "AddressLineOne" };
-    this.SetMetaTitle(Model.FormTitle);
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = (Localizer[Model.FormTitle].Value), LabelFor = "AddressLineOne" };
+    this.SetMetaTitle(Localizer[Model.FormTitle].Value);
     var errorOrder = new string[] { "AddressLineOne", "AddressLineTwo", "TownOrCity", "County", "Postcode" };
 }
 
@@ -28,12 +32,12 @@
                     <partial name="_FieldsetLegend" model=fieldsetLegend />
 
                     <div id="address-hint" class="govuk-hint">
-                        Enter a valid address in England, Scotland or Wales.
+                        @Localizer["Enter a valid address in England, Scotland or Wales."]
                     </div>
 
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="AddressLineOne">
-                            Address line 1
+                            @Localizer["Address line 1"]
                         </label>
                         @Html.ValidationMessageFor(x => x.AddressLineOne, string.Empty, new { @class = "govuk-error-message" })
                         @Html.TextBoxFor(x => x.AddressLineOne, new { @class = "govuk-input", @spellcheck = "false", @autocomplete = @WebAppConstants.FormAutofill.AddressLineOne })
@@ -41,14 +45,15 @@
 
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="AddressLineTwo">
-                            Address line 2 (optional)
+                            @Localizer["Address line 2 (optional)"]
                         </label>
+                        @Html.ValidationMessageFor(x => x.AddressLineTwo, string.Empty, new { @class = "govuk-error-message" })
                         @Html.TextBoxFor(x => x.AddressLineTwo, new { @class = "govuk-input", @spellcheck = "false", @autocomplete = @WebAppConstants.FormAutofill.AddressLineTwo })
                     </div>
 
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="TownOrCity">
-                            Town or city
+                            @Localizer["Town or city"]
                         </label>
                         @Html.ValidationMessageFor(x => x.TownOrCity, string.Empty, new { @class = "govuk-error-message" })
                         @Html.TextBoxFor(x => x.TownOrCity, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false", @autocomplete = @WebAppConstants.FormAutofill.CityOrTown })
@@ -56,14 +61,15 @@
 
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="County">
-                            County (optional)
+                            @Localizer["County (optional)"]
                         </label>
+                        @Html.ValidationMessageFor(x => x.County, string.Empty, new { @class = "govuk-error-message" })
                         @Html.TextBoxFor(x => x.County, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false" })
                     </div>
 
                     <div class="govuk-form-group">
                         <label class="govuk-label" for="Postcode">
-                            Postcode
+                            @Localizer["Postcode"]
                         </label>
                         @Html.ValidationMessageFor(x => x.Postcode, string.Empty, new { @class = "govuk-error-message" })
                         @Html.TextBoxFor(x => x.Postcode, new { @class = "govuk-input govuk-input--width-10", @spellcheck = "false" })
@@ -73,7 +79,7 @@
 
             <div class="govuk-button-group">
                 <button class="govuk-button" data-module="govuk-button" type="submit">
-                    Continue
+                    @sharedlocalizer["Continue"]
                 </button>
             </div>
         }

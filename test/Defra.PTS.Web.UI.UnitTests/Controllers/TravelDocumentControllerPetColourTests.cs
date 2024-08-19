@@ -6,6 +6,7 @@ using Defra.PTS.Web.Domain.Models;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Controllers;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
@@ -32,6 +33,11 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             {
                 CallBase = true
             };
+
+            var mockHttpContext = new Mock<HttpContext>();
+            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
+            _sut.Object.ControllerContext = new ControllerContext();
+            _sut.Object.ControllerContext.HttpContext = mockHttpContext.Object;
         }
 
         [Ignore("Needs fixes")]
@@ -84,7 +90,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var redirectResult = result as RedirectToActionResult;
 
             Assert.IsNotNull(redirectResult);
-            Assert.AreEqual("PetKeeperUserDetails", redirectResult.ActionName);
+            Assert.AreEqual("Index", redirectResult.ActionName);
         }
 
         [Test]

@@ -6,6 +6,8 @@
 @using Defra.PTS.Web.UI.Extensions;
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SharedResource> sharedlocalizer
 
 @{
     var fieldsetLegend = new FieldsetLegendViewModel { Label = @Localizer["Are your details correct?"].Value, LabelFor = "Yes" };
@@ -37,18 +39,18 @@
 
                     <dl class="govuk-summary-list">
                         <div class="govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">@Localizer["Name"]</dt>
+                            <dt class="govuk-summary-list__key">@sharedlocalizer["Name"]</dt>
                             <dd class="govuk-summary-list__value">@Model.Name</dd>
 
                         </div>
                         <div class="govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">@Localizer["Email"]</dt>
+                            <dt class="govuk-summary-list__key">@sharedlocalizer["Email"]</dt>
                             <dd class="govuk-summary-list__value">@Model.Email</dd>
 
                         </div>
                         <div class="govuk-summary-list__row">
                             <dt class="govuk-summary-list__key">
-                                @Localizer["Address"]
+                                @sharedlocalizer["Address"]
                             </dt>
                             <dd class="govuk-summary-list__value">
                                 @Model.AddressLineOne<br />
@@ -58,7 +60,7 @@
 
                         </div>
                         <div class="govuk-summary-list__row">
-                            <dt class="govuk-summary-list__key">@Localizer["Phone Number"]</dt>
+                            <dt class="govuk-summary-list__key">@sharedlocalizer["Phone Number"]</dt>
                             <dd class="govuk-summary-list__value">@Model.Phone</dd>
 
                         </div>
@@ -88,7 +90,7 @@
 
             <div class="govuk-form-group">
                 <button class="govuk-button" data-module="govuk-button" type="submit">
-                    @Localizer["Continue"]
+                    @sharedlocalizer["Continue"]
                 </button>
             </div>
         }

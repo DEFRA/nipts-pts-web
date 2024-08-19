@@ -7,6 +7,8 @@
 @using Defra.PTS.Web.Application.DTOs.Services;
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SharedResource> sharedlocalizer
 
 @{
     var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Black" };
@@ -58,7 +60,7 @@
                                         Describe the colour of your @Model.PetTypeNameLowered
                                     </label>
                                     @Html.ValidationMessageFor(x => x.PetColourOther, string.Empty, new { @class="govuk-error-message"})
-                                    @Html.TextBoxFor(x => x.PetColourOther, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false", @autocomplete = "colour", @pattern = @"^[a-zA-Z ]+$", @title = "Please enter a colour using only letters" })
+                                    @Html.TextBoxFor(x => x.PetColourOther, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false", @autocomplete = "colour" })
                                 </div>
                             </div>
                         </div>
@@ -67,7 +69,7 @@
             </div>
             <div class="govuk-button-group">
                 <button class="govuk-button" data-module="govuk-button" type="submit">
-                    Continue
+                    @sharedlocalizer["Continue"]
                 </button>
             </div>
 

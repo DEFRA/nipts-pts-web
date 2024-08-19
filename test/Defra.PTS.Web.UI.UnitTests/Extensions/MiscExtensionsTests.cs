@@ -6,6 +6,7 @@ using Defra.PTS.Web.UI.Constants;
 using FluentAssertions;
 using FluentAssertions.Execution;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Globalization;
 using Xunit;
 
 namespace Defra.PTS.Web.UI.UnitTests.Extensions;
@@ -95,6 +96,44 @@ public class MiscExtensionsTests
             result.Should().BeOfType<List<SelectListItem>>();
             result.Count.Should().Be(model.Count + 1);
             result[0].Text.Should().Be($"{model.Count} addresses found");
+            result[1].Text.Should().Be(model[0].ToDisplayString());
+            result[1].Value.Should().Be(model[0].ToCsvString());
+        }
+    }
+    [Fact]
+    public void AddressList_ConvertTo_SelectListItems_Welsh()
+    {
+        // Arrange        
+        Thread.CurrentThread.CurrentCulture = new CultureInfo("cy"); 
+        var model = new List<Address>
+        {
+             new()
+             {
+                  AddressLineOne = "Test Street 1",
+                  AddressLineTwo = "Test Locality 1",
+                  TownOrCity = "Test City 1",
+                  County = "Test County 1",
+                  Postcode = "Test Postcode 1",
+             },
+             new()
+             {
+                  AddressLineOne = "Test Street 2",
+                  AddressLineTwo = "Test Locality 2",
+                  TownOrCity = "Test City 2",
+                  County = "Test County 2",
+                  Postcode = "Test Postcode 2",
+             }
+        };
+
+        // Act
+        var result = model.ToSelectListItems(hasSelectRow: true);
+
+        // Assert
+        using (new AssertionScope())
+        {
+            result.Should().BeOfType<List<SelectListItem>>();
+            result.Count.Should().Be(model.Count + 1);
+            result[0].Text.Should().Be($"{model.Count} o gyfeiriadau wedi'u canfod");
             result[1].Text.Should().Be(model[0].ToDisplayString());
             result[1].Value.Should().Be(model[0].ToCsvString());
         }

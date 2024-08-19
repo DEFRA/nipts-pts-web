@@ -30,6 +30,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private readonly Mock<IMediator> _mockMediator = new();
         private readonly Mock<ILogger<TravelDocumentController>> _mockLogger = new();
         private readonly Mock<IOptions<PtsSettings>> _mockPtsSettings = new();
+        private IOptions<PtsSettings> _optionsPtsSettings;
         private Mock<TravelDocumentController> _travelDocumentController;
         private Mock<ControllerContext> _mockControllerContext;
         private Mock<TravelDocumentViewModel> _travelDocumentViewModel;
@@ -38,12 +39,22 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         [SetUp]
         public void Setup()
         {
+            var ptsSettings = new PtsSettings
+            {
+                MagicWordEnabled = true,
+            };
+            _optionsPtsSettings = Options.Create(ptsSettings);
             _mockControllerContext = new Mock<ControllerContext>();
-            _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object)
+            _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _optionsPtsSettings)
             {
                 CallBase = true
             };
             _travelDocumentViewModel = new Mock<TravelDocumentViewModel>();
+
+            var mockHttpContext = new Mock<HttpContext>();
+            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
+            _travelDocumentController.Object.ControllerContext = new ControllerContext();
+            _travelDocumentController.Object.ControllerContext.HttpContext = mockHttpContext.Object;
         }
 
 
@@ -95,7 +106,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var mockHttpContext = new Mock<HttpContext>();
             var mockSession = new Mock<ISession>();
             mockHttpContext.SetupGet(x => x.Session).Returns(mockSession.Object);
-
+            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
 
             _travelDocumentController.Object.ControllerContext = new ControllerContext()
             {

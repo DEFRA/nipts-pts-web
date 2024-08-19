@@ -122,10 +122,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             if (response.IsSuccess)
             {
                 var identity = HttpContext.User.Identities.FirstOrDefault();
-                if (identity != null)
-                {
-                    identity.AddClaim(new Claim(WebAppConstants.IdentityKeys.PTSUserId, response.UserId.ToString()));
-                }
+                identity?.AddClaim(new Claim(WebAppConstants.IdentityKeys.PTSUserId, response.UserId.ToString()));
             }
         }
         catch (Exception ex)

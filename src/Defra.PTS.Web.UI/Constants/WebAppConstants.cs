@@ -124,6 +124,11 @@ public static class WebAppConstants
         /// A key name used to store the if the has been submitted
         /// </summary>
         public const string FormSubmissionQueue = "FormSubmissionQueue";
+        
+        /// <summary>
+        /// A key name used to store application reference
+        /// </summary>
+        public const string ApplicationReference = "ApplicationReference";
 
     }
     public static class FormAutofill

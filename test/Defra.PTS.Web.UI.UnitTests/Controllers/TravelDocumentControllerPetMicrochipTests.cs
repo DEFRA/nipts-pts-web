@@ -5,6 +5,7 @@ using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Constants;
 using Defra.PTS.Web.UI.Controllers;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Logging;
@@ -38,6 +39,11 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
             _travelDocumentController.Object.TempData = tempData;
             _travelDocumentViewModel = new Mock<TravelDocumentViewModel>();
+
+            var mockHttpContext = new Mock<HttpContext>();
+            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
+            _travelDocumentController.Object.ControllerContext = new ControllerContext();
+            _travelDocumentController.Object.ControllerContext.HttpContext = mockHttpContext.Object;
         }
 
 
@@ -53,7 +59,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             // Assert
             Assert.IsNotNull(result);
-            Assert.AreEqual(nameof(TravelDocumentController.PetKeeperUserDetails), result.ActionName);
+            Assert.AreEqual(nameof(TravelDocumentController.Index), result.ActionName);
         }
 
         
