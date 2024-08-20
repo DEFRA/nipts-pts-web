@@ -212,6 +212,10 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         [Test]
         public void PetMicrochipDate_WithValidModel_RedirectsToPetSpecies()
         {
+            _travelDocumentController
+                .Setup(x => x.IsApplicationInProgress())
+                .Returns(true);
+
             // Arrange                                 
             var formData = new TravelDocumentViewModel
             {

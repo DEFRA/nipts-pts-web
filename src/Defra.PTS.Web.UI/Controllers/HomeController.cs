@@ -22,6 +22,11 @@ public class HomeController : BaseController
 
     public IActionResult Index()
     {
+        if (HttpContext != null && HttpContext.Session != null)
+        {
+            HttpContext.Session.SetString("SessionActive", "yes");
+        }
+
         var magicWordData = GetMagicWordFormData(true);
 
         ViewData.Add("HasUserPassedPasswordCheck", magicWordData.HasUserPassedPasswordCheck);
@@ -54,6 +59,12 @@ public class HomeController : BaseController
             return View("Index", model);
         }
 
+    }
+
+    [HttpGet]
+    public IActionResult ApplicationTimeout()
+    {
+        return View();
     }
 
     [ExcludeFromCodeCoverage]

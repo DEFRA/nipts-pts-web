@@ -7,6 +7,7 @@ using Defra.PTS.Web.UI.Helpers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Polly;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Caching;
 using static Defra.PTS.Web.UI.Constants.WebAppConstants;
@@ -192,4 +193,43 @@ namespace Defra.PTS.Web.UI.Configuration.Startup
 
     }
 
+}
+
+[ExcludeFromCodeCoverage]
+public class SessionTimeoutMiddleware
+{
+    private readonly RequestDelegate _next;
+
+    public SessionTimeoutMiddleware(RequestDelegate next)
+    {
+        _next = next;
+    }
+
+    public async Task InvokeAsync(HttpContext context)
+    {
+        if (context.Session.IsAvailable)
+        {
+            // Check if the request is for a static file or for the timeout page to avoid redirection loops
+            if (context.Request.Path.StartsWithSegments("/Home/ApplicationTimeout") || 
+                context.Request.Path.Value == "/" ||
+                context.Request.Path.Value == "/TravelDocument" ||
+                context.Request.Path.Value == "/signin-oidc" ||
+                context.Request.Path.StartsWithSegments("/css") ||
+                context.Request.Path.StartsWithSegments("/js") ||
+                context.Request.Path.StartsWithSegments("/images"))
+            {
+                await _next(context);
+                return;
+            }
+
+            if (context.Session.GetString("SessionActive") == null)
+            {
+                context.Response.Redirect("/Home/ApplicationTimeout");
+                return;
+            }
+        }
+
+        // If session is active, continue to the next middleware in the pipeline
+        await _next(context);
+    }
 }
