@@ -22,6 +22,8 @@ public class PetKeeperUserDetailsViewModel : TravelDocumentFormPage, IPostcodeMo
 
     public string TownOrCity { get; set; }
 
+    public string County { get; set; }
+
     public string Postcode { get; set; }
 
     public PostcodeRegion PostcodeRegion { get; set; } = PostcodeRegion.Unknown;
@@ -56,6 +58,7 @@ public class PetKeeperUserDetailsViewModel : TravelDocumentFormPage, IPostcodeMo
         Email = default;
         AddressLineOne = default;
         TownOrCity = default;
+        County = default;
         Postcode = default;
     }
 }

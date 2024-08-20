@@ -40,6 +40,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             formData.PetKeeperUserDetails.Phone = userDetail.Telephone;
             formData.PetKeeperUserDetails.AddressLineOne = userDetail.AddressLineOne + " " + userDetail.AddressLineTwo;
             formData.PetKeeperUserDetails.TownOrCity = userDetail.TownOrCity;
+            formData.PetKeeperUserDetails.County = userDetail.County;
             formData.PetKeeperUserDetails.Postcode = userDetail.PostCode;
 
             SaveFormData(formData.PetKeeperUserDetails);

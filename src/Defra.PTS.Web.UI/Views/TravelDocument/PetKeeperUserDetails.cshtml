@@ -26,6 +26,7 @@
             @Html.HiddenFor(x => x.Phone)
             @Html.HiddenFor(x => x.AddressLineOne)
             @Html.HiddenFor(x => x.TownOrCity)
+            @Html.HiddenFor(x => x.County)
             @Html.HiddenFor(x => x.Postcode)
             @Html.HiddenFor(x => x.PostcodeRegion)
 
@@ -55,6 +56,10 @@
                             <dd class="govuk-summary-list__value">
                                 @Model.AddressLineOne<br />
                                 @Model.TownOrCity<br />
+                                @if (!string.IsNullOrWhiteSpace(Model.County))
+                                {
+                                    @Model.County<br />
+                                }
                                 @Model.Postcode
                             </dd>
 
