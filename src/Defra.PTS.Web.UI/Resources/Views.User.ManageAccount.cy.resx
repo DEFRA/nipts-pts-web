@@ -117,13 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Are your details correct?" xml:space="preserve">
-    <value>Ydy’ch manylion chi’n gywir?</value>
+  <data name="If you change your personal details like name and address, you need to apply for a new lifelong pet travel document for each pet." xml:space="preserve">
+    <value>Os byddwch yn newid eich manylion personol fel eich enw a’ch cyfeiriad, mae angen ichi wneud cais am ddogfen deithio anifeiliaid anwes gydol oes newydd ar gyfer pob anifail anwes.</value>
   </data>
-  <data name="No" xml:space="preserve">
-    <value>Nac ydyn</value>
+  <data name="Is your pet a dog, cat or ferret?" xml:space="preserve">
+    <value>Pa un o’r rhain yw eich anifail anwes chi ?</value>
   </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Ydyn</value>
+  <data name="Manage account" xml:space="preserve">
+    <value>Rheoli’r cyfrif</value>
+  </data>
+  <data name="manage your account" xml:space="preserve">
+    <value>reoli’ch cyfrif</value>
+  </data>
+  <data name="Manage your Defra account" xml:space="preserve">
+    <value>Rheoli’ch cyfrif Defra</value>
+  </data>
+  <data name="to change your sign in details." xml:space="preserve">
+    <value>er mwyn newid eich manylion mewngofnodi.</value>
+  </data>
+  <data name="View your lifelong pet travel documents or apply for a new one." xml:space="preserve">
+    <value>Gweld eich dogfennau teithio gydol oes i anifeiliaid anwes neu wneud cais am un newydd.</value>
+  </data>
+  <data name="You can" xml:space="preserve">
+    <value>Gallwch</value>
+  </data>
+  <data name="Your details and account" xml:space="preserve">
+    <value>Eich manylion a'ch cyfrif</value>
   </data>
 </root>
