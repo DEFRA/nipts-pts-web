@@ -6,6 +6,7 @@ using Defra.PTS.Web.UI.Configuration.Authentication;
 using Defra.PTS.Web.UI.Helpers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.Caching;
@@ -25,13 +26,13 @@ namespace Defra.PTS.Web.UI.Configuration.Startup
         public static void AddAuthentications(this IServiceCollection services, IConfiguration configuration, SecretClient secretClient)
         {
             services.AddScoped<IHostHelper, HostHelper>();
-
-            KeyVaultSecret clientSecret = null;
-            KeyVaultSecret clientId = null;
+            services.Configure<SecretsConfiguration>(configuration.GetSection("PTSB2C"));
+            string clientSecret = null;
+            string clientId = null;
             try
             {
-                clientSecret = secretClient.GetSecret("Pts-B2C-Tenant-ClientSecret");
-                clientId = secretClient.GetSecret("Pts-B2C-Tenant-ClientId");
+                clientSecret = configuration.GetValue<string>("PTSB2C:PtsB2CTenantClientSecret");
+                clientId = configuration.GetValue<string>("PTSB2C:PtsB2CTenantClientId");
             }
             catch { }
 
@@ -56,8 +57,8 @@ namespace Defra.PTS.Web.UI.Configuration.Startup
                 var adB2cSection = configuration.GetSection("AzureAdB2C").Get<OpenIdConnectB2CConfiguration>();
                 options.Authority = adB2cSection.Instance;
 
-                options.ClientId = clientId.Value.ToString();
-                options.ClientSecret = clientSecret.Value.ToString();
+                options.ClientId = clientId;
+                options.ClientSecret = clientSecret;
                 options.ResponseType = OpenIdConnectResponseType.Code;
                 options.Scope.Add(options.ClientId);
                 options.CallbackPath = "/signin-oidc";
@@ -118,7 +119,7 @@ namespace Defra.PTS.Web.UI.Configuration.Startup
 
         public static IServiceCollection AddServiceHttpClients(this IServiceCollection services, IConfiguration configuration, SecretClient secretClient)
         {
-            KeyVaultSecret subscriptionKey = secretClient.GetSecret("Pts-Apim-SubscriptionKey");
+            string subscriptionKey = configuration.GetValue<string>("PTSB2C:PtsApimSubscriptionKey");
 
             services.AddHttpClient<IPetService, PetService>((client) =>
             {
@@ -127,7 +128,7 @@ namespace Defra.PTS.Web.UI.Configuration.Startup
 
                 client.BaseAddress = new Uri(petServiceUrl);
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {authToken}");
-                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey.Value.ToString());
+                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
 
             }).ConfigurePrimaryHttpMessageHandler(() =>
                 new HttpClientHandler()
@@ -144,7 +145,7 @@ namespace Defra.PTS.Web.UI.Configuration.Startup
 
                 client.BaseAddress = new Uri(ApplicationServiceUrl);
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {authToken}");
-                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey.Value.ToString());
+                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
 
             }).ConfigurePrimaryHttpMessageHandler(() =>
                 new HttpClientHandler()
@@ -161,7 +162,7 @@ namespace Defra.PTS.Web.UI.Configuration.Startup
 
                 client.BaseAddress = new Uri(userServiceUrl);
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {authToken}");
-                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey.Value.ToString());
+                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
 
             }).ConfigurePrimaryHttpMessageHandler(() =>
                 new HttpClientHandler()
@@ -178,7 +179,7 @@ namespace Defra.PTS.Web.UI.Configuration.Startup
 
                 client.BaseAddress = new Uri(dynamicsServiceUrl);
                 client.DefaultRequestHeaders.Add("Authorization", $"Bearer {authToken}");
-                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey.Value.ToString());
+                client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
 
             }).ConfigurePrimaryHttpMessageHandler(() =>
                 new HttpClientHandler()
