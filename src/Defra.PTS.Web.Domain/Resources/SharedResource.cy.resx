@@ -168,4 +168,10 @@
   <data name="Enter line 2 of your address using 250 characters or less" xml:space="preserve">
     <value>Rhowch linell 2 eich cyfeiriad gan ddefnyddio 250 o gymeriadau neu lai</value>
   </data>
+  <data name="Enter a breed using 150 characters or less" xml:space="preserve">
+    <value>Rhowch frid gan ddefnyddio 150 o gymeriadau neu lai</value>
+  </data>
+  <data name="Select or enter the breed of your pet" xml:space="preserve">
+    <value>Dewiswch frid neu rhowch frid eich anifail anwes</value>
+  </data>
 </root>

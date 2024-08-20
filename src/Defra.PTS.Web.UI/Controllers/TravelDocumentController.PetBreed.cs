@@ -4,13 +4,15 @@ using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Constants;
 using Defra.PTS.Web.UI.Extensions;
+using Defra.PTS.Web.UI.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Defra.PTS.Web.UI.Controllers;
 
 public partial class TravelDocumentController : BaseTravelDocumentController
-{
+{   
+
     [HttpGet]
     public async Task<IActionResult> PetBreed()
     {
@@ -158,8 +160,10 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     #region Private Methods
     private async Task<List<SelectListItem>> GetBreedsAsSelectListItems(PetSpecies petType)
     {
-        var response = await _mediator.Send(new GetBreedsQueryRequest(petType));
-        return response.Breeds.ToSelectListItems();
+
+        var list = await _breedHelper.GetBreedList(petType);
+
+        return list.ToSelectListItems();
     }
 
     #endregion Private Methods

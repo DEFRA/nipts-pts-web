@@ -12,12 +12,15 @@ using Defra.PTS.Web.Domain.Models;
 using Defra.PTS.Web.Domain.ViewModels;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Controllers;
+using Defra.PTS.Web.UI.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Azure.Amqp.Transaction;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
@@ -37,6 +40,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private Mock<ControllerContext> _mockControllerContext;
         private Mock<TravelDocumentViewModel> _travelDocumentViewModel;
 
+        private readonly Mock<IBreedHelper> _breedHelper = new();
 
         [SetUp]
         public void Setup()
@@ -47,7 +51,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
             _mockControllerContext = new Mock<ControllerContext>();
             _optionsPtsSettings = Options.Create(ptsSettings);
-            _travelDocumentController = new TravelDocumentController(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _optionsPtsSettings);
+            _travelDocumentController = new TravelDocumentController(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _optionsPtsSettings, _breedHelper.Object);
             
             
             _travelDocumentViewModel = new Mock<TravelDocumentViewModel>();
@@ -154,7 +158,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 validationServiceMock.Object,
                 mediatorMock.Object,
                 loggerMock.Object,
-                ptsSettingsMock.Object
+                ptsSettingsMock.Object,
+                _breedHelper.Object
             );
 
             // Simulate an exception being thrown
