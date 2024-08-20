@@ -18,6 +18,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
+using Microsoft.Extensions.Localization;
+using Microsoft.Azure.Management.BatchAI.Fluent.Models;
+using Defra.PTS.Web.UI.Helpers;
+using Defra.PTS.Web.Domain.Enums;
 
 namespace Defra.PTS.Web.UI.Controllers;
 
@@ -29,13 +33,14 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     private readonly IMediator _mediator;
     private readonly ILogger<TravelDocumentController> _logger;
     private readonly PtsSettings _ptsSettings;
-
+    private readonly IBreedHelper _breedHelper;
 
     public TravelDocumentController(
           IValidationService validationService,
           IMediator mediator,
           ILogger<TravelDocumentController> logger,
-          IOptions<PtsSettings> ptsSettings
+          IOptions<PtsSettings> ptsSettings,
+          IBreedHelper breedHelper
           )
     {
         ArgumentNullException.ThrowIfNull(validationService);
@@ -46,6 +51,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         _validationService = validationService;
         _mediator = mediator;
         _logger = logger;
+        _breedHelper = breedHelper;
         _ptsSettings = ptsSettings.Value;
     }
 

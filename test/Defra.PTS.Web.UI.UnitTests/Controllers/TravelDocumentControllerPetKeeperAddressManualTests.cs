@@ -1,9 +1,11 @@
 ﻿using Defra.PTS.Web.Application.Services.Interfaces;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.Models;
+using Defra.PTS.Web.Domain.ViewModels;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Constants;
 using Defra.PTS.Web.UI.Controllers;
+using Defra.PTS.Web.UI.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +25,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private readonly Mock<IMediator> _mockMediator = new();
         private readonly Mock<ILogger<TravelDocumentController>> _mockLogger = new();
         private readonly Mock<IOptions<PtsSettings>> _mockPtsSettings = new();
+        private readonly Mock<IBreedHelper> _mockBreedHelper = new();
         private Mock<TravelDocumentController> _travelDocumentController;
         private Mock<TravelDocumentViewModel> _travelDocumentViewModel;
 
@@ -32,7 +35,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         {
             // Arrange
             var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());              
-            _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object)
+            _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object, _mockBreedHelper.Object)
             {
                 
                 CallBase = true
@@ -55,7 +58,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 .Returns(false);
 
             // Act
-            var result = _travelDocumentController.Object.PetKeeperAddressManual() as RedirectToActionResult;
+            var result = _travelDocumentController.Object.PetKeeperAddressManual("test") as RedirectToActionResult;
 
             // Assert
             Assert.IsNotNull(result);
@@ -88,7 +91,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                  .Returns(formData);
 
             // Act
-            var result = _travelDocumentController.Object.PetKeeperAddressManual() as RedirectToActionResult;
+            var result = _travelDocumentController.Object.PetKeeperAddressManual("test") as RedirectToActionResult;
 
             // Assert
             Assert.IsNotNull(result);            
@@ -120,7 +123,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                  .Returns(formData);
 
             // Act
-            var result = _travelDocumentController.Object.PetKeeperAddressManual() as ViewResult;
+            var result = _travelDocumentController.Object.PetKeeperAddressManual("test") as ViewResult;
 
             // Assert
             Assert.IsNotNull(result);
@@ -148,13 +151,14 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                     Postcode = "RM16 2GT"
                     
                 }
-
             };
+            _travelDocumentController.Setup(x => x.IsApplicationInProgress())
+                .Returns(true);
             _travelDocumentController.Setup(x => x.GetFormData(false))
                 .Returns(formData);
 
             // Act
-            var result = _travelDocumentController.Object.PetKeeperAddressManual(formData.PetKeeperAddressManual) as RedirectToActionResult;
+            var result = _travelDocumentController.Object.PetKeeperAddressManual(formData.PetKeeperAddressManual, "test")as RedirectToActionResult;
 
             // Assert
             Assert.IsNotNull(result);

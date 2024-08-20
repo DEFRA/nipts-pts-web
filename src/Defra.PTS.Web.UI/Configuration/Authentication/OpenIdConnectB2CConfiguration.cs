@@ -35,14 +35,11 @@ namespace Defra.PTS.Web.UI.Configuration.Authentication
             var configuration = context.HttpContext.RequestServices.GetRequiredService<IConfiguration>();
             var adB2cSection = configuration.GetSection("AzureAdB2C").Get<OpenIdConnectB2CConfiguration>();
 
-            var keyVaultUri = configuration["KeyVaultUri"];
-            SecretClient secretClient = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
-            KeyVaultSecret serviceId = secretClient.GetSecret("Pts-B2C-Tenant-ServiceId");
+            string serviceId = configuration.GetValue<string>("PTSB2C:PtsB2CTenantServiceId");
 
-            var request = context.Request;
             context.ProtocolMessage.RedirectUri = adB2cSection.CallbackPath;
             context.ProtocolMessage.PostLogoutRedirectUri = adB2cSection.SignedOutCallbackPath;
-            context.ProtocolMessage.SetParameter("serviceId", serviceId.Value.ToString());
+            context.ProtocolMessage.SetParameter("serviceId", serviceId);
             // If the request has come from one of the API endpoints then we dont want the user signing in from here, we 401 instead
             if (context.Request.Path.StartsWithSegments("/api", StringComparison.InvariantCultureIgnoreCase) ||
                 (context.Request.Path.StartsWithSegments("/login", StringComparison.InvariantCultureIgnoreCase) && context.Request.QueryString.Value.Contains("ReturnUrl=%2FApi", StringComparison.InvariantCultureIgnoreCase)))

@@ -8,6 +8,7 @@ using Defra.PTS.Web.Domain.Models;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Constants;
 using Defra.PTS.Web.UI.Controllers;
+using Defra.PTS.Web.UI.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private readonly Mock<IMediator> _mockMediator = new();
         private readonly Mock<ILogger<TravelDocumentController>> _mockLogger = new();
         private readonly Mock<IOptions<PtsSettings>> _mockPtsSettings = new();
+        private readonly Mock<IBreedHelper> _mockBreedHelper = new();
         private Mock<TravelDocumentController> _travelDocumentController;
         private Mock<TravelDocumentViewModel> _travelDocumentViewModel;
 
@@ -36,7 +38,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         {
             // Arrange
             var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());              
-            _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object)
+            _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object, _mockBreedHelper.Object)
             {
                 
                 CallBase = true
@@ -140,12 +142,16 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             };
 
-            _mockMediator.Setup(x => x.Send(It.IsAny<GetBreedsQueryRequest>(), CancellationToken.None))
-                 .ReturnsAsync(new GetBreedsQueryResponse
-                 {
-                    PetType=PetSpecies.Cat,
-                    Breeds = new List<BreedDto> { new() { BreedId=1,BreedName="Test"} }
-                 });
+            _mockBreedHelper.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
+               .ReturnsAsync(new List<BreedDto>()
+               {
+                   new()
+                   {
+                       BreedId = 2,
+                       BreedName = "Test2",
+                       Group = "test"
+                   }
+            });
 
             _travelDocumentController.Setup(x => x.GetFormData(false))
                  .Returns(formData);
@@ -193,12 +199,16 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             };
 
-            _mockMediator.Setup(x => x.Send(It.IsAny<GetBreedsQueryRequest>(), CancellationToken.None))
-                 .ReturnsAsync(new GetBreedsQueryResponse
-                 {
-                     PetType = PetSpecies.Cat,
-                     Breeds = new List<BreedDto> { new BreedDto { BreedId = 1, BreedName = "Test" } }
-                 });
+            _mockBreedHelper.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
+                .ReturnsAsync(new List<BreedDto>()
+                {
+                   new()
+                   {
+                       BreedId = 2,
+                       BreedName = "test",
+                       Group = "test"
+                   }
+             });
 
             _travelDocumentController.Setup(x => x.GetFormData(false))
                  .Returns(formData);
@@ -246,12 +256,16 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             };
 
-            _mockMediator.Setup(x => x.Send(It.IsAny<GetBreedsQueryRequest>(), CancellationToken.None))
-               .ReturnsAsync(new GetBreedsQueryResponse
+            _mockBreedHelper.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
+               .ReturnsAsync(new List<BreedDto>()
                {
-                   PetType = PetSpecies.Cat,
-                   Breeds = new List<BreedDto> { new BreedDto { BreedId = 1, BreedName = "Test" } }
-               });
+                   new()
+                   {
+                       BreedId = 1,
+                       BreedName = "test",
+                       Group = "test"
+                   }
+            });
 
             _travelDocumentController.Setup(x => x.GetFormData(false))
                 .Returns(formData);
@@ -301,12 +315,16 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             };
 
-            _mockMediator.Setup(x => x.Send(It.IsAny<GetBreedsQueryRequest>(), CancellationToken.None))
-               .ReturnsAsync(new GetBreedsQueryResponse
-               {
-                   PetType = PetSpecies.Cat,
-                   Breeds = new List<BreedDto> { new BreedDto { BreedId = 1, BreedName = "Test" } }
-               });
+            _mockBreedHelper.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
+                .ReturnsAsync(new List<BreedDto>()
+                {
+                   new()
+                   {
+                       BreedId = 1,
+                       BreedName = "test",
+                       Group = "test"
+                   }
+             });
 
             _travelDocumentController.Setup(x => x.GetFormData(false))
                 .Returns(formData);
@@ -356,12 +374,16 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             };
 
-            _mockMediator.Setup(x => x.Send(It.IsAny<GetBreedsQueryRequest>(), CancellationToken.None))
-               .ReturnsAsync(new GetBreedsQueryResponse
+            _mockBreedHelper.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
+               .ReturnsAsync(new List<BreedDto>()
                {
-                   PetType = PetSpecies.Cat,
-                   Breeds = new List<BreedDto> { new BreedDto { BreedId = 1, BreedName = "Test" } }
-               });
+                   new()
+                   {
+                       BreedId = 300,
+                       BreedName = "Test",
+                       Group = "test"
+                   }
+            });
 
             _travelDocumentController.Setup(x => x.GetFormData(false))
                 .Returns(formData);
@@ -411,12 +433,16 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             };
 
-            _mockMediator.Setup(x => x.Send(It.IsAny<GetBreedsQueryRequest>(), CancellationToken.None))
-               .ReturnsAsync(new GetBreedsQueryResponse
+            _mockBreedHelper.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
+               .ReturnsAsync(new List<BreedDto>()
                {
-                   PetType = PetSpecies.Cat,
-                   Breeds = new List<BreedDto> { new BreedDto { BreedId = 1, BreedName = "Test" } }
-               });
+                   new()
+                   {
+                       BreedId = 300,
+                       BreedName = "test",
+                       Group = "test"
+                   }
+            });
 
             _travelDocumentController.Setup(x => x.GetFormData(false))
                 .Returns(formData);

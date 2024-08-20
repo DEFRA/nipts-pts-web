@@ -117,13 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Are your details correct?" xml:space="preserve">
-    <value>Ydy’ch manylion chi’n gywir?</value>
+  <data name="Enter a breed using 150 characters or less" xml:space="preserve">
+    <value>Rhowch frid gan ddefnyddio 150 o gymeriadau neu lai</value>
   </data>
-  <data name="No" xml:space="preserve">
-    <value>Nac ydyn</value>
+  <data name="Enter your cat's breed, for example, Scottish Fold" xml:space="preserve">
+    <value>Rhowch frid eich cath, er enghraifft, cath clustiau plyg o’r Alban</value>
   </data>
-  <data name="Yes" xml:space="preserve">
-    <value>Ydyn</value>
+  <data name="Enter your dog's breed, for example, Labrador" xml:space="preserve">
+    <value>Rhowch frid eich ci, er enghraifft, Labrador</value>
+  </data>
+  <data name="For example, Domestic Shorthair, Bengal, Scottish Fold, Ragdoll." xml:space="preserve">
+    <value>Er enghraifft, Cath ddomestig blew cwta, Cath Bengal, Cath clustiau plyg o’r Alban, Ragdoll.</value>
+  </data>
+  <data name="For example, Labrador, Greyhound, Cockapoo, Labradoodle." xml:space="preserve">
+    <value>Er enghraifft, Labrador, Milgi, Cockapoo, Labradoodle.</value>
+  </data>
+  <data name="Select or enter the breed of your pet" xml:space="preserve">
+    <value>Dewiswch frid neu rhowch frid eich anifail anwes</value>
+  </data>
+  <data name="Select your pet's breed" xml:space="preserve">
+    <value>Dewiswch frid eich anifail anwes</value>
+  </data>
+  <data name="What breed is your cat?" xml:space="preserve">
+    <value>Pa frid yw’ch cath chi?</value>
+  </data>
+  <data name="What breed is your dog?" xml:space="preserve">
+    <value>Pa frid yw’ch ci chi?</value>
   </data>
 </root>
