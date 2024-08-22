@@ -29,7 +29,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Helpers
         }
 
         [Fact]
-        public async Task GetDogBreedListTests()
+        public async Task GetBreedListTests()
         {
             // Arrange
             var species = PetSpecies.Dog;
@@ -65,45 +65,6 @@ namespace Defra.PTS.Web.UI.UnitTests.Helpers
             result.Should().Equal(breed, (b1, b2) => b1.BreedName == b2.BreedName);
 
         }
-
-        [Fact]
-        public async Task GetCatBreedListTests()
-        {
-            // Arrange
-            var species = PetSpecies.Cat;
-            _mockMediator.Setup(x => x.Send(It.IsAny<GetBreedsQueryRequest>(), CancellationToken.None))
-                .ReturnsAsync(new Application.DTOs.Features.GetBreedsQueryResponse
-                {
-                    Breeds = new List<BreedDto>()
-                    {
-                    new BreedDto() { BreedId = 1, BreedName = "Domestic Shorthair" },
-                    new BreedDto() { BreedId = 2, BreedName = "Siamese" },
-                    new BreedDto() { BreedId = 3, BreedName = "Bengal" },
-                    new BreedDto() { BreedId = 4, BreedName = "Sphynx" },
-                    new BreedDto() { BreedId = 5, BreedName = "Cornish Rex" },
-                    }
-                });
-
-            var breed = new List<BreedDto>()
-            {
-                new BreedDto() { BreedId = 1, BreedName = "Domestic Shorthair" },
-                new BreedDto() { BreedId = 2, BreedName = "Siamese" },
-                new BreedDto() { BreedId = 3, BreedName = "Bengal" },
-                new BreedDto() { BreedId = 4, BreedName = "Sphynx" },
-                new BreedDto() { BreedId = 5, BreedName = "Cornish Rex" },
-
-            };
-
-            // Act
-            var result = await _breedHelper.GetBreedList(species);
-
-            // Assert
-
-            result.Should().Equal(breed, (b1, b2) => b1.BreedId == b2.BreedId);
-            result.Should().Equal(breed, (b1, b2) => b1.BreedName == b2.BreedName);
-
-        }
-
 
     }
 }
