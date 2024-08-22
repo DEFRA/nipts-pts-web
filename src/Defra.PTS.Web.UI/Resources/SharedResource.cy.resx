@@ -145,6 +145,9 @@
   <data name="Lifelong pet travel documents" xml:space="preserve">
     <value>Dogfennau teithio gydol oes i anifeiliaid anwes</value>
   </data>
+  <data name="Manage account" xml:space="preserve">
+    <value>Rheoli’r cyfrif</value>
+  </data>
   <data name="Name" xml:space="preserve">
     <value>Enw</value>
   </data>

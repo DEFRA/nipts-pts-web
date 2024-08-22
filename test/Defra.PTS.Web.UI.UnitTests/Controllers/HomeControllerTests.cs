@@ -81,5 +81,34 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // Assert
             Assert.NotNull(result);
         }
+
+        [Fact]
+        public void HomeController_Returns_ApplicationTimeout_View()
+        {
+            // Arrange
+            var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
+            var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = true };
+            tempData.SetHasUserUsedMagicWord(magicWordViewModel);
+
+            // Arrange
+            var ptsSettings = new PtsSettings
+            {
+                MagicWordEnabled = true,
+            };
+            _optionsPtsSettings = Options.Create(ptsSettings);
+            _homeController = new Mock<HomeController>(_optionsPtsSettings)
+            {
+                CallBase = true
+            };
+
+            _homeController.Object.TempData = tempData;
+
+            // Act
+            var result = _homeController.Object.ApplicationTimeout();
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.IsType<ViewResult>(result);
+        }
     }
 }

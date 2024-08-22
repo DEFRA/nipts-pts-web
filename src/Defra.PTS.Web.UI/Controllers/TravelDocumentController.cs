@@ -58,6 +58,11 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     [HttpGet]
     public async Task<IActionResult> Index()
     {
+        if (HttpContext != null && HttpContext.Session != null)
+        {
+            HttpContext.Session.SetString("SessionActive", "yes");
+        }        
+
         try
         {
             if (HttpContext.Request.Cookies.TryGetValue("ManagementLinkClicked", out string managementLinkClicked) && managementLinkClicked == "true")
