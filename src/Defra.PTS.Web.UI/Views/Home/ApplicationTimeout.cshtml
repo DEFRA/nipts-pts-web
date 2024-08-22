@@ -5,11 +5,11 @@
 @using Microsoft.AspNetCore.Mvc.Localization;
 @using Microsoft.Extensions.Localization;
 @inject IViewLocalizer Localizer
-@inject IStringLocalizer<SharedResource> sharedlocalizer
+@inject IStringLocalizer<SharedResource> SharedLocalizer
 
 @{
-    var pageTitle = sharedlocalizer["Your answers have been deleted"];
-    this.SetMetaTitle(pageTitle);
+    var pageTitle = Localizer["Your answers have been deleted"];
+    this.SetMetaTitle(pageTitle.Value);
     ViewData.SetKeyValue("MainCssClass", "govuk-!-margin-top-6");
     Layout = "_LayoutSlim";
 }
