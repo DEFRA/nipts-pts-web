@@ -26,47 +26,47 @@
 
                 <partial name="_ErrorSummary" />
 
-
-                <div id="formroot" , class="govuk-form-group  @(ViewData.ModelState.HasError("Microchipped") ? "govuk-form-group--error" : "")">
+                <div class="govuk-form-group (@ViewData.ModelState.HasError("HasUniqueFeature") ? " govuk-form-group--error" : null)">
                     <fieldset class="govuk-fieldset" aria-describedby="microchip-hint">
 
-                        <partial name="_FieldsetLegend" model=fieldsetLegend />
+                            <partial name="_FieldsetLegend" model=fieldsetLegend />
 
-                        <div id="microchip-hint" class="govuk-hint">
-                            Check your pet's microchip certificate for the microchip number.
-                        </div>
-
-                        @Html.ValidationMessageFor(x => x.Microchipped, string.Empty, new { @class = "govuk-error-message" })
-
-                        <div class="govuk-radios" data-module="govuk-radios" id="Microchipped">
-
-                            <div class="govuk-radios__item">
-                                @Html.RadioButtonFor(m => m.Microchipped, YesNoOptions.Yes, new { @class = "govuk-radios__input", id = "Yes", data_aria_controls = "conditional-MicrochipNumber" })
-                                <label class="govuk-label govuk-radios__label" for="Yes">
-                                    Yes
-                                </label>
+                            <div id="microchip-hint" class="govuk-hint">
+                                Check your pet's microchip certificate for the microchip number.
                             </div>
 
-                            <div id="conditional-MicrochipNumber" class="govuk-radios__conditional govuk-radios__conditional--hidden">
-                                <div class="govuk-form-group @(ViewData.ModelState.HasError("MicrochipNumber") ? "govuk-form-group--error" : "")" id="MicrochipNumber">
-                                    <label class="govuk-label govuk-label--s" for="microchipinput">
-                                        Enter your pet's microchip number
+                        <p id="OptionSelected_Error" class="govuk-error-message" gds-validation-for="Microchipped"></p>
+                        <div class="govuk-radios" data-module="govuk-radios" id="Microchipped">
+                            <div class="govuk-form-group @(ViewData.ModelState.HasError("Microchipped") ? "govuk-form-group--error" : null)">
+                                <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" type="radio" id="MicrochippedYes" asp-for="Microchipped" value="@YesNoOptions.Yes" aria-controls="conditional-feature" aria-expanded="false">
+                                        <label class="govuk-label govuk-radios__label" for="MicrochippedYes">
+                                        Yes
                                     </label>
-                                    <div id="account-number-hint" class="govuk-hint">
-                                        Must be 15 digits long
+                                </div>
+
+                                <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-feature">
+                                        <div class="govuk-form-group @(ViewData.ModelState.HasError("MicrochipNumber") ? "govuk-form-group--error" : null)">
+                                        <div class="govuk-form-group">
+                                                <label class="govuk-label govuk-label--s" for="MicrochipNumber">
+                                                    Enter your pet's microchip number
+                                                </label>
+                                                <div id="account-number-hint" class="govuk-hint">
+                                                    Must be 15 digits long
+                                                </div>
+                                            @Html.ValidationMessageFor(x => x.MicrochipNumber, string.Empty, new { @class = "govuk-error-message" })
+                                                <input class="govuk-input govuk-input govuk-input--width-20" id="MicrochipNumber" asp-for="MicrochipNumber" spellcheck="false">
+                                        </div>
                                     </div>
-                                    @Html.ValidationMessageFor(x => x.MicrochipNumber, string.Empty, new { @class = "govuk-error-message" })
-                                    @Html.TextBoxFor(x => x.MicrochipNumber, new { @id = "microchipinput", @class = "govuk-input govuk-input--width-20", @spellcheck = "false", @autocomplete = "microchip"})
+                                </div>
+
+                                <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" type="radio" id="MicrochippedNo" asp-for="Microchipped" value="@YesNoOptions.No" onclick="clearInput()">
+                                        <label class="govuk-label govuk-radios__label" for="MicrochippedNo">
+                                        No
+                                    </label>
                                 </div>
                             </div>
-
-                            <div class="govuk-radios__item">
-                                @Html.RadioButtonFor(m => m.Microchipped, YesNoOptions.No, new { @class = "govuk-radios__input", id = "No" })
-                                <label class="govuk-label govuk-radios__label" for="No">
-                                    No
-                                </label>
-                            </div>
-
                         </div>
                     </fieldset>
                 </div>
@@ -76,6 +76,7 @@
                         @sharedlocalizer["Continue"]
                     </button>
                 </div>
+
             }
         </div>
     </div>

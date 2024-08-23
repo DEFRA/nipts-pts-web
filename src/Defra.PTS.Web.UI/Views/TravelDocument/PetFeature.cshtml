@@ -55,7 +55,7 @@
                                         <label class="govuk-label" for="FeatureDescription">
                                             Briefly describe your pet's significant feature
                                         </label>
-                                        <p id="Feature_Error" class="govuk-error-message" gds-validation-for="FboNumber"></p>
+                                        @Html.ValidationMessageFor(x => x.FeatureDescription, string.Empty, new { @class = "govuk-error-message" })
                                         <textarea class="govuk-textarea" id="FeatureDescription" rows="5" asp-for="FeatureDescription" spellcheck="false"></textarea>
                                     </div>
                                 </div>
