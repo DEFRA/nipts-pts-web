@@ -55,6 +55,18 @@
                             }
 
                             <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-PetColourOther">
+                                <div class="govuk-form-group @(ViewData.ModelState.HasError("PetColourOther") ? "govuk-form-group--error" : null)">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-label--s" for="PetColourOther">
+                                            Describe the colour of your @Model.PetTypeNameLowered
+                                        </label>
+                                        <p id="PetColourOther_Error" class="govuk-error-message" gds-validation-for="PetColourOther"></p>
+                                        <input class="govuk-input govuk-!-width-two-thirds" id="PetColourOther" asp-for="PetColourOther" spellcheck="false">
+                                    </div>
+                                </div>
+                            </div>
+
+                           @*  <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-PetColourOther">
                                 <div class="govuk-form-group" id="OtherColour">
                                     <label class="govuk-label govuk-label--s" for="PetColourOther">
                                         Describe the colour of your @Model.PetTypeNameLowered
@@ -62,7 +74,7 @@
                                     @Html.ValidationMessageFor(x => x.PetColourOther, string.Empty, new { @class="govuk-error-message"})
                                     @Html.TextBoxFor(x => x.PetColourOther, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false", @autocomplete = "colour" })
                                 </div>
-                            </div>
+                            </div> *@
                         </div>
                     </div>
                 </fieldset>

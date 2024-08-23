@@ -18,9 +18,11 @@
 
     if (!string.IsNullOrWhiteSpace(backUrl))
     {
-        if (referer.Contains("Declaration") && !ViewContext.HttpContext.Request.Path.ToString().Contains("PetFeature"))
+        if (referer.Contains("Declaration") 
+        && !ViewContext.HttpContext.Request.Path.ToString().Contains("PetFeature")
+        && !ViewContext.HttpContext.Request.Path.ToString().Contains("Declaration"))
         {
-            <a href="@WebAppConstants.Pages.TravelDocument.Declaration" class="govuk-back-link pet-travel-back-link">Back</a>
+            <a href="@WebAppConstants.Pages.TravelDocument.Declaration" class="govuk-back-link pet-travel-back-link">@backWording</a>
         }
         else
         {
