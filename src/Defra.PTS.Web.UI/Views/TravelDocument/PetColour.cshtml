@@ -31,7 +31,7 @@
             
             <partial name="_ErrorSummary" />
 
-            <div id="formroot" class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+            <div id="formroot" class="govuk-form-group @(ViewData.ModelState.HasError("PetColour") ? "govuk-form-group--error" : null)">
                 <fieldset class="govuk-fieldset">
 
                     <partial name="_FieldsetLegend" model=fieldsetLegend />
