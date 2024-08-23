@@ -54,7 +54,7 @@
                                                 <div id="account-number-hint" class="govuk-hint">
                                                     Must be 15 digits long
                                                 </div>
-                                                <p id="MicrochipNumber_Error" class="govuk-error-message" gds-validation-for="MicrochipNumber"></p>
+                                            @Html.ValidationMessageFor(x => x.MicrochipNumber, string.Empty, new { @class = "govuk-error-message" })
                                                 <input class="govuk-input govuk-input govuk-input--width-20" id="MicrochipNumber" asp-for="MicrochipNumber" spellcheck="false">
                                         </div>
                                     </div>
