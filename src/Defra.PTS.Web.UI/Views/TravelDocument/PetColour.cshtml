@@ -14,7 +14,8 @@
     var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Black" };
     this.SetMetaTitle(Model.FormTitle);
 
-    var colours = (List<ColourDto>)ViewBag.Colours;
+    var colours = (IEnumerable<ColourDto>)ViewBag.Colours;
+    int otherId = Int32.Parse(colours.Last().Id);
 }
 
 <div class="govuk-grid-row">
@@ -46,13 +47,23 @@
 
                             @foreach (var petColour in colours)
                             {
-                                <div class="govuk-radios__item">
-                                    @Html.RadioButtonFor(m => m.PetColour, petColour.Id, new {@class="govuk-radios__input", @id=petColour.Code})
-                                    <label class="govuk-label govuk-radios__label" for="@petColour.Code">
-                                        @petColour.Name
-                                    </label>
-                                </div>
+                                if(petColour.Code != "Other")
+                                {
+                                    <div class="govuk-radios__item">
+                                        @Html.RadioButtonFor(m => m.PetColour, petColour.Id, new { @class = "govuk-radios__input", @id = petColour.Code })
+                                        <label class="govuk-label govuk-radios__label" for="@petColour.Code">
+                                            @petColour.Name
+                                        </label>
+                                    </div>
+                                }
                             }
+
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" id="PetColourOther" asp-for="PetColour" value="@otherId" aria-controls="conditional-PetColourOther" aria-expanded="false">
+                                <label class="govuk-label govuk-radios__label" for="PetColourOther">
+                                    Other
+                                </label>
+                            </div>
 
                             <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-PetColourOther">
                                 <div class="govuk-form-group @(ViewData.ModelState.HasError("PetColourOther") ? "govuk-form-group--error" : null)">
@@ -65,16 +76,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                           @*  <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-PetColourOther">
-                                <div class="govuk-form-group" id="OtherColour">
-                                    <label class="govuk-label govuk-label--s" for="PetColourOther">
-                                        Describe the colour of your @Model.PetTypeNameLowered
-                                    </label>
-                                    @Html.ValidationMessageFor(x => x.PetColourOther, string.Empty, new { @class="govuk-error-message"})
-                                    @Html.TextBoxFor(x => x.PetColourOther, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false", @autocomplete = "colour" })
-                                </div>
-                            </div> *@
                         </div>
                     </div>
                 </fieldset>
@@ -97,12 +98,12 @@
 
             //if the form has an error, but it is specific to the other box, we relocate it
 
-            if ($("#formroot").hasClass("govuk-form-group--error") && $("#Other").is(":checked")) {
-                $('#formroot').removeClass("govuk-form-group--error");
-                $('#OtherColour').addClass("govuk-form-group--error");
-            }
+            // if ($("#formroot").hasClass("govuk-form-group--error") && $("#Other").is(":checked")) {
+            //     $('#formroot').removeClass("govuk-form-group--error");
+            //     $('#OtherColour').addClass("govuk-form-group--error");
+            // }
             
-            toggleOtherColourTextBox();
+            // toggleOtherColourTextBox();
 
             $(".govuk-radios__input").click(function () {
 
@@ -111,23 +112,23 @@
                 $('#formroot').removeClass("govuk-form-group--error");
                 $('#OtherColour').removeClass("govuk-form-group--error");
 
-                toggleOtherColourTextBox();
+                // toggleOtherColourTextBox();
 
             });
         })
 
-        function toggleOtherColourTextBox() {
+        // function toggleOtherColourTextBox() {
 
-            const selectedColourId = $('input[type=radio][name=PetColour]:checked').val();
-            const otherColourId = $("#OtherColourID").val();
+        //     const selectedColourId = $('input[type=radio][name=PetColour]:checked').val();
+        //     const otherColourId = $("#OtherColourID").val();
 
-            if (otherColourId && selectedColourId == otherColourId) {
-                $("#conditional-PetColourOther").show();
-            }
-            else
-            {
-                $("#conditional-PetColourOther").hide();
-            }
-        }
+        //     if (otherColourId && selectedColourId == otherColourId) {
+        //         $("#conditional-PetColourOther").show();
+        //     }
+        //     else
+        //     {
+        //         $("#conditional-PetColourOther").hide();
+        //     }
+        // }
     </script>
 }
