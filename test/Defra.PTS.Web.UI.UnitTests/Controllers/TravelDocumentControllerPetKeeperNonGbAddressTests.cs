@@ -85,56 +85,25 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = true };
             tempData.SetHasUserUsedMagicWord(magicWordViewModel);
             _travelDocumentController.Object.TempData = tempData;
-
-            _mockMediator.Setup(x => x.Send(It.IsAny<AddAddressRequest>(), CancellationToken.None))
-                  .ReturnsAsync(new AddAddressResponse
-                  {
-                      IsSuccess = true
-                  });
-
-            _mockMediator.Setup(x => x.Send(It.IsAny<GetUserDetailQueryRequest>(), CancellationToken.None))
-                  .ReturnsAsync(new GetUserDetailQueryResponse
-                  {
-                      UserDetail = new UserDetailDto { FullName = "John Doe" }
-                  });
-            _mockMediator.Setup(x => x.Send(It.IsAny<ValidateGreatBritianAddressRequest>(), CancellationToken.None))
-                   .ReturnsAsync(true);
-            _travelDocumentController.Setup(x => x.IsApplicationInProgress())
-                .Returns(true);
-
-            MockHttpContext();
-
-            // Arrange
-            var mockHttpContext = new Mock<HttpContext>();
-            var mockSession = new Mock<ISession>();
-            mockHttpContext.SetupGet(x => x.Session).Returns(mockSession.Object);
-            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
-
-            _travelDocumentController.Object.ControllerContext = new ControllerContext()
-            {
-                HttpContext = mockHttpContext.Object
-            };
-
             var formData = new TravelDocumentViewModel
             {
                 PetKeeperUserDetails = new PetKeeperUserDetailsViewModel
                 {
                     IsCompleted = true,
-                    PostcodeRegion = PostcodeRegion.GB
+                    PostcodeRegion = PostcodeRegion.NonGB
                 }
             };
-
-
-
+            // Arrange
+            _travelDocumentController.Setup(x => x.IsApplicationInProgress())
+                .Returns(false);
             _travelDocumentController.Setup(x => x.GetFormData(false))
-                 .Returns(formData);
+                .Returns(formData);
 
             // Act
-            var result = _travelDocumentController.Object.PetKeeperNonGbAddressAsync().Result as RedirectToActionResult;
+            var result = _travelDocumentController.Object.PetKeeperNonGbAddress(formData.PetKeeperUserDetails) as RedirectToActionResult;
 
             // Assert
             Assert.IsNotNull(result);
-
         }
 
 
@@ -202,8 +171,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // Setup Identities
             mockHttpContext.SetupGet(c => c.User.Identities).Returns(identities);
             // Set up the behavior of GetHttpContext method on the controller
-            _travelDocumentController.Setup(c => c.GetHttpContext()).Returns(mockHttpContext.Object);
-            _travelDocumentController.Setup(c => c.GetHttpContext().Session).Returns(mockHttpContext.Object.Session);
+            //_travelDocumentController.Setup(c => c.HttpContext).Returns(mockHttpContext.Object);
+            //_travelDocumentController.Setup(c => c.HttpContext.Session).Returns(mockHttpContext.Object.Session);
 
         }
 

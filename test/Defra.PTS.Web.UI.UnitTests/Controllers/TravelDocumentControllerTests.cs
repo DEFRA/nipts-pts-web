@@ -193,7 +193,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _travelDocumentController.ControllerContext.HttpContext = expectedHttpContext;
 
             // Act
-            var result = _travelDocumentController.GetHttpContext();
+            var result = _travelDocumentController.HttpContext;
 
             // Assert
             Assert.AreEqual(expectedHttpContext, result);

@@ -251,7 +251,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // Setup Identities
             mockHttpContext.SetupGet(c => c.User.Identities).Returns(identities);
             // Set up the behavior of GetHttpContext method on the controller
-            _travelDocumentController.Setup(c => c.GetHttpContext()).Returns(mockHttpContext.Object);
+            _travelDocumentController.Setup(c => c.HttpContext).Returns(mockHttpContext.Object);
 
         }
 
