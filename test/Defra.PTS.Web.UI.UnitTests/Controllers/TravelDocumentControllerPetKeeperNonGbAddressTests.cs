@@ -77,6 +77,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             Assert.AreEqual(nameof(TravelDocumentController.Index), result.ActionName);
         }
 
+
         [Test]
         public void PetKeeperNonGbAddressAsync_Returns_RedirectToAction_When_Page_PreConditions()
         {
@@ -95,7 +96,66 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
             // Arrange
             _travelDocumentController.Setup(x => x.IsApplicationInProgress())
-                .Returns(false);
+                .Returns(true);
+            _travelDocumentController.Setup(x => x.GetFormData(false))
+                .Returns(formData);
+
+            // Act
+            var result = _travelDocumentController.Object.PetKeeperNonGbAddress(formData.PetKeeperUserDetails) as RedirectToActionResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void PetKeeperNonGbAddressAsync_Returns_RedirectToAction_When_Page_PreConditionsMet()
+        {
+            // Arrange
+            var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
+            var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = true };
+            tempData.SetHasUserUsedMagicWord(magicWordViewModel);
+            _travelDocumentController.Object.TempData = tempData;
+            var formData = new TravelDocumentViewModel
+            {
+                PetKeeperUserDetails = new PetKeeperUserDetailsViewModel
+                {
+                    IsCompleted = true,
+                    PostcodeRegion = PostcodeRegion.NonGB,
+                    AddressLineOne = "test",
+                    TownOrCity = "test",
+                    Postcode = "test",
+                    County = "test",
+                    Email = "test@test.com"
+                }
+            };
+            // Arrange
+            _travelDocumentController.Setup(x => x.IsApplicationInProgress())
+                .Returns(true);
+
+            _mockMediator.Setup(x => x.Send(It.IsAny<AddAddressRequest>(), CancellationToken.None))
+                  .ReturnsAsync(new AddAddressResponse
+                  {
+                      IsSuccess = true
+                  });
+
+            _mockMediator.Setup(x => x.Send(It.IsAny<GetUserDetailQueryRequest>(), CancellationToken.None))
+                  .ReturnsAsync(new GetUserDetailQueryResponse
+                  {
+                      UserDetail = new UserDetailDto
+                      {
+                          FullName = "John Doe",
+                          AddressLineOne = "test",
+                          AddressLineTwo = "test",
+                          County = "test",
+                          TownOrCity = "test",
+                          PostCode = "test",
+                          Email = "test@test.com",
+                          Telephone = "01234 567890",
+                          AddressId = Guid.NewGuid()
+
+                      }
+                  });
+
             _travelDocumentController.Setup(x => x.GetFormData(false))
                 .Returns(formData);
 
@@ -147,12 +207,12 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // Create claims
             var claims = new List<Claim>
             {
-                new Claim("contactId", "123"),
-                new Claim("uniqueReference", "abc"),
-                new Claim("firstName", "John"),
-                new Claim("lastName", "Doe"),
-                new Claim(ClaimTypes.Email, "john.doe@example.com"),
-                new Claim(ClaimTypes.Role, "Admin")
+                new("contactId", "123"),
+                new("uniqueReference", "abc"),
+                new("firstName", "John"),
+                new("lastName", "Doe"),
+                new(ClaimTypes.Email, "john.doe@example.com"),
+                new(ClaimTypes.Role, "Admin")
             };
 
 
@@ -171,7 +231,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // Setup Identities
             mockHttpContext.SetupGet(c => c.User.Identities).Returns(identities);
             // Set up the behavior of GetHttpContext method on the controller
-            //_travelDocumentController.Setup(c => c.HttpContext).Returns(mockHttpContext.Object);
+            _travelDocumentController.Setup(c => c.HttpContext).Returns(mockHttpContext.Object);
             //_travelDocumentController.Setup(c => c.HttpContext.Session).Returns(mockHttpContext.Object.Session);
 
         }

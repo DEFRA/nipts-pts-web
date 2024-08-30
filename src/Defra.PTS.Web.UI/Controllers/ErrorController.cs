@@ -6,6 +6,7 @@ using System.Diagnostics.CodeAnalysis;
 namespace Defra.PTS.Web.UI.Controllers;
 
 [ExcludeFromCodeCoverage]
+[Route("/")]
 public class ErrorController : BaseController
 {
 

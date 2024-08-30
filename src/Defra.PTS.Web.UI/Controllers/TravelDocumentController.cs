@@ -144,7 +144,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     }
 
     [ExcludeFromCodeCoverage]
-    private async Task<UserDetailDto> InitializeUserDetails()
+    public async Task<UserDetailDto> InitializeUserDetails()
     {
         // Save user
         var userInfo = GetCurrentUserInfo();
