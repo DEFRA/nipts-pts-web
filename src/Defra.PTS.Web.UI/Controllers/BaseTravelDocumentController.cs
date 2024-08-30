@@ -261,12 +261,6 @@ public class BaseTravelDocumentController : BaseController
     {
         return TempData.IsInFormSubmissionQueue(id);
     }
-
-    [ExcludeFromCodeCoverage]
-    public override HttpContext GetHttpContext()
-    {
-        throw new NotImplementedException();
-    }
     #endregion FormSubmissionQueue
 
     #region ApplicationReference

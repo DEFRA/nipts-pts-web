@@ -38,10 +38,4 @@ public class ContentController : BaseController
         
         return View();
     }
-
-    [ExcludeFromCodeCoverage]
-    public override HttpContext GetHttpContext()
-    {
-        throw new NotImplementedException();
-    }
 }

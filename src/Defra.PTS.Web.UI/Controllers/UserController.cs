@@ -125,15 +125,9 @@ public class UserController : BaseController
         return View();
     }
 
-
-    public override HttpContext GetHttpContext()
-    {
-        return HttpContext;
-    }
-
     protected User GetCurrentUserInfo()
     {
-        var identity = GetHttpContext().User.Identities.FirstOrDefault();
+        var identity = HttpContext.User.Identities.FirstOrDefault();
         if (identity == null)
         {
             return new User();

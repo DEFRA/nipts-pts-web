@@ -123,7 +123,7 @@ app.UseRequestLocalization(options =>
     var questStringCultureProvider = options.RequestCultureProviders[0];
     options.RequestCultureProviders.RemoveAt(0);
     options.RequestCultureProviders.Insert(1, questStringCultureProvider);
-    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-GB");
+    //options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-GB");
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
     options.ApplyCurrentCultureToResponseHeaders = true;

@@ -13,10 +13,6 @@ public class ErrorController : BaseController
     {
     }
 
-    public override HttpContext GetHttpContext()
-    {
-        throw new NotImplementedException();
-    }
 
     [Route("/Error/HandleError/{code:int}")]
     public IActionResult HandleError(int code, string backLink = "")

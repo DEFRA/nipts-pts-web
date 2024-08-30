@@ -66,10 +66,4 @@ public class HomeController : BaseController
     {
         return View();
     }
-
-    [ExcludeFromCodeCoverage]
-    public override HttpContext GetHttpContext()
-    {
-        throw new NotImplementedException();
-    }
 }

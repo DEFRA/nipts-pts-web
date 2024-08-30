@@ -169,17 +169,11 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         return null;
     }
 
-
-    public override HttpContext GetHttpContext()
-    {
-        return HttpContext;
-    }
-
     public Guid CurrentUserContactId()
     {
-        if (GetHttpContext().User.Identity.IsAuthenticated)
+        if (HttpContext.User.Identity.IsAuthenticated)
         {
-            var contactId = GetHttpContext().User.GetLoggedInContactId();
+            var contactId = HttpContext.User.GetLoggedInContactId();
             return contactId;
         }
 
@@ -188,7 +182,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
     public User GetCurrentUserInfo()
     {
-        var identity = GetHttpContext().User.Identities.FirstOrDefault();
+        var identity = HttpContext.User.Identities.FirstOrDefault();
         if (identity == null)
         {
             return new User();

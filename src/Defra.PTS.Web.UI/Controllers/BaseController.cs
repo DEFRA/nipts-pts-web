@@ -11,18 +11,27 @@ namespace Defra.PTS.Web.UI.Controllers;
 
 public abstract class BaseController : Controller
 {
-    public abstract HttpContext GetHttpContext();
-
+    //public abstract HttpContext GetHttpContext();
+    
     protected void SetBackUrl(string backUrl)
     {
         ViewData.SetKeyValue(WebAppConstants.ViewKeys.BackUrl, string.IsNullOrWhiteSpace(backUrl) ? null : backUrl);
     }
 
+    //public override void OnActionExecuting(ActionExecutingContext context)
+    //{
+    //    var cultureInfo = HttpContext.Request.Cookies[".AspNetCore.Culture"];
+
+
+
+    //    base.OnActionExecuting(context);
+    //}
+
     public virtual Guid CurrentUserId()
     {
-        if (GetHttpContext().User.Identity.IsAuthenticated)
+        if (HttpContext.User.Identity.IsAuthenticated)
         {
-            var userId = GetHttpContext().User.GetLoggedInUserId();
+            var userId = HttpContext.User.GetLoggedInUserId();
             return userId;
         }
 
