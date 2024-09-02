@@ -125,7 +125,6 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             // Assert
             Assert.IsNotNull(result);
-
         }
 
         [Test]
@@ -323,7 +322,6 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 new Claim(ClaimTypes.Email, "john.doe@example.com"),
                 new Claim(ClaimTypes.Role, "Admin")
             };
-
 
             identities.Add(identityMock.Object);
             var user = new ClaimsPrincipal(new ClaimsIdentity(claims));
