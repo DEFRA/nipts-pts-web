@@ -5,11 +5,13 @@
 @using Defra.PTS.Web.Domain.ViewModels;
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @using Microsoft.Extensions.Localization;
 @inject IStringLocalizer<SharedResource> sharedlocalizer
 
 @{
-    this.SetMetaTitle(Model.FormTitle);
+    this.SetMetaTitle(Localizer[Model.FormTitle].Value);
 }
 
 <div class="govuk-grid-row">
@@ -25,7 +27,7 @@
             <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
                 <h1 class="govuk-label-wrapper">
                     <label class="govuk-label govuk-label--xl" for="PetName">
-                        @Model.FormTitle
+                        @Localizer[Model.FormTitle]
                     </label>
                 </h1>        
                     @Html.ValidationMessageFor(x => x.PetName, string.Empty, new { @class="govuk-error-message"})
