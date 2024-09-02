@@ -566,4 +566,7 @@
     <value>Cath gwta</value>
     <comment>Cat Breed</comment>
   </data>
+  <data name="Select or enter the breed of your pet" xml:space="preserve">
+    <value>Dewiswch frid neu rhowch frid eich anifail anwes</value>
+  </data>
 </root>

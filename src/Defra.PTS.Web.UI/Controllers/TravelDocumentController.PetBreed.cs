@@ -5,14 +5,18 @@ using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Constants;
 using Defra.PTS.Web.UI.Extensions;
 using Defra.PTS.Web.UI.Helpers;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Localization;
+
+using System.Drawing.Drawing2D;
 
 namespace Defra.PTS.Web.UI.Controllers;
 
 public partial class TravelDocumentController : BaseTravelDocumentController
-{   
-
+{
     [HttpGet]
     public async Task<IActionResult> PetBreed()
     {
@@ -74,6 +78,19 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             breeds = await GetBreedsAsSelectListItems(model.PetSpecies);
             ViewBag.BreedList = breeds;
 
+            //If typed value is not in breedList (matched by BreedName) set ID to 0
+
+            var typedBreed = model.BreedName?.Trim(); 
+            var compareBreed = breeds.Find(x => x.Text.ToLower() == typedBreed?.ToLower());
+
+            if (compareBreed == null)
+            {
+                // If the breed is NOT in the list, assign ID to 0
+                model.BreedId = 0; 
+                model.BreedName = typedBreed;
+                model.BreedAdditionalInfo = null;
+            }
+
             //BreedId = 0 (freetext, first entry), 98 (Cat, Mixed or Other), 99 (Dog, Mixed or Other)
             //We need to sort freetext entries to see if they match an item on our list first
             //If it is not found, we assign it as a mixed breed
@@ -100,7 +117,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
                 else
                 {
-                    var breed = breeds.Find(x => x.Text == "Mixed breed or unknown");
+                    var breed = breeds.Find(x => x.Text == _localizer["Mixed breed or unknown"]);
                     model.BreedId = Convert.ToInt32(breed?.Value.ToString());
                     model.BreedAdditionalInfo = model?.BreedName;
                 }
@@ -135,7 +152,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
                     if (model.BreedName == null)
                     {
-                        ModelState.AddModelError(nameof(model.BreedName), "Select or enter the breed of your pet");
+                        ModelState.AddModelError(nameof(model.BreedName), _localizer["Select or enter the breed of your pet"]);
                     }
                 }
             }
