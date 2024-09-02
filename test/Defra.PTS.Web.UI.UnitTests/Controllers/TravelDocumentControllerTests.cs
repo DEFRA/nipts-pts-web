@@ -55,7 +55,6 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         [SetUp]
         public void Setup()
         {
-
             var ptsSettings = new PtsSettings
             {
                 MagicWordEnabled = true,
@@ -302,8 +301,6 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             Assert.IsNotNull(result);
         }
 
-
-
         private void MockHttpContext()
         {
             // Arrange
@@ -330,7 +327,6 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             identities.Add(identityMock.Object);
             var user = new ClaimsPrincipal(new ClaimsIdentity(claims));
-
             httpContext.User = user;
             _travelDocumentController.ControllerContext.HttpContext = httpContext;
         }
