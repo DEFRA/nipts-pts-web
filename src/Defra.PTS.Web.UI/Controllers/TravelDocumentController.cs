@@ -34,13 +34,15 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     private readonly ILogger<TravelDocumentController> _logger;
     private readonly PtsSettings _ptsSettings;
     private readonly IBreedHelper _breedHelper;
+    private readonly IStringLocalizer<SharedResource> _localizer;
 
     public TravelDocumentController(
           IValidationService validationService,
           IMediator mediator,
           ILogger<TravelDocumentController> logger,
           IOptions<PtsSettings> ptsSettings,
-          IBreedHelper breedHelper
+          IBreedHelper breedHelper,
+          IStringLocalizer<SharedResource> localizer
           )
     {
         ArgumentNullException.ThrowIfNull(validationService);
@@ -52,7 +54,9 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         _mediator = mediator;
         _logger = logger;
         _breedHelper = breedHelper;
+        _localizer = localizer;
         _ptsSettings = ptsSettings.Value;
+   
     }
 
     [HttpGet]

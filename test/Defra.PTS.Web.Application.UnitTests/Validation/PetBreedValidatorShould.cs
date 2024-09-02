@@ -48,7 +48,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 
             var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.BreedId);
+            result.ShouldHaveValidationErrorFor(x => x.BreedName);
         }
 
         [Fact]
