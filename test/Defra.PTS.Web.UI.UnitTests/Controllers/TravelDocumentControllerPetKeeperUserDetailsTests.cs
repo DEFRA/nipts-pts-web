@@ -14,7 +14,9 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
@@ -35,7 +37,13 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private Mock<TravelDocumentController> _travelDocumentController;
         private Mock<ControllerContext> _mockControllerContext;
         private Mock<TravelDocumentViewModel> _travelDocumentViewModel;
-
+        private readonly IStringLocalizer<SharedResource> _localizer;
+        public TravelDocumentControllerPetKeeperUserDetailsTests()
+        {
+            var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
+            var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
+            _localizer = new StringLocalizer<SharedResource>(factory);
+        }
 
         [SetUp]
         public void Setup()
@@ -46,7 +54,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
             _optionsPtsSettings = Options.Create(ptsSettings);
             _mockControllerContext = new Mock<ControllerContext>();
-            _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _optionsPtsSettings, _mockBreedHelper.Object)
+            _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _optionsPtsSettings, _mockBreedHelper.Object, _localizer)
             {
                 CallBase = true
             };

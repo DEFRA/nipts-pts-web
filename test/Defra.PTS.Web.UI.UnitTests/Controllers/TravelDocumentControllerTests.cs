@@ -18,6 +18,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Azure.Amqp.Transaction;
+using Microsoft.Azure.Management.ContainerRegistry.Fluent.Models;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -40,20 +41,30 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private Mock<ControllerContext> _mockControllerContext;
         private Mock<TravelDocumentViewModel> _travelDocumentViewModel;
 
+        private readonly IStringLocalizer<SharedResource> _localizer;
         private readonly Mock<IBreedHelper> _breedHelper = new();
+
+        public TravelDocumentControllerTests()
+        {
+            var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
+            var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
+            _localizer = new StringLocalizer<SharedResource>(factory);
+
+        }
 
         [SetUp]
         public void Setup()
         {
+
             var ptsSettings = new PtsSettings
             {
                 MagicWordEnabled = true,
             };
             _mockControllerContext = new Mock<ControllerContext>();
             _optionsPtsSettings = Options.Create(ptsSettings);
-            _travelDocumentController = new TravelDocumentController(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _optionsPtsSettings, _breedHelper.Object);
-            
-            
+            _travelDocumentController = new TravelDocumentController(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _optionsPtsSettings, _breedHelper.Object, _localizer);
+
+
             _travelDocumentViewModel = new Mock<TravelDocumentViewModel>();
         }
 
@@ -62,7 +73,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         public void If_MagicWordEnabled_True_RedirectTo_Index()
         {
             // Arrange
-            
+
             var mockHttpContext = new Mock<Microsoft.AspNetCore.Http.IHttpContextAccessor>();
             var mockRequest = new Mock<Microsoft.AspNetCore.Http.HttpRequest>();
             var mockResponse = new Mock<Microsoft.AspNetCore.Http.HttpResponse>();
@@ -78,7 +89,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             // Arrange
             var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
-            var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = false};
+            var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = false };
             tempData.SetHasUserUsedMagicWord(magicWordViewModel);
             _travelDocumentController.TempData = tempData;
 
@@ -115,7 +126,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             // Assert
             Assert.IsNotNull(result);
-            
+
         }
 
         [Test]
@@ -159,7 +170,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 mediatorMock.Object,
                 loggerMock.Object,
                 ptsSettingsMock.Object,
-                _breedHelper.Object
+                _breedHelper.Object,
+                _localizer
             );
 
             // Simulate an exception being thrown
@@ -290,7 +302,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             Assert.IsNotNull(result);
         }
 
-       
+
 
         private void MockHttpContext()
         {
@@ -315,10 +327,10 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 new Claim(ClaimTypes.Role, "Admin")
             };
 
-            
+
             identities.Add(identityMock.Object);
             var user = new ClaimsPrincipal(new ClaimsIdentity(claims));
-            
+
             httpContext.User = user;
             _travelDocumentController.ControllerContext.HttpContext = httpContext;
         }

@@ -118,7 +118,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
                 else
                 {
-                    var breed = breeds.Find(x => x.Text == "Mixed breed or unknown");
+                    var breed = breeds.Find(x => x.Text == _localizer["Mixed breed or unknown"]);
                     model.BreedId = Convert.ToInt32(breed?.Value.ToString());
                     model.BreedAdditionalInfo = model?.BreedName;
                 }
@@ -153,7 +153,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
                     if (model.BreedName == null)
                     {
-                        ModelState.AddModelError(nameof(model.BreedName), "Select or enter the breed of your pet");
+                        ModelState.AddModelError(nameof(model.BreedName), _localizer["Select or enter the breed of your pet"]);
                     }
                 }
             }
