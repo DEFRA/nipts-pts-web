@@ -79,11 +79,10 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     options.Secure = CookieSecurePolicy.Always;
 });
 
-_ = builder.Services.AddCors(o => o.AddPolicy("AllowOrigins", builder =>
+_ = builder.Services.AddCors(o => o.AddPolicy("AllowSpecificOrigins", builder =>
 {
-    builder.WithOrigins("*")
-           .AllowAnyMethod()
-           .AllowAnyHeader();
+    builder.WithOrigins("https://*.service.gov.uk")
+           .SetIsOriginAllowedToAllowWildcardSubdomains();
 }));
 
 _ = builder.Services.AddKeyVault(builder.Configuration);
