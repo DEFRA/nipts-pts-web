@@ -117,79 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Enter a full postcode in the correct format, for example TF7 5AY or TF75AY" xml:space="preserve">
-    <value>Rhowch god post llawn yn y fformat cywir, er enghraifft TF7 5AY neu TF75AY</value>
+  <data name="Check your pet's microchip certificate or vaccination record for the microchip or scan date." xml:space="preserve">
+    <value>I igael rhif y microsglodyn neu ddyddiad y sgan, gwiriwch dystysgrif microsglodyn neu gofnod brechiadau eich anifail anwes.</value>
   </data>
-  <data name="Enter a phone number, like 01632 960 001 or 07700 900 982" xml:space="preserve">
-    <value>Rhowch rif ffôn, fel 01632 960 001 neu 07700 900 982</value>
+  <data name="For example, 27 3 2023" xml:space="preserve">
+    <value>Er enghraifft, 27 3 2023</value>
   </data>
-  <data name="Enter a postcode" xml:space="preserve">
-    <value>Rhowch god post</value>
+  <data name="When was your pet microchipped or last scanned?" xml:space="preserve">
+    <value>Pryd oedd y tro diwethaf i’ch anifail anwes gael microsglodyn wedi’i osod neu wedi’i sganio?</value>
   </data>
-  <data name="Enter a postcode in England, Scotland or Wales" xml:space="preserve">
-    <value>Rhowch god post yng Nghymru, Lloegr neu'r Alban</value>
-  </data>
-  <data name="Enter your full name" xml:space="preserve">
-    <value>Rhowch eich enw llawn</value>
-  </data>
-  <data name="Enter your phone number" xml:space="preserve">
-    <value>Rhowch eich rhif ffôn</value>
-  </data>
-  <data name="Tell us if your details are correct" xml:space="preserve">
-    <value>Dwedwch a yw eich manylion chi’n gywir</value>
-  </data>
-  <data name="Tell us if your pet is male or female" xml:space="preserve">
-    <value>Dwedwch a yw'ch anifail anwes yn wryw ynteu'n fenyw</value>
-  </data>
-  <data name="Tell us if you are taking a pet dog, cat or ferret" xml:space="preserve">
-    <value>Dwedwch a ydych chi'n mynd â chi anwes, cath anwes neu ffured anwes</value>
-  </data>
-  <data name="Enter your full name, using 300 characters or less" xml:space="preserve">
-    <value>Rhowch eich enw llawn, gan ddefnyddio 300 o gymeriadau neu lai</value>
-  </data>
-  <data name="Select your address from the list" xml:space="preserve">
-    <value>Dewiswch eich cyfeiriad o blith y rhestr</value>
-  </data>
-  <data name="Enter a county using 100 characters or less" xml:space="preserve">
-    <value>Rhowch sir gan ddefnyddio 100 o gymeriadau neu lai</value>
-  </data>
-  <data name="Enter a town or city" xml:space="preserve">
-    <value>Rhowch dref neu ddinas</value>
-  </data>
-  <data name="Enter a town or city using 250 characters or less" xml:space="preserve">
-    <value>Rhowch dref neu ddinas gan ddefnyddio 250 o gymeriadau neu lai</value>
-  </data>
-  <data name="Enter line 1 of your address" xml:space="preserve">
-    <value>Rhowch linell 1 eich cyfeiriad</value>
-  </data>
-  <data name="Enter line 1 of your address using 250 characters or less" xml:space="preserve">
-    <value>Rhowch linell 1 eich cyfeiriad gan ddefnyddio 250 o gymeriadau neu lai</value>
-  </data>
-  <data name="Enter line 2 of your address using 250 characters or less" xml:space="preserve">
-    <value>Rhowch linell 2 eich cyfeiriad gan ddefnyddio 250 o gymeriadau neu lai</value>
-  </data>
-  <data name="Enter a breed using 150 characters or less" xml:space="preserve">
-    <value>Rhowch frid gan ddefnyddio 150 o gymeriadau neu lai</value>
-  </data>
-  <data name="Select or enter the breed of your pet" xml:space="preserve">
-    <value>Dewiswch frid neu rhowch frid eich anifail anwes</value>
-  </data>
-  <data name="Enter a date in the correct format, for example 11 04 2021" xml:space="preserve">
-    <value>Rhowch ddyddiad yn y fformat cywir, er enghraifft 11 04 2021</value>
-  </data>
-  <data name="Enter a date that is after the pet’s date of birth" xml:space="preserve">
-    <value>Rhowch ddyddiad sydd ar ôl dyddiad geni'r anifail</value>
-  </data>
-  <data name="Enter a date that is in the past" xml:space="preserve">
-    <value>Rhowch ddyddiad sydd yn y gorffennol</value>
-  </data>
-  <data name="Enter a date that is less than 34 years ago" xml:space="preserve">
-    <value>Nodwch ddyddiad sy’n llai na 34 mlynedd yn ôl</value>
-  </data>
-  <data name="Enter your pet's name" xml:space="preserve">
-    <value>Rhowch enw eich anifail anwes</value>
-  </data>
-  <data name="Enter your pet's name, using 300 characters or less" xml:space="preserve">
-    <value>Rhowch enw anifail anwes gan ddefnyddio 300 o gymeriadau neu lai</value>
+  <data name="Where can I find the microchip date?" xml:space="preserve">
+    <value>Ble ga i weld dyddiad y microsglodyn?</value>
   </data>
 </root>
