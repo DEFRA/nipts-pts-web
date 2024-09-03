@@ -569,4 +569,13 @@
   <data name="Select or enter the breed of your pet" xml:space="preserve">
     <value>Dewiswch frid neu rhowch frid eich anifail anwes</value>
   </data>
+  <data name="Day" xml:space="preserve">
+    <value>Diwrnod</value>
+  </data>
+  <data name="Month" xml:space="preserve">
+    <value>Mis</value>
+  </data>
+  <data name="Year" xml:space="preserve">
+    <value>Blwyddyn</value>
+  </data>
 </root>
