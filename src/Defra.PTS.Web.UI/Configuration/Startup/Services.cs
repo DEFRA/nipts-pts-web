@@ -8,8 +8,10 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using NuGet.Configuration;
 using Polly;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Runtime.Caching;
 using static Defra.PTS.Web.UI.Constants.WebAppConstants;
 
@@ -218,8 +220,13 @@ public async Task InvokeAsync(HttpContext context)
             context.Request.Path.StartsWithSegments("/js") ||
             context.Request.Path.StartsWithSegments("/images"))
         {
-            await _next(context);
-            return;
+                //Thread.CurrentThread.CurrentCulture = new CultureInfo("cy");
+                //Thread.CurrentThread.CurrentUICulture = new CultureInfo("cy");
+                Thread.CurrentThread.CurrentCulture = new CultureInfo("cy");
+                Thread.CurrentThread.CurrentUICulture = new CultureInfo("cy");
+                await _next(context);
+                //comes here each time to index and logging back in 
+                return;
         }
 
         if (context.Session.GetString("SessionActive") == null)
@@ -231,5 +238,5 @@ public async Task InvokeAsync(HttpContext context)
 
     // If session is active, continue to the next middleware in the pipeline
     await _next(context);
-}
+    }
 }

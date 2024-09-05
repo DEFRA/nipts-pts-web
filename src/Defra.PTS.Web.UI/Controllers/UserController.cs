@@ -6,8 +6,10 @@ using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Runtime.Caching;
 using static Defra.PTS.Web.UI.Constants.WebAppConstants;
 
@@ -91,7 +93,12 @@ public class UserController : BaseController
             _logger.LogError("Error", ex);
             
         }
+
+        var cookieLanguage = HttpContext.Request.Cookies[Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName];
+   
         return RedirectToAction("Index", "TravelDocument");
+        //return RedirectToAction("Task", "Services");
+        //return RedirectToAction("Index", "TravelDocument", new { setLanguage = HttpContext.Request.Cookies[Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName] });
     }
 
     [HttpGet]
