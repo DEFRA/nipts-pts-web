@@ -578,4 +578,13 @@
   <data name="Year" xml:space="preserve">
     <value>Blwyddyn</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Yn ôl</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nac oes</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Oes</value>
+  </data>
 </root>
