@@ -178,7 +178,7 @@
     <value>Rhowch ddyddiad yn y fformat cywir, er enghraifft 11 04 2021</value>
   </data>
   <data name="Enter a date that is after the pet’s date of birth" xml:space="preserve">
-    <value>Rhowch ddyddiad sydd ar ôl dyddiad geni'r anifail</value>
+    <value>Rhowch ddyddiad sydd ar ôl dyddiad geni'r anifail anwes</value>
   </data>
   <data name="Enter a date that is in the past" xml:space="preserve">
     <value>Rhowch ddyddiad sydd yn y gorffennol</value>
