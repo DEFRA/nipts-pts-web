@@ -209,15 +209,34 @@ public class SessionTimeoutMiddleware
     {
         _next = next;
     }
+    private void GetCultureRequest(HttpContext context)
+    {
+        //Check that the previous url is "", which happens when logging into index page
+        var referer = context.Request.Headers["Referer"].ToString();
+        if (!string.IsNullOrEmpty(referer))
+        {
+            return;
+        }
+        //Check HttpContext Cookies Request from User Controller
+        var cultureQuery = context.Request.Query["setLanguage"].ToString();
+        if (string.IsNullOrWhiteSpace(cultureQuery))
+        {
+            return;
+        }
+        //Get culture from cookie and set language
+        var cultureCode = cultureQuery.Split('|').FirstOrDefault(segment => segment.StartsWith("c="))?.Substring(2);
+        if (!string.IsNullOrEmpty(cultureCode))
+        {
+            var culture = new CultureInfo(cultureCode);
+            CultureInfo.CurrentCulture = culture;
+            CultureInfo.CurrentUICulture = culture;
+        }
+    }
 
     public async Task InvokeAsync(HttpContext context)
     {
-        if (!context.Session.IsAvailable)
+        if (context.Session.IsAvailable)
         {
-            // If session is active, continue to the next middleware in the pipeline
-            await _next(context);
-
-        }
             // Check if the request is for a static file or for the timeout page to avoid redirection loops
             if (context.Request.Path.StartsWithSegments("/Home/ApplicationTimeout") ||
                 context.Request.Path.Value == "/" ||
@@ -227,21 +246,7 @@ public class SessionTimeoutMiddleware
                 context.Request.Path.StartsWithSegments("/js") ||
                 context.Request.Path.StartsWithSegments("/images"))
             {
-                var referer = context.Request.Headers["Referer"].ToString();
-                if (referer.Contains("/User/ManageAccount") || string.IsNullOrEmpty(referer))
-                {
-                    var cultureQuery = context.Request.Query["setLanguage"].ToString();
-                    if (!string.IsNullOrWhiteSpace(cultureQuery))
-                    {
-                        var cultureCode = cultureQuery.Split('|').FirstOrDefault(segment => segment.StartsWith("c="))?.Substring(2);
-                        if (!string.IsNullOrEmpty(cultureCode))
-                        {
-                            var culture = new CultureInfo(cultureCode);
-                            CultureInfo.CurrentCulture = culture;
-                            CultureInfo.CurrentUICulture = culture;
-                        }
-                    }
-                }
+                GetCultureRequest(context);
                 await _next(context);
                 return;
             }
@@ -251,5 +256,10 @@ public class SessionTimeoutMiddleware
                 context.Response.Redirect("/Home/ApplicationTimeout");
                 return;
             }
+        }
+        // If session is active, continue to the next middleware in the pipeline
+        await _next(context);
+        return;
     }
+
 }
