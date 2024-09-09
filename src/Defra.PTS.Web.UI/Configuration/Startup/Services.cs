@@ -6,10 +6,15 @@ using Defra.PTS.Web.UI.Configuration.Authentication;
 using Defra.PTS.Web.UI.Helpers;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using Microsoft.AspNetCore.Components.RenderTree;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Microsoft.IdentityModel.Tokens;
+using NuGet.Configuration;
 using Polly;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Runtime.Caching;
 using static Defra.PTS.Web.UI.Constants.WebAppConstants;
 
@@ -198,38 +203,63 @@ public static class Services
 [ExcludeFromCodeCoverage]
 public class SessionTimeoutMiddleware
 {
-private readonly RequestDelegate _next;
+    private readonly RequestDelegate _next;
 
-public SessionTimeoutMiddleware(RequestDelegate next)
-{
-    _next = next;
-}
-
-public async Task InvokeAsync(HttpContext context)
-{
-    if (context.Session.IsAvailable)
+    public SessionTimeoutMiddleware(RequestDelegate next)
     {
-        // Check if the request is for a static file or for the timeout page to avoid redirection loops
-        if (context.Request.Path.StartsWithSegments("/Home/ApplicationTimeout") || 
-            context.Request.Path.Value == "/" ||
-            context.Request.Path.Value == "/TravelDocument" ||
-            context.Request.Path.Value == "/signin-oidc" ||
-            context.Request.Path.StartsWithSegments("/css") ||
-            context.Request.Path.StartsWithSegments("/js") ||
-            context.Request.Path.StartsWithSegments("/images"))
+        _next = next;
+    }
+    private void GetCultureRequest(HttpContext context)
+    {
+        //Check that the previous url is "", which happens when logging into index page
+        var referer = context.Request.Headers["Referer"].ToString();
+        if (!string.IsNullOrEmpty(referer))
         {
-            await _next(context);
             return;
         }
-
-        if (context.Session.GetString("SessionActive") == null)
+        //Check HttpContext Cookies Request from User Controller
+        var cultureQuery = context.Request.Query["setLanguage"].ToString();
+        if (string.IsNullOrWhiteSpace(cultureQuery))
         {
-            context.Response.Redirect("/Home/ApplicationTimeout");
             return;
+        }
+        //Get culture from cookie and set language
+        var cultureCode = cultureQuery.Split('|').FirstOrDefault(segment => segment.StartsWith("c="))?.Substring(2);
+        if (!string.IsNullOrEmpty(cultureCode))
+        {
+            var culture = new CultureInfo(cultureCode);
+            CultureInfo.CurrentCulture = culture;
+            CultureInfo.CurrentUICulture = culture;
         }
     }
 
-    // If session is active, continue to the next middleware in the pipeline
-    await _next(context);
-}
+    public async Task InvokeAsync(HttpContext context)
+    {
+        if (context.Session.IsAvailable)
+        {
+            // Check if the request is for a static file or for the timeout page to avoid redirection loops
+            if (context.Request.Path.StartsWithSegments("/Home/ApplicationTimeout") ||
+                context.Request.Path.Value == "/" ||
+                context.Request.Path.Value == "/TravelDocument" ||
+                context.Request.Path.Value == "/signin-oidc" ||
+                context.Request.Path.StartsWithSegments("/css") ||
+                context.Request.Path.StartsWithSegments("/js") ||
+                context.Request.Path.StartsWithSegments("/images"))
+            {
+                GetCultureRequest(context);
+                await _next(context);
+                return;
+            }
+
+            if (context.Session.GetString("SessionActive") == null)
+            {
+                context.Response.Redirect("/Home/ApplicationTimeout");
+                return;
+            }
+        }
+        // If session is active, continue to the next middleware in the pipeline
+        await _next(context);
+        return;
+    }
+
 }

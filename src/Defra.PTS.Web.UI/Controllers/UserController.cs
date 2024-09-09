@@ -2,12 +2,15 @@
 using Defra.PTS.Web.Application.Features.Users.Commands;
 using Defra.PTS.Web.Domain.Models;
 using Defra.PTS.Web.UI.Configuration.Authentication;
+using Defra.PTS.Web.UI.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using System.Runtime.Caching;
 using static Defra.PTS.Web.UI.Constants.WebAppConstants;
 
@@ -74,7 +77,8 @@ public class UserController : BaseController
 
     [HttpGet]
     public IActionResult CheckIdm2SignOut()
-    {        
+    {
+        
         try
         {            
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).GetAwaiter().GetResult();
@@ -91,7 +95,9 @@ public class UserController : BaseController
             _logger.LogError("Error", ex);
             
         }
-        return RedirectToAction("Index", "TravelDocument");
+        string cookieLanguageCode = HttpContext.Request.Cookies[".AspNetCore.Culture"];
+
+        return RedirectToAction("Index", "TravelDocument", new { setLanguage = cookieLanguageCode});
     }
 
     [HttpGet]
