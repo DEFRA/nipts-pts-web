@@ -212,8 +212,12 @@ public class SessionTimeoutMiddleware
 
     public async Task InvokeAsync(HttpContext context)
     {
-        if (context.Session.IsAvailable)
+        if (!context.Session.IsAvailable)
         {
+            // If session is active, continue to the next middleware in the pipeline
+            await _next(context);
+
+        }
             // Check if the request is for a static file or for the timeout page to avoid redirection loops
             if (context.Request.Path.StartsWithSegments("/Home/ApplicationTimeout") ||
                 context.Request.Path.Value == "/" ||
@@ -247,9 +251,5 @@ public class SessionTimeoutMiddleware
                 context.Response.Redirect("/Home/ApplicationTimeout");
                 return;
             }
-        }
-
-        // If session is active, continue to the next middleware in the pipeline
-        await _next(context);
     }
 }
