@@ -178,7 +178,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     private async Task<List<SelectListItem>> GetBreedsAsSelectListItems(PetSpecies petType)
     {
 
-        var list = await _breedHelper.GetBreedList(petType);
+        var list = await _selectListLocaliser.GetBreedList(petType);
 
         return list.ToSelectListItems();
     }

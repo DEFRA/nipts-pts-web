@@ -42,7 +42,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private Mock<TravelDocumentViewModel> _travelDocumentViewModel;
 
         private readonly IStringLocalizer<SharedResource> _localizer;
-        private readonly Mock<IBreedHelper> _breedHelper = new();
+        private readonly Mock<ISelectListLocaliser> _breedHelper = new();
 
         public TravelDocumentControllerTests()
         {

@@ -1,5 +1,6 @@
 ﻿using Defra.PTS.Web.Application.DTOs.Services;
 using Defra.PTS.Web.Application.Features.Lookups.Queries;
+using Defra.PTS.Web.Domain.DTOs;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.UI.Helpers;
 using FluentAssertions;
@@ -18,13 +19,13 @@ namespace Defra.PTS.Web.UI.UnitTests.Helpers
         private readonly IStringLocalizer<SharedResource> _localizer;
         private readonly Mock<IMediator> _mockMediator = new();
 
-        BreedHelper _breedHelper;
+        readonly SelectListLocaliser _selectListLocaliser;
         public BreedHelperTests()
         {
             var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
             _localizer = new StringLocalizer<SharedResource>(factory);
-            _breedHelper = new BreedHelper(_mockMediator.Object, _localizer);
+            _selectListLocaliser = new SelectListLocaliser(_mockMediator.Object, _localizer);
 
         }
 
@@ -57,14 +58,41 @@ namespace Defra.PTS.Web.UI.UnitTests.Helpers
             };
 
             // Act
-            var result = await _breedHelper.GetBreedList(species);
+            var result = await _selectListLocaliser.GetBreedList(species);
 
             // Assert
 
             result.Should().Equal(breed, (b1, b2) => b1.BreedId == b2.BreedId);
             result.Should().Equal(breed, (b1, b2) => b1.BreedName == b2.BreedName);
-
         }
 
+        [Fact]
+        public async Task GetColourListTests()
+        {
+            // Arrange
+            var species = PetSpecies.Dog;
+            _mockMediator.Setup(x => x.Send(It.IsAny<GetColoursQueryRequest>(), CancellationToken.None))
+                .ReturnsAsync(new Application.DTOs.Features.GetColoursQueryResponse
+                {
+                    Colours = new List<ColourDto>()
+                    {
+                    new ColourDto() { Id = "1", Name = "Black" },
+                    new ColourDto() { Id = "2", Name = "Grey" },
+                    }
+                });
+
+            var colours = new List<ColourDto>()
+            {
+                new ColourDto() { Id = "1", Name = "Black" },
+                new ColourDto() { Id = "2", Name = "Grey" },
+            };
+
+            // Act
+            var result = await _selectListLocaliser.GetPetColoursList(species);
+
+            // Assert
+            result.Should().Equal(colours, (c1, c2) => c1.Id == c2.Id);
+            result.Should().Equal(colours, (c1, c2) => c1.Name == c2.Name);
+        }
     }
 }

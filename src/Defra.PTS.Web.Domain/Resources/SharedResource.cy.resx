@@ -192,6 +192,24 @@
   <data name="Enter your pet's name, using 300 characters or less" xml:space="preserve">
     <value>Rhowch enw anifail anwes gan ddefnyddio 300 o gymeriadau neu lai</value>
   </data>
+  <data name="Describe the main colour of your cat" xml:space="preserve">
+    <value>Disgrifiwch brif liw eich cath</value>
+  </data>
+  <data name="Describe the main colour of your cat, using 150 characters or less" xml:space="preserve">
+    <value>Disgrifiwch brif liw eich cath, gan ddefnyddio 150 o gymeriadau neu lai</value>
+  </data>
+  <data name="Describe the main colour of your dog" xml:space="preserve">
+    <value>Disgrifiwch brif liw eich ci</value>
+  </data>
+  <data name="Describe the main colour of your dog, using 150 characters or less" xml:space="preserve">
+    <value>Disgrifiwch brif liw eich ci, gan ddefnyddio 150 o gymeriadau neu lai</value>
+  </data>
+  <data name="Describe the main colour of your ferret" xml:space="preserve">
+    <value>Disgrifiwch brif liw eich ffured</value>
+  </data>
+  <data name="Describe the main colour of your ferret, using 150 characters or less" xml:space="preserve">
+    <value>Disgrifiwch brif liw eich ffured, gan ddefnyddio 150 o gymeriadau neu lai</value>
+  </data>
   <data name="Enter your pet's microchip number in the correct format" xml:space="preserve">
     <value>Rhowch rif microsglodyn eich anifail anwes yn y fformat cywir</value>
     <comment>PetMicrochip</comment>
