@@ -173,6 +173,7 @@
   </data>
   <data name="will help us to improve it." xml:space="preserve">
     <value>yn ein helpu i'w wella.</value>
+    <comment>Pet Colour</comment>
   </data>
   <data name="Mixed breed or unknown" xml:space="preserve">
     <value>Brid cymysg neu anhysbys</value>
@@ -577,6 +578,99 @@
   </data>
   <data name="Year" xml:space="preserve">
     <value>Blwyddyn</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Black" xml:space="preserve">
+    <value>Du</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Black sable" xml:space="preserve">
+    <value>Sabl du</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Brindle (tiger stripes)" xml:space="preserve">
+    <value>Brychlwyd (streipiau teigr)</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Brown, tan or chocolate" xml:space="preserve">
+    <value>Brown, melynddu neu siocled</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Calico" xml:space="preserve">
+    <value>Calico</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Champagne" xml:space="preserve">
+    <value>Siampên</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Chocolate" xml:space="preserve">
+    <value>Siocled</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Cinnamon" xml:space="preserve">
+    <value>Sinamon</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Ginger" xml:space="preserve">
+    <value>Coch</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Gold or yellow" xml:space="preserve">
+    <value>Aur neu felyn</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Grey or silver" xml:space="preserve">
+    <value>Llwyd neu arian</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Merle (white flecks)" xml:space="preserve">
+    <value>Brith (brychni gwyn)</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Other" xml:space="preserve">
+    <value>Arall</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Red" xml:space="preserve">
+    <value>Coch</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Sable" xml:space="preserve">
+    <value>Sabl</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Silver" xml:space="preserve">
+    <value>Arian</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Tabby" xml:space="preserve">
+    <value>Brych</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Tortoiseshell" xml:space="preserve">
+    <value>Trilliw</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Tuxedo" xml:space="preserve">
+    <value>Twcsido</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="White" xml:space="preserve">
+    <value>Gwyn</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="White (albino)" xml:space="preserve">
+    <value>Gwyn (albino)</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="White, cream or sand" xml:space="preserve">
+    <value>Gwyn, hufen neu dywod</value>
+    <comment>Pet Colour</comment>
+  </data>
+  <data name="Grey, silver or blue" xml:space="preserve">
+    <value>Llwyd, arian neu las</value>
+    <comment>Pet Colour</comment>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Yn ôl</value>

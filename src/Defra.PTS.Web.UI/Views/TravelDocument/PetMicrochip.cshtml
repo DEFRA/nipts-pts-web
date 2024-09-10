@@ -31,40 +31,44 @@
                 <div class="govuk-form-group (@ViewData.ModelState.HasError("HasUniqueFeature") ? " govuk-form-group--error" : null)">
                     <fieldset class="govuk-fieldset" aria-describedby="microchip-hint">
 
-                            <partial name="_FieldsetLegend" model=fieldsetLegend />
+                        <partial name="_FieldsetLegend" model=fieldsetLegend />
 
-                            <div id="microchip-hint" class="govuk-hint">
-                                @Localizer[@"Check your pet's microchip certificate for the microchip number."]
-                            </div>
+                        <div id="microchip-hint" class="govuk-hint">
+                            @Localizer[@"Check your pet's microchip certificate for the microchip number."]
+                        </div>
+
+                        @Html.ValidationMessageFor(x => x.Microchipped, string.Empty, new { @class = "govuk-error-message" })
 
                         <p id="OptionSelected_Error" class="govuk-error-message" gds-validation-for="Microchipped"></p>
                         <div class="govuk-radios" data-module="govuk-radios" id="Microchipped">
                             <div class="govuk-form-group @(ViewData.ModelState.HasError("Microchipped") ? "govuk-form-group--error" : null)">
                                 <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" type="radio" id="MicrochippedYes" asp-for="Microchipped" value="@YesNoOptions.Yes" aria-controls="conditional-feature" aria-expanded="false">
-                                        <label class="govuk-label govuk-radios__label" for="MicrochippedYes">
+                                    <input class="govuk-radios__input" type="radio" id="MicrochippedYes" asp-for="Microchipped" value="@YesNoOptions.Yes" aria-controls="conditional-feature" aria-expanded="false">
+                                    <label class="govuk-label govuk-radios__label" for="MicrochippedYes">
                                         @sharedlocalizer["Yes"]
                                     </label>
                                 </div>
 
+
+
                                 <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-feature">
-                                        <div class="govuk-form-group @(ViewData.ModelState.HasError("MicrochipNumber") ? "govuk-form-group--error" : null)">
+                                    <div class="govuk-form-group @(ViewData.ModelState.HasError("MicrochipNumber") ? "govuk-form-group--error" : null)">
                                         <div class="govuk-form-group">
-                                                <label class="govuk-label govuk-label--s" for="MicrochipNumber">
-                                                    @Localizer[@"Enter your pet's microchip number"]
-                                                </label>
-                                                <div id="account-number-hint" class="govuk-hint">
-                                                    @Localizer[@"Must be 15 digits long"]
-                                                </div>
+                                            <label class="govuk-label govuk-label--s" for="MicrochipNumber">
+                                                @Localizer[@"Enter your pet's microchip number"]
+                                            </label>
+                                            <div id="account-number-hint" class="govuk-hint">
+                                                @Localizer[@"Must be 15 digits long"]
+                                            </div>
                                             @Html.ValidationMessageFor(x => x.MicrochipNumber, string.Empty, new { @class = "govuk-error-message" })
-                                                <input class="govuk-input govuk-input govuk-input--width-20" id="MicrochipNumber" asp-for="MicrochipNumber" spellcheck="false">
+                                            <input class="govuk-input govuk-input govuk-input--width-20" id="MicrochipNumber" asp-for="MicrochipNumber" spellcheck="false">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="govuk-radios__item">
-                                        <input class="govuk-radios__input" type="radio" id="MicrochippedNo" asp-for="Microchipped" value="@YesNoOptions.No" onclick="clearInput()">
-                                        <label class="govuk-label govuk-radios__label" for="MicrochippedNo">
+                                    <input class="govuk-radios__input" type="radio" id="MicrochippedNo" asp-for="Microchipped" value="@YesNoOptions.No" onclick="clearInput()">
+                                    <label class="govuk-label govuk-radios__label" for="MicrochippedNo">
                                         @sharedlocalizer["No"]
                                     </label>
                                 </div>

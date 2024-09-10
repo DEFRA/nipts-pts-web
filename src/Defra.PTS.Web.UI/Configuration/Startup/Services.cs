@@ -42,7 +42,7 @@ public static class Services
         }
         catch { }
 
-        services.AddScoped<IBreedHelper, BreedHelper>();
+        services.AddScoped<ISelectListLocaliser, SelectListLocaliser>();
         services.Configure<CookieConfiguration>(configuration.GetSection("Cookie"));
         services.Configure<CookiePolicyOptions>(options =>
         {

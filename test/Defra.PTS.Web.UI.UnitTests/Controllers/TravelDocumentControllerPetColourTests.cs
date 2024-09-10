@@ -27,7 +27,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private readonly Mock<IMediator> _mockMediator = new();
         private readonly Mock<ILogger<TravelDocumentController>> _mockLogger = new();
         private readonly Mock<IOptions<PtsSettings>> _mockPtsSettings = new();
-        private readonly Mock<IBreedHelper> _mockBreedHelper = new();
+        private readonly Mock<ISelectListLocaliser> _mockSelectListLocaliser = new();
         private Mock<TravelDocumentController> _sut;
         private readonly IStringLocalizer<SharedResource> _localizer;
         public TravelDocumentControllerPetColourTests()
@@ -40,7 +40,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         [SetUp]
         public void Setup()
         {
-            _sut = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object, _mockBreedHelper.Object, _localizer)
+            _sut = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object, _mockSelectListLocaliser.Object, _localizer)
             {
                 CallBase = true
             };
@@ -129,12 +129,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _sut.Setup(x => x.GetFormData(false))
                 .Returns(formData);
 
-            _mockMediator.Setup(x => x.Send(It.IsAny<GetColoursQueryRequest>(), CancellationToken.None))
-               .ReturnsAsync(new Application.DTOs.Features.GetColoursQueryResponse
-               {
-                   Colours = petColoursList,
-                   PetType = PetSpecies.Dog
-               });
+            _mockSelectListLocaliser.Setup(x => x.GetPetColoursList(It.IsAny<PetSpecies>()))
+               .ReturnsAsync(petColoursList);
 
             _sut.Setup(x => x.SaveFormData(It.IsAny<PetColourViewModel>()))
                 .Verifiable();
@@ -159,12 +155,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             _sut.Object.ModelState.AddModelError("PetColourId", "Id does not exist");
 
-            _mockMediator.Setup(x => x.Send(It.IsAny<GetColoursQueryRequest>(), CancellationToken.None))
-              .ReturnsAsync(new Application.DTOs.Features.GetColoursQueryResponse
-              {
-                  Colours = petColoursList,
-                  PetType = PetSpecies.Dog
-              });
+            _mockSelectListLocaliser.Setup(x => x.GetPetColoursList(It.IsAny<PetSpecies>()))
+              .ReturnsAsync(petColoursList);
 
             var result = await _sut.Object.PetColour(new PetColourViewModel());
 
