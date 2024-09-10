@@ -241,4 +241,13 @@
     <value>Rhowch rif microsglodyn eich anifail anwes</value>
     <comment>PetMicrochip</comment>
   </data>
+  <data name="Select the main colour of your cat" xml:space="preserve">
+    <value>Dewiswch brif liw eich cath</value>
+  </data>
+  <data name="Select the main colour of your dog" xml:space="preserve">
+    <value>Dewiswch brif liw eich ci</value>
+  </data>
+  <data name="Select the main colour of your ferret" xml:space="preserve">
+    <value>Dewiswch brif liw eich ffured</value>
+  </data>
 </root>
