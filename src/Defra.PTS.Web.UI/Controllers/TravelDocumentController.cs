@@ -33,7 +33,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     private readonly IMediator _mediator;
     private readonly ILogger<TravelDocumentController> _logger;
     private readonly PtsSettings _ptsSettings;
-    private readonly IBreedHelper _breedHelper;
+    private readonly ISelectListLocaliser _selectListLocaliser;
     private readonly IStringLocalizer<SharedResource> _localizer;
 
     public TravelDocumentController(
@@ -41,7 +41,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
           IMediator mediator,
           ILogger<TravelDocumentController> logger,
           IOptions<PtsSettings> ptsSettings,
-          IBreedHelper breedHelper,
+          ISelectListLocaliser breedHelper,
           IStringLocalizer<SharedResource> localizer
           )
     {
@@ -53,7 +53,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         _validationService = validationService;
         _mediator = mediator;
         _logger = logger;
-        _breedHelper = breedHelper;
+        _selectListLocaliser = breedHelper;
         _localizer = localizer;
         _ptsSettings = ptsSettings.Value;
    

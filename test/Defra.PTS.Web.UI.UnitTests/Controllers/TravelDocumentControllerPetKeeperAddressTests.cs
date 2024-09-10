@@ -29,7 +29,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private readonly Mock<IMediator> _mockMediator = new();
         private readonly Mock<ILogger<TravelDocumentController>> _mockLogger = new();
         private readonly Mock<IOptions<PtsSettings>> _mockPtsSettings = new();
-        private readonly Mock<IBreedHelper> _mockBreedHelper = new();
+        private readonly Mock<ISelectListLocaliser> _mockBreedHelper = new();
         private Mock<TravelDocumentController> _travelDocumentController;
         private Mock<TravelDocumentViewModel> _travelDocumentViewModel;
         private readonly IStringLocalizer<SharedResource> _localizer;
