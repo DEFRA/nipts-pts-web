@@ -672,4 +672,13 @@
     <value>Llwyd, arian neu las</value>
     <comment>Pet Colour</comment>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Yn ôl</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nac oes</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Oes</value>
+  </data>
 </root>

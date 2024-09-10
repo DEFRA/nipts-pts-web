@@ -1,18 +1,20 @@
 ﻿using FluentValidation;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+using Defra.PTS.Web.Domain;
+using Microsoft.Extensions.Localization;
 
 namespace Defra.PTS.Web.Application.Validation
 {
     public class PetMicrochipValidator : AbstractValidator<PetMicrochipViewModel>
     {
-        public PetMicrochipValidator()
+        public PetMicrochipValidator(IStringLocalizer<SharedResource> localizer)
         {
-            RuleFor(x => x.Microchipped).NotEmpty().WithMessage("Tell us if your pet is microchipped");
+            RuleFor(x => x.Microchipped).NotEmpty().WithMessage(localizer[@"Tell us if your pet is microchipped"]);
 
             When(x => x.Microchipped == YesNoOptions.Yes, () =>
             {
-                RuleFor(x => x.MicrochipNumber).NotEmpty().WithMessage("Enter your pet's microchip number");
+                RuleFor(x => x.MicrochipNumber).NotEmpty().WithMessage(localizer[@"Enter your pet’s 15-digit microchip number"]);
 
                 When(x => !string.IsNullOrWhiteSpace(x.MicrochipNumber), () =>
                 {
@@ -21,11 +23,11 @@ namespace Defra.PTS.Web.Application.Validation
                         {
                             if (IsAllDigits(microchipNumber) && microchipNumber.Length != 15)
                             {
-                                context.AddFailure("MicrochipNumber", "Enter your pet’s 15-digit microchip number");
+                                context.AddFailure("MicrochipNumber", localizer[@"Enter your pet’s 15-digit microchip number"]);
                             }
                             else if (!IsAllDigits(microchipNumber) || microchipNumber.Length != 15)
                             {
-                                context.AddFailure("MicrochipNumber", "Enter a 15-digit number, using only numbers");
+                                context.AddFailure("MicrochipNumber", localizer[@"Enter a 15-digit number, using only numbers"]);
                             }
                         });
                 });
