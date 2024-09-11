@@ -10,16 +10,35 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
     private static readonly string MicrochipError = "Enter a date in the correct format, for example 11 04 2021";
     public PetMicrochipDateValidator(IStringLocalizer<SharedResource> localizer)
     {
-        //When(x => IsEmptyDate(x), () =>
-        //{
-        //    RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
-        //    .NotEmpty().WithMessage("Grace");
-        //}); 
-        
+
         When(x => IsEmptyDate(x), () =>
         {
-            RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+            RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
             .NotEmpty().WithMessage(x => localizer[MicrochipError]);
+
+            RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");
+
+            RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");
+
+            RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");
+        });
+
+        When(x => !x.MicrochippedDate.HasValue && x.Day != null && x.Month != null && x.Year != null, () =>
+        {
+            RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(x => localizer[MicrochipError]);
+
+            RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");
+
+            RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");
+
+            RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");
         });
 
         When(x => !IsEmptyDate(x) && (x.Day == null), () =>
@@ -52,18 +71,6 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
             .NotEmpty().WithMessage(" ");
         });
 
-        //When(x => !x.MicrochippedDate.HasValue && x.Day != null && x.Month != null && x.Year != null, () =>
-        //{
-        //    RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
-        //    .NotEmpty().WithMessage(localizer[MicrochipError]);
-        //});
-
-        //When(x => !IsEmptyDate(x) && (x.Day != null || x.Month != null || x.Year != null), () =>
-        //{
-        //    RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
-        //    .NotEmpty().WithMessage(localizer[MicrochipError]);
-        //});
-
         When(x => x.MicrochippedDate.HasValue && !x.BirthDate.HasValue, () =>
         {
             RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
@@ -71,7 +78,7 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
 
             var message = localizer["Enter a date that is less than 34 years ago"].Value;
             RuleFor(x => x.MicrochippedDate).Must((x, e) => MeetsDateLimits(x.MicrochippedDate, out message)).WithMessage(x => localizer[message]);
-            
+
         });
 
         When(x => x.BirthDate.HasValue && x.MicrochippedDate.HasValue, () =>
