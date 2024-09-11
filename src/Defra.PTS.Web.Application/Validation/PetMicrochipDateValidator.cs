@@ -10,9 +10,15 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
     private static readonly string MicrochipError = "Enter a date in the correct format, for example 11 04 2021";
     public PetMicrochipDateValidator(IStringLocalizer<SharedResource> localizer)
     {
+        //When(x => IsEmptyDate(x), () =>
+        //{
+        //    RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
+        //    .NotEmpty().WithMessage("Grace");
+        //}); 
+        
         When(x => IsEmptyDate(x), () =>
         {
-            RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
+            RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
             .NotEmpty().WithMessage(x => localizer[MicrochipError]);
         });
 
@@ -22,25 +28,37 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
             .NotEmpty().WithMessage(localizer[MicrochipError]);
         });
         
-        When(x => !IsEmptyDate(x) && (x.Month == null), () =>
+        When(x => !IsEmptyDate(x) && (x.Month == null && x.Day != null), () =>
         {
             RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
             .NotEmpty().WithMessage(localizer[MicrochipError]);
         });
-        
-        When(x => !IsEmptyDate(x) && (x.Year == null && x.Day != null), () =>
+
+        When(x => !IsEmptyDate(x) && (x.Month == null), () =>
+        {
+            RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");
+        });
+
+        When(x => !IsEmptyDate(x) && (x.Year == null && x.Day != null && x.Month != null), () =>
         {
             RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
             .NotEmpty().WithMessage(localizer[MicrochipError]);
         });
 
-        //When(x => !IsEmptyDate(x) && (x.Day != null || x.Month != null || x.Year != null), () =>
+        When(x => !IsEmptyDate(x) && (x.Year == null), () =>
+        {
+            RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");
+        });
+
+        //When(x => !x.MicrochippedDate.HasValue && x.Day != null && x.Month != null && x.Year != null, () =>
         //{
-        //    RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
+        //    RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
         //    .NotEmpty().WithMessage(localizer[MicrochipError]);
         //});
 
-        //When(x => !x.MicrochippedDate.HasValue && x.Day != null && x.Month != null && x.Year != null, () =>
+        //When(x => !IsEmptyDate(x) && (x.Day != null || x.Month != null || x.Year != null), () =>
         //{
         //    RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
         //    .NotEmpty().WithMessage(localizer[MicrochipError]);
