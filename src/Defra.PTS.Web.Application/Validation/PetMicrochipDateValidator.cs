@@ -32,13 +32,13 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
             .NotEmpty().WithMessage(x => localizer[MicrochipError]);
 
             RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
-            .NotEmpty().WithMessage(" ");
+            .Null().WithMessage(" ");
 
             RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
-            .NotEmpty().WithMessage(" ");
+            .Null().WithMessage(" ");
 
             RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
-            .NotEmpty().WithMessage(" ");
+            .Null().WithMessage(" ");
         });
 
         When(x => !IsEmptyDate(x) && (x.Day == null), () =>
@@ -79,6 +79,14 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
             var message = localizer["Enter a date that is less than 34 years ago"].Value;
             RuleFor(x => x.MicrochippedDate).Must((x, e) => MeetsDateLimits(x.MicrochippedDate, out message)).WithMessage(x => localizer[message]);
 
+            RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+            .Null().WithMessage(" ");
+
+            RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+            .Null().WithMessage(" ");
+
+            RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+            .Null().WithMessage(" ");
         });
 
         When(x => x.BirthDate.HasValue && x.MicrochippedDate.HasValue, () =>
