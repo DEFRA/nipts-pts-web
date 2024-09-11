@@ -28,7 +28,7 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
             .NotEmpty().WithMessage(localizer[MicrochipError]);
         });
         
-        When(x => !IsEmptyDate(x) && (x.Year == null), () =>
+        When(x => !IsEmptyDate(x) && (x.Year == null && x.Day != null), () =>
         {
             RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
             .NotEmpty().WithMessage(localizer[MicrochipError]);
@@ -40,11 +40,11 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
         //    .NotEmpty().WithMessage(localizer[MicrochipError]);
         //});
 
-        When(x => !x.MicrochippedDate.HasValue && x.Day != null && x.Month != null && x.Year != null, () =>
-        {
-            RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
-            .NotEmpty().WithMessage(localizer[MicrochipError]);
-        });
+        //When(x => !x.MicrochippedDate.HasValue && x.Day != null && x.Month != null && x.Year != null, () =>
+        //{
+        //    RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
+        //    .NotEmpty().WithMessage(localizer[MicrochipError]);
+        //});
 
         When(x => x.MicrochippedDate.HasValue && !x.BirthDate.HasValue, () =>
         {
