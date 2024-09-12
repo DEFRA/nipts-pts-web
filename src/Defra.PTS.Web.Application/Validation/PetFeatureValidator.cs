@@ -18,7 +18,7 @@ public class PetFeatureValidator : AbstractValidator<PetFeatureViewModel>
 
             When(x => !string.IsNullOrWhiteSpace(x.FeatureDescription), () =>
             {
-                RuleFor(x => x.FeatureDescription).MaximumLength(AppConstants.MaxLength.PetFeatureDescription).WithMessage(x => localizer[$"Describe your pet's significant feature, using {AppConstants.MaxLength.PetFeatureDescription} characters or less"]);
+                RuleFor(x => x.FeatureDescription).MaximumLength(AppConstants.MaxLength.PetFeatureDescription).WithMessage(localizer[$"Describe your pet's significant feature, using {AppConstants.MaxLength.PetFeatureDescription} characters or less"]);
             });
 
         });
