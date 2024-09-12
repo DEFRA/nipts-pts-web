@@ -250,4 +250,16 @@
   <data name="Select the main colour of your ferret" xml:space="preserve">
     <value>Dewiswch brif liw eich ffured</value>
   </data>
+  <data name="Describe your pet's significant feature" xml:space="preserve">
+    <value>Disgrifiwch nodwedd arwyddocaol eich anifail anwes</value>
+    <comment>Pet Feature</comment>
+  </data>
+  <data name="Describe your pet's significant feature, using 300 characters or less​" xml:space="preserve">
+    <value>Disgrifiwch nodwedd arwyddocaol eich anifail anwes, gan ddefnyddio 300 o gymeriadau neu lai</value>
+    <comment>Pet Feature</comment>
+  </data>
+  <data name="Tell us if your pet has any significant features" xml:space="preserve">
+    <value>Dwedwch a oes gan eich anifail anwes unrhyw nodweddion arwyddocaol</value>
+    <comment>Pet Feature</comment>
+  </data>
 </root>
