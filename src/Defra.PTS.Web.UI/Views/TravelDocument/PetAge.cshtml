@@ -4,11 +4,13 @@
 @using Defra.PTS.Web.Domain.ViewModels;
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization;
 @using Microsoft.Extensions.Localization;
 @inject IStringLocalizer<SharedResource> sharedlocalizer
+@inject IViewLocalizer Localizer
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Day" }; //Make it Day and test
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = Localizer[Model.FormTitle].Value, LabelFor = "Day" }; //Make it Day and test
     this.SetMetaTitle(Model.FormTitle);
 }
 
@@ -30,16 +32,16 @@
 
                     <div id="pet-age-hint" class="govuk-hint">
 
-                        Your pet's date of birth should be displayed on their microchip certificate.
+                        @Localizer["Your pet's date of birth should be displayed on their microchip certificate."]
 
-                        Use an approximate date of birth if you are unsure.
+                        @Localizer["Use an approximate date of birth if you are unsure."]
 
                     </div>
 
                     <div class="govuk-form-group">
 
                         <div id="petDOB-hint" class="govuk-hint">
-                            For example, 27 3 2020
+                            @Localizer["For example, 27 3 2020"]"
                         </div>
 
                         <div class="govuk-radios" data-module="govuk-radios">
@@ -57,7 +59,7 @@
                                         <div class="govuk-date-input__item">
                                             <div class="govuk-form-group">
                                                 <label class="govuk-label govuk-date-input__label" for="Day">
-                                                    Day
+                                                    @sharedlocalizer["Day"]
                                                 </label>
                                                 @Html.TextBoxFor(x => x.Day, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", id = "Day", @spellcheck = "false"})
                                             </div>
@@ -65,7 +67,7 @@
                                         <div class="govuk-date-input__item">
                                             <div class="govuk-form-group">
                                                 <label class="govuk-label govuk-date-input__label" for="Month">
-                                                    Month
+                                                    @sharedlocalizer["Month"]
                                                 </label>
                                                 @Html.TextBoxFor(x => x.Month, new { @class = "govuk-input govuk-date-input__input govuk-input--width-2", id = "Month", @spellcheck = "false"})
                                             </div>
@@ -73,7 +75,7 @@
                                         <div class="govuk-date-input__item">
                                             <div class="govuk-form-group">
                                                 <label class="govuk-label govuk-date-input__label" for="Year">
-                                                    Year
+                                                    @sharedlocalizer["Year"]
                                                 </label>
                                                 @Html.TextBoxFor(x => x.Year, new { @class = "govuk-input govuk-date-input__input govuk-input--width-4", id = "Year", @spellcheck = "false"})
                                             </div>

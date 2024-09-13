@@ -262,4 +262,7 @@
     <value>Dwedwch a oes gan eich anifail anwes unrhyw nodweddion arwyddocaol</value>
     <comment>Pet Feature</comment>
   </data>
+  <data name="Enter a date that is before the pet’s microchip date" xml:space="preserve">
+    <value>Rhowch ddyddiad sydd cyn rhif microsglodyn yr anifail anwes</value>
+  </data>
 </root>
