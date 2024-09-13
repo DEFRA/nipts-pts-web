@@ -49,7 +49,7 @@
 
                             @foreach (var petColour in colours)
                             {
-                                if(petColour.Code != "Other")
+                                if(petColour.Code != sharedlocalizer["Other"])
                                 {
                                     <div class="govuk-radios__item">
                                         <input class="govuk-radios__input" type="radio" id=@petColour.Code asp-for="PetColour" value="@petColour.Id" onclick="clearInput()">
