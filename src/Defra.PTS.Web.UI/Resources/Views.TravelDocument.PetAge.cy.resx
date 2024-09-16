@@ -120,6 +120,9 @@
   <data name="For example, 27 3 2020" xml:space="preserve">
     <value>Er enghraifft, 27 3 2020</value>
   </data>
+  <data name="Use an approximate date of birth if you are unsure." xml:space="preserve">
+    <value>Defnyddiwch ddyddiad geni bras os nad ydych chi’n siŵr.</value>
+  </data>
   <data name="What is your pet's date of birth?" xml:space="preserve">
     <value>Beth yw dyddiad geni eich anifail anwes?</value>
   </data>
