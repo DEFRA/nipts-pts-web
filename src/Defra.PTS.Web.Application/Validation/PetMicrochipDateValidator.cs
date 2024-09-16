@@ -18,26 +18,26 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
 
         When(x => x.Month == null, () =>
         {
-            RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
-            .NotEmpty().WithMessage(" ");
-
             When(x => x.Day != null, () =>
             {
                 RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage(localizer[MicrochipError]);
-            });
+            }); 
+            
+            RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");
         });
 
         When(x => x.Year == null, () =>
         {
-            RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
-            .NotEmpty().WithMessage(" ");
-
             When(x => (x.Day != null && x.Month != null), () =>
             {
                 RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
                 .NotEmpty().WithMessage(localizer[MicrochipError]);
-            });
+            }); 
+            
+            RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");  
         });
 
         When(x => IsEmptyDate(x), () =>
@@ -73,14 +73,14 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
             var message = localizer["Enter a date that is less than 34 years ago"].Value;
             RuleFor(x => x.MicrochippedDate).Must((x, e) => MeetsDateLimits(x.MicrochippedDate, out message)).WithMessage(x => localizer[message]);
 
-            RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
-            .Null().WithMessage(" ");
+            //RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+            //.NotEmpty().WithMessage(" ");
 
-            RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
-            .Null().WithMessage(" ");
+            //RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+            //.NotEmpty().WithMessage(" ");
 
-            RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
-            .Null().WithMessage(" ");
+            //RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+            //.NotEmpty().WithMessage(" ");
         });
 
         When(x => x.BirthDate.HasValue && x.MicrochippedDate.HasValue, () =>
