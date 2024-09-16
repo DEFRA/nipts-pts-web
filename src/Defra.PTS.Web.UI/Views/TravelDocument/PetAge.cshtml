@@ -10,7 +10,7 @@
 @inject IViewLocalizer Localizer
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = Localizer[Model.FormTitle].Value, LabelFor = "Day" }; //Make it Day and test
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = Localizer[Model.FormTitle].Value, LabelFor = "Day" };
     this.SetMetaTitle(Model.FormTitle);
 }
 
@@ -41,7 +41,7 @@
                     <div class="govuk-form-group">
 
                         <div id="petDOB-hint" class="govuk-hint">
-                            @Localizer["For example, 27 3 2020"]"
+                            @Localizer["For example, 27 3 2020"]
                         </div>
 
                         <div class="govuk-radios" data-module="govuk-radios">
