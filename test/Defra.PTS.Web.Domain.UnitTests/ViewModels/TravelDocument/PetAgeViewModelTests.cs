@@ -93,9 +93,9 @@ public class PetAgeViewModelTests
 
         // Act
         model.IsCompleted = true;
-        model.Day = 1;
-        model.Month = 1;
-        model.Year = 2020;
+        model.Day = "1";
+        model.Month = "1";
+        model.Year = "2020";
         model.MicrochippedDate = new DateTime(2020, 1, 1);
 
         // Assert
@@ -103,9 +103,9 @@ public class PetAgeViewModelTests
         {
             model.PageType.Should().Be(Enums.TravelDocumentFormPageType.PetAge);
             model.IsCompleted.Should().Be(true);
-            model.Day.Should().Be(1);
-            model.Month.Should().Be(1);
-            model.Year.Should().Be(2020);
+            model.Day.Should().Be("1");
+            model.Month.Should().Be("1");
+            model.Year.Should().Be("2020");
             model.MicrochippedDate.Should().Be(new DateTime(2020, 1, 1));
             model.BirthDate.Should().Be(new DateTime(2020, 1, 1));
         }
@@ -118,9 +118,9 @@ public class PetAgeViewModelTests
         var model = CreateModel();
 
         model.IsCompleted = true;
-        model.Day = 1;
-        model.Month = 1;
-        model.Year = 2020;
+        model.Day = 1.ToString();
+        model.Month = 1.ToString();
+        model.Year = 2020.ToString();
         model.MicrochippedDate = new DateTime(2020, 1, 1);
 
         // Act
@@ -145,9 +145,9 @@ public class PetAgeViewModelTests
         var model = CreateModel();
 
         model.IsCompleted = true;
-        model.Day = 1;
-        model.Month = 1;
-        model.Year = 2020;
+        model.Day = 1.ToString();
+        model.Month = 1.ToString();
+        model.Year = 2020.ToString();
         model.MicrochippedDate = new DateTime(2020, 1, 1);
 
         // Act
@@ -156,9 +156,9 @@ public class PetAgeViewModelTests
         // Assert
         using (new AssertionScope())
         {
-            Assert.Equal(1, model.Day);
-            Assert.Equal(1, model.Month);
-            Assert.Equal(2020, model.Year);
+            Assert.Equal(1.ToString(), model.Day);
+            Assert.Equal(1.ToString(), model.Month);
+            Assert.Equal(2020.ToString(), model.Year);
             Assert.Equal(expected: new DateTime(2020, 1, 1), model.MicrochippedDate);
         }
     }
@@ -170,9 +170,9 @@ public class PetAgeViewModelTests
         var model = CreateModel();
 
         model.IsCompleted = true;
-        model.Day = 32;
-        model.Month = 13;
-        model.Year = 2020;
+        model.Day = 32.ToString();
+        model.Month = 13.ToString();
+        model.Year = 2020.ToString();
         model.MicrochippedDate = new DateTime(2020, 1, 1);
 
         // Act

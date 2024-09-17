@@ -43,9 +43,9 @@ public class PetAgeValidatorShould
     {
         var model = new PetAgeViewModel()
         {
-            Day = 1,
-            Month = 1,
-            Year = 2005,
+            Day = "1",
+            Month = "1",
+            Year = "2005",
             MicrochippedDate = DateTime.Now,
         };
         var validator = new PetAgeValidator(_localizer);
@@ -63,9 +63,9 @@ public class PetAgeValidatorShould
     {
         var model = new PetAgeViewModel()
         {
-            Day = 1,
-            Month = 1,
-            Year = DateTime.Now.AddYears(-50).Year,
+            Day = "1",
+            Month = "1",
+            Year = DateTime.Now.AddYears(-50).Year.ToString(),
             MicrochippedDate = DateTime.Now,
         };
 
