@@ -1,13 +1,21 @@
 ﻿using Defra.PTS.Web.Application.Validation;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation.TestHelper;
+using Microsoft.Extensions.Localization;
+using Defra.PTS.Web.Domain;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 
 namespace Defra.PTS.Web.Application.UnitTests.Validation;
 
 public class PetNameValidatorShould
 {
+    private readonly IStringLocalizer<SharedResource> _localizer;
     public PetNameValidatorShould()
     {
+        var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
+        var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
+        _localizer = new StringLocalizer<SharedResource>(factory);
     }
 
     [Fact]
@@ -15,7 +23,7 @@ public class PetNameValidatorShould
     {
         // Arrange
         var model = new PetNameViewModel { PetName = null };
-        var validator = CreateValidator();
+        var validator = new PetNameValidator(_localizer);
 
         // Act
         var result = await validator.TestValidateAsync(model);
@@ -29,7 +37,7 @@ public class PetNameValidatorShould
     {
         // Arrange
         var model = new PetNameViewModel { PetName = "Teddy" };
-        var validator = CreateValidator();
+        var validator = new PetNameValidator(_localizer);
 
         // Act
         var result = await validator.TestValidateAsync(model);
@@ -38,5 +46,4 @@ public class PetNameValidatorShould
         result.ShouldNotHaveValidationErrorFor(x => x.PetName);
     }
 
-    private static PetNameValidator CreateValidator() => new();
 }

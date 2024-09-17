@@ -1,49 +1,123 @@
 ﻿using Defra.PTS.Web.Application.Constants;
-using Defra.PTS.Web.Application.Extensions;
+using Defra.PTS.Web.Domain;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation;
+using Microsoft.Extensions.Localization;
 
 namespace Defra.PTS.Web.Application.Validation;
 public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewModel>
 {
     private static readonly string MicrochipError = "Enter a date in the correct format, for example 11 04 2021";
-    public PetMicrochipDateValidator()
+    public PetMicrochipDateValidator(IStringLocalizer<SharedResource> localizer)
     {
-        When(x => IsEmptyDate(x), () =>
+        When(x => x.Day == null, () =>
         {
-            RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
-            .NotEmpty().WithMessage(x => MicrochipError);
+            RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(localizer[MicrochipError]);
         });
 
-        When(x => !IsEmptyDate(x) && (x.Day != null || x.Month != null || x.Year != null), () =>
+        When(x => x.Month == null, () =>
         {
-            RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
-            .NotEmpty().WithMessage(MicrochipError);
+            When(x => x.Day != null, () =>
+            {
+                RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+                .NotEmpty().WithMessage(localizer[MicrochipError]);
+            }); 
+            
+            RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");
+        });
+
+        When(x => x.Year == null, () =>
+        {
+            When(x => (x.Day != null && x.Month != null), () =>
+            {
+                RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+                .NotEmpty().WithMessage(localizer[MicrochipError]);
+            }); 
+            
+            RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");  
+        });
+
+        When(x => IsEmptyDate(x), () =>
+        {
+
+            RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(localizer[MicrochipError]);
+
+            RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");
+
+            RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");
         });
 
         When(x => !x.MicrochippedDate.HasValue && x.Day != null && x.Month != null && x.Year != null, () =>
         {
-            RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
-            .NotEmpty().WithMessage(MicrochipError);
+            RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+            .Null().WithMessage(localizer[MicrochipError]);
+
+            RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+            .Null().WithMessage(" ");
+
+            RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+            .Null().WithMessage(" ");
         });
 
         When(x => x.MicrochippedDate.HasValue && !x.BirthDate.HasValue, () =>
         {
-            RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
-            .Must(BeTodayOrPastDate).WithMessage("Enter a date that is in the past");
+            When(x => !BeTodayOrPastDate(x.MicrochippedDate), () =>
+            {
+                RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(localizer["Enter a date that is in the past"]);
 
-            var message = "Enter a date that is less than 34 years ago";
-            RuleFor(x => x.MicrochippedDate).Must((x, e) => MeetsDateLimits(x.MicrochippedDate, out message)).WithMessage(x => message);
+                RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(" ");
+
+                RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(" ");
+            });
             
+            var message = localizer["Enter a date that is less than 34 years ago"].Value;
+            When(x => !MeetsDateLimits(x.MicrochippedDate, out message), () =>
+            {
+                RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(x => localizer[message]);
+
+                RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(" ");
+
+                RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(" ");
+            });
         });
 
         When(x => x.BirthDate.HasValue && x.MicrochippedDate.HasValue, () =>
         {
-            var message = "Enter a date that is less than 34 years ago";
-            RuleFor(x => x.MicrochippedDate).Cascade(CascadeMode.Stop)
-            .Must(BeTodayOrPastDate).WithMessage("Enter a date that is in the past")
-            .Must((x, e) => MeetsDateLimits(x.MicrochippedDate, out message)).WithMessage(x => message)
-            .GreaterThan(m => m.BirthDate).WithMessage("Enter a date that is after the pet’s date of birth");
+            When(x => !BeTodayOrPastDate(x.MicrochippedDate), () =>
+            {
+                RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(localizer["Enter a date that is in the past"]);
+
+                RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(" ");
+
+                RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(" ");
+            });
+
+            When(x => x.MicrochippedDate < x.BirthDate, () =>
+            {
+                RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(localizer["Enter a date that is after the pet’s date of birth"]);
+
+                RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(" ");
+
+                RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(" ");
+            });
         });
     }
 

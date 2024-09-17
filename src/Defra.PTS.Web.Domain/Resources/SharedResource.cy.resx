@@ -168,4 +168,101 @@
   <data name="Enter line 2 of your address using 250 characters or less" xml:space="preserve">
     <value>Rhowch linell 2 eich cyfeiriad gan ddefnyddio 250 o gymeriadau neu lai</value>
   </data>
+  <data name="Enter a breed using 150 characters or less" xml:space="preserve">
+    <value>Rhowch frid gan ddefnyddio 150 o gymeriadau neu lai</value>
+  </data>
+  <data name="Select or enter the breed of your pet" xml:space="preserve">
+    <value>Dewiswch frid neu rhowch frid eich anifail anwes</value>
+  </data>
+  <data name="Enter a date in the correct format, for example 11 04 2021" xml:space="preserve">
+    <value>Rhowch ddyddiad yn y fformat cywir, er enghraifft 11 04 2021</value>
+  </data>
+  <data name="Enter a date that is after the pet’s date of birth" xml:space="preserve">
+    <value>Rhowch ddyddiad sydd ar ôl dyddiad geni'r anifail anwes</value>
+  </data>
+  <data name="Enter a date that is in the past" xml:space="preserve">
+    <value>Rhowch ddyddiad sydd yn y gorffennol</value>
+  </data>
+  <data name="Enter a date that is less than 34 years ago" xml:space="preserve">
+    <value>Nodwch ddyddiad sy’n llai na 34 mlynedd yn ôl</value>
+  </data>
+  <data name="Enter your pet's name" xml:space="preserve">
+    <value>Rhowch enw eich anifail anwes</value>
+  </data>
+  <data name="Enter your pet's name, using 300 characters or less" xml:space="preserve">
+    <value>Rhowch enw anifail anwes gan ddefnyddio 300 o gymeriadau neu lai</value>
+  </data>
+  <data name="Describe the main colour of your cat" xml:space="preserve">
+    <value>Disgrifiwch brif liw eich cath</value>
+  </data>
+  <data name="Describe the main colour of your cat, using 150 characters or less" xml:space="preserve">
+    <value>Disgrifiwch brif liw eich cath, gan ddefnyddio 150 o gymeriadau neu lai</value>
+  </data>
+  <data name="Describe the main colour of your dog" xml:space="preserve">
+    <value>Disgrifiwch brif liw eich ci</value>
+  </data>
+  <data name="Describe the main colour of your dog, using 150 characters or less" xml:space="preserve">
+    <value>Disgrifiwch brif liw eich ci, gan ddefnyddio 150 o gymeriadau neu lai</value>
+  </data>
+  <data name="Describe the main colour of your ferret" xml:space="preserve">
+    <value>Disgrifiwch brif liw eich ffured</value>
+  </data>
+  <data name="Describe the main colour of your ferret, using 150 characters or less" xml:space="preserve">
+    <value>Disgrifiwch brif liw eich ffured, gan ddefnyddio 150 o gymeriadau neu lai</value>
+  </data>
+  <data name="Enter your pet's microchip number in the correct format" xml:space="preserve">
+    <value>Rhowch rif microsglodyn eich anifail anwes yn y fformat cywir</value>
+    <comment>PetMicrochip</comment>
+  </data>
+  <data name="Enter your pet’s 15-digit microchip number" xml:space="preserve">
+    <value>Rhowch rif microsglodyn 15 digid eich anifail anwes</value>
+    <comment>PetMicrochip</comment>
+  </data>
+  <data name="Enter your pet’s 15-digit microchip number – do not use spaces or special characters like hyphens or dashes" xml:space="preserve">
+    <value>Rhowch rif microsglodyn 15 digid eich anifail anwes – peidiwch â defnyddio bylchau na chymeriadau arbennig fel cysylltnod neu linell</value>
+    <comment>PetMicrochip</comment>
+  </data>
+  <data name="Tell us if your pet is microchipped" xml:space="preserve">
+    <value>Dwedwch a oes gan eich anifail anwes ficrosglodyn</value>
+    <comment>PetMicrochip</comment>
+  </data>
+  <data name="The microchip number is associated with another lifelong pet travel document" xml:space="preserve">
+    <value>Mae rhif y microsglodyn yn gysylltiedig â dogfen deithio gydol oes arall i anifail anwes.</value>
+    <comment>PetMicrochip</comment>
+  </data>
+  <data name="There is a problem" xml:space="preserve">
+    <value>Mae yna broblem</value>
+    <comment>PetMicrochip</comment>
+  </data>
+  <data name="Enter a 15-digit number, using only numbers" xml:space="preserve">
+    <value>Rhowch rif 15 digid, gan ddefnyddio rhifau yn unig</value>
+  </data>
+  <data name="Enter your pet's microchip number" xml:space="preserve">
+    <value>Rhowch rif microsglodyn eich anifail anwes</value>
+    <comment>PetMicrochip</comment>
+  </data>
+  <data name="Select the main colour of your cat" xml:space="preserve">
+    <value>Dewiswch brif liw eich cath</value>
+  </data>
+  <data name="Select the main colour of your dog" xml:space="preserve">
+    <value>Dewiswch brif liw eich ci</value>
+  </data>
+  <data name="Select the main colour of your ferret" xml:space="preserve">
+    <value>Dewiswch brif liw eich ffured</value>
+  </data>
+  <data name="Describe your pet's significant feature" xml:space="preserve">
+    <value>Disgrifiwch nodwedd arwyddocaol eich anifail anwes</value>
+    <comment>Pet Feature</comment>
+  </data>
+  <data name="Describe your pet's significant feature, using 300 characters or less" xml:space="preserve">
+    <value>Disgrifiwch nodwedd arwyddocaol eich anifail anwes, gan ddefnyddio 300 o gymeriadau neu lai</value>
+    <comment>Pet Feature</comment>
+  </data>
+  <data name="Tell us if your pet has any significant features" xml:space="preserve">
+    <value>Dwedwch a oes gan eich anifail anwes unrhyw nodweddion arwyddocaol</value>
+    <comment>Pet Feature</comment>
+  </data>
+  <data name="Enter a date that is before the pet’s microchip date" xml:space="preserve">
+    <value>Rhowch ddyddiad sydd cyn rhif microsglodyn yr anifail anwes</value>
+  </data>
 </root>

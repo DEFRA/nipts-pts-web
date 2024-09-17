@@ -1,0 +1,36 @@
+﻿@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Localization;
+@inject IViewLocalizer Localizer
+@inject IStringLocalizer<SharedResource> SharedLocalizer
+
+@{
+    var pageTitle = Localizer["Your answers have been deleted"];
+    this.SetMetaTitle(pageTitle.Value);
+    ViewData.SetKeyValue("MainCssClass", "govuk-!-margin-top-6");
+    Layout = "_LayoutSlim";
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        
+        <h1 id="dialog-title-notsignedin" class="govuk-heading-l">
+            @pageTitle
+        </h1>
+        
+        <div class="govuk-body">
+            <p>@Localizer["We have deleted your answers because you did not do anything for 30 minutes. This is to protect your information."]</p>
+            <p>@Localizer["You will need to start again."]</p>
+        </div>
+
+        <form class="form" action="@WebAppConstants.Pages.TravelDocument.Index" method="get">
+            <button type="submit" class="govuk-button" data-module="govuk-button">
+                @Localizer["Start again"]
+            </button>
+        </form>
+
+    </div>
+</div>

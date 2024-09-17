@@ -58,23 +58,18 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
         return RedirectToAction(nameof(PetFeature));
     }
-
     private async Task<List<ColourDto>> GetColoursList(PetSpecies petSpecies)
     {
-        var colourResponse = await _mediator.Send(new GetColoursQueryRequest(petSpecies));
-        if (colourResponse == null || colourResponse.Colours == null || !colourResponse.Colours.Any())
-        {
-            return new List<ColourDto>();
-        }
+        var petColours = await _selectListLocaliser.GetPetColoursList(petSpecies);
 
-        var otherColour = colourResponse.Colours?.FirstOrDefault(x => x.Name.ToLowerInvariant() == AppConstants.Values.OtherColourName.ToLowerInvariant());
+        var otherColour = petColours?.Find(x => x.Name.ToLowerInvariant() == _localizer[AppConstants.Values.OtherColourName].Value.ToLowerInvariant());
         if (otherColour != null)
         {
             otherColour.DisplayOrder = int.MaxValue;
         }
 
         // Order by DisplayOrder, then by Name
-        var orderedColours = colourResponse.Colours
+        var orderedColours = petColours
             .OrderBy(x => x.DisplayOrder)
             .ThenBy(x => x.Name)
             .ToList();
@@ -82,9 +77,9 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         return orderedColours;
     }
 
-    private static int GetOtherColourId(List<ColourDto> colours)
+    private int GetOtherColourId(List<ColourDto> colours)
     {
-        var otherColour = colours?.FirstOrDefault(x => x.Name.ToLowerInvariant() == AppConstants.Values.OtherColourName.ToLowerInvariant());
+        var otherColour = colours?.Find(x => x.Name.ToLowerInvariant() == _localizer[AppConstants.Values.OtherColourName].Value.ToLowerInvariant());
         if (otherColour == null)
         {
             return default;

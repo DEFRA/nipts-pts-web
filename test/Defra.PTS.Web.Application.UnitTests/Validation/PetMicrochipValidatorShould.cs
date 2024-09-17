@@ -1,6 +1,10 @@
 ﻿using Defra.PTS.Web.Application.Validation;
+using Defra.PTS.Web.Domain;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation.TestHelper;
+using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,6 +12,14 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 {
     public class PetMicrochipValidatorShould
     {
+        private readonly IStringLocalizer<SharedResource> _localizer;
+        public PetMicrochipValidatorShould()
+        {
+            var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
+            var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
+            _localizer = new StringLocalizer<SharedResource>(factory);
+        }
+
         [Fact]
         public async Task NotErrorPetMicrochip()
         {
@@ -17,7 +29,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
                 MicrochipNumber = new string('1', 15)
             };
 
-            var validator = new PetMicrochipValidator();
+            var validator = new PetMicrochipValidator(_localizer);
 
             var result = await validator.TestValidateAsync(model);
 
@@ -30,7 +42,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
         {
             var model = new PetMicrochipViewModel();
 
-            var validator = new PetMicrochipValidator();
+            var validator = new PetMicrochipValidator(_localizer);
 
             var result = await validator.TestValidateAsync(model);
 
@@ -42,7 +54,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
         public async Task HaveErrorIfMicroChipNumberInvalid(string microchipNumber, string expectedErrorMessage)
         {
             var model = new PetMicrochipViewModel() { Microchipped = Domain.Enums.YesNoOptions.Yes, MicrochipNumber = microchipNumber };
-            var validator = new PetMicrochipValidator();
+            var validator = new PetMicrochipValidator(_localizer);
 
             var result = await validator.TestValidateAsync(model);
 
@@ -52,7 +64,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 
         public static IEnumerable<object[]> PetMicrochipValidatorNumberTestData => new List<object[]>
         {
-            new object[] { string.Empty, "Enter your pet's microchip number" },
+            new object[] { string.Empty, "Enter your pet’s 15-digit microchip number" },
             new object[] { new string('1', 14), "Enter your pet’s 15-digit microchip number" },
             new object[] { new string('1', 16), "Enter your pet’s 15-digit microchip number" },
             new object[] { new string('a', 15), "Enter a 15-digit number, using only numbers" },

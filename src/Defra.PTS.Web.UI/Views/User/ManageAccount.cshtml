@@ -1,35 +1,39 @@
 ﻿@using Defra.PTS.Web.UI.Extensions;
 @inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Localization;
+@inject IViewLocalizer Localizer
+@inject IStringLocalizer<SharedResource> sharedlocalizer
 
 @{
     var pageTitle = "Manage your Defra account";
-    this.SetMetaTitle(pageTitle);
+    this.SetMetaTitle(Localizer[pageTitle].Value);
     ViewData.SetKeyValue("MainCssClass", "govuk-!-margin-top-6");
 }
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
         <h1 id="owner" class="govuk-heading-xl govuk-!-margin-bottom-4">
-            @pageTitle
+            @Localizer[pageTitle]
         </h1>
 
         <div class="govuk-warning-text">
             <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
             <strong class="govuk-warning-text__text">
                 <span class="govuk-visually-hidden">Warning</span>
-                If you change your personal details like name and address, you need to apply for a new lifelong pet travel document for each pet.
+                @Localizer["If you change your personal details like name and address, you need to apply for a new lifelong pet travel document for each pet."]
             </strong>
         </div>
 
 
         <p class="govuk-body">
-            You can           
-            <a class="govuk-link" href="@Url.Action("RedirectToExternal", "User")">manage your account</a>
+            @Localizer["You can"]           
+            <a class="govuk-link" href="@Url.Action("RedirectToExternal", "User")">@Localizer["manage your account"]</a>
 
-            to change your sign in details.
+            @Localizer["to change your sign in details."]
         </p>
         <p class="govuk-body">
-            <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.Index">View your lifelong pet travel documents or apply for a new one</a>.
+            <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.Index">@Localizer["View your lifelong pet travel documents or apply for a new one."]</a>
         </p>
     </div>
 </div>

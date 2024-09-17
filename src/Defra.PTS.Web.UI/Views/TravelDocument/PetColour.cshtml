@@ -8,13 +8,16 @@
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.UI.Extensions;
 @using Microsoft.Extensions.Localization;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @inject IStringLocalizer<SharedResource> sharedlocalizer
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Black" };
-    this.SetMetaTitle(Model.FormTitle);
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = Localizer[Model.FormTitle].Value, LabelFor = "Black" };
+    this.SetMetaTitle(Localizer[Model.FormTitle].Value);
 
-    var colours = (List<ColourDto>)ViewBag.Colours;
+    var colours = (IEnumerable<ColourDto>)ViewBag.Colours;
+    int otherId = Int32.Parse(colours.Last().Id);
 }
 
 <div class="govuk-grid-row">
@@ -30,13 +33,13 @@
             
             <partial name="_ErrorSummary" />
 
-            <div id="formroot" class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+            <div id="formroot" class="govuk-form-group @(ViewData.ModelState.HasError("PetColour") ? "govuk-form-group--error" : null)">
                 <fieldset class="govuk-fieldset">
 
                     <partial name="_FieldsetLegend" model=fieldsetLegend />
 
                     <div class="govuk-hint">
-                        Choose the main colour of your @Model.PetTypeNameLowered. For example, if your @Model.PetTypeNameLowered is mostly black with white spots, choose black.
+                       @Localizer[$"Choose the main colour of your {@Model.PetTypeNameLowered}. For example, if your {@Model.PetTypeNameLowered} is mostly black with white spots, choose black."]
                     </div>
 
                     @Html.ValidationMessageFor(x => x.PetColour, string.Empty, new { @class="govuk-error-message"})
@@ -46,21 +49,33 @@
 
                             @foreach (var petColour in colours)
                             {
-                                <div class="govuk-radios__item">
-                                    @Html.RadioButtonFor(m => m.PetColour, petColour.Id, new {@class="govuk-radios__input", @id=petColour.Code})
-                                    <label class="govuk-label govuk-radios__label" for="@petColour.Code">
-                                        @petColour.Name
-                                    </label>
-                                </div>
+                                if(petColour.Code != sharedlocalizer["Other"])
+                                {
+                                    <div class="govuk-radios__item">
+                                        <input class="govuk-radios__input" type="radio" id=@petColour.Code asp-for="PetColour" value="@petColour.Id" onclick="clearInput()">
+                                        <label class="govuk-label govuk-radios__label" for="@petColour.Code">
+                                            @petColour.Name
+                                        </label>
+                                    </div>
+                                }
                             }
 
+                            <div class="govuk-radios__item">
+                                <input class="govuk-radios__input" type="radio" id="rBtnPetColourOther" asp-for="PetColour" value="@otherId" aria-controls="conditional-PetColourOther" aria-expanded="false">
+                                <label class="govuk-label govuk-radios__label" for="rBtnPetColourOther">
+                                    @sharedlocalizer["Other"]
+                                </label>
+                            </div>
+
                             <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-PetColourOther">
-                                <div class="govuk-form-group" id="OtherColour">
-                                    <label class="govuk-label govuk-label--s" for="PetColourOther">
-                                        Describe the colour of your @Model.PetTypeNameLowered
-                                    </label>
-                                    @Html.ValidationMessageFor(x => x.PetColourOther, string.Empty, new { @class="govuk-error-message"})
-                                    @Html.TextBoxFor(x => x.PetColourOther, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false", @autocomplete = "colour" })
+                                <div class="govuk-form-group @(ViewData.ModelState.HasError("PetColourOther") ? "govuk-form-group--error" : null)">
+                                    <div class="govuk-form-group">
+                                        <label class="govuk-label govuk-label--s" for="PetColourOther">
+                                           @Localizer[$"Describe the colour of your {@Model.PetTypeNameLowered}"]
+                                        </label>
+                                        @Html.ValidationMessageFor(x => x.PetColourOther, string.Empty, new { @class = "govuk-error-message" })
+                                        <input class="govuk-input govuk-!-width-two-thirds" id="PetColourOther" asp-for="PetColourOther" spellcheck="false">
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -89,8 +104,6 @@
                 $('#formroot').removeClass("govuk-form-group--error");
                 $('#OtherColour').addClass("govuk-form-group--error");
             }
-            
-            toggleOtherColourTextBox();
 
             $(".govuk-radios__input").click(function () {
 
@@ -99,23 +112,11 @@
                 $('#formroot').removeClass("govuk-form-group--error");
                 $('#OtherColour').removeClass("govuk-form-group--error");
 
-                toggleOtherColourTextBox();
-
             });
         })
 
-        function toggleOtherColourTextBox() {
-
-            const selectedColourId = $('input[type=radio][name=PetColour]:checked').val();
-            const otherColourId = $("#OtherColourID").val();
-
-            if (otherColourId && selectedColourId == otherColourId) {
-                $("#conditional-PetColourOther").show();
-            }
-            else
-            {
-                $("#conditional-PetColourOther").hide();
-            }
+        function clearInput() {
+            document.getElementById("PetColourOther").value = "";
         }
     </script>
 }

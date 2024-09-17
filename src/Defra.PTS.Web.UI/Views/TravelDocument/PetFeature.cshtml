@@ -5,12 +5,14 @@
 @using Defra.PTS.Web.Domain.ViewModels;
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @using Microsoft.Extensions.Localization;
 @inject IStringLocalizer<SharedResource> sharedlocalizer
 
 @{
     var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Yes" };
-    this.SetMetaTitle(Model.FormTitle);
+    this.SetMetaTitle(Localizer[Model.FormTitle].Value);
 }
 
 <div class="govuk-grid-row">
@@ -27,15 +29,15 @@
                 <fieldset class="govuk-fieldset govuk-!-margin-bottom-5" aria-describedby="@(ViewData.ModelState.HasError("HasUniqueFeature") ? "OptionSelected_Error": null)">
                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
                         <h1 class="govuk-fieldset__heading">
-                            Does your pet have any significant features?
+                            @Localizer["Does your pet have any significant features?"]
                         </h1>
                     </legend>
 
                     <div id="feature-hint" class="govuk-hint">
                         <p class="govuk-body">
-                            A significant feature is anything that can help us to identify your pet.
+                            @Localizer["A significant feature is anything that can help us to identify your pet."]
                             <br />
-                            For example, if your pet has one eye or a missing leg.
+                            @Localizer["For example, if your pet has one eye or a missing leg."]
                         </p>
                     </div>
 
@@ -45,7 +47,7 @@
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" type="radio" id="HasUniqueFeatureYes" asp-for="HasUniqueFeature" value="@YesNoOptions.Yes" aria-controls="conditional-feature" aria-expanded="false">
                                 <label class="govuk-label govuk-radios__label" for="HasUniqueFeatureYes">
-                                    Yes
+                                    @sharedlocalizer["Yes"]
                                 </label>
                             </div>
 
@@ -53,9 +55,9 @@
                                 <div class="govuk-form-group @(ViewData.ModelState.HasError("FeatureDescription") ? "govuk-form-group--error" : null)">
                                     <div class="govuk-form-group">
                                         <label class="govuk-label" for="FeatureDescription">
-                                            Briefly describe your pet's significant feature
+                                            @Localizer["Briefly describe your pet's significant feature"]
                                         </label>
-                                        <p id="Feature_Error" class="govuk-error-message" gds-validation-for="FboNumber"></p>
+                                        @Html.ValidationMessageFor(x => x.FeatureDescription, string.Empty, new { @class = "govuk-error-message" })
                                         <textarea class="govuk-textarea" id="FeatureDescription" rows="5" asp-for="FeatureDescription" spellcheck="false"></textarea>
                                     </div>
                                 </div>
@@ -64,7 +66,7 @@
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" type="radio" id="HasUniqueFeatureNo" asp-for="HasUniqueFeature" value="@YesNoOptions.No" onclick="clearInput()">
                                 <label class="govuk-label govuk-radios__label" for="HasUniqueFeatureNo">
-                                    No
+                                    @sharedlocalizer["No"]
                                 </label>
                             </div>
 

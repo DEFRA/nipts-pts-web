@@ -7,16 +7,28 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Localization;
+using Defra.PTS.Web.Domain;
+using Microsoft.Extensions.Logging.Abstractions;
+using Microsoft.Extensions.Options;
 
 namespace Defra.PTS.Web.Application.UnitTests.Validation
 {
     public class PetBreedValidatorShould
     {
+        private readonly IStringLocalizer<SharedResource> _localizer;
+        public PetBreedValidatorShould()
+        {
+            var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
+            var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
+            _localizer = new StringLocalizer<SharedResource>(factory);
+        }
+
         [Fact]
         public async Task NotHaveErrorBreedName()
         {
             var model = new PetBreedViewModel() { BreedName = "Husky" };
-            var validator = new PetBreedValidator();
+            var validator = new PetBreedValidator(_localizer);
 
             var result = await validator.TestValidateAsync(model);
 
@@ -32,11 +44,11 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
                 PetSpecies = petSpecies,
                 BreedName = breedName
             };
-            var validator = new PetBreedValidator();
+            var validator = new PetBreedValidator(_localizer);
 
             var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.BreedId);
+            result.ShouldHaveValidationErrorFor(x => x.BreedName);
         }
 
         [Fact]
@@ -47,7 +59,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
                 PetSpecies = PetSpecies.Dog,
                 BreedName = new string('a', 155)
             };
-            var validator = new PetBreedValidator();
+            var validator = new PetBreedValidator(_localizer);
 
             var result = await validator.TestValidateAsync(model);
 

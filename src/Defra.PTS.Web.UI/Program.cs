@@ -54,7 +54,12 @@ _ = builder.Services.AddMediatR(cfg =>
 
 _ = builder.Services.AddHttpContextAccessor();
 _ = builder.Services.AddMvc().AddSessionStateTempDataProvider();
-_ = builder.Services.AddSession();
+_ = builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 _ = builder.Services.AddApplicationInsightsTelemetry();
 
 _ = builder.Services.AddCertificateServices(builder.Configuration);
@@ -118,7 +123,6 @@ app.UseRequestLocalization(options =>
     var questStringCultureProvider = options.RequestCultureProviders[0];
     options.RequestCultureProviders.RemoveAt(0);
     options.RequestCultureProviders.Insert(1, questStringCultureProvider);
-    options.DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-GB");
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
     options.ApplyCurrentCultureToResponseHeaders = true;
@@ -131,6 +135,8 @@ _ = app.UseStaticFiles(new StaticFileOptions
 });
 
 _ = app.UseSession();
+_ = app.UseMiddleware<SessionTimeoutMiddleware>();
+
 _ = app.UseStatusCodePagesWithReExecute("/Error/HandleError/{0}");
 _ = app.UseRouting();
 _ = app.UseCors("AllowOrigins");

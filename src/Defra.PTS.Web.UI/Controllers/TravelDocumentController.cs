@@ -18,6 +18,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
+using Microsoft.Extensions.Localization;
+using Microsoft.Azure.Management.BatchAI.Fluent.Models;
+using Defra.PTS.Web.UI.Helpers;
+using Defra.PTS.Web.Domain.Enums;
 
 namespace Defra.PTS.Web.UI.Controllers;
 
@@ -29,13 +33,16 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     private readonly IMediator _mediator;
     private readonly ILogger<TravelDocumentController> _logger;
     private readonly PtsSettings _ptsSettings;
-
+    private readonly ISelectListLocaliser _selectListLocaliser;
+    private readonly IStringLocalizer<SharedResource> _localizer;
 
     public TravelDocumentController(
           IValidationService validationService,
           IMediator mediator,
           ILogger<TravelDocumentController> logger,
-          IOptions<PtsSettings> ptsSettings
+          IOptions<PtsSettings> ptsSettings,
+          ISelectListLocaliser breedHelper,
+          IStringLocalizer<SharedResource> localizer
           )
     {
         ArgumentNullException.ThrowIfNull(validationService);
@@ -46,12 +53,20 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         _validationService = validationService;
         _mediator = mediator;
         _logger = logger;
+        _selectListLocaliser = breedHelper;
+        _localizer = localizer;
         _ptsSettings = ptsSettings.Value;
+   
     }
 
     [HttpGet]
     public async Task<IActionResult> Index()
     {
+        if (HttpContext != null && HttpContext.Session != null)
+        {
+            HttpContext.Session.SetString("SessionActive", "yes");
+        }        
+
         try
         {
             if (HttpContext.Request.Cookies.TryGetValue("ManagementLinkClicked", out string managementLinkClicked) && managementLinkClicked == "true")
