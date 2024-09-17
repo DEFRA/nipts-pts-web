@@ -148,9 +148,9 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 PetAge = new PetAgeViewModel
                 {
                     IsCompleted = true,
-                    Day = 01,
-                    Month = 1,
-                    Year=2022,
+                    Day = "01",
+                    Month = "1",
+                    Year="2022",
                     
                 }
 
@@ -200,9 +200,9 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 PetAge = new PetAgeViewModel
                 {
                     IsCompleted = false,
-                    Day = 01,
-                    Month = 1,
-                    Year = 2022,
+                    Day = "01",
+                    Month = "1",
+                    Year = "2022",
 
                 }
 
@@ -252,9 +252,9 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 PetAge = new PetAgeViewModel
                 {
                     IsCompleted = true,
-                    Day = 01,
-                    Month = 1,
-                    Year = 2022,
+                    Day = "01",
+                    Month = "1",
+                    Year = "2022",
 
                 },
                 PetMicrochipDate = new PetMicrochipDateViewModel

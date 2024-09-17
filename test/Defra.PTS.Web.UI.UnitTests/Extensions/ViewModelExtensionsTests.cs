@@ -543,9 +543,9 @@ public class ViewModelExtensionsTests
         return new()
         {
             IsCompleted = isCompleted,
-            Day = 1,
-            Month = 1,
-            Year = 2020,
+            Day = 1.ToString(),
+            Month = 1.ToString(),
+            Year = 2020.ToString(),
             MicrochippedDate = new DateTime(2024, 1, 1),
         };
     }

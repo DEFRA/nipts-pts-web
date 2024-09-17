@@ -37,7 +37,10 @@ public class PetAgeValidator : AbstractValidator<PetAgeViewModel>
 
     private static bool IsEmptyDate(PetAgeViewModel model)
     {
-        return model.Day.GetValueOrDefault() == 0 && model.Month.GetValueOrDefault() == 0 && model.Year.GetValueOrDefault() == 0;
+        _ = int.TryParse(model.Day, out int day);
+        _ = int.TryParse(model.Month, out int month);
+        _ = int.TryParse(model.Year, out int year);
+        return day == 0 && month == 0 && year == 0;
     }
 
     private static bool BePastDate(DateTime? date)

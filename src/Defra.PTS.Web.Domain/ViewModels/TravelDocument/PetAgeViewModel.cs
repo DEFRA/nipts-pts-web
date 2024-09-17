@@ -5,14 +5,22 @@ namespace Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 public class PetAgeViewModel : TravelDocumentFormPage
 {
     public string FormTitle => $"What is your pet's date of birth?";
+    
+    public string Day { get; set; }
 
+    public string Month { get; set; }
+
+    public string Year { get; set; }
     public DateTime? BirthDate
     {
         get
         {
             try
             {
-                return new DateTime(Year.GetValueOrDefault(), Month.GetValueOrDefault(), Day.GetValueOrDefault(), 0, 0, 0, 0, DateTimeKind.Utc);
+                _ = int.TryParse(Day, out int day);
+                _ = int.TryParse(Month, out int month);
+                _ = int.TryParse(Year, out int year);
+                return new DateTime(year, month, day, 0, 0, 0, 0, DateTimeKind.Utc);
             }
             catch
             {
@@ -20,12 +28,6 @@ public class PetAgeViewModel : TravelDocumentFormPage
             }
         }
     }
-
-    public int? Day { get; set; }
-
-    public int? Month { get; set; }
-
-    public int? Year { get; set; }
 
     public DateTime MicrochippedDate { get; set; }
 
