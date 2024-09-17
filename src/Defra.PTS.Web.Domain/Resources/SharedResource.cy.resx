@@ -241,4 +241,28 @@
     <value>Rhowch rif microsglodyn eich anifail anwes</value>
     <comment>PetMicrochip</comment>
   </data>
+  <data name="Select the main colour of your cat" xml:space="preserve">
+    <value>Dewiswch brif liw eich cath</value>
+  </data>
+  <data name="Select the main colour of your dog" xml:space="preserve">
+    <value>Dewiswch brif liw eich ci</value>
+  </data>
+  <data name="Select the main colour of your ferret" xml:space="preserve">
+    <value>Dewiswch brif liw eich ffured</value>
+  </data>
+  <data name="Describe your pet's significant feature" xml:space="preserve">
+    <value>Disgrifiwch nodwedd arwyddocaol eich anifail anwes</value>
+    <comment>Pet Feature</comment>
+  </data>
+  <data name="Describe your pet's significant feature, using 300 characters or less" xml:space="preserve">
+    <value>Disgrifiwch nodwedd arwyddocaol eich anifail anwes, gan ddefnyddio 300 o gymeriadau neu lai</value>
+    <comment>Pet Feature</comment>
+  </data>
+  <data name="Tell us if your pet has any significant features" xml:space="preserve">
+    <value>Dwedwch a oes gan eich anifail anwes unrhyw nodweddion arwyddocaol</value>
+    <comment>Pet Feature</comment>
+  </data>
+  <data name="Enter a date that is before the pet’s microchip date" xml:space="preserve">
+    <value>Rhowch ddyddiad sydd cyn rhif microsglodyn yr anifail anwes</value>
+  </data>
 </root>
