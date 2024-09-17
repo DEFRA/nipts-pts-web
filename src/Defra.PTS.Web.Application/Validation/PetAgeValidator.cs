@@ -12,25 +12,98 @@ public class PetAgeValidator : AbstractValidator<PetAgeViewModel>
 
     public PetAgeValidator(IStringLocalizer<SharedResource> localizer)
     {
-        When(x => IsEmptyDate(x), () =>
+        When(x => x.Day == null, () =>
         {
-            RuleFor(x => x.BirthDate).NotEmpty().WithMessage(localizer[BirthDateError]);
+            RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(localizer[BirthDateError]);
         });
 
-        When(x => !IsEmptyDate(x), () =>
+        When(x => x.Month == null, () =>
         {
-            RuleFor(x => x.BirthDate).NotEmpty().WithMessage(localizer[BirthDateError]);
+            When(x => x.Day != null, () =>
+            {
+                RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+                .NotEmpty().WithMessage(localizer[BirthDateError]);
+            });
+
+            RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");
+        });
+
+        When(x => x.Year == null, () =>
+        {
+            When(x => (x.Day != null && x.Month != null), () =>
+            {
+                RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+                .NotEmpty().WithMessage(localizer[BirthDateError]);
+            });
+
+            RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");
+        });
+
+        When(x => IsEmptyDate(x), () =>
+        {
+            RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(localizer[BirthDateError]);
+
+            RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");
+
+            RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+            .NotEmpty().WithMessage(" ");
+        });
+
+        When(x => !x.BirthDate.HasValue && x.Day != null && x.Month != null && x.Year != null, () =>
+        {
+            RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+            .Null().WithMessage(localizer[BirthDateError]);
+
+            RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+            .Null().WithMessage(" ");
+
+            RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+            .Null().WithMessage(" ");
         });
 
         When(x => x.BirthDate.HasValue, () =>
         {
             var message = localizer["Enter a date that is less than 34 years ago"].Value;
+            When(x => !MeetsDateLimits(x.BirthDate, out message), () =>
+            {
+                RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(x => localizer[message]);
 
-            RuleFor(x => x.BirthDate).Cascade(CascadeMode.Stop)
-                .Must(BePastDate).WithMessage(localizer["Enter a date that is in the past"])
-                .Must((x, e) => MeetsDateLimits(x.BirthDate, out message)).WithMessage(x => localizer[message])
-                .LessThan(m => m.MicrochippedDate).WithMessage(localizer["Enter a date that is before the pet’s microchip date"]);
+                RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(" ");
 
+                RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(" ");
+            });
+
+            When(x => !BePastDate(x.BirthDate), () =>
+            {
+                RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(localizer["Enter a date that is in the past"]);
+
+                RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+               .Null().WithMessage(" ");
+
+                RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(" ");
+            });
+
+            When(x => BePastDate(x.BirthDate) && x.BirthDate > x.MicrochippedDate, () =>
+            {
+                RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(localizer["Enter a date that is before the pet’s microchip date"]);
+
+                RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(" ");
+
+                RuleFor(x => x.Year).Cascade(CascadeMode.Stop)
+                .Null().WithMessage(" ");
+            });
         });
 
     }
@@ -50,13 +123,13 @@ public class PetAgeValidator : AbstractValidator<PetAgeViewModel>
 
     private static bool MeetsDateLimits(DateTime? date, out string errorMessage)
     {
-        var fromDate = DateTime.Now.Date.AddYears(-AppConstants.Values.PetMaxAgeInYears);
-        var toDate = DateTime.Now.Date.AddDays(-1);
+        // 1 day after allowed dob
+        var fromDate = DateTime.Now.Date.AddYears(-AppConstants.Values.PetMaxAgeInYears).AddDays(1);
+        var toDate = DateTime.Now.Date;
 
         errorMessage = "Enter a date that is less than 34 years ago";
 
         var dob = date.Value.Date;
-
-        return dob >= fromDate && dob <= toDate;
+        return dob >= fromDate;
     }
 }
