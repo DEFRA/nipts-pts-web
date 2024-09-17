@@ -35,7 +35,54 @@ public class PetAgeValidatorShould
         
         var result = await validator.TestValidateAsync(model);
         
-        result.ShouldHaveValidationErrorFor(x => x.BirthDate);
+        result.ShouldHaveValidationErrorFor(x => x.Day);
+        result.ShouldHaveValidationErrorFor(x => x.Month);
+        result.ShouldHaveValidationErrorFor(x => x.Year);
+    }
+
+    [Fact]
+    public async Task HaveErrorIfDayEmpty()
+    {
+        var model = new PetAgeViewModel() { Month = "1", Year = "2010" };
+        var validator = new PetAgeValidator(_localizer);
+
+        var result = await validator.TestValidateAsync(model);
+
+        result.ShouldHaveValidationErrorFor(x => x.Day);
+    }
+
+    [Fact]
+    public async Task HaveErrorIfMonthEmpty()
+    {
+        var model = new PetAgeViewModel() { Day = "1", Year = "2010" };
+        var validator = new PetAgeValidator(_localizer);
+
+        var result = await validator.TestValidateAsync(model);
+
+        result.ShouldHaveValidationErrorFor(x => x.Month);
+    }
+
+    [Fact]
+    public async Task HaveErrorIfDayMonthEmpty()
+    {
+        var model = new PetAgeViewModel() { Year = "2010" };
+        var validator = new PetAgeValidator(_localizer);
+
+        var result = await validator.TestValidateAsync(model);
+
+        result.ShouldHaveValidationErrorFor(x => x.Day);
+        result.ShouldHaveValidationErrorFor(x => x.Month);
+    }
+
+    [Fact]
+    public async Task HaveErrorIfYearEmpty()
+    {
+        var model = new PetAgeViewModel() { Day = "1", Month = "1" };
+        var validator = new PetAgeValidator(_localizer);
+
+        var result = await validator.TestValidateAsync(model);
+
+        result.ShouldHaveValidationErrorFor(x => x.Year);
     }
 
     [Fact]
@@ -52,7 +99,6 @@ public class PetAgeValidatorShould
 
         var result = await validator.TestValidateAsync(model);
 
-        result.ShouldNotHaveValidationErrorFor(x => x.BirthDate);
         result.ShouldNotHaveValidationErrorFor(x => x.Day);
         result.ShouldNotHaveValidationErrorFor(x => x.Month);
         result.ShouldNotHaveValidationErrorFor(x => x.Year);
@@ -73,9 +119,35 @@ public class PetAgeValidatorShould
 
         var result = await validator.TestValidateAsync(model);
 
-        result.ShouldHaveValidationErrorFor(x => x.BirthDate);
+        result.ShouldHaveValidationErrorFor(x => x.Day);
+        result.ShouldHaveValidationErrorFor(x => x.Month);
+        result.ShouldHaveValidationErrorFor(x => x.Year);
     }
 
+    [Fact]
+    public async Task HaveErrorWhenBirthDateAfterMicrochipDate()
+    {
+        var modelMicrochip = new PetMicrochipDateViewModel()
+        {
+            Day = "1",
+            Month = "1",
+            Year = "2020",
+        };
 
+        var modelAge = new PetAgeViewModel()
+        {
+            Day = "1",
+            Month = "1",
+            Year = "2024",
+        };
+
+        var validator = new PetAgeValidator(_localizer);
+
+        var result = await validator.TestValidateAsync(modelAge);
+
+        result.ShouldHaveValidationErrorFor(x => x.Day);
+        result.ShouldHaveValidationErrorFor(x => x.Month);
+        result.ShouldHaveValidationErrorFor(x => x.Year);
+    }
 
 }

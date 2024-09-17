@@ -38,7 +38,6 @@ public class PetMicrochipDateValidatorShould
 
         var result = await validator.TestValidateAsync(model);
 
-        result.ShouldNotHaveValidationErrorFor(x => x.MicrochippedDate);
         result.ShouldNotHaveValidationErrorFor(x => x.Year);
         result.ShouldNotHaveValidationErrorFor(x => x.Month);
         result.ShouldNotHaveValidationErrorFor(x => x.Day);
@@ -50,32 +49,34 @@ public class PetMicrochipDateValidatorShould
         var model = new PetMicrochipDateViewModel();
         var validator = new PetMicrochipDateValidator(_localizer);
 
-            var result = await validator.TestValidateAsync(model);
+        var result = await validator.TestValidateAsync(model);
 
-            result.ShouldNotHaveValidationErrorFor(x => x.MicrochippedDate);   
-        }
+        result.ShouldHaveValidationErrorFor(x => x.Day);
+        result.ShouldHaveValidationErrorFor(x => x.Month);
+        result.ShouldHaveValidationErrorFor(x => x.Year);
+    }
 
-        [Fact]
-        public async Task HaveErrorIfDayEmpty()
-        {
-            var model = new PetMicrochipDateViewModel() { Month = "1", Year = "2010" };
-            var validator = new PetMicrochipDateValidator(_localizer);
+    [Fact]
+    public async Task HaveErrorIfDayEmpty()
+    {
+        var model = new PetMicrochipDateViewModel() { Month = "1", Year = "2010" };
+        var validator = new PetMicrochipDateValidator(_localizer);
 
-            var result = await validator.TestValidateAsync(model);
+        var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.Day);
-        }
+        result.ShouldHaveValidationErrorFor(x => x.Day);
+    }
 
-        [Fact]
-        public async Task HaveErrorIfMonthEmpty()
-        {
-            var model = new PetMicrochipDateViewModel() { Day = "1", Year = "2010" };
-            var validator = new PetMicrochipDateValidator(_localizer);
+    [Fact]
+    public async Task HaveErrorIfMonthEmpty()
+    {
+        var model = new PetMicrochipDateViewModel() { Day = "1", Year = "2010" };
+        var validator = new PetMicrochipDateValidator(_localizer);
 
-            var result = await validator.TestValidateAsync(model);
+        var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.Month);
-        }
+        result.ShouldHaveValidationErrorFor(x => x.Month);
+    }
 
     [Fact]
     public async Task HaveErrorIfDayMonthEmpty()
@@ -85,20 +86,20 @@ public class PetMicrochipDateValidatorShould
 
         var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.Day);
-            result.ShouldHaveValidationErrorFor(x => x.Month);
-        }
+        result.ShouldHaveValidationErrorFor(x => x.Day);
+        result.ShouldHaveValidationErrorFor(x => x.Month);
+    }
 
     [Fact]
     public async Task HaveErrorIfYearEmpty()
     {
-        var model = new PetMicrochipDateViewModel() { Day = "1", Month = "1"};
+        var model = new PetMicrochipDateViewModel() { Day = "1", Month = "1" };
         var validator = new PetMicrochipDateValidator(_localizer);
 
         var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.Year);
-        }
+        result.ShouldHaveValidationErrorFor(x => x.Year);
+    }
 
     [Fact]
     public async Task HaveErrorWhenMicrochipDateExceedsDateLimits()
@@ -109,15 +110,14 @@ public class PetMicrochipDateValidatorShould
             Month = "1",
             Day = "1",
             BirthDate = new DateTime(1990, 01, 01)
-        };             
+        };
 
         var validator = new PetMicrochipDateValidator(_localizer);
 
         var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.Day);
-            result.ShouldHaveValidationErrorFor(x => x.Month);
-            result.ShouldHaveValidationErrorFor(x => x.Year);
-        }
-
+        result.ShouldHaveValidationErrorFor(x => x.Day);
+        result.ShouldHaveValidationErrorFor(x => x.Month);
+        result.ShouldHaveValidationErrorFor(x => x.Year);
+    }
 }
