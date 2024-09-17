@@ -50,9 +50,31 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
             var model = new PetMicrochipDateViewModel();
             var validator = new PetMicrochipDateValidator(_localizer);
 
-            var result = await validator.TestValidateAsync(model);            
+            var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.MicrochippedDate);
+            result.ShouldNotHaveValidationErrorFor(x => x.MicrochippedDate);   
+        }
+
+        [Fact]
+        public async Task HaveErrorIfDayEmpty()
+        {
+            var model = new PetMicrochipDateViewModel() { Month = "1", Year = "2010" };
+            var validator = new PetMicrochipDateValidator(_localizer);
+
+            var result = await validator.TestValidateAsync(model);
+
+            result.ShouldHaveValidationErrorFor(x => x.Day);
+        }
+
+        [Fact]
+        public async Task HaveErrorIfMonthEmpty()
+        {
+            var model = new PetMicrochipDateViewModel() { Day = "1", Year = "2010" };
+            var validator = new PetMicrochipDateValidator(_localizer);
+
+            var result = await validator.TestValidateAsync(model);
+
+            result.ShouldHaveValidationErrorFor(x => x.Month);
         }
 
         [Fact]
@@ -63,7 +85,8 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 
             var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.MicrochippedDate);
+            result.ShouldHaveValidationErrorFor(x => x.Day);
+            result.ShouldHaveValidationErrorFor(x => x.Month);
         }
 
         [Fact]
@@ -74,7 +97,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 
             var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.MicrochippedDate);
+            result.ShouldHaveValidationErrorFor(x => x.Year);
         }
 
         [Fact]
@@ -92,7 +115,9 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 
             var result = await validator.TestValidateAsync(model);
 
-            result.ShouldHaveValidationErrorFor(x => x.MicrochippedDate);
+            result.ShouldHaveValidationErrorFor(x => x.Day);
+            result.ShouldHaveValidationErrorFor(x => x.Month);
+            result.ShouldHaveValidationErrorFor(x => x.Year);
         }
 
     }
