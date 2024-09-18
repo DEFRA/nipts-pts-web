@@ -40,6 +40,7 @@
                             @Localizer["For example, if your pet has one eye or a missing leg."]
                         </p>
                     </div>
+                    @Html.ValidationMessageFor(x => x.HasUniqueFeature, string.Empty, new { @class = "govuk-error-message" })
 
                     <p id="OptionSelected_Error" class="govuk-error-message" gds-validation-for="HasUniqueFeature"></p>
                     <div class="govuk-radios" data-module="govuk-radios" id="HasUniqueFeature">
