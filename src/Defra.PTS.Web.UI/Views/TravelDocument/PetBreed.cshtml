@@ -52,8 +52,8 @@
                     <div id="BreedId__assistiveHint" class="govuk-hint">
                         @exampleText
                     </div>
-                    <div class="govuk-form-group">
-                        @Html.ValidationMessageFor(x => x.BreedId, string.Empty, new { @class = "govuk-error-message" })
+                    <div class="govuk-form-group" id="BreedName" >
+                        @Html.ValidationMessageFor(x => x.BreedName, string.Empty, new { @class = "govuk-error-message" })
 
                         <select class="govuk-select govuk-!-width-full" id="BreedId" spellcheck="true" aria-labelledby="BreedLabel" asp-for="BreedId" asp-items="ViewBag.BreedList"></select>
 
