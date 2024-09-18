@@ -177,10 +177,17 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     #region Private Methods
     private async Task<List<SelectListItem>> GetBreedsAsSelectListItems(PetSpecies petType)
     {
-
         var list = await _selectListLocaliser.GetBreedList(petType);
 
-        return list.ToSelectListItems();
+        // Order by Name
+        var orderedColours = list
+            //Mixed Breed or unknown to always be at top of list
+            .OrderBy(x => x.BreedName.StartsWith(_localizer["Mixed breed"]) ? 0 : 1)
+            // If free text or BreedName null then don't sort
+            .ThenBy(x => x.BreedName ?? string.Empty)
+            .ToList();
+
+        return orderedColours.ToSelectListItems();
     }
 
     #endregion Private Methods
