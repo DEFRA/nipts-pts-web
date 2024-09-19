@@ -220,7 +220,8 @@ public class SessionTimeoutMiddleware
             if (!string.IsNullOrWhiteSpace(cultureQuery))
             {
                 //Get culture from cookie and set language
-                var cultureCode = cultureQuery.Split('|').FirstOrDefault(segment => segment.StartsWith("c="))?.Substring(2);
+                //var cultureCode = cultureQuery.Split('|').FirstOrDefault(segment => segment.StartsWith("c="))?.Substring(2);
+                var cultureCode = Array.Find(cultureQuery.Split('|'), (segment => segment.StartsWith("c=")))?.Substring(2);
                 if (!string.IsNullOrEmpty(cultureCode))
                 {
                     var culture = new CultureInfo(cultureCode);
