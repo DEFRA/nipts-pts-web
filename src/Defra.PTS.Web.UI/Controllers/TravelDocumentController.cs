@@ -29,7 +29,6 @@ namespace Defra.PTS.Web.UI.Controllers;
 public partial class TravelDocumentController : BaseTravelDocumentController
 {
 
-    //private readonly IValidationService _validationService;
     private readonly IMediator _mediator;
     private readonly ILogger<TravelDocumentController> _logger;
     private readonly PtsSettings _ptsSettings;
@@ -50,7 +49,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         ArgumentNullException.ThrowIfNull(logger);
         ArgumentNullException.ThrowIfNull(ptsSettings);
 
-        //_validationService = validationService;
         _mediator = mediator;
         _logger = logger;
         _selectListLocaliser = breedHelper;

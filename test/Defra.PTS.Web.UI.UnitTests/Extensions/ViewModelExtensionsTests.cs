@@ -345,7 +345,7 @@ public class ViewModelExtensionsTests
         return new();
     }
 
-    private TravelDocumentViewModel GetCompletedModel(bool isCompleted = true)
+    private static TravelDocumentViewModel GetCompletedModel(bool isCompleted = true)
     {
         return new()
         {
