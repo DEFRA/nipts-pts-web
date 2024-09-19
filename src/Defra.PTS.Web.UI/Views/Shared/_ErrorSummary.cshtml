@@ -19,9 +19,12 @@
                 <ul class="govuk-list govuk-error-summary__list">
                     @foreach (var error in errorsFlattened)
                     {
-                        <li>
-                            <a href="#@error.field">@error.error</a>
-                        </li>
+                        if (!string.IsNullOrEmpty(error.field) && !string.IsNullOrEmpty(error.error.Trim()))
+                        {
+                            <li>
+                                <a href="#@error.field">@error.error</a>
+                            </li>
+                        }
                     }
                 </ul>
             </div>
