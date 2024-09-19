@@ -34,7 +34,7 @@ namespace Defra.PTS.Web.Application.Validation
             });
         }
 
-        private bool IsAllDigits(string microchipNumber)
+        private static bool IsAllDigits(string microchipNumber)
         {
             return microchipNumber.All(char.IsDigit);
         }

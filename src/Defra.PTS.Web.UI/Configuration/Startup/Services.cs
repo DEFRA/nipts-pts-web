@@ -213,23 +213,21 @@ public class SessionTimeoutMiddleware
     {
         //Check that the previous url is "", which happens when logging into index page
         var referer = context.Request.Headers["Referer"].ToString();
-        if (!string.IsNullOrEmpty(referer))
+        if (string.IsNullOrEmpty(referer))
         {
-            return;
-        }
-        //Check HttpContext Cookies Request from User Controller
-        var cultureQuery = context.Request.Query["setLanguage"].ToString();
-        if (string.IsNullOrWhiteSpace(cultureQuery))
-        {
-            return;
-        }
-        //Get culture from cookie and set language
-        var cultureCode = cultureQuery.Split('|').FirstOrDefault(segment => segment.StartsWith("c="))?.Substring(2);
-        if (!string.IsNullOrEmpty(cultureCode))
-        {
-            var culture = new CultureInfo(cultureCode);
-            CultureInfo.CurrentCulture = culture;
-            CultureInfo.CurrentUICulture = culture;
+            //Check HttpContext Cookies Request from User Controller
+            var cultureQuery = context.Request.Query["setLanguage"].ToString();
+            if (!string.IsNullOrWhiteSpace(cultureQuery))
+            {
+                //Get culture from cookie and set language
+                var cultureCode = cultureQuery.Split('|').FirstOrDefault(segment => segment.StartsWith("c="))?.Substring(2);
+                if (!string.IsNullOrEmpty(cultureCode))
+                {
+                    var culture = new CultureInfo(cultureCode);
+                    CultureInfo.CurrentCulture = culture;
+                    CultureInfo.CurrentUICulture = culture;
+                }
+            }
         }
     }
 
@@ -259,7 +257,6 @@ public class SessionTimeoutMiddleware
         }
         // If session is active, continue to the next middleware in the pipeline
         await _next(context);
-        return;
     }
 
 }

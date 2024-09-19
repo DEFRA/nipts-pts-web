@@ -33,7 +33,7 @@ public class AddressLookupHandler : IRequestHandler<AddressLookupRequest, Addres
         }
         catch (Exception ex)
         {
-            _logger.LogError($"{nameof(_addressLookupService)}: Unable to get list of addresses for {request.Postcode}", ex);
+            _logger.LogError(ex, $"{nameof(_addressLookupService)}: Unable to get list of addresses for {request.Postcode}");
             throw;
         }
     }

@@ -61,7 +61,7 @@ public class UserService : IUserService
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Exception: Error returned from {ex.Message}: {ex.StackTrace}", ex);
+            _logger.LogError(ex, $"Exception: Error returned from {ex.Message}: {ex.StackTrace}");
             throw;
         }
     }
@@ -100,7 +100,7 @@ public class UserService : IUserService
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Exception: Error returned from {ex.Message}: {ex.StackTrace}", ex);
+            _logger.LogError(ex, $"Exception: Error returned from {ex.Message}: {ex.StackTrace}");
             throw;
         }
     }
@@ -127,7 +127,7 @@ public class UserService : IUserService
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Exception: Error returned from {ex.Message}: {ex.StackTrace}", ex);
+            _logger.LogError(ex, $"Exception: Error returned from {ex.Message}: {ex.StackTrace}");
             throw;
         }
     }
@@ -159,7 +159,7 @@ public class UserService : IUserService
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Exception: Error returned from {ex.Message}: {ex.StackTrace}", ex);
+            _logger.LogError(ex, $"Exception: Error returned from {ex.Message}: {ex.StackTrace}");
             throw;
         }
     }
@@ -191,7 +191,7 @@ public class UserService : IUserService
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Exception: Error returned from {ex.Message}: {ex.StackTrace}", ex);
+            _logger.LogError(ex, $"Exception: Error returned from {ex.Message}: {ex.StackTrace}");
             throw;
         }
     }
@@ -211,7 +211,7 @@ public class UserService : IUserService
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Exception: Error returned from {ex.Message}: {ex.StackTrace}", ex);
+            _logger.LogError(ex, $"Exception: Error returned from {ex.Message}: {ex.StackTrace}");
             throw;
         }
     }

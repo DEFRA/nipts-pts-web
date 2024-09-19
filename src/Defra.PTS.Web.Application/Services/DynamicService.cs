@@ -64,7 +64,7 @@ public class DynamicService : IDynamicService
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Exception-AddApplicationToQueueAsync: Message {ex.Message} : StackTrace {ex.StackTrace}", ex);
+            _logger.LogError(ex, $"Exception-AddApplicationToQueueAsync: Message {ex.Message} : StackTrace {ex.StackTrace}");
             throw;
         }        
     }

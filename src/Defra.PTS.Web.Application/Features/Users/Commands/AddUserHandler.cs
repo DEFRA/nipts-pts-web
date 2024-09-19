@@ -33,7 +33,7 @@ public class AddUserHandler : IRequestHandler<AddUserRequest, AddUserResponse>
         }
         catch (Exception ex)
         {
-            _logger.LogError($"{nameof(_userService)}: Unable to add user {request?.User?.UniqueReference}", ex);
+            _logger.LogError(ex, $"{nameof(_userService)}: Unable to add user {request?.User?.UniqueReference}");
             throw;
         }
     }

@@ -44,7 +44,7 @@ public class GetApplicationsQueryHandler : IRequestHandler<GetApplicationsQueryR
         }
         catch (Exception ex)
         {
-            _logger.LogError($"{nameof(_applicationService)}: Unable to get list of applications for User {request?.UserId}", ex);
+            _logger.LogError(ex, $"{nameof(_applicationService)}: Unable to get list of applications for User {request?.UserId}");
             throw;
         }
     }
