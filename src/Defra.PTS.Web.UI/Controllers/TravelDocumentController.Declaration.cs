@@ -89,7 +89,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
             _logger.LogError(ex, "Error Stack: " + ex.StackTrace);
             _logger.LogError(ex, "Exception Message: " + ex.Message);
-            throw;
+            //throw;
         }
 
         return RedirectToAction(nameof(Acknowledgement));
