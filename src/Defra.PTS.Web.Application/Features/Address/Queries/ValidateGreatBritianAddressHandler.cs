@@ -28,7 +28,7 @@ public class ValidateGreatBritianAddressHandler : IRequestHandler<ValidateGreatB
         }
         catch (Exception ex)
         {
-            _logger.LogError($"{nameof(_addressLookupService)}: Unable to get validadate Gb address for {request.Postcode}", ex);
+            _logger.LogError(ex, $"{nameof(_addressLookupService)}: Unable to get validadate Gb address for {request.Postcode}");
             return false;
         }
     }
@@ -61,7 +61,7 @@ public class ValidateGreatBritianAddressHandler : IRequestHandler<ValidateGreatB
         }
         catch (Exception ex)
         {
-            _logger.LogError("Non GB address inserted in IDM2", ex);
+            _logger.LogError(ex, "Non GB address inserted in IDM2");
 
             return false;
         }

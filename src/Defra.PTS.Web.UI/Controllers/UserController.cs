@@ -59,7 +59,7 @@ public class UserController : BaseController
         }
         catch (Exception ex)
         {
-            _logger.LogError($"{nameof(UpdateUserRequest)}: Unable to update user", ex);
+            _logger.LogError(ex, $"{nameof(UpdateUserRequest)}: Unable to update user");
             // do not throw the exception as its optional audit log call
         }
 
@@ -92,7 +92,7 @@ public class UserController : BaseController
         }
         catch (Exception ex)
         {
-            _logger.LogError("Error", ex);
+            _logger.LogError(ex, "Error");
             
         }
         string cookieLanguageCode = HttpContext.Request.Cookies[".AspNetCore.Culture"];

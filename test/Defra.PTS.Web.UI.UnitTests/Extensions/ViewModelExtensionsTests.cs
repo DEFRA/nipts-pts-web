@@ -340,12 +340,12 @@ public class ViewModelExtensionsTests
     }
 
     #region Private Methods
-    private TravelDocumentViewModel GetEmptyModel()
+    private static TravelDocumentViewModel GetEmptyModel()
     {
         return new();
     }
 
-    private TravelDocumentViewModel GetCompletedModel(bool isCompleted = true)
+    private static TravelDocumentViewModel GetCompletedModel(bool isCompleted = true)
     {
         return new()
         {
@@ -379,7 +379,7 @@ public class ViewModelExtensionsTests
 
     }
 
-    private PetMicrochipNotAvailableViewModel GetPetMicrochipNotAvailable(bool isCompleted = true)
+    private static PetMicrochipNotAvailableViewModel GetPetMicrochipNotAvailable(bool isCompleted = true)
     {
         return new()
         {
@@ -388,7 +388,7 @@ public class ViewModelExtensionsTests
     }
 
 
-    private PetMicrochipDateViewModel GetPetMicrochipDate(bool isCompleted = true)
+    private static PetMicrochipDateViewModel GetPetMicrochipDate(bool isCompleted = true)
     {
         return new()
         {
@@ -400,7 +400,7 @@ public class ViewModelExtensionsTests
         };
     }
 
-    private PetMicrochipViewModel GetPetMicrochip(bool isCompleted = true)
+    private static PetMicrochipViewModel GetPetMicrochip(bool isCompleted = true)
     {
         return new()
         {
@@ -410,7 +410,7 @@ public class ViewModelExtensionsTests
         };
     }
 
-    private PetKeeperPhoneViewModel GetPetKeeperPhone(bool isCompleted = true)
+    private static PetKeeperPhoneViewModel GetPetKeeperPhone(bool isCompleted = true)
     {
         return new()
         {
@@ -419,7 +419,7 @@ public class ViewModelExtensionsTests
         };
     }
 
-    private PetKeeperAddressManualViewModel GetPetKeeperAddressManual(bool isCompleted = true)
+    private static PetKeeperAddressManualViewModel GetPetKeeperAddressManual(bool isCompleted = true)
     {
         return new()
         {
@@ -430,7 +430,7 @@ public class ViewModelExtensionsTests
         };
     }
 
-    private PetKeeperAddressViewModel GetPetKeeperAddress(bool isCompleted = true)
+    private static PetKeeperAddressViewModel GetPetKeeperAddress(bool isCompleted = true)
     {
         return new()
         {
@@ -440,7 +440,7 @@ public class ViewModelExtensionsTests
         };
     }
 
-    private PetKeeperPostcodeViewModel GetPetKeeperPostcode(bool isCompleted = true)
+    private static PetKeeperPostcodeViewModel GetPetKeeperPostcode(bool isCompleted = true)
     {
         return new()
         {
@@ -451,7 +451,7 @@ public class ViewModelExtensionsTests
     }
 
 
-    private PetKeeperNameViewModel GetPetKeeperName(bool isCompleted = true)
+    private static PetKeeperNameViewModel GetPetKeeperName(bool isCompleted = true)
     {
         return new()
         {
@@ -460,7 +460,7 @@ public class ViewModelExtensionsTests
         };
     }
 
-    private PetKeeperUserDetailsViewModel GetPetKeeperUserDetails(bool isCompleted = true)
+    private static PetKeeperUserDetailsViewModel GetPetKeeperUserDetails(bool isCompleted = true)
     {
         return new()
         {
@@ -475,7 +475,7 @@ public class ViewModelExtensionsTests
         };
     }
 
-    private PetSpeciesViewModel GetPetSpecies(bool isCompleted = true)
+    private static PetSpeciesViewModel GetPetSpecies(bool isCompleted = true)
     {
         return new()
         {
@@ -484,7 +484,7 @@ public class ViewModelExtensionsTests
         };
     }
 
-    private PetNameViewModel GetPetName(bool isCompleted = true)
+    private static PetNameViewModel GetPetName(bool isCompleted = true)
     {
         return new()
         {
@@ -493,7 +493,7 @@ public class ViewModelExtensionsTests
         };
     }
 
-    private PetGenderViewModel GetPetGender(bool isCompleted = true)
+    private static PetGenderViewModel GetPetGender(bool isCompleted = true)
     {
         return new()
         {
@@ -503,7 +503,7 @@ public class ViewModelExtensionsTests
     }
 
 
-    private PetFeatureViewModel GetPetFeature(bool isCompleted = true)
+    private static PetFeatureViewModel GetPetFeature(bool isCompleted = true)
     {
         return new()
         {
@@ -513,7 +513,7 @@ public class ViewModelExtensionsTests
         };
     }
 
-    private PetColourViewModel GetPetColour(bool isCompleted = true)
+    private static PetColourViewModel GetPetColour(bool isCompleted = true)
     {
         return new()
         {
@@ -526,7 +526,7 @@ public class ViewModelExtensionsTests
         };
     }
 
-    private PetBreedViewModel GetPetBreed(bool isCompleted = true)
+    private static PetBreedViewModel GetPetBreed(bool isCompleted = true)
     {
         return new()
         {
@@ -538,7 +538,7 @@ public class ViewModelExtensionsTests
         };
     }
 
-    private PetAgeViewModel GetPetAge(bool isCompleted = true)
+    private static PetAgeViewModel GetPetAge(bool isCompleted = true)
     {
         return new()
         {
@@ -550,7 +550,7 @@ public class ViewModelExtensionsTests
         };
     }
 
-    private AcknowledgementViewModel GetAcknowledgement(bool isCompleted = true)
+    private static AcknowledgementViewModel GetAcknowledgement(bool isCompleted = true)
     {
         return new()
         {
@@ -560,7 +560,7 @@ public class ViewModelExtensionsTests
         };
     }
 
-    private DeclarationViewModel GetDeclaration(bool isCompleted = true)
+    private static DeclarationViewModel GetDeclaration(bool isCompleted = true)
     {
         return new()
         {
