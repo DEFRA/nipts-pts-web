@@ -110,5 +110,10 @@
                 $('#microchipinput').removeClass("input-validation-error");
             });
         })
+
+        // Clear MicrochipNumber text if 'No' is selcted
+        function clearInput() {
+            document.getElementById("MicrochipNumber").value = "";
+        }
     </script>
 }
