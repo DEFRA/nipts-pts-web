@@ -13,6 +13,18 @@ public abstract class BaseController : Controller
 {
     public abstract HttpContext GetHttpContext();
 
+    public override void OnActionExecuting(ActionExecutingContext context)
+    {
+        var cookieVal = HttpContext.Request.Cookies[".AspNetCore.Culture"];
+        if (cookieVal == "\"c=cy|uic=cy\"")
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("cy");
+
+        }
+
+        base.OnActionExecuting(context);
+    }
+
     protected void SetBackUrl(string backUrl)
     {
         ViewData.SetKeyValue(WebAppConstants.ViewKeys.BackUrl, string.IsNullOrWhiteSpace(backUrl) ? null : backUrl);

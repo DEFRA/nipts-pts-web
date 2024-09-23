@@ -73,6 +73,11 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             {
                 return RedirectToAction("CheckIdm2SignOut", "User");
             }
+
+            if (HttpContext.Request.Cookies.TryGetValue(".AspNetCore.Culture", out string language) && language == "c=cy|uic=cy")
+            {
+                Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("cy");
+            }
             HandleCache();
 
 
