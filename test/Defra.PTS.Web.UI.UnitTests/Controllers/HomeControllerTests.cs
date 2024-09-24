@@ -8,7 +8,6 @@ using Defra.PTS.Web.UI.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 using Xunit;
