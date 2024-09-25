@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 namespace Defra.PTS.Web.Application.Validation;
 public class PetAgeValidator : AbstractValidator<PetAgeViewModel>
 {
-    private static readonly string BirthDateError = "Enter a date in the correct format, for example 11 04 2021";
+    private static readonly string BirthDateError = "Enter a date in the correct format, for example 11 4 2021";
 
     public PetAgeValidator(IStringLocalizer<SharedResource> localizer)
     {
