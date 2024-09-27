@@ -116,7 +116,7 @@ public static class Services
         {
             if (context.Properties.ExpiresUtc is DateTimeOffset expiration)
             {
-                context.Response.Headers.Add("X-Auth-Cookie-Expiration", expiration.ToUnixTimeMilliseconds().ToString());
+                context.Response.Headers.Append("X-Auth-Cookie-Expiration", expiration.ToUnixTimeMilliseconds().ToString());
             }
 
             return Task.CompletedTask;
@@ -212,7 +212,7 @@ public class SessionTimeoutMiddleware
     private void GetCultureRequest(HttpContext context)
     {
         //Check that the previous url is "", which happens when logging into index page
-        var referer = context.Request.Headers["Referer"].ToString();
+        var referer = context.Request.Headers.Referer.ToString();
         if (string.IsNullOrEmpty(referer))
         {
             //Check HttpContext Cookies Request from User Controller

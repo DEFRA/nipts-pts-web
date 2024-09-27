@@ -28,7 +28,7 @@ namespace Defra.PTS.Web.UI.Controllers
             try
             {
                 var addresses = await _placesApi.PostCodeLookupAsync(PlacesPostCode.PostCode);
-                if(addresses.Any())
+                if(addresses.Count > 0)
                 {
                     return new OkResult();
                 }

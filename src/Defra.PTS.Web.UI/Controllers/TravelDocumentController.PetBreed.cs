@@ -81,7 +81,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             //If typed value is not in breedList (matched by BreedName) set ID to 0
 
             var typedBreed = model.BreedName?.Trim(); 
-            var compareBreed = breeds.Find(x => x.Text.ToLower() == typedBreed?.ToLower());
+            var compareBreed = breeds.Find(x => x.Text.Equals(typedBreed?.ToLower(), StringComparison.CurrentCultureIgnoreCase));
 
             if (compareBreed == null)
             {
@@ -106,7 +106,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                 }
 
                 var normalisedBreed = model.BreedName?.Trim();
-                var intendedBreed = breeds.Find(x => x.Text.ToLower() == normalisedBreed?.ToLower());
+                var intendedBreed = breeds.Find(x => x.Text.Equals(normalisedBreed?.ToLower(), StringComparison.CurrentCultureIgnoreCase));
 
                 if (intendedBreed != null)
                 {
