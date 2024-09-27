@@ -99,7 +99,7 @@ public static class Services
             };
 
             HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+            //handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
             options.BackchannelHttpHandler = handler;
         });
 
