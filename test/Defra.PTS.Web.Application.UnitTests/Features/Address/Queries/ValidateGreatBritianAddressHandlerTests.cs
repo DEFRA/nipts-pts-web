@@ -78,7 +78,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.Address.Queries
             adressLookupServiceMock.Setup(a => a.FindAddressesByPostcode(It.IsAny<string>())).ThrowsAsync(new Exception());
 
             var handler = new ValidateGreatBritianAddressHandler(adressLookupServiceMock.Object, addressLoggerMock.Object);
-            var request = new ValidateGreatBritianAddressRequest("SW1A 2AB");
+            var request = new ValidateGreatBritianAddressRequest("BT1A 2AB");
 
             // Act
             var result = await handler.Handle(request, CancellationToken.None);

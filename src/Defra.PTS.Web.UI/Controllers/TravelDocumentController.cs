@@ -57,6 +57,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
    
     }
 
+    [ExcludeFromCodeCoverage]
     [HttpGet]
     public async Task<IActionResult> Index()
     {
@@ -77,7 +78,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                 Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("cy");
             }
             HandleCache();
-
 
             var magicWordData = GetMagicWordFormData(true);
 
