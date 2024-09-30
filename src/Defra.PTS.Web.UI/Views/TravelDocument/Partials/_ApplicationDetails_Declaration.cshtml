@@ -17,8 +17,8 @@
             <li>@Localizer["I am not taking the animal as part of a commercial movement"]</li>
 
             @{
-                // Get the base URL (scheme + host + port) from the HttpContext
-                var termsUrl = $"{Context.Request.Scheme}://{Context.Request.Host}{WebAppConstants.Pages.Content.TermsAndConditions}";
+                // Get the base URL from the HttpContext
+                var termsUrl = $"{Context.Request.Scheme}://{Context.Request.Host.Value}{WebAppConstants.Pages.Content.TermsAndConditions}";
             }
 
            @* <li>@Localizer["I have read and I accept the"] <a class="govuk-link" href="@Url.Content(WebAppConstants.Pages.Content.TermsAndConditions)">@Localizer["Pet Travel Scheme terms and conditions"]</a></li> *@
