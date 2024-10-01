@@ -101,7 +101,8 @@ extends:
        -AzureAdB2C:Nonce "defaultNonce"
        -KeyVaultUri "https://$(environment)trd$(nc-function-infrastructure-lower)$(nc-resource-keyvault-lower)1001.vault.azure.net/"
        -PTS:MagicWordEnabled "true"
-       -Puppeteer:BrowserURL "http://10.205.132.133:3000/"       
+       -Puppeteer:BrowserURL "http://10.205.132.133:3000/"   
+       -AppSettings:ServiceUrl "https://$(ptsUrl)"
      snd: >-
        -AddressApi:BaseUrl "https://$(internalAPIMUrl)/trade-address-api/v1/"
        -AppSettings:UseAuth "true"
@@ -124,7 +125,8 @@ extends:
        -AzureAdB2C:Nonce "defaultNonce"
        -KeyVaultUri "https://$(environment)trd$(nc-function-infrastructure-lower)$(nc-resource-keyvault-lower)1001.vault.azure.net/"
        -PTS:MagicWordEnabled "true"
-       -Puppeteer:BrowserURL "http://10.205.132.133:3000/"       
+       -Puppeteer:BrowserURL "http://10.205.132.133:3000/"  
+       -AppSettings:ServiceUrl "https://$(ptsUrl)"
      pre: >-
        -AddressApi:BaseUrl "https://$(internalAPIMUrl)/trade-address-api/v1/"
        -AppSettings:UseAuth "true"
@@ -147,7 +149,8 @@ extends:
        -AzureAdB2C:Nonce "defaultNonce"
        -KeyVaultUri "https://$(environment)trd$(nc-function-infrastructure-lower)$(nc-resource-keyvault-lower)1001.vault.azure.net/"
        -PTS:MagicWordEnabled "true"
-       -Puppeteer:BrowserURL "http://10.205.132.133:3000/"       
+       -Puppeteer:BrowserURL "http://10.205.132.133:3000/" 
+       -AppSettings:ServiceUrl "https://$(ptsUrl)"
      prd: >-
        -AddressApi:BaseUrl "https://$(internalAPIMUrl)/trade-address-api/v1/"
        -AppSettings:UseAuth "true"
@@ -170,7 +173,8 @@ extends:
        -AzureAdB2C:Nonce "defaultNonce"
        -KeyVaultUri "https://$(environment)trd$(nc-function-infrastructure-lower)$(nc-resource-keyvault-lower)1001.vault.azure.net/"
        -PTS:MagicWordEnabled "true"
-       -Puppeteer:BrowserURL "http://10.205.132.133:3000/"       
+       -Puppeteer:BrowserURL "http://10.205.132.133:3000/"   
+       -AppSettings:ServiceUrl "https://$(ptsUrl)"
     runIntegrationTests: false
     runSonarScan: true
     sonarExclusionPaths: 'src/Defra.PTS.Web.UI/Program.cs, src/Defra.PTS.Web.UI/www**'

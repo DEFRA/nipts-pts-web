@@ -10,6 +10,7 @@
     <div class="govuk-grid-column-three-quarters">
         <!-- explain what to do if they are travelling to Ireland or EU -->
         <h2 class="govuk-heading-l">@Localizer["Declaration"]</h2>
+        @* Double @ needed ignore code smell *@
         <style>@@media print {a[href]:after {content: none !important;}}</style>
         <p class="govuk-body">@Localizer["I declare that:"]</p>
         <ul class="govuk-list govuk-list--bullet">
@@ -17,14 +18,9 @@
             <li>@Localizer["The answers I have given are true and correct to the best of my knowledge"]</li>
             <li>@Localizer["I understand that I can travel with this pet to and from Northern Ireland only and not to an EU member state (Ireland is an EU member state)"]</li>
             <li>@Localizer["I am not taking the animal as part of a commercial movement"]</li>
-
             @{
-                var serviceUrl = Configuration.GetValue<string>("AppSettings:ServiceUrl");
-                // Get the base URL from the HttpContext
-                var termsUrl = $"{serviceUrl}/Content/TermsAndConditions";
+                var termsUrl = $"{Configuration.GetValue<string>("AppSettings:ServiceUrl")}/Content/TermsAndConditions";
             }
-
-           @* <li>@Localizer["I have read and I accept the"] <a class="govuk-link" href="@Url.Content(WebAppConstants.Pages.Content.TermsAndConditions)">@Localizer["Pet Travel Scheme terms and conditions"]</a></li> *@
             <li>@Localizer["I have read and I accept the"] <a class="govuk-link" href="@termsUrl">@Localizer["Pet Travel Scheme terms and conditions"]</a></li>
             <li>@Localizer["I have read "]<a class="govuk-link" target="_blank" rel="noopener noreferrer" href="@WebAppConstants.ExternalLinks.PrivacyNotice"> @Localizer["Defra's privacy notice"] <span class="govuk-!-display-none-print">@Localizer["(opens in a new tab)"]</span></a></li>
         </ul>
