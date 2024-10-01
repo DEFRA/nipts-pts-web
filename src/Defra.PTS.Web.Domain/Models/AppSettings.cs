@@ -14,5 +14,7 @@ namespace Defra.PTS.Web.Domain.Models
         public string DynamicServiceUrl { get; set; }
 
         public bool UseMockCs { get; set; }
+
+        public string ServiceUrl { get; set; }
     }
 }

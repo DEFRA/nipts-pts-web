@@ -3,6 +3,8 @@
 @using Defra.PTS.Web.Application.Extensions;
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
+@using Microsoft.Extensions.Configuration
+@inject IConfiguration Configuration
 
 <div class="govuk-grid-row pet-document-declaration-print">
     <div class="govuk-grid-column-three-quarters">
@@ -17,8 +19,9 @@
             <li>@Localizer["I am not taking the animal as part of a commercial movement"]</li>
 
             @{
+                var serviceUrl = Configuration.GetValue<string>("AppSettings:ServiceUrl");
                 // Get the base URL from the HttpContext
-                var termsUrl = $"{Context.Request.Scheme}://{Context.Request.Host.Value}{WebAppConstants.Pages.Content.TermsAndConditions}";
+                var termsUrl = $"{serviceUrl}/Content/TermsAndConditions";
             }
 
            @* <li>@Localizer["I have read and I accept the"] <a class="govuk-link" href="@Url.Content(WebAppConstants.Pages.Content.TermsAndConditions)">@Localizer["Pet Travel Scheme terms and conditions"]</a></li> *@
