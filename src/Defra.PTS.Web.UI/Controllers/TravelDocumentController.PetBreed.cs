@@ -81,7 +81,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             //If typed value is not in breedList (matched by BreedName) set ID to 0
 
             var typedBreed = model.BreedName?.Trim(); 
-            var compareBreed = breeds.Find(x => x.Text.ToLower() == typedBreed?.ToLower());
+            var compareBreed = breeds.Find(x => x.Text.Equals(typedBreed?.ToLower(), StringComparison.CurrentCultureIgnoreCase));
 
             if (compareBreed == null)
             {
@@ -106,7 +106,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                 }
 
                 var normalisedBreed = model.BreedName?.Trim();
-                var intendedBreed = breeds.Find(x => x.Text.ToLower() == normalisedBreed?.ToLower());
+                var intendedBreed = breeds.Find(x => x.Text.Equals(normalisedBreed?.ToLower(), StringComparison.CurrentCultureIgnoreCase));
 
                 if (intendedBreed != null)
                 {
@@ -177,10 +177,17 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     #region Private Methods
     private async Task<List<SelectListItem>> GetBreedsAsSelectListItems(PetSpecies petType)
     {
-
         var list = await _selectListLocaliser.GetBreedList(petType);
 
-        return list.ToSelectListItems();
+        // Order by Name
+        var orderedColours = list
+            //Mixed Breed or unknown to always be at top of list
+            .OrderBy(x => x.BreedName.StartsWith(_localizer["Mixed breed"]) ? 0 : 1)
+            // If free text or BreedName null then don't sort
+            .ThenBy(x => x.BreedName ?? string.Empty)
+            .ToList();
+
+        return orderedColours.ToSelectListItems();
     }
 
     #endregion Private Methods

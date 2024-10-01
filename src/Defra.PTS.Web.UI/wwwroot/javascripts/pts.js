@@ -17,7 +17,8 @@ $(document).ready(function () {
 
     initializeShared();
     initializePetMicrochip();
-    initializeNumberOnlyFields()
+    initializeNumberOnlyFields();
+    checkCookie();
 });
 
 // initializeShared()
@@ -180,16 +181,16 @@ function setLocaleEn() {
     var name = ".AspNetCore.Culture";
     var value = "c=en-GB|uic=en-GB";
     var now = new Date();
-    now.setTime(now.getTime + (1 * 60 * 60 * 1000));
-    document.cookie = name + "=" + value + ";expires " + now.toUTCString() + ";path=/;SameSite=Strict;secure";
+    now.setTime(now.getTime + 1000*36000);
+    document.cookie = name + "=" + value + ";expires " + now.toUTCString() + ";path=/";
 }
 
 function setLocaleCy() {
     var name = ".AspNetCore.Culture";
     var value = "c=cy|uic=cy";
     var now = new Date();
-    now.setTime(now.getTime + (1 * 60 * 60 * 1000));
-    document.cookie = name + "=" + value + ";expires " + now.toUTCString() + ";path=/;SameSite=Strict;secure";
+    now.setTime(now.getTime + 1000 * 36000);
+    document.cookie = name + "=" + value + ";expires " + now.toUTCString() + ";path=/";
 }
 
 $("#localeEn").on("click", function () {
@@ -199,6 +200,29 @@ $("#localeEn").on("click", function () {
 $("#localeCy").on("click", function () {
     setLocaleCy();
 });
+
+function getCookie(cname) {
+    let name = cname + "=";
+    let decodedCookie = decodeURIComponent(document.cookie);
+    let ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}
+
+function checkCookie() {
+    let culture = getCookie(".AspNetCore.Culture");
+    if (culture == "") {
+        setLocaleEn();
+    } 
+}
 
 /**
  * Initialise component

@@ -57,7 +57,7 @@ public class PuppeteerBrowserAdapter : IBrowser
         }
     }
 
-    public async Task<string> GetRequestBody(string url)
+    public static async Task<string> GetRequestBody(string url)
     {
         using var client = new HttpClient();
         var response = await client.GetAsync(url);

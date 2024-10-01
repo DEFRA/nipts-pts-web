@@ -681,4 +681,8 @@
   <data name="Yes" xml:space="preserve">
     <value>Oes</value>
   </data>
+  <data name="Mixed breed" xml:space="preserve">
+    <value>Brid cymysg</value>
+    <comment>Pet Breed</comment>
+  </data>
 </root>

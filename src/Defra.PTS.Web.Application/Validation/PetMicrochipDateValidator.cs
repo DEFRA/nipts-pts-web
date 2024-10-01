@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace Defra.PTS.Web.Application.Validation;
 public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewModel>
 {
-    private static readonly string MicrochipError = "Enter a date in the correct format, for example 11 04 2021";
+    private static readonly string MicrochipError = "Enter a date in the correct format, for example 11 4 2021";
     public PetMicrochipDateValidator(IStringLocalizer<SharedResource> localizer)
     {
         When(x => x.Day == null, () =>
@@ -138,7 +138,6 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
     {
         // 1 day after allowed dob
         var fromDate = DateTime.Now.Date.AddYears(-AppConstants.Values.PetMaxAgeInYears).AddDays(1);
-        var toDate = DateTime.Now.Date;
 
         errorMessage = "Enter a date that is less than 34 years ago";
 
