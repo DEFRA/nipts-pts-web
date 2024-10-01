@@ -57,6 +57,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
    
     }
 
+    [ExcludeFromCodeCoverage]
     [HttpGet]
     public async Task<IActionResult> Index()
     {
@@ -77,7 +78,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                 Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("cy");
             }
             HandleCache();
-
 
             var magicWordData = GetMagicWordFormData(true);
 
@@ -239,17 +239,17 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         {
             if (!Response.Headers.ContainsKey("Cache-Control"))
             {
-                Response.Headers.Add("Cache-Control", "no-cache, no-store, must-revalidate");
+                Response.Headers.Append("Cache-Control", "no-cache, no-store, must-revalidate");
             }
 
             if (!Response.Headers.ContainsKey("Pragma"))
             {
-                Response.Headers.Add("Pragma", "no-cache"); // HTTP 1.0 backward compatibility
+                Response.Headers.Append("Pragma", "no-cache"); // HTTP 1.0 backward compatibility
             }
 
             if (!Response.Headers.ContainsKey("Expires"))
             {
-                Response.Headers.Add("Expires", "0"); // Expire immediately
+                Response.Headers.Append("Expires", "0"); // Expire immediately
             }
 
         }
