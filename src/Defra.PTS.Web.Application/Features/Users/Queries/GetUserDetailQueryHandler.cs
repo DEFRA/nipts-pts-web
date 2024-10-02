@@ -31,7 +31,7 @@ public class GetUserDetailQueryHandler : IRequestHandler<GetUserDetailQueryReque
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{nameof(_userService)}: Unable to  UserDetail {request?.UserId}");
+            _logger.LogError(ex, "{nameof(_userService)}: Unable to  UserDetail {UserId}", nameof(_userService), request?.UserId);
             throw;
         }
     }
