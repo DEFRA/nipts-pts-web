@@ -7,16 +7,11 @@ using Microsoft.Extensions.Localization;
 
 namespace Defra.PTS.Web.UI.Helpers;
 
-public class SelectListLocaliser : ISelectListLocaliser
+public class SelectListLocaliser(IMediator mediator, IStringLocalizer<SharedResource> Localizer) : ISelectListLocaliser
 {
-    private readonly IMediator _mediator;
-    private readonly IStringLocalizer<SharedResource> localizer;
+    private readonly IMediator _mediator = mediator;
+    private readonly IStringLocalizer<SharedResource> localizer = Localizer;
 
-    public SelectListLocaliser(IMediator mediator, IStringLocalizer<SharedResource> _localizer)
-    {
-        _mediator = mediator;
-        localizer = _localizer;
-    }
     public async Task<List<BreedDto>> GetBreedList(PetSpecies petType)
     {
         var response = await _mediator.Send(new GetBreedsQueryRequest(petType));

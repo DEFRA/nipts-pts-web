@@ -59,7 +59,7 @@ public class UserController : BaseController
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{nameof(UpdateUserRequest)}: Unable to update user");
+            _logger.LogError("{nameof(UpdateUserRequest)}: Unable to update user, {ex.Message}", nameof(UpdateUserRequest), ex.Message);
             // do not throw the exception as its optional audit log call
         }
 

@@ -62,7 +62,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     {
         var petColours = await _selectListLocaliser.GetPetColoursList(petSpecies);
 
-        var otherColour = petColours?.Find(x => x.Name.ToLowerInvariant() == _localizer[AppConstants.Values.OtherColourName].Value.ToLowerInvariant());
+        var otherColour = petColours?.Find(x => x.Name.Equals(_localizer[AppConstants.Values.OtherColourName].Value, StringComparison.InvariantCultureIgnoreCase));
         if (otherColour != null)
         {
             otherColour.DisplayOrder = int.MaxValue;
@@ -79,7 +79,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
     private int GetOtherColourId(List<ColourDto> colours)
     {
-        var otherColour = colours?.Find(x => x.Name.ToLowerInvariant() == _localizer[AppConstants.Values.OtherColourName].Value.ToLowerInvariant());
+        var otherColour = colours?.Find(x => x.Name.Equals(_localizer[AppConstants.Values.OtherColourName].Value, StringComparison.InvariantCultureIgnoreCase));
         if (otherColour == null)
         {
             return default;

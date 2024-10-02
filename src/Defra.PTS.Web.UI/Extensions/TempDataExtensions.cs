@@ -74,7 +74,7 @@ public static class TempDataExtensions
         var result = tempData.Peek<List<Guid>>(TempDataKey.FormSubmissionQueue);
         if (result == null)
         {
-            result = new List<Guid>();
+            result = [];
             tempData.Set(TempDataKey.FormSubmissionQueue, result);
         }
 
@@ -94,11 +94,12 @@ public static class TempDataExtensions
     public static void RemoveFromFormSubmissionQueue(this ITempDataDictionary tempData, Guid id)
     {
         var model = tempData.GetFormSubmissionQueue();
-        if (model.Contains(id))
+        if (!model.Contains(id))
         {
-            model.Remove(id);
-            tempData.Set(TempDataKey.FormSubmissionQueue, model);
+            return;
         }
+        model.Remove(id);
+        tempData.Set(TempDataKey.FormSubmissionQueue, model);
     }
 
     public static bool IsInFormSubmissionQueue(this ITempDataDictionary tempData, Guid id)

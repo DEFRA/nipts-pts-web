@@ -30,7 +30,7 @@ public class AddressLookupService : IAddressLookupService
         catch (ApiException)
         {
             // this is for where the api has no values returned for a valid postcode entry
-            return new List<Address>();
+            return [];
         }
     }
 

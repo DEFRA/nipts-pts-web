@@ -9,6 +9,7 @@ using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Localization;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Azure.KeyVault;
 using Microsoft.Extensions.Localization;
 
 using System.Drawing.Drawing2D;
@@ -73,94 +74,22 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             return View(model);
         }
 
-        if (model.PetSpecies.HasBreed())
+        breeds = await GetBreedsAsSelectListItems(model.PetSpecies);
+        ViewBag.BreedList = breeds;
+
+        //If typed value is not in breedList (matched by BreedName) set ID to 0
+        var typedBreed = model.BreedName?.Trim(); 
+        var compareBreed = breeds.Find(x => x.Text.Equals(typedBreed?.ToLower(), StringComparison.CurrentCultureIgnoreCase));
+
+        if (compareBreed == null)
         {
-            breeds = await GetBreedsAsSelectListItems(model.PetSpecies);
-            ViewBag.BreedList = breeds;
-
-            //If typed value is not in breedList (matched by BreedName) set ID to 0
-
-            var typedBreed = model.BreedName?.Trim(); 
-            var compareBreed = breeds.Find(x => x.Text.Equals(typedBreed?.ToLower(), StringComparison.CurrentCultureIgnoreCase));
-
-            if (compareBreed == null)
-            {
-                // If the breed is NOT in the list, assign ID to 0
-                model.BreedId = 0; 
-                model.BreedName = typedBreed;
-                model.BreedAdditionalInfo = null;
-            }
-
-            //BreedId = 0 (freetext, first entry), 98 (Cat, Mixed or Other), 99 (Dog, Mixed or Other)
-            //We need to sort freetext entries to see if they match an item on our list first
-            //If it is not found, we assign it as a mixed breed
-            if (model.BreedId == 0 || model.BreedId == 98 || model.BreedId == 99)
-            {
-                if (!ModelState.IsValid)
-                {
-                    if (model.BreedName != null)
-                    {
-                        ViewBag.BreedList.Add(new SelectListItem() { Value = "0", Text = model.BreedName, Selected = true });
-                    }
-                    return View(model);
-                }
-
-                var normalisedBreed = model.BreedName?.Trim();
-                var intendedBreed = breeds.Find(x => x.Text.Equals(normalisedBreed?.ToLower(), StringComparison.CurrentCultureIgnoreCase));
-
-                if (intendedBreed != null)
-                {
-                    model.BreedId = Convert.ToInt32(intendedBreed.Value.ToString());
-                    model.BreedName = intendedBreed.Text;
-                    model.BreedAdditionalInfo = null;
-                }
-
-                else
-                {
-                    var breed = breeds.Find(x => x.Text == _localizer["Mixed breed or unknown"]);
-                    model.BreedId = Convert.ToInt32(breed?.Value.ToString());
-                    model.BreedAdditionalInfo = model?.BreedName;
-                }
-            }
-            else
-            {
-                var breed = breeds.Find(x => x.Value == model.BreedId.ToString());
-                if (breed == null)
-                {
-                    if (model.PetSpecies == Domain.Enums.PetSpecies.Dog)
-                    {
-                        model.BreedId = 99;
-                        model.BreedAdditionalInfo = model.BreedName;
-                    }
-                    else if (model.PetSpecies == Domain.Enums.PetSpecies.Cat)
-                    {
-                        model.BreedId = 98;
-                        model.BreedAdditionalInfo = model.BreedName;
-                    }
-                    else
-                    {
-                        model.BreedId = -1;
-                        model.BreedName = null;
-                        model.BreedAdditionalInfo = null;
-                    }
-                }
-                else
-                {
-                    model.BreedId = Int32.Parse(breed.Value);
-                    model.BreedName = breed.Text;
-                    model.BreedAdditionalInfo = null;
-
-                    if (model.BreedName == null)
-                    {
-                        ModelState.AddModelError(nameof(model.BreedName), _localizer["Select or enter the breed of your pet"]);
-                    }
-                }
-            }
+            // If the breed is NOT in the list, assign ID to 0
+            model.BreedId = 0; 
+            model.BreedName = typedBreed;
+            model.BreedAdditionalInfo = null;
         }
-        else
-        {
-            model.BreedName = null;
-        }
+
+        await AssignBreed(model);
 
         if (!ModelState.IsValid)
         {
@@ -175,6 +104,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     }
 
     #region Private Methods
+
     private async Task<List<SelectListItem>> GetBreedsAsSelectListItems(PetSpecies petType)
     {
         var list = await _selectListLocaliser.GetBreedList(petType);
@@ -188,6 +118,52 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             .ToList();
 
         return orderedColours.ToSelectListItems();
+    }
+
+    private async Task AssignBreed(PetBreedViewModel model)
+    {
+        List<SelectListItem> breeds = null;
+        breeds = await GetBreedsAsSelectListItems(model.PetSpecies);
+
+        if (model.BreedId == 0 || model.BreedId == 98 || model.BreedId == 99)
+        {
+            var normalisedBreed = model.BreedName?.Trim();
+            var intendedBreed = breeds.Find(x => x.Text.Equals(normalisedBreed?.ToLower(), StringComparison.CurrentCultureIgnoreCase));
+
+            if (intendedBreed != null)
+            {
+                model.BreedId = Convert.ToInt32(intendedBreed.Value.ToString());
+                model.BreedName = intendedBreed.Text;
+                model.BreedAdditionalInfo = null;
+            }
+
+            else
+            {
+                var breed = breeds.Find(x => x.Text == _localizer["Mixed breed or unknown"]);
+                if (model.PetSpecies == Domain.Enums.PetSpecies.Dog)
+                {
+                    model.BreedId = 99;
+                    model.BreedAdditionalInfo = model.BreedName;
+                }
+                else if (model.PetSpecies == Domain.Enums.PetSpecies.Cat)
+                {
+                    model.BreedId = 98;
+                    model.BreedAdditionalInfo = model.BreedName;
+                }
+            }
+        }
+        else
+        {
+            var breed = breeds.Find(x => x.Value == model.BreedId.ToString());
+            model.BreedId = Int32.Parse(breed.Value);
+            model.BreedName = breed.Text;
+            model.BreedAdditionalInfo = null;
+        }
+
+        if (model.BreedName == null)
+        {
+            ModelState.AddModelError(nameof(model.BreedName), _localizer["Select or enter the breed of your pet"]);
+        }
     }
 
     #endregion Private Methods

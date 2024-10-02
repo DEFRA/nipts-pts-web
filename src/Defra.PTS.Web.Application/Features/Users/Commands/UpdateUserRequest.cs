@@ -3,13 +3,7 @@ using MediatR;
 
 namespace Defra.PTS.Web.Application.Features.Users.Commands;
 
-public class UpdateUserRequest : IRequest<UpdateUserResponse>
+public class UpdateUserRequest(string emailAddress) : IRequest<UpdateUserResponse>
 {
-    public string EmailAddress { get; }
-
-
-    public UpdateUserRequest(string emailAddress)
-    {
-        EmailAddress = emailAddress;
-    }
+    public string EmailAddress { get; } = emailAddress;
 }

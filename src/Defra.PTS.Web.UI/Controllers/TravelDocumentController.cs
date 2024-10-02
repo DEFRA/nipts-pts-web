@@ -108,7 +108,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error has occurred");
+            _logger.LogError("An error has occurred, {ex.Message}", ex.Message);
             throw;
         }
     }
@@ -145,7 +145,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Unable to save user details");
+            _logger.LogError("Unable to save user details, {ex.Message}", ex.Message);
             throw;
         }
     }
@@ -162,7 +162,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Unable to save address details");
+            _logger.LogError("Unable to save address details, {ex.Message}", ex.Message);
         }
         var contactId = CurrentUserContactId();
         var response = await _mediator.Send(new GetUserDetailQueryRequest(contactId));

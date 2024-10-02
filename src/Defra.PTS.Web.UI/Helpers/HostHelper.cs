@@ -21,17 +21,11 @@ public interface IHostHelper
 }
 
 [ExcludeFromCodeCoverage]
-public class HostHelper : IHostHelper
+public class HostHelper(IConfiguration configuration, IHttpContextAccessor contextAccessor) : IHostHelper
 {
-    private static readonly string[] CheckHeaders = new[] { "x-original-host", "host" };
-    private readonly IConfiguration configuration;
-    private readonly IHttpContextAccessor contextAccessor;
-
-    public HostHelper(IConfiguration configuration, IHttpContextAccessor contextAccessor)
-    {
-        this.configuration = configuration;
-        this.contextAccessor = contextAccessor;
-    }
+    private static readonly string[] CheckHeaders = ["x-original-host", "host"];
+    private readonly IConfiguration configuration = configuration;
+    private readonly IHttpContextAccessor contextAccessor = contextAccessor;
 
     public string HostUrl()
     {

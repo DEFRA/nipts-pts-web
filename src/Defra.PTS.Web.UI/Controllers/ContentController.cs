@@ -18,21 +18,21 @@ public class ContentController : BaseController
         return View();
     }
 
-    public IActionResult AccessibilityStatement(string backUrl= "")
+    public IActionResult AccessibilityStatement()
     {
         SetBackUrl(WebAppConstants.HistoryBack);
 
         return View();
     }
 
-    public IActionResult Cookies(string backUrl = "")
+    public IActionResult Cookies()
     {
         SetBackUrl(WebAppConstants.HistoryBack);
 
         return View();
     }
 
-    public IActionResult TermsAndConditions(string backUrl = "")
+    public IActionResult TermsAndConditions()
     {
         SetBackUrl(WebAppConstants.HistoryBack);
         

@@ -87,7 +87,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             SetApplicationIsSubmitted(isSubmitted: false);
             RemoveFromFormSubmissionQueue(formData.RequestId);
 
-            _logger.LogError(ex, "Error Stack: " + ex.StackTrace);
             _logger.LogError(ex, "Exception Message: " + ex.Message);
         }
 
