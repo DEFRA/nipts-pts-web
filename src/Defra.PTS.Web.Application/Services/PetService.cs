@@ -39,7 +39,7 @@ public class PetService : IPetService
         }
         catch (Exception ex)
         {
-            _logger.LogError("Exception: Error returned from {ex.Message + *****Exception-GetBreeds}: {ex.StackTrace}", ex.Message, ex.StackTrace);
+            _logger.LogError(ex, "Exception: Error returned from {Message}: {StackTrace}", ex.Message, ex.StackTrace);
             throw;
         }
     }
@@ -59,7 +59,7 @@ public class PetService : IPetService
         }
         catch (Exception ex)
         {
-            _logger.LogError("Exception: Error returned from {ex.Message + *****Exception-GetColours}: {ex.StackTrace}", ex.Message, ex.StackTrace);
+            _logger.LogError(ex, "Exception: Error returned from {Message}: {StackTrace}", ex.Message, ex.StackTrace);
             throw;
         }
     }
@@ -77,7 +77,7 @@ public class PetService : IPetService
         }
         catch(Exception ex)
         {
-            _logger.LogError("Exception: Error returned from {ex.Message + *****Exception-CreatePet}: {ex.StackTrace}", ex.Message, ex.StackTrace);
+            _logger.LogError(ex, "Exception: Error returned from {Message}: {StackTrace}", ex.Message, ex.StackTrace);
             throw;
         }
     
