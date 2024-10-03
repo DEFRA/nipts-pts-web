@@ -38,7 +38,7 @@ public static class ApplicationHelper
             "IM"
         };
 
-        return nonGBPrefixes.Exists(x => postcode.ToUpper().StartsWith(x));
+        return nonGBPrefixes.Exists(x => postcode.StartsWith(x, StringComparison.CurrentCultureIgnoreCase));
     }
 
     public static string BuildPdfDownloadFilename(Guid id, PdfType pdfType, string prefix = "pet-travel-document")

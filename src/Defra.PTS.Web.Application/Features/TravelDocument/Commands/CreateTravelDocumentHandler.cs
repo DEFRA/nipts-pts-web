@@ -78,8 +78,12 @@ public class CreateTravelDocumentHandler : IRequestHandler<CreateTravelDocumentR
         }
         catch (Exception e)
         {
-            Console.WriteLine(e.Message);
-            throw;
+            _logger.LogError(e, "Error occured: {message}", e.Message);
+            response = new CreateTravelDocumentResponse
+            {
+                IsSuccess = false
+            };
+            return response;
         }
 
         try
@@ -89,7 +93,7 @@ public class CreateTravelDocumentHandler : IRequestHandler<CreateTravelDocumentR
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Unable to send application submitted message");
+            _logger.LogError(ex, "Unable to send application submitted message, message: {Message}", ex.Message);
             throw;
         }
 

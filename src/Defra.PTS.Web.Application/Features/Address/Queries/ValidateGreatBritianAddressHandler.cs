@@ -28,7 +28,7 @@ public class ValidateGreatBritianAddressHandler : IRequestHandler<ValidateGreatB
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{nameof(_addressLookupService)}: Unable to get validadate Gb address for {request.Postcode}");
+            _logger.LogError(ex, "{addressLookupService}: Unable to get validadate Gb address for {Postcode}", nameof(_addressLookupService), request.Postcode);
             return false;
         }
     }

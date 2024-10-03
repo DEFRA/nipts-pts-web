@@ -13,7 +13,7 @@ namespace Defra.PTS.Web.Application.Validation
     public class PetKeeperPostcodeValidator : AbstractValidator<PetKeeperPostcodeViewModel>
     {
         private readonly IMediator _mediator;
-        private static readonly Regex UkPostcodeRegex = new Regex(AppConstants.RegularExpressions.UKPostcode, RegexOptions.Compiled, TimeSpan.FromMilliseconds(100));
+        private static readonly Regex UkPostcodeRegex = new(AppConstants.RegularExpressions.UKPostcode, RegexOptions.Compiled, TimeSpan.FromMilliseconds(100));
 
         public PetKeeperPostcodeValidator(IMediator mediator, IStringLocalizer<SharedResource> localizer)
         {

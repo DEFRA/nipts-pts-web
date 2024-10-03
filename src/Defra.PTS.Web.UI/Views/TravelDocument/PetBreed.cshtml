@@ -10,7 +10,6 @@
 @inject IStringLocalizer<SharedResource> sharedlocalizer
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = (Localizer[Model.FormTitle].Value), LabelFor = "BreedId" };
     this.SetMetaTitle(Localizer[Model.FormTitle].Value);
 
     var exampleText = string.Empty;
@@ -38,7 +37,15 @@
             <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
 
                 <fieldset class="govuk-fieldset" aria-describedby="BreedId__assistiveHint">
-                    <partial name="_FieldsetLegend" model=fieldsetLegend />
+
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl">
+                        <h1 class="govuk-fieldset__heading">
+
+                            <label class="govuk-label govuk-label--xl" for="BreedId" id="BreedLabel">
+                                @Localizer[Model.FormTitle]
+                            </label>
+                        </h1>
+                    </legend>
 
                     <div id="BreedId__assistiveHint" class="govuk-hint">
                         @exampleText

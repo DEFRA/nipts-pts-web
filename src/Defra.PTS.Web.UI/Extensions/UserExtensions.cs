@@ -8,10 +8,7 @@ public static class UserExtensions
 {
     public static User ToUserInfo(this ClaimsPrincipal principal)
     {
-        if (principal == null)
-        {
-            throw new ArgumentNullException(nameof(principal));
-        }
+        ArgumentNullException.ThrowIfNull(principal);
 
         var claims = principal.Claims;
 
@@ -48,10 +45,7 @@ public static class UserExtensions
 
     public static User ToUserInfo(this ClaimsIdentity identity)
     {
-        if (identity == null)
-        {
-            throw new ArgumentNullException(nameof(identity));
-        }
+        ArgumentNullException.ThrowIfNull(identity);
 
         var claims = identity.Claims;
 
@@ -88,10 +82,7 @@ public static class UserExtensions
 
     public static Guid GetLoggedInUserId(this ClaimsPrincipal principal)
     {
-        if (principal == null)
-        {
-            throw new ArgumentNullException(nameof(principal));
-        }
+        ArgumentNullException.ThrowIfNull(principal);
 
         var loggedInUserId =  principal.FindFirst(WebAppConstants.IdentityKeys.PTSUserId)?.Value;
         if (!string.IsNullOrWhiteSpace(loggedInUserId))
@@ -104,10 +95,7 @@ public static class UserExtensions
 
     public static Guid GetLoggedInContactId(this ClaimsPrincipal principal)
     {
-        if (principal == null)
-        {
-            throw new ArgumentNullException(nameof(principal));
-        }
+        ArgumentNullException.ThrowIfNull(principal);
 
         var loggedInContactId = principal.FindFirst("ContactId")?.Value;
         if (!string.IsNullOrWhiteSpace(loggedInContactId))
@@ -121,20 +109,14 @@ public static class UserExtensions
 
     public static string GetLoggedInUserName(this ClaimsPrincipal principal)
     {
-        if (principal == null)
-        {
-            throw new ArgumentNullException(nameof(principal));
-        }
+        ArgumentNullException.ThrowIfNull(principal);
 
         return principal.FindFirstValue(ClaimTypes.Name);
     }
 
     public static string GetLoggedInUserEmail(this ClaimsPrincipal principal)
     {
-        if (principal == null)
-        {
-            throw new ArgumentNullException(nameof(principal));
-        }
+        ArgumentNullException.ThrowIfNull(principal);
 
         return principal.FindFirstValue(ClaimTypes.Email);
     }

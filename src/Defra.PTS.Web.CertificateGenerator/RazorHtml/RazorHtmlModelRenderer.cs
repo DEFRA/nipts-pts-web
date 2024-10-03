@@ -17,27 +17,18 @@ using System.Threading.Tasks;
 
 namespace Defra.PTS.Web.CertificateGenerator.RazorHtml;
 
-public class RazorHtmlModelRenderer<TModel> : IHtmlModelRenderer<TModel>
+public class RazorHtmlModelRenderer<TModel>(
+    ICompositeViewEngine viewEngine,
+    IHttpContextAccessor contextAccessor,
+    IModelMetadataProvider metadataProvider,
+    ITempDataDictionaryFactory tempDataFactory,
+    IOptions<RazorHtmlModelRendererOptions<TModel>> options) : IHtmlModelRenderer<TModel>
 {
-    private readonly IHttpContextAccessor contextAccessor;
-    private readonly IModelMetadataProvider metadataProvider;
-    private readonly IOptions<RazorHtmlModelRendererOptions<TModel>> options;
-    private readonly ITempDataDictionaryFactory tempDataFactory;
-    private readonly ICompositeViewEngine viewEngine;
-
-    public RazorHtmlModelRenderer(
-        ICompositeViewEngine viewEngine,
-        IHttpContextAccessor contextAccessor,
-        IModelMetadataProvider metadataProvider,
-        ITempDataDictionaryFactory tempDataFactory,
-        IOptions<RazorHtmlModelRendererOptions<TModel>> options)
-    {
-        this.viewEngine = viewEngine;
-        this.contextAccessor = contextAccessor;
-        this.metadataProvider = metadataProvider;
-        this.tempDataFactory = tempDataFactory;
-        this.options = options;
-    }
+    private readonly IHttpContextAccessor contextAccessor = contextAccessor;
+    private readonly IModelMetadataProvider metadataProvider = metadataProvider;
+    private readonly IOptions<RazorHtmlModelRendererOptions<TModel>> options = options;
+    private readonly ITempDataDictionaryFactory tempDataFactory = tempDataFactory;
+    private readonly ICompositeViewEngine viewEngine = viewEngine;
 
     public async Task<RenderResult<string>> RenderAsync(TModel model, CancellationToken cancellationToken)
     {
