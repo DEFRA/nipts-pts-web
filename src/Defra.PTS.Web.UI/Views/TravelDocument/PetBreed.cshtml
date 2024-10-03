@@ -10,7 +10,6 @@
 @inject IStringLocalizer<SharedResource> sharedlocalizer
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = (Localizer[Model.FormTitle].Value), LabelFor = "BreedId" };
     this.SetMetaTitle(Localizer[Model.FormTitle].Value);
 
     var exampleText = string.Empty;
@@ -43,7 +42,6 @@
 
                             <label class="govuk-label govuk-label--xl" for="BreedId" id="BreedLabel">
                                 @Localizer[Model.FormTitle]
-            
                             </label>
                         </h1>
                     </legend>

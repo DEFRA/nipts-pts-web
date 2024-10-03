@@ -79,7 +79,11 @@ public class CreateTravelDocumentHandler : IRequestHandler<CreateTravelDocumentR
         catch (Exception e)
         {
             _logger.LogError(e, "Error occured: {message}", e.Message);
-            throw;
+            response = new CreateTravelDocumentResponse
+            {
+                IsSuccess = false
+            };
+            return response;
         }
 
         try
