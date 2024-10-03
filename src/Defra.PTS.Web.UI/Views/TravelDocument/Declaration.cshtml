@@ -39,36 +39,16 @@
                 @await Component.InvokeAsync(nameof(PetDetailsCard))
                 @await Component.InvokeAsync(nameof(PetKeeperDetailsCard))
 
-                <div id="formroot-accuracy" class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
-                    @Html.ValidationMessageFor(x => x.AgreedToAccuracy, string.Empty, new {@id="accuracy-error-message", @class = "govuk-error-message" })
-                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                        <div class="govuk-checkboxes__item">
-                            @Html.CheckBoxFor(m => m.AgreedToAccuracy, new { @class = "govuk-checkboxes__input", id = "AgreedToAccuracy" })
-                            <label class="govuk-label govuk-checkboxes__label" for="AgreedToAccuracy">
-                                I have provided accurate and truthful information.
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="formroot-privacy" class="govuk-form-group govuk-!-static-margin-bottom-9 @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
-                    @Html.ValidationMessageFor(x => x.AgreedToPrivacyPolicy, string.Empty, new {@id="privacy-error-message", @class = "govuk-error-message" })
-                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                        <div class="govuk-checkboxes__item">
-                            @Html.CheckBoxFor(m => m.AgreedToPrivacyPolicy, new { @class = "govuk-checkboxes__input", id = "AgreedToPrivacyPolicy" })
-                            <label class="govuk-label govuk-checkboxes__label" for="AgreedToPrivacyPolicy">
-                                I agree to <a class="govuk-link" href="@WebAppConstants.ExternalLinks.PrivacyNotice" target="_blank" rel="noopener noreferrer">Defra's privacy policy (opens in a new tab)</a>.
-                            </label>
-                        </div>
-                    </div>
-                </div>
-
                 <div id="formroot-declaration" class="@(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
                     <h2 class="govuk-heading-l">Declaration</h2>
                     <p class="govuk-body">I declare that:</p>
                     <ul class="govuk-list govuk-list--bullet">
-                        <li>I will only use the lifelong travel document to travel with my dog, cat or ferret from Great Britain (England, Scotland and Wales) to Northern Ireland</li>
-                        <li>I need an EU pet passport or animal health certificate to travel from Northern Ireland to the EU</li>
+                        <li>I am the applicant</li>
+                        <li>the answers I have given are true and correct to the best of my knowledge</li>
+                        <li>I understand that I can travel with this pet to and from Northern Ireland only and not to an EU member state (Ireland is an EU member state)</li>
+                        <li>I am not taking the animal as part of a commercial movement</li>
+                        <li>I have read and I accept the <a class="govuk-link" href="@WebAppConstants.Pages.Content.TermsAndConditions">Pet Travel Scheme terms and conditions</a></li>
+                        <li>I have read <a class="govuk-link" target="_blank" href="@WebAppConstants.ExternalLinks.PrivacyNotice">Defra's privacy notice (opens in a new tab)</a></li>
                     </ul>
 
                     <div class="govuk-form-group govuk-!-static-margin-top-4">
@@ -77,7 +57,7 @@
                             <div class="govuk-checkboxes__item">
                                 @Html.CheckBoxFor(m => m.AgreedToDeclaration, new { @class = "govuk-checkboxes__input", id = "AgreedToDeclaration" })
                                 <label class="govuk-label govuk-checkboxes__label" for="AgreedToDeclaration">
-                                    I agree to the declaration
+                                    I agree
                                 </label>
                             </div>
                         </div>
