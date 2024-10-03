@@ -139,7 +139,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
             else
             {
-                var breed = breeds.Find(x => x.Text == _localizer["Mixed breed or unknown"]);
                 if (model.PetSpecies == Domain.Enums.PetSpecies.Dog)
                 {
                     model.BreedId = 99;

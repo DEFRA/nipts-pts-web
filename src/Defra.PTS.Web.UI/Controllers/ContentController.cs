@@ -13,6 +13,7 @@ public class ContentController : BaseController
 
     public IActionResult Help()
     {
+        //Help page
         SetBackUrl(WebAppConstants.HistoryBack);
         
         return View();
@@ -20,6 +21,7 @@ public class ContentController : BaseController
 
     public IActionResult AccessibilityStatement()
     {
+        //Accessibility Statement Page
         SetBackUrl(WebAppConstants.HistoryBack);
 
         return View();
@@ -27,6 +29,7 @@ public class ContentController : BaseController
 
     public IActionResult Cookies()
     {
+        //Cookies Page
         SetBackUrl(WebAppConstants.HistoryBack);
 
         return View();
@@ -34,6 +37,7 @@ public class ContentController : BaseController
 
     public IActionResult TermsAndConditions()
     {
+        //T and Cs
         SetBackUrl(WebAppConstants.HistoryBack);
         
         return View();

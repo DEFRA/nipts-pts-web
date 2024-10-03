@@ -23,13 +23,6 @@ namespace Defra.PTS.Web.UI.Configuration.Startup;
 [ExcludeFromCodeCoverage]
 public static class Services
 {
-    //remove if works on azure
-    //public static SecretClient AddKeyVault(this IServiceCollection services, IConfiguration configuration)
-    //{
-    //    var keyVaultUri = configuration["KeyVaultUri"];
-    //    var client = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
-    //    return client;
-    //}
     public static void AddAuthentications(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IHostHelper, HostHelper>();

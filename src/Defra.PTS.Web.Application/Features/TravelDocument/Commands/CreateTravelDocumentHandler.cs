@@ -78,7 +78,7 @@ public class CreateTravelDocumentHandler : IRequestHandler<CreateTravelDocumentR
         }
         catch (Exception e)
         {
-            _logger.LogError(e, e.Message);
+            _logger.LogError(e, "Error occured: {message}", e.Message);
             throw;
         }
 
