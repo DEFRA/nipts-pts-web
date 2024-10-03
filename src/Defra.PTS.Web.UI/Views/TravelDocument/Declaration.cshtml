@@ -7,7 +7,7 @@
 
 @{
     this.SetMetaTitle(Model.FormTitle);
-    var errorOrder = new string[] { "Postcode", "Phone","AgreedToAccuracy", "AgreedToPrivacyPolicy", "AgreedToDeclaration" };
+    var errorOrder = new string[] { "Postcode", "Phone", "AgreedToAccuracy", "AgreedToPrivacyPolicy", "AgreedToDeclaration" };
 }
 
 <div class="govuk-grid-row">
@@ -40,7 +40,7 @@
                 @await Component.InvokeAsync(nameof(PetKeeperDetailsCard))
 
                 <div id="formroot-accuracy" class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
-                    @Html.ValidationMessageFor(x => x.AgreedToAccuracy, string.Empty, new {@id="accuracy-error-message", @class = "govuk-error-message" })
+                    @Html.ValidationMessageFor(x => x.AgreedToAccuracy, string.Empty, new { @id = "accuracy-error-message", @class = "govuk-error-message" })
                     <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                         <div class="govuk-checkboxes__item">
                             @Html.CheckBoxFor(m => m.AgreedToAccuracy, new { @class = "govuk-checkboxes__input", id = "AgreedToAccuracy" })
@@ -52,7 +52,7 @@
                 </div>
 
                 <div id="formroot-privacy" class="govuk-form-group govuk-!-static-margin-bottom-9 @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
-                    @Html.ValidationMessageFor(x => x.AgreedToPrivacyPolicy, string.Empty, new {@id="privacy-error-message", @class = "govuk-error-message" })
+                    @Html.ValidationMessageFor(x => x.AgreedToPrivacyPolicy, string.Empty, new { @id = "privacy-error-message", @class = "govuk-error-message" })
                     <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                         <div class="govuk-checkboxes__item">
                             @Html.CheckBoxFor(m => m.AgreedToPrivacyPolicy, new { @class = "govuk-checkboxes__input", id = "AgreedToPrivacyPolicy" })
@@ -72,7 +72,7 @@
                     </ul>
 
                     <div class="govuk-form-group govuk-!-static-margin-top-4">
-                        @Html.ValidationMessageFor(x => x.AgreedToDeclaration, string.Empty, new {@id="declaration-error-message", @class = "govuk-error-message" })
+                        @Html.ValidationMessageFor(x => x.AgreedToDeclaration, string.Empty, new { @id = "declaration-error-message", @class = "govuk-error-message" })
                         <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
                                 @Html.CheckBoxFor(m => m.AgreedToDeclaration, new { @class = "govuk-checkboxes__input", id = "AgreedToDeclaration" })
@@ -97,7 +97,7 @@
 </div>
 
 @section Scripts
-    {
+{
     <script>
         let submitting = false;
         $(document).ready(function () {
