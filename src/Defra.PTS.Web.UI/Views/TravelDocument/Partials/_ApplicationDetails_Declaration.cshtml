@@ -11,11 +11,10 @@
         @* Double @ needed ignore code smell *@
         <style>
             @@media print {
-
                 a {
                     text-decoration: inherit !important;
-                  /*   color: inherit !important; */
-                } 
+                }
+
                     a[href]:after {
                         display: none !important;
                     }
@@ -45,20 +44,20 @@
     </div>
 </div>
 
-    <script>
+<script>
     // Disable the link's clickability on print
     window.onbeforeprint = function () {
         var links = document.querySelectorAll('a');
         links.forEach(function (link) {
-            link.dataset.href = link.getAttribute('href'); 
-            link.removeAttribute('href'); 
+            link.dataset.href = link.getAttribute('href');
+            link.removeAttribute('href');
         });
     };
     window.onafterprint = function () {
         var links = document.querySelectorAll('a');
         links.forEach(function (link) {
-            link.setAttribute('href', link.dataset.href); 
+            link.setAttribute('href', link.dataset.href);
         });
     };
-    </script>
+</script>
 
