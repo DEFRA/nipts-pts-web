@@ -8,10 +8,26 @@
     <div class="govuk-grid-column-three-quarters">
         <!-- explain what to do if they are travelling to Ireland or EU -->
         <h2 class="govuk-heading-l">@Localizer["Declaration"]</h2>
+        @* Double @ needed ignore code smell *@
+        <style>
+            @@media print {
+                a {
+                    text-decoration: inherit !important;
+                }
+
+                    a[href]:after {
+                        display: none !important;
+                    }
+            }
+        </style>
         <p class="govuk-body">@Localizer["I declare that:"]</p>
         <ul class="govuk-list govuk-list--bullet">
-            <li>@Localizer["I will only use the lifelong travel document to travel with my dog, cat or ferret from Great Britain (England, Scotland and Wales) to Northern Ireland"]</li>
-            <li>@Localizer["I need an EU pet passport or animal health certificate to travel from Northern Ireland to the EU"]</li>
+            <li>@Localizer["I am the applicant"]</li>
+            <li>@Localizer["The answers I have given are true and correct to the best of my knowledge"]</li>
+            <li>@Localizer["I understand that I can travel with this pet to and from Northern Ireland only and not to an EU member state (Ireland is an EU member state)"]</li>
+            <li>@Localizer["I am not taking the animal as part of a commercial movement"]</li>
+            <li>@Localizer["I have read and I accept the"] <a class="govuk-link" id="TermsConditions" href="@WebAppConstants.Pages.Content.TermsAndConditions">@Localizer["Pet Travel Scheme terms and conditions"]</a></li>
+            <li>@Localizer["I have read "]<a class="govuk-link" target="_blank" rel="noopener noreferrer" href="@WebAppConstants.ExternalLinks.PrivacyNotice"> @Localizer["Defra's privacy notice"] <span class="govuk-!-display-none-print">@Localizer["(opens in a new tab)"]</span></a></li>
         </ul>
 
         <hr class="govuk-section-break govuk-section-break--l govuk-section-break--visible govuk-!-display-none-print">
@@ -27,3 +43,21 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Disable the link's clickability on print
+    window.onbeforeprint = function () {
+        var links = document.querySelectorAll('a');
+        links.forEach(function (link) {
+            link.dataset.href = link.getAttribute('href');
+            link.removeAttribute('href');
+        });
+    };
+    window.onafterprint = function () {
+        var links = document.querySelectorAll('a');
+        links.forEach(function (link) {
+            link.setAttribute('href', link.dataset.href);
+        });
+    };
+</script>
+
