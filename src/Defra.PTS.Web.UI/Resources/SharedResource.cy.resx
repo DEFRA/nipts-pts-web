@@ -685,4 +685,16 @@
     <value>Brid cymysg</value>
     <comment>Pet Breed</comment>
   </data>
+  <data name="You’re about to be signed out" xml:space="preserve">
+    <value>Rydych ar fin cael eich allgofnodi</value>
+  </data>
+  <data name="For your security, we will sign you out in" xml:space="preserve">
+    <value>Er eich diogelwch, byddwn yn eich allgofnodi cyn pen</value>
+  </data>
+  <data name="en" xml:space="preserve">
+    <value>cy</value>
+  </data>
+  <data name="Stay signed in" xml:space="preserve">
+    <value>Parhau i fod wedi’ch mewngofnodi</value>
+  </data>
 </root>

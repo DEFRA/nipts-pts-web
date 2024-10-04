@@ -34,7 +34,7 @@ public class GetBreedsQueryHandler : IRequestHandler<GetBreedsQueryRequest, GetB
         }
         catch (Exception ex) 
         {
-            _logger.LogError(ex, $"{nameof(_petService)}: Unable to get list of breeds for {request.PetType.GetDescription()}");
+            _logger.LogError(ex, "{petService}: Unable to get list of breeds for {PetType}", nameof(_petService), request.PetType.GetDescription());
             throw;
         }
     }

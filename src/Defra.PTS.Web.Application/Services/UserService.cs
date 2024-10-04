@@ -61,7 +61,7 @@ public class UserService : IUserService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Exception: Error returned from {ex.Message}: {ex.StackTrace}");
+            _logger.LogError(ex, "Exception: Error returned from AddUserAyns - {Message}: {StackTrace}", ex.Message, ex.StackTrace);
             throw;
         }
     }
@@ -100,7 +100,7 @@ public class UserService : IUserService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Exception: Error returned from {ex.Message}: {ex.StackTrace}");
+            _logger.LogError(ex, "Exception: Error returned from AddOwnerasync - {Message}: {StackTrace}", ex.Message, ex.StackTrace);
             throw;
         }
     }
@@ -119,7 +119,7 @@ public class UserService : IUserService
                 throw new HttpRequestException($"Unable to address, Status code: {response.StatusCode}");
             }
 
-            _logger.LogInformation($"Address added");
+            _logger.LogInformation("Address added");
 
             var addressId = await response.Content.ReadFromJsonAsync<Guid>();
 
@@ -127,7 +127,7 @@ public class UserService : IUserService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Exception: Error returned from {ex.Message}: {ex.StackTrace}");
+            _logger.LogError(ex, "Exception: Error returned from AddressAsyncAsync - {Message}: {StackTrace}", ex.Message, ex.StackTrace);
             throw;
         }
     }
@@ -159,7 +159,7 @@ public class UserService : IUserService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Exception: Error returned from {ex.Message}: {ex.StackTrace}");
+            _logger.LogError(ex, "Exception: Error returned from UpdateUserAsync - {Message}: {StackTrace}", ex.Message, ex.StackTrace);
             throw;
         }
     }
@@ -191,7 +191,7 @@ public class UserService : IUserService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Exception: Error returned from {ex.Message}: {ex.StackTrace}");
+            _logger.LogError(ex, "Exception: Error returned from UpdateUserAddressAsync - {Message}: {StackTrace}", ex.Message, ex.StackTrace);
             throw;
         }
     }
@@ -211,7 +211,7 @@ public class UserService : IUserService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Exception: Error returned from {ex.Message}: {ex.StackTrace}");
+            _logger.LogError(ex, "Exception: Error returned from GetUserDetail - {Message}: {StackTrace}", ex.Message, ex.StackTrace);
             throw;
         }
     }

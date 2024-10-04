@@ -6,7 +6,7 @@ namespace Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 public class PetKeeperUserDetailsViewModel : TravelDocumentFormPage, IPostcodeModel
 {
     public string PetKeeperUserDetailsFormTitle => $"Are your details correct?";
-    public string PetKeeperNonGbAddressFormTitle => $"Change your details";
+    public  string PetKeeperNonGbAddressFormTitle => $"Change your details";
     public string PetKeeperNonGbAddressFormMessageHeader => $"Important";
     public string PetKeeperNonGbAddressFormMessageBody => $"Enter an address in England, Scotland or Wales.";
 

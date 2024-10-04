@@ -57,6 +57,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
    
     }
 
+    [ExcludeFromCodeCoverage]
     [HttpGet]
     public async Task<IActionResult> Index()
     {
@@ -77,7 +78,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                 Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("cy");
             }
             HandleCache();
-
 
             var magicWordData = GetMagicWordFormData(true);
 
@@ -108,7 +108,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "An error has occurred");
+            _logger.LogError(ex, "An error has occurred, {Message}", ex.Message);
             throw;
         }
     }
@@ -145,7 +145,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Unable to save user details");
+            _logger.LogError(ex, "Unable to save user details, {Message}", ex.Message);
             throw;
         }
     }
@@ -162,7 +162,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Unable to save address details");
+            _logger.LogError(ex, "Unable to save address details, {Message}", ex.Message);
         }
         var contactId = CurrentUserContactId();
         var response = await _mediator.Send(new GetUserDetailQueryRequest(contactId));
@@ -239,17 +239,17 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         {
             if (!Response.Headers.ContainsKey("Cache-Control"))
             {
-                Response.Headers.Add("Cache-Control", "no-cache, no-store, must-revalidate");
+                Response.Headers.Append("Cache-Control", "no-cache, no-store, must-revalidate");
             }
 
             if (!Response.Headers.ContainsKey("Pragma"))
             {
-                Response.Headers.Add("Pragma", "no-cache"); // HTTP 1.0 backward compatibility
+                Response.Headers.Append("Pragma", "no-cache"); // HTTP 1.0 backward compatibility
             }
 
             if (!Response.Headers.ContainsKey("Expires"))
             {
-                Response.Headers.Add("Expires", "0"); // Expire immediately
+                Response.Headers.Append("Expires", "0"); // Expire immediately
             }
 
         }

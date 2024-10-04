@@ -52,13 +52,13 @@ public record struct MarginSize(int Top, int Right, int Bottom, int Left)
         };
     }
 
-    public override string ToString() => $"{Top},{Right},{Bottom},{Left}";
+    public override readonly string ToString() => $"{Top},{Right},{Bottom},{Left}";
 
     internal class StringToMarginSizeConverter : TypeConverter
     {
         private static readonly Type tString = typeof(string);
         private static readonly Type tMarginSize = typeof(MarginSize);
-        private static readonly IReadOnlyCollection<Type> convertable = new HashSet<Type> { tString, tMarginSize };
+        private static readonly IReadOnlyCollection<Type> convertable = [tString, tMarginSize];
 
         public override bool CanConvertFrom(ITypeDescriptorContext context, Type sourceType) => convertable.Contains(sourceType);
 
