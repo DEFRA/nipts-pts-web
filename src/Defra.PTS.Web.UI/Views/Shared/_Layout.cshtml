@@ -1,4 +1,8 @@
 ﻿@using Defra.PTS.Web.UI.Constants;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SharedResource> sharedlocalizer
+
 @{
     var onPasswordPage = false;
 
@@ -8,7 +12,6 @@
     if (magicWordEnabled && !hasUserPassedPasswordCheck)
     {
         onPasswordPage = true;
-
     }
 }
 <!DOCTYPE html>
@@ -23,17 +26,17 @@
 
     <meta name="hmrc-timeout-dialog"
           content="hmrc-timeout-dialog"
-          data-language="en"
+          data-language=@sharedlocalizer["en"]
           data-timeout="1800"
-          data-countdown="1680"
+          data-countdown="120"
           data-keep-alive-url="?continue=true"
           data-sign-out-url="@Url.Action("ApplicationTimeout", "Home")"
           data-timeout-url=""
-          data-title="You’re about to be signed out"
-          data-message="For your security, we will sign you out in"
+          data-title="@sharedlocalizer["You’re about to be signed out"]"
+          data-message="@sharedlocalizer["For your security, we will sign you out in"]"
           data-message-suffix=""
-          data-keep-alive-button-text="Stay signed in"
-          data-sign-out-button-text="Sign out"
+          data-keep-alive-button-text="@sharedlocalizer["Stay signed in"]"
+          data-sign-out-button-text="@sharedlocalizer["Sign out"]"
           data-synchronise-tabs=""
           data-hide-sign-out-button="" />
 
