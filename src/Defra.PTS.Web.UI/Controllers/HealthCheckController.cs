@@ -39,7 +39,7 @@ namespace Defra.PTS.Web.UI.Controllers
             }
             catch (ApiException ex)
             {
-                _logger.LogError(ex, $"Places Api Health Check Error: {ex.Message}");
+                _logger.LogError(ex, "Places Api Health Check Error: {Message}", ex.Message);
                 // this is for where the api has no values returned for a valid postcode entry
                 return new StatusCodeResult(StatusCodes.Status503ServiceUnavailable);
             }

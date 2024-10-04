@@ -23,13 +23,7 @@ namespace Defra.PTS.Web.UI.Configuration.Startup;
 [ExcludeFromCodeCoverage]
 public static class Services
 {
-    public static SecretClient AddKeyVault(this IServiceCollection services, IConfiguration configuration)
-    {
-        var keyVaultUri = configuration["KeyVaultUri"];
-        var client = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
-        return client;
-    }
-    public static void AddAuthentications(this IServiceCollection services, IConfiguration configuration, SecretClient secretClient)
+    public static void AddAuthentications(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IHostHelper, HostHelper>();
         services.Configure<SecretsConfiguration>(configuration.GetSection("PTSB2C"));
@@ -49,7 +43,7 @@ public static class Services
             options.Secure = CookieSecurePolicy.Always;
             options.MinimumSameSitePolicy = SameSiteMode.None;
         });
-        services.AddServiceHttpClients(configuration, secretClient);
+        services.AddServiceHttpClients(configuration);
         services.AddAuthentication(options =>
         {
             options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
@@ -74,32 +68,34 @@ public static class Services
             options.ResponseMode = "form_post";
             options.RemoteAuthenticationTimeout = TimeSpan.FromMinutes(15);
             options.SaveTokens = true;
-            options.Events = new OpenIdConnectEvents()
+            options.Events = new OpenIdConnectEvents
             {
                 OnRemoteFailure = (ctx) =>
+                            {
+                                if (ctx.Failure?.Message == "Correlation failed.")
+                                {
+                                    ctx.Response.Redirect("/TravelDocument");
+                                    ctx.HandleResponse();
+                                }
+
+                                return Task.CompletedTask;
+                            },
+                OnAuthenticationFailed = _ => Task.CompletedTask,
+                OnTicketReceived = adB2cSection.HandleTicketReceived,
+                OnRedirectToIdentityProvider = adB2cSection.HandleRedirectToIdentityProvider,
+                OnRemoteSignOut = adB2cSection.HandleRemoteSignOut,
+                OnAccessDenied = ctx =>
                 {
-                    if (ctx.Failure?.Message == "Correlation failed.")
-                    {
-                        ctx.Response.Redirect("/TravelDocument");
-                        ctx.HandleResponse();
-                    }
-
+                    ctx.HandleResponse();
+                    ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
                     return Task.CompletedTask;
-                },
-            };
-            options.Events.OnAuthenticationFailed = _ => Task.CompletedTask;
-            options.Events.OnTicketReceived = adB2cSection.HandleTicketReceived;
-            options.Events.OnRedirectToIdentityProvider = adB2cSection.HandleRedirectToIdentityProvider;
-            options.Events.OnRemoteSignOut = adB2cSection.HandleRemoteSignOut;
-            options.Events.OnAccessDenied = ctx =>
-            {
-                ctx.HandleResponse();
-                ctx.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                return Task.CompletedTask;
+                }
             };
 
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
+            HttpClientHandler handler = new()
+            {
+                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            };
             options.BackchannelHttpHandler = handler;
         });
 
@@ -123,7 +119,7 @@ public static class Services
         };
     }
 
-    public static IServiceCollection AddServiceHttpClients(this IServiceCollection services, IConfiguration configuration, SecretClient secretClient)
+    public static IServiceCollection AddServiceHttpClients(this IServiceCollection services, IConfiguration configuration)
     {
         string subscriptionKey = configuration.GetValue<string>("PTSB2C:PtsApimSubscriptionKey");
 
@@ -201,15 +197,9 @@ public static class Services
 }
 
 [ExcludeFromCodeCoverage]
-public class SessionTimeoutMiddleware
+public class SessionTimeoutMiddleware(RequestDelegate next)
 {
-    private readonly RequestDelegate _next;
-
-    public SessionTimeoutMiddleware(RequestDelegate next)
-    {
-        _next = next;
-    }
-    private void GetCultureRequest(HttpContext context)
+    private static void GetCultureRequest(HttpContext context)
     {
         //Check that the previous url is "", which happens when logging into index page
         var referer = context.Request.Headers.Referer.ToString();
@@ -220,7 +210,7 @@ public class SessionTimeoutMiddleware
             if (!string.IsNullOrWhiteSpace(cultureQuery))
             {
                 //Get culture from cookie and set language
-                var cultureCode = Array.Find(cultureQuery.Split('|'), (segment => segment.StartsWith("c=")))?.Substring(2);
+                var cultureCode = Array.Find(cultureQuery.Split('|'), (segment => segment.StartsWith("c=")))?[2..];
                 if (!string.IsNullOrEmpty(cultureCode))
                 {
                     var culture = new CultureInfo(cultureCode);
@@ -245,7 +235,7 @@ public class SessionTimeoutMiddleware
                 context.Request.Path.StartsWithSegments("/images"))
             {
                 GetCultureRequest(context);
-                await _next(context);
+                await next(context);
                 return;
             }
 
@@ -256,7 +246,7 @@ public class SessionTimeoutMiddleware
             }
         }
         // If session is active, continue to the next middleware in the pipeline
-        await _next(context);
+        await next(context);
     }
 
 }

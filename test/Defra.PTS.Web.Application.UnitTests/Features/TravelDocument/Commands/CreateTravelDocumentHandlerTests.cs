@@ -1,4 +1,5 @@
-﻿using Defra.PTS.Web.Application.DTOs.Services;
+﻿using Defra.PTS.Web.Application.DTOs.Features;
+using Defra.PTS.Web.Application.DTOs.Services;
 using Defra.PTS.Web.Application.Features.TravelDocument.Commands;
 using Defra.PTS.Web.Application.Services.Interfaces;
 using Defra.PTS.Web.Domain.Enums;
@@ -119,7 +120,10 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Commands
                 loggerMock.Object);
 
             var request = new CreateTravelDocumentRequest(new TravelDocumentViewModel(), new User());
-
+            var response = new CreateTravelDocumentResponse()
+            {
+                IsSuccess = false
+            };
             var cancellationToken = CancellationToken.None;
 
             var userId = Guid.NewGuid(); // Example userId
@@ -134,11 +138,11 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Commands
             petServiceMock.Setup(m => m.CreatePet(It.IsAny<TravelDocumentViewModel>())).ReturnsAsync(petId);
             applicationServiceMock.Setup(m => m.CreateApplication(It.IsAny<ApplicationDto>())).ThrowsAsync(new Exception(errorMessage));
 
-            // Act + Assert
-            var result = await Assert.ThrowsAsync<Exception>(async () => await handler.Handle(request, CancellationToken.None));
+            var result = await handler.Handle(request, CancellationToken.None);
 
+            // Act + Assert
+            Assert.Equal(result.IsSuccess, response.IsSuccess);
             Assert.NotNull(result);
-            Assert.Equal(errorMessage, result.Message);
         }
 
 

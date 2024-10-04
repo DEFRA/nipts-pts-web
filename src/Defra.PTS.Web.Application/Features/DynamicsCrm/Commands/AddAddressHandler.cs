@@ -31,7 +31,7 @@ public class AddAddressHandler : IRequestHandler<AddAddressRequest, AddAddressRe
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{nameof(_dynamicService)}: Unable to add address for {request?.User?.UniqueReference}");
+            _logger.LogError(ex, "{dynamicService}: Unable to add address for {UniqueReference}", nameof(_dynamicService), request?.User?.UniqueReference);
             throw;
         }
     }

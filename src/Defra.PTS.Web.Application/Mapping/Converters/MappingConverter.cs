@@ -81,7 +81,7 @@ public static class MappingConverter
         }
 
         // Other Colour
-        if (colourName.ToLowerInvariant() == AppConstants.Values.OtherColourName.ToLowerInvariant() 
+        if (colourName.Equals(AppConstants.Values.OtherColourName, StringComparison.InvariantCultureIgnoreCase)
             && !string.IsNullOrWhiteSpace(src.PetColourOther))
         {
             colourName = src.PetColourOther;

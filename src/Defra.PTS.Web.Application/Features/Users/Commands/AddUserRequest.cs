@@ -4,11 +4,7 @@ using MediatR;
 
 namespace Defra.PTS.Web.Application.Features.Users.Commands;
 
-public class AddUserRequest : IRequest<AddUserResponse>
+public class AddUserRequest(User user) : IRequest<AddUserResponse>
 {
-    public User User { get; }
-    public AddUserRequest(User user)
-    {
-        User = user;
-    }
+    public User User { get; } = user;
 }

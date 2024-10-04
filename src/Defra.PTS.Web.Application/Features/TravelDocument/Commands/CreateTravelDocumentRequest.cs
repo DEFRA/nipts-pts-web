@@ -5,13 +5,8 @@ using MediatR;
 
 namespace Defra.PTS.Web.Application.Features.TravelDocument.Commands;
 
-public class CreateTravelDocumentRequest : IRequest<CreateTravelDocumentResponse>
+public class CreateTravelDocumentRequest(TravelDocumentViewModel viewModel, User user) : IRequest<CreateTravelDocumentResponse>
 {
-    public TravelDocumentViewModel Model { get; }
-    public User User { get; }
-    public CreateTravelDocumentRequest(TravelDocumentViewModel viewModel, User user)
-    {
-        Model = viewModel;
-        User = user;
-    }
+    public TravelDocumentViewModel Model { get; } = viewModel;
+    public User User { get; } = user;
 }

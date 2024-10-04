@@ -118,7 +118,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _mockMediator.Setup(x => x.Send(It.IsAny<GetApplicationsQueryRequest>(), CancellationToken.None))
              .ReturnsAsync(new GetApplicationsQueryResponse
              {
-                 Applications = new List<ApplicationSummaryDto> { new ApplicationSummaryDto { ApplicationId = Guid.NewGuid() } }
+                 Applications = [new ApplicationSummaryDto { ApplicationId = Guid.NewGuid() }]
              });
             // Act
             var result = _travelDocumentController.Index().Result as ViewResult;
@@ -214,10 +214,10 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         {
             // Arrange
             var expectedContactId = new Guid("00000000-0000-0000-0000-000000000000");
-            var identity = new ClaimsIdentity(new List<Claim>
-            {
+            var identity = new ClaimsIdentity(
+            [
                 new Claim("contactId", expectedContactId.ToString())
-            });
+            ]);
             var claimsPrincipal = new ClaimsPrincipal(identity);
             _travelDocumentController.ControllerContext = new ControllerContext
             {
@@ -260,15 +260,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 EmailAddress = "john.doe@example.com",
                 Role = "Admin"
             };
-            var identity = new ClaimsIdentity(new List<Claim>
-            {
+            var identity = new ClaimsIdentity(
+            [
                 new Claim("contactId", expectedUser.ContactId),
                 new Claim("uniqueReference", expectedUser.UniqueReference),
                 new Claim("firstName", expectedUser.FirstName),
                 new Claim("lastName", expectedUser.LastName),
                 new Claim("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress", expectedUser.EmailAddress),
                 new Claim("http://schemas.microsoft.com/ws/2008/06/identity/claims/role", expectedUser.Role)
-            });
+            ]);
             var claimsPrincipal = new ClaimsPrincipal(identity);
             _travelDocumentController.ControllerContext.HttpContext = new DefaultHttpContext
             {
@@ -315,12 +315,12 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // Create claims
             var claims = new List<Claim>
             {
-                new Claim("contactId", "123"),
-                new Claim("uniqueReference", "abc"),
-                new Claim("firstName", "John"),
-                new Claim("lastName", "Doe"),
-                new Claim(ClaimTypes.Email, "john.doe@example.com"),
-                new Claim(ClaimTypes.Role, "Admin")
+                new("contactId", "123"),
+                new("uniqueReference", "abc"),
+                new("firstName", "John"),
+                new("lastName", "Doe"),
+                new(ClaimTypes.Email, "john.doe@example.com"),
+                new(ClaimTypes.Role, "Admin")
             };
 
             identities.Add(identityMock.Object);
@@ -336,7 +336,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         // For example, you can use a Dictionary to simulate session data
 
         // Here's a simple implementation for demonstration purposes
-        private readonly Dictionary<string, byte[]> _sessionData = new Dictionary<string, byte[]>();
+        private readonly Dictionary<string, byte[]> _sessionData = [];
 
         public byte[] this[string key]
         {

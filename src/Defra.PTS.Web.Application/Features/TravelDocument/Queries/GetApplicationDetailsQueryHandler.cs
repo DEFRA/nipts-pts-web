@@ -33,7 +33,7 @@ public class GetApplicationDetailsQueryHandler : IRequestHandler<GetApplicationD
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{nameof(_applicationService)}: Unable to get application details for id {request?.ApplicationId}");
+            _logger.LogError(ex, "{applicationService}: Unable to get application details for id {ApplicationId}. Error: {Message}", nameof(_applicationService), request?.ApplicationId, ex.Message);
             throw;
         }
     }

@@ -41,7 +41,7 @@ public class ApplicationService : IApplicationService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Exception: Error returned from {ex.Message}: {ex.StackTrace}");
+            _logger.LogError(ex, "Exception: Error returned from CreateApplication - {Message}: {StackTrace}", ex.Message, ex.StackTrace);
             throw;
         }
 
@@ -65,7 +65,7 @@ public class ApplicationService : IApplicationService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Exception: Error returned from {ex.Message}: {ex.StackTrace}");
+            _logger.LogError(ex, "Exception: Error returned from GetApplicationDetails - {Message}: {StackTrace}", ex.Message, ex.StackTrace);
             throw;
         }
 
@@ -90,7 +90,7 @@ public class ApplicationService : IApplicationService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Exception: Error returned from {ex.Message}: {ex.StackTrace}");
+            _logger.LogError(ex, "Exception: Error returned from GetApplicationCertificate - {Message}: {StackTrace}", ex.Message, ex.StackTrace);
             throw;
         }
     }
@@ -109,7 +109,7 @@ public class ApplicationService : IApplicationService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Exception: Error returned from {ex.Message}: {ex.StackTrace}");
+            _logger.LogError(ex, "Exception: Error returned from GetUserApplications - {Message}: {StackTrace}", ex.Message, ex.StackTrace);
             throw;
         }
     }
