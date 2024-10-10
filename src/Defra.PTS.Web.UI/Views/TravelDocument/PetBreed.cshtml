@@ -37,14 +37,17 @@
 
             <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
 
-                <fieldset class="govuk-fieldset" aria-describedby="BreedId__assistiveHint">
+                <fieldset class="govuk-fieldset" aria-describedby="BreedId__assistiveHint" id="petBreedControls">
 
                     <partial name="_FieldsetLegend" model=fieldsetLegend />
 
-                    <div id="BreedId__assistiveHint" class="govuk-hint">
-                        @exampleText
-                    </div>
                     <div class="govuk-form-group" id="BreedName">
+                        <div id="BreedId__assistiveHint" class="govuk-hint">
+                            <label class="govuk-label" id="BreedLabel" for="BreedId">
+                                @exampleText
+                            </label>
+                        </div>
+
                         @Html.ValidationMessageFor(x => x.BreedName, string.Empty, new { @class = "govuk-error-message" })
 
                         <select class="govuk-select govuk-!-width-full" id="BreedId" spellcheck="true" aria-labelledby="BreedLabel" asp-for="BreedId" asp-items="ViewBag.BreedList"></select>
@@ -63,7 +66,7 @@
 </div>
 
 @section Scripts
-    {
+{
     <script>
         $(document).ready(function () {
             accessibleAutocomplete.enhanceSelectElement({
