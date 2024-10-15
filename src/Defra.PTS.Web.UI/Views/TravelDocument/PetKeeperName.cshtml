@@ -25,13 +25,13 @@
             <partial name="_ErrorSummary" />
 
             <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
-                <h1 class="govuk-label-wrapper">
-                    <label class="govuk-label govuk-label--xl" for="Name">
+
+                <h1 class="govuk-heading-xl govuk-!-margin-bottom-4" for="Name">
                         @Localizer[Model.FormTitle]
-                    </label>
                 </h1>
+
                 @Html.ValidationMessageFor(x => x.Name, string.Empty, new { @class = "govuk-error-message" })
-                @Html.TextBoxFor(x => x.Name, new { @class = "govuk-input", @spellcheck = "false", @autocomplete = "name" })
+                @Html.TextBoxFor(x => x.Name, new { @class = "govuk-input", @spellcheck = "false", @autocomplete = "name", aria_label = @Localizer[Model.FormTitle].Value })
             </div>
 
             <div class="govuk-button-group">
