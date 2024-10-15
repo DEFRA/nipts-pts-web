@@ -27,13 +27,13 @@ public class DeclarationValidator : AbstractValidator<DeclarationViewModel>
         {
             RuleFor(x => x.Phone)
             .MaximumLength(AppConstants.MaxLength.PetKeeperPhone)
-            .WithMessage($"Phone number must be {AppConstants.MaxLength.PetKeeperPhone} characters or less");
+            .WithMessage("Enter a phone number, like 01632 960 001 or 07700 900 982");
 
             When(x => x.Phone.Length <= AppConstants.MaxLength.PetKeeperPhone, () =>
             {
                 RuleFor(x => x.Phone)
-                .Must(BeValidUKPhone)
-                .WithMessage("Phone number is not valid UK number");
+                .Matches(AppConstants.RegularExpressions.UKPhone)
+                .WithMessage("Enter a phone number, like 01632 960 001 or 07700 900 982");
             });
         });
 
@@ -54,11 +54,6 @@ public class DeclarationValidator : AbstractValidator<DeclarationViewModel>
     }
 
     [ExcludeFromCodeCoverage]
-    private static bool BeValidUKPhone(string phone)
-    {
-        return PhoneNumberHelper.IsValidUKPhoneNumber(phone);
-    }
-
     private bool BeValidUKPostcode(string postcode)
     {
         var result = _mediator.Send(new ValidateGreatBritianAddressRequest(postcode)).Result;
