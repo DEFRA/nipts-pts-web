@@ -132,11 +132,11 @@
   <data name="I am not taking the animal as part of a commercial movement" xml:space="preserve">
     <value>Nid wyf yn mynd â’r anifail fel rhan o symudiad masnachol</value>
   </data>
-  <data name="I am the applicant" xml:space="preserve">
-    <value>Fi yw’r ymgeisydd</value>
+  <data name="I am the applicant or the person authorised to travel with this pet" xml:space="preserve">
+    <value>Fi yw’r ymgeisydd neu’r sawl sydd wedi’i awdurdodi i deithio gyda’r anifail anwes hwn</value>
   </data>
   <data name="I declare that:" xml:space="preserve">
-    <value>Dwi’n datgan:</value>
+    <value>Rwy’n datgan y canlynol:</value>
   </data>
   <data name="I have read " xml:space="preserve">
     <value>Rwyf wedi darllen </value>
