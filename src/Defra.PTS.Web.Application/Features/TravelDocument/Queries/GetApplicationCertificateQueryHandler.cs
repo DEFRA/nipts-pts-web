@@ -33,7 +33,7 @@ public class GetApplicationCertificateQueryHandler : IRequestHandler<GetApplicat
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{nameof(_applicationService)}: Unable to get application certificate for id {request?.ApplicationId}");
+            _logger.LogError(ex, "{applicationService}: Unable to get application certificate for id {ApplicationId}.", nameof(_applicationService), request?.ApplicationId, ex.Message);
             throw;
         }
     }

@@ -31,19 +31,15 @@ public class PetService : IPetService
             response.EnsureSuccessStatusCode();
 
             string content = await response.Content.ReadAsStringAsync();
-            _logger.LogError($"*****Test Content****** {content}");
-            _logger.LogError($"*****Test IsSuccessStatusCode****** {response.IsSuccessStatusCode}");
 
             var breeds = JsonConvert.DeserializeObject<List<BreedDto>>(content);
 
-            _logger.LogError($"*****Test Breeds Count******  {breeds.Count}");
-            _logger.LogError($"*****Test Breeds******  {breeds[0].BreedId} **** {breeds[0].BreedName}");
 
             return breeds;
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Exception: Error returned from {ex.Message + "*****Exception-GetBreeds"}: {ex.StackTrace}");
+            _logger.LogError(ex, "Exception: Error returned from {Message}: {StackTrace}", ex.Message, ex.StackTrace);
             throw;
         }
     }
@@ -63,7 +59,7 @@ public class PetService : IPetService
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Exception: Error returned from {ex.Message + "*****Exception-GetColours"}: {ex.StackTrace}");
+            _logger.LogError(ex, "Exception: Error returned from {Message}: {StackTrace}", ex.Message, ex.StackTrace);
             throw;
         }
     }
@@ -81,7 +77,7 @@ public class PetService : IPetService
         }
         catch(Exception ex)
         {
-            _logger.LogError(ex, $"Exception: Error returned from {ex.Message + "*****Exception-CreatePet"}: {ex.StackTrace}");
+            _logger.LogError(ex, "Exception: Error returned from {Message}: {StackTrace}", ex.Message, ex.StackTrace);
             throw;
         }
     

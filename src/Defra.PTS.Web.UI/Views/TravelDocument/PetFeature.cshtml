@@ -16,7 +16,7 @@
 }
 
 <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div id="formroot" class="govuk-grid-column-two-thirds">
 
         @using (Html.BeginForm("PetFeature", "TravelDocument", FormMethod.Post, new { @class = "form PetFeature" }))
         {
@@ -44,7 +44,7 @@
 
                     <p id="OptionSelected_Error" class="govuk-error-message" gds-validation-for="HasUniqueFeature"></p>
                     <div class="govuk-radios" data-module="govuk-radios" id="HasUniqueFeature">
-                        <div class="govuk-form-group @(ViewData.ModelState.HasError("HasUniqueFeature") ? "govuk-form-group--error" : null)">
+                        <div id="FeatureDescriptionRadios" class="govuk-form-group @(ViewData.ModelState.HasError("HasUniqueFeature") ? "govuk-form-group--error" : null)">
                             <div class="govuk-radios__item">
                                 <input class="govuk-radios__input" type="radio" id="HasUniqueFeatureYes" asp-for="HasUniqueFeature" value="@YesNoOptions.Yes" aria-controls="conditional-feature" aria-expanded="false">
                                 <label class="govuk-label govuk-radios__label" for="HasUniqueFeatureYes">
@@ -95,7 +95,7 @@
             $(".govuk-radios__input").click(function () {
                 $('.govuk-error-summary').hide();
                 $('.govuk-error-message').hide();
-                $('#formroot').removeClass("govuk-form-group--error");
+                $('#FeatureDescriptionRadios').removeClass("govuk-form-group--error");
                 $('#featureinput').removeClass("input-validation-error");
             });
         })

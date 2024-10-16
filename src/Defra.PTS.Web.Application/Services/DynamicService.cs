@@ -55,16 +55,16 @@ public class DynamicService : IDynamicService
             HttpResponseMessage response = await _httpClient.PostAsJsonAsync(apiUrl, application);
             if (response.IsSuccessStatusCode)
             {
-                _logger.LogInformation($"Message Added to Queue Successfully : {response.IsSuccessStatusCode}");
+                _logger.LogInformation("Message Added to Queue Successfully : {IsSuccessStatusCode}", response.IsSuccessStatusCode);
             }
             else
             {
-                _logger.LogError("Message post Failed: " + response.StatusCode);                
+                _logger.LogError("Message post Failed: {statusCode}", response.StatusCode);                
             }
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"Exception-AddApplicationToQueueAsync: Message {ex.Message} : StackTrace {ex.StackTrace}");
+            _logger.LogError(ex, "AddApplicationToQueueAsync: Message {Message} : StackTrace {StackTrace}", ex.Message, ex.StackTrace);
             throw;
         }        
     }

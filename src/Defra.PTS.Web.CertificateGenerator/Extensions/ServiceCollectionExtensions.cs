@@ -18,19 +18,19 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddCertificateServices(this IServiceCollection services, ConfigurationManager configuration)
     {
-        _ = services.Configure<PuppeteerSettings>(configuration.GetSection("Puppeteer"));
+        services.Configure<PuppeteerSettings>(configuration.GetSection("Puppeteer"));
 
-        _ = services.AddCertificateGeneration();
-        _ = services.AddPuppeteerPdfRendering(configuration.GetSection("Puppeteer"));
-        _ = services.AddHtmlToPdfRendering<ApplicationCertificateViewModel>();
-        _ = services.AddRazorHtmlRendering<ApplicationCertificateViewModel>(opt =>
+        services.AddCertificateGeneration();
+        services.AddPuppeteerPdfRendering(configuration.GetSection("Puppeteer"));
+        services.AddHtmlToPdfRendering<ApplicationCertificateViewModel>();
+        services.AddRazorHtmlRendering<ApplicationCertificateViewModel>(opt =>
         {
             opt.ViewName = ApplicationCertificateViewModel.ViewName;
             opt.ViewPath = ApplicationCertificateViewModel.ViewPath;
             opt.GetFileName = m => $"{typeof(ApplicationCertificateViewModel).Name}.html";
         });
-        _ = services.AddHtmlToPdfRendering<ApplicationDetailsViewModel>();
-        _ = services.AddRazorHtmlRendering<ApplicationDetailsViewModel>(opt =>
+        services.AddHtmlToPdfRendering<ApplicationDetailsViewModel>();
+        services.AddRazorHtmlRendering<ApplicationDetailsViewModel>(opt =>
         {
             opt.ViewName = ApplicationDetailsViewModel.ViewName;
             opt.ViewPath = ApplicationDetailsViewModel.ViewPath;
@@ -62,12 +62,12 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         Action<ConfigurableHtmlToPdfModelRendererOptions<TViewModel>> configurePdf = null)
     {
-        _ = services.AddCertificateGeneration();
+        services.AddCertificateGeneration();
 
         services.TryAddTransient<ICertificateGenerator<TViewModel>, CertificatePdfGenerator<TViewModel>>();
         services.TryAddTransient<IPdfModelRenderer<TViewModel>, ConfigurableHtmlToPdfModelRenderer<TViewModel>>();
 
-        _ = services.Configure(configurePdf ?? (_ => { }));
+        services.Configure(configurePdf ?? (_ => { }));
 
         return services;
     }
@@ -76,9 +76,9 @@ public static class ServiceCollectionExtensions
     this IServiceCollection services,
     Action<RazorHtmlModelRendererOptions<TViewModel>> configure)
     {
-        _ = services.AddHttpContextAccessor();
+        services.AddHttpContextAccessor();
         services.TryAddTransient<IHtmlModelRenderer<TViewModel>, RazorHtmlModelRenderer<TViewModel>>();
-        _ = services.Configure(configure);
+        services.Configure(configure);
 
         return services;
     }

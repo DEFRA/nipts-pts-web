@@ -4,11 +4,7 @@ using MediatR;
 
 namespace Defra.PTS.Web.Application.Features.Users.Queries;
 
-public class GetUserDetailQueryRequest : IRequest<GetUserDetailQueryResponse>
+public class GetUserDetailQueryRequest(Guid userId) : IRequest<GetUserDetailQueryResponse>
 {
-    public Guid UserId { get; }
-    public GetUserDetailQueryRequest(Guid userId)
-    {
-        UserId = userId;
-    }
+    public Guid UserId { get; } = userId;
 }

@@ -3,11 +3,7 @@ using MediatR;
 
 namespace Defra.PTS.Web.Application.Features.TravelDocument.Queries;
 
-public class GetApplicationDetailsQueryRequest : IRequest<GetApplicationDetailsQueryResponse>
+public class GetApplicationDetailsQueryRequest(Guid applicationId) : IRequest<GetApplicationDetailsQueryResponse>
 {
-    public Guid ApplicationId { get; }
-    public GetApplicationDetailsQueryRequest(Guid applicationId)
-    {
-        ApplicationId = applicationId;
-    }
+    public Guid ApplicationId { get; } = applicationId;
 }

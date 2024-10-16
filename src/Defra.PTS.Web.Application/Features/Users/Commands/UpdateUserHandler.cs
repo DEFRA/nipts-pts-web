@@ -33,7 +33,7 @@ public class UpdateUserHandler : IRequestHandler<UpdateUserRequest, UpdateUserRe
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, $"{nameof(_userService)}: Unable to update user {request?.EmailAddress}");
+            _logger.LogError(ex, "{userService}: Unable to update user {EmailAddress}", nameof(_userService), request?.EmailAddress);
             throw;
         }
     }

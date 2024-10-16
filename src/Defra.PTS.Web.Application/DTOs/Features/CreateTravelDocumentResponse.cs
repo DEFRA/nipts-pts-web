@@ -7,5 +7,5 @@ public class CreateTravelDocumentResponse
     public bool IsSuccess { get; set; }
     public string Reference { get; set; }
     public Guid UserId { get; set; }
-    public ApplicationDto Application { get; set; } = new ApplicationDto();
+    public ApplicationDto Application { get; set; } = new();
 }
