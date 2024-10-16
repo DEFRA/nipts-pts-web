@@ -38,17 +38,20 @@
             <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
 
                 <fieldset class="govuk-fieldset" aria-describedby="BreedId__assistiveHint" id="petBreedControls">
-
-                    <partial name="_FieldsetLegend" model=fieldsetLegend />
+                    <legend class="govuk-fieldset__legend govuk-fieldset__legend--xl" id="BreedLabel">
+                        <h1 class="govuk-fieldset__heading">
+                            @Localizer[Model.FormTitle]
+                        </h1>
+                    </legend>
 
                     <div class="govuk-form-group" id="BreedName">
                         <div id="BreedId__assistiveHint" class="govuk-hint">
-                            <label class="govuk-label" id="BreedLabel" for="BreedId">
-                                @exampleText
-                            </label>
+                            @exampleText
                         </div>
 
                         @Html.ValidationMessageFor(x => x.BreedName, string.Empty, new { @class = "govuk-error-message" })
+
+                        <label id="BreedLabel" class="sr-only" for="BreedId">@Localizer[Model.FormTitle]</label>
 
                         <select class="govuk-select govuk-!-width-full" id="BreedId" spellcheck="true" aria-labelledby="BreedLabel" asp-for="BreedId" asp-items="ViewBag.BreedList"></select>
 
