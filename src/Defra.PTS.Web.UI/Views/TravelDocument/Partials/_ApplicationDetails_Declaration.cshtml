@@ -20,13 +20,25 @@
                     }
             }
         </style>
+
+        @{
+            var currentCulture = System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+        }
+
         <p class="govuk-body">@Localizer["I declare that:"]</p>
         <ul class="govuk-list govuk-list--bullet">
             <li>@Localizer["I am the applicant or the person authorised to travel with this pet"]</li>
             <li>@Localizer["The answers I have given are true and correct to the best of my knowledge"]</li>
             <li>@Localizer["I understand that I can travel with this pet to and from Northern Ireland only and not to an EU member state (Ireland is an EU member state)"]</li>
             <li>@Localizer["I am not taking the animal as part of a commercial movement"]</li>
-            <li>@Localizer["I have read and I accept the"] <a class="govuk-link" href="@WebAppConstants.Pages.Content.TermsAndConditions">@Localizer["Pet Travel Scheme terms and conditions"]</a></li>
+            @if (currentCulture == "en")
+            {
+                <li>I have read and I accept the <a class="govuk-link" href="@WebAppConstants.Pages.Content.TermsAndConditions">Pet Travel Scheme terms and conditions</a></li>
+            }
+            @if (currentCulture == "cy")
+            {
+                <li>Rwyf wedi darllen telerau ac amodau'r <a class="govuk-link" href="@WebAppConstants.Pages.Content.TermsAndConditions">Cynllun Teithio Anifeiliaid Anwes,</a> ac rwy’n eu derbyn</li>
+            }
             <li>@Localizer["I have read "]<a class="govuk-link" target="_blank" rel="noopener noreferrer" href="@WebAppConstants.ExternalLinks.PrivacyNotice"> @Localizer["Defra's privacy notice"] <span class="govuk-!-display-none-print">@Localizer["(opens in a new tab)"]</span></a></li>
         </ul>
 
