@@ -35,8 +35,7 @@
                     @Model.FormTitle
                 </h1>
 
-                <div>GRACE TEST</div>
-               @*  @await Component.InvokeAsync("") *@
+                <div class="sr-only"></div>
                 @await Component.InvokeAsync(nameof(MicrochipInformationCard))
                 @await Component.InvokeAsync(nameof(PetDetailsCard))
                 @await Component.InvokeAsync(nameof(PetKeeperDetailsCard))
