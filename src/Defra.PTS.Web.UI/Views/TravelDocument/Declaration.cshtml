@@ -43,10 +43,10 @@
                     @Html.ValidationMessageFor(x => x.AgreedToAccuracy, string.Empty, new { @id = "accuracy-error-message", @class = "govuk-error-message" })
                     <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                         <div class="govuk-checkboxes__item">
-                            @Html.CheckBoxFor(m => m.AgreedToAccuracy, new { @class = "govuk-checkboxes__input", id = "AgreedToAccuracy" })
-                            <label class="govuk-label govuk-checkboxes__label" for="AgreedToAccuracy">
+                            @Html.CheckBoxFor(m => m.AgreedToAccuracy, new { @class = "govuk-checkboxes__input", id = "AgreedToAccuracy", aria_labelledby = "AccuracyLabel" } )
+                            <div id="AccuracyLabel" class="govuk-label govuk-checkboxes__label" for="AgreedToAccuracy">
                                 I have provided accurate and truthful information.
-                            </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -55,10 +55,10 @@
                     @Html.ValidationMessageFor(x => x.AgreedToPrivacyPolicy, string.Empty, new { @id = "privacy-error-message", @class = "govuk-error-message" })
                     <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                         <div class="govuk-checkboxes__item">
-                            @Html.CheckBoxFor(m => m.AgreedToPrivacyPolicy, new { @class = "govuk-checkboxes__input", id = "AgreedToPrivacyPolicy" })
-                            <label class="govuk-label govuk-checkboxes__label" for="AgreedToPrivacyPolicy">
+                            @Html.CheckBoxFor(m => m.AgreedToPrivacyPolicy, new { @class = "govuk-checkboxes__input", id = "AgreedToPrivacyPolicy", aria_labelledby = "PrivacyPolicyLabel" })
+                            <div id="PrivacyPolicyLabel" class="govuk-label govuk-checkboxes__label" for="AgreedToPrivacyPolicy">
                                 I agree to <a class="govuk-link" href="@WebAppConstants.ExternalLinks.PrivacyNotice" target="_blank" rel="noopener noreferrer">Defra's privacy policy (opens in a new tab)</a>.
-                            </label>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -72,13 +72,13 @@
                     </ul>
 
                     <div class="govuk-form-group govuk-!-static-margin-top-4">
-                        @Html.ValidationMessageFor(x => x.AgreedToDeclaration, string.Empty, new { @id = "declaration-error-message", @class = "govuk-error-message" })
+                        @Html.ValidationMessageFor(x => x.AgreedToDeclaration, string.Empty, new { @id = "declaration-error-message", @class = "govuk-error-message", aria_labelledby = "DeclarationLabel" })
                         <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                             <div class="govuk-checkboxes__item">
                                 @Html.CheckBoxFor(m => m.AgreedToDeclaration, new { @class = "govuk-checkboxes__input", id = "AgreedToDeclaration" })
-                                <label class="govuk-label govuk-checkboxes__label" for="AgreedToDeclaration">
+                                <div id="DeclarationLabel" class="govuk-label govuk-checkboxes__label" for="AgreedToDeclaration">
                                     I agree to the declaration
-                                </label>
+                                </div>
                             </div>
                         </div>
                     </div>
