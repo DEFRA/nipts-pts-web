@@ -43,7 +43,7 @@
                     @Html.ValidationMessageFor(x => x.AgreedToAccuracy, string.Empty, new { @id = "accuracy-error-message", @class = "govuk-error-message" })
                     <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                         <div class="govuk-checkboxes__item">
-                            @Html.CheckBoxFor(m => m.AgreedToAccuracy, new { @class = "govuk-checkboxes__input", id = "AgreedToAccuracy", aria_labelledby = "AccuracyLabel" } )
+                            @Html.CheckBoxFor(m => m.AgreedToAccuracy, new { @class = "govuk-checkboxes__input", id = "AgreedToAccuracy", aria_labelledby = "AccuracyLabel" })
                             <div id="AccuracyLabel" class="govuk-label govuk-checkboxes__label" for="AgreedToAccuracy">
                                 I have provided accurate and truthful information.
                             </div>
@@ -63,27 +63,26 @@
                     </div>
                 </div>
 
-                <div id="formroot-declaration" class="@(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
-                    <h2 class="govuk-heading-l">Declaration</h2>
-                    <p class="govuk-body">I declare that:</p>
-                    <ul class="govuk-list govuk-list--bullet">
-                        <li>I will only use the lifelong travel document to travel with my dog, cat or ferret from Great Britain (England, Scotland and Wales) to Northern Ireland</li>
-                        <li>I need an EU pet passport or animal health certificate to travel from Northern Ireland to the EU</li>
-                    </ul>
+                <h2 class="govuk-heading-l">Declaration</h2>
+                <h3 class="govuk-body">I declare that:</h3>
+                <ul class="govuk-list govuk-list--bullet">
+                    <li>I will only use the lifelong travel document to travel with my dog, cat or ferret from Great Britain (England, Scotland and Wales) to Northern Ireland</li>
+                    <li>I need an EU pet passport or animal health certificate to travel from Northern Ireland to the EU</li>
+                </ul>
 
-                    <div class="govuk-form-group govuk-!-static-margin-top-4">
-                        @Html.ValidationMessageFor(x => x.AgreedToDeclaration, string.Empty, new { @id = "declaration-error-message", @class = "govuk-error-message", aria_labelledby = "DeclarationLabel" })
-                        <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                            <div class="govuk-checkboxes__item">
-                                @Html.CheckBoxFor(m => m.AgreedToDeclaration, new { @class = "govuk-checkboxes__input", id = "AgreedToDeclaration" })
-                                <div id="DeclarationLabel" class="govuk-label govuk-checkboxes__label" for="AgreedToDeclaration">
-                                    I agree to the declaration
-                                </div>
+                <div id="formroot-declaration" class="govuk-form-group govuk-!-static-margin-bottom-9 @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+                    @Html.ValidationMessageFor(x => x.AgreedToDeclaration, string.Empty, new { @id = "declaration-error-message", @class = "govuk-error-message"})
+                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
+                        <div class="govuk-checkboxes__item">
+                            @Html.CheckBoxFor(m => m.AgreedToDeclaration, new { @class = "govuk-checkboxes__input", id = "AgreedToDeclaration", aria_labelledby = "DeclarationLabel" })
+                            <div id="DeclarationLabel" class="govuk-label govuk-checkboxes__label" for="AgreedToDeclaration">
+                                I agree to the declaration
                             </div>
                         </div>
                     </div>
                 </div>
 
+                
             </div>
 
             <div class="govuk-button-group">
@@ -91,8 +90,8 @@
                     Send application
                 </button>
             </div>
-        }
 
+        }
     </div>
 </div>
 
