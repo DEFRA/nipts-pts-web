@@ -697,4 +697,10 @@
   <data name="Stay signed in" xml:space="preserve">
     <value>Parhau i fod wedi’ch mewngofnodi</value>
   </data>
+  <data name="Get help" xml:space="preserve">
+    <value>Cael help</value>
+  </data>
+  <data name="Need help using this service? " xml:space="preserve">
+    <value>Angen help gyda'r gwasanaeth yma?</value>
+  </data>
 </root>

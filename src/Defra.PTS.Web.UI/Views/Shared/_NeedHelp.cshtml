@@ -1,4 +1,8 @@
 ﻿@using Defra.PTS.Web.UI.Constants;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SharedResource> sharedlocalizer
 
 @{
     bool? hideNeedHelp = (ViewData[WebAppConstants.ViewKeys.HideNeedHelp] ?? false) as bool?;
@@ -9,7 +13,7 @@
                 <div class="govuk-grid-column-full">
                     <div class="rtwr-help-bar">
                         <p class="govuk-body">
-                            <strong class="rtwr-help-bar__question">Need help using this service? </strong><a class="govuk-link--inverse" href="@WebAppConstants.Pages.Content.Help">Get help</a>
+                            <strong class="rtwr-help-bar__question">@sharedlocalizer["Need help using this service? "]</strong><a class="govuk-link--inverse" href="@WebAppConstants.Pages.Content.Help">@sharedlocalizer["Get help"]</a>
                         </p>
                     </div>
                 </div>
