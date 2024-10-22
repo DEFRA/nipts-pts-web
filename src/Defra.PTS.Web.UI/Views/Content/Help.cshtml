@@ -1,7 +1,11 @@
 ﻿@using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<SharedResource> sharedlocalizer
 
 @{
-    var pageTitle = "Get help applying";
+    var pageTitle = Localizer["Get help applying"].Value;
     this.SetMetaTitle(pageTitle);
 }
 
@@ -11,7 +15,7 @@
             @pageTitle
         </h1>
 
-        <p>Call the Animal and Plant Health Agency on 03000 200 301, 8.30am to 5pm Monday to Friday (excluding bank holidays).</p>
+        <p>@Localizer["Call the Animal and Plant Health Agency on 03000 200 301, 8.30am to 5pm Monday to Friday (excluding bank holidays)."]</p>
 
     </div>
 </div>
