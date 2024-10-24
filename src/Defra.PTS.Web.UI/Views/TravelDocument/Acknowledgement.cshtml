@@ -20,8 +20,12 @@
                 @Localizer[@Model.FormTitle]
             </h1>
             <div class="govuk-panel__body">
-                @Localizer["Your reference number"]<br><strong>@Localizer["@Model.Reference"]</strong>
+                @Localizer["Your reference number"]
             </div>
+            <div class="govuk-panel__body">
+                <strong>@Model.Reference</strong>
+            </div>
+            
         </div>
 
         <p class="govuk-body">@Localizer["We have sent you a confirmation email."]</p>
