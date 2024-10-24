@@ -117,52 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="(opens in a new tab)" xml:space="preserve">
-    <value>(yn agor mewn tab newydd)</value>
+  <data name="APHA may contact you and ask for more evidence to support your application." xml:space="preserve">
+    <value>Efallai y bydd APHA yn cysylltu â chi i ofyn am ragor o dystiolaeth i ategu’ch cais.</value>
   </data>
-  <data name="Date" xml:space="preserve">
-    <value>Dyddiad</value>
+  <data name="Application submitted" xml:space="preserve">
+    <value>Cais wedi’i gyflwyno</value>
   </data>
-  <data name="Declaration" xml:space="preserve">
-    <value>Datganiad</value>
+  <data name="Apply for another lifelong pet travel document." xml:space="preserve">
+    <value>Gwneud cais am ddogfen deithio gydol oes arall i anifeiliaid anwes.</value>
   </data>
-  <data name="Defra's privacy notice" xml:space="preserve">
-    <value>hysbysiad preifatrwydd Defra</value>
+  <data name="If someone else is taking your pet" xml:space="preserve">
+    <value>Os bydd rhywun arall yn mynd â’ch anifail anwes</value>
   </data>
-  <data name="I am not taking the animal as part of a commercial movement" xml:space="preserve">
-    <value>Nid wyf yn mynd â’r anifail fel rhan o symudiad masnachol</value>
+  <data name="the lifelong pet travel document" xml:space="preserve">
+    <value>y ddogfen teithio gydol oes i anifeiliaid anwes</value>
   </data>
-  <data name="I am the applicant" xml:space="preserve">
-    <value>fi yw’r ymgeisydd</value>
+  <data name="They will need:" xml:space="preserve">
+    <value>Bydd arnyn nhw angen:</value>
   </data>
-  <data name="I declare that:" xml:space="preserve">
-    <value>Rwy’n datgan y canlynol:</value>
+  <data name="to sign a declaration, if asked to, at the ferry port or airport" xml:space="preserve">
+    <value>llofnodi datganiad, os gofynnir iddyn nhw, yn y porthladd fferis neu’r maes awyr</value>
   </data>
-  <data name="I have read " xml:space="preserve">
-    <value>Rwyf wedi darllen </value>
+  <data name="View all your lifelong pet travel documents." xml:space="preserve">
+    <value>Gweld eich holl ddogfennau teithio gydol oes i anifeiliaid anwes.</value>
   </data>
-  <data name="I have read and I accept the" xml:space="preserve">
-    <value>Rwyf wedi darllen ac rwy’n eu derbyn</value>
+  <data name="We have sent you a confirmation email." xml:space="preserve">
+    <value>Rydyn ni wedi anfon neges gadarnhau atoch drwy’r ebost.</value>
   </data>
-  <data name="I need an EU pet passport or animal health certificate to travel from Northern Ireland to the EU" xml:space="preserve">
-    <value>bod arna i angen pasbort anifeiliaid anwes neu dystysgrif iechyd anifeiliaid yr UE i deithio o Ogledd Iwerddon i'r UE</value>
+  <data name="We’ve sent your application to the Animal and Plant Health Agency (APHA) for review." xml:space="preserve">
+    <value>Rydyn ni wedi anfon eich cais at yr Asiantaeth Iechyd Anifeiliaid a Phlanhigion (APHA) i'w adolygu.</value>
   </data>
-  <data name="I understand that I can travel with this pet to and from Northern Ireland only and not to an EU member state (Ireland is an EU member state)" xml:space="preserve">
-    <value>Rwy’n deall y gallaf deithio gyda’r anifail anwes hwn yn ôl ac ymlaen i Ogledd Iwerddon yn unig ac nid i un o aelod-wladwriaethau’r UE (mae Iwerddon yn un o aelod-wladwriaethau’r UE)</value>
+  <data name="What happens next" xml:space="preserve">
+    <value>Beth sy’n digwydd nesaf</value>
   </data>
-  <data name="I will only use the lifelong travel document to travel with my dog, cat or ferret from Great Britain (England, Scotland and Wales) to Northern Ireland" xml:space="preserve">
-    <value>mai dim ond i deithio gyda fy nghi, fy nghath neu fy ffured o Brydain Fawr (Cymru, Lloegr a'r Alban) i Ogledd Iwerddon y bydda i’n defnyddio’r ddogfen deithio gydol oes</value>
+  <data name="written approval from you, like a letter or email" xml:space="preserve">
+    <value>cymeradwyaeth ysgrifenedig gennych chi, fel llythyr neu neges ebost</value>
   </data>
-  <data name="Name and signature of pet owner" xml:space="preserve">
-    <value>Enw a llofnod perchennog yr anifail anwes</value>
+  <data name="You will receive a response to your application within 5 working days." xml:space="preserve">
+    <value>Fe gewch chi ymateb i'ch cais o fewn 5 diwrnod gwaith.</value>
   </data>
-  <data name="Pet Travel Scheme terms and conditions" xml:space="preserve">
-    <value>telerau ac amodau'r Cynllun Teithio Anifeiliaid Anwes</value>
-  </data>
-  <data name="Signed digitally" xml:space="preserve">
-    <value>Wedi’i lofnodi’n ddigidol</value>
-  </data>
-  <data name="the answers I have given are true and correct to the best of my knowledge" xml:space="preserve">
-    <value>mae’r atebion a roddais yn wir ac yn gywir hyd eithaf fy ngwybodaeth</value>
+  <data name="Your reference number" xml:space="preserve">
+    <value>Eich rhif cyfeirnod</value>
   </data>
 </root>
