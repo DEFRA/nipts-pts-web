@@ -11,13 +11,30 @@
     <div class="govuk-grid-column-three-quarters">
         <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible govuk-!-margin-top-4">
 
+        @{
+            string printLinkText = string.Empty;
+            string downloadLinkText = string.Empty;
+
+            if (Model.PdfType == PdfType.Application)
+            {
+                printLinkText = "Print your application";
+                downloadLinkText = "Download your application";
+            }
+            else
+            {
+                printLinkText = "Print your document";
+                downloadLinkText = "Download your document";
+            }
+        }
+
+
         <ul class="pet-print-download-nav">
 
             <li>
                 <span class="hod-icons-printer"></span>
                 <p class="govuk-body">
-                    <a class="govuk-link" aria-label=@sharedlocalizer["Print your application"] href="#" id="print-this-page" onclick="window.print()">
-                        @sharedlocalizer["Print your application"]
+                    <a class="govuk-link" aria-label=@sharedlocalizer[printLinkText] href="#" id="print-this-page" onclick="window.print()">
+                        @sharedlocalizer[printLinkText]
                     </a>
                 </p>
             </li>
@@ -30,11 +47,11 @@
                 <li>
                     <span class="hod-icons-download-button"></span>
                     <p class="govuk-body">
-                        <a aria-label=@sharedlocalizer["Download your application"]
+                        <a aria-label=@sharedlocalizer[downloadLinkText]
                            class="govuk-link"
                            download="@downloadFilename"
                            href="@downloadUrl">
-                            @sharedlocalizer["Download your application"]
+                            @sharedlocalizer[downloadLinkText]
                         </a>
                     </p>
                 </li>

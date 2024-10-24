@@ -135,6 +135,9 @@
   <data name="Download your application" xml:space="preserve">
     <value>Lawrlwytho’ch cais</value>
   </data>
+	<data name="Download your document" xml:space="preserve">
+    <value>Lawrlwytho’ch dogfen</value>
+  </data>
   <data name="Email" xml:space="preserve">
     <value>Ebost</value>
   </data>
@@ -155,6 +158,9 @@
   </data>
   <data name="Print your application" xml:space="preserve">
     <value>Argraffu’ch cais</value>
+  </data>
+    <data name="Print your document" xml:space="preserve">
+    <value>Argraffwch eich dogfen</value>
   </data>
   <data name="Privacy notice" xml:space="preserve">
     <value>Hysbysiad preifatrwydd</value>
