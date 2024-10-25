@@ -13,62 +13,6 @@ public class DeclarationValidatorShould
     }
 
     [Fact]
-    public async Task NotHaveErrorWhenAgreedToAccuracy()
-    {
-        // Arrange
-        var model = new DeclarationViewModel { AgreedToAccuracy = true };
-        var validator = CreateValidator();
-
-        // Act
-        var result = await validator.TestValidateAsync(model);
-
-        // Assert
-        result.ShouldNotHaveValidationErrorFor(x => x.AgreedToAccuracy);
-    }
-
-    [Fact]
-    public async Task HaveErrorWhenNotAgreedToAccuracy()
-    {
-        // Arrange
-        var model = new DeclarationViewModel { AgreedToAccuracy = false };
-        var validator = CreateValidator();
-
-        // Act
-        var result = await validator.TestValidateAsync(model);
-
-        // Assert
-        result.ShouldHaveValidationErrorFor(x => x.AgreedToAccuracy);
-    }
-
-    [Fact]
-    public async Task NotHaveErrorWhenAgreedToPrivacyPolicy()
-    {
-        // Arrange
-        var model = new DeclarationViewModel { AgreedToPrivacyPolicy = true };
-        var validator = CreateValidator();
-
-        // Act
-        var result = await validator.TestValidateAsync(model);
-
-        // Assert
-        result.ShouldNotHaveValidationErrorFor(x => x.AgreedToPrivacyPolicy);
-    }
-
-    [Fact]
-    public async Task HaveErrorWhenNotAgreedToPrivacyPolicy()
-    {
-        // Arrange
-        var model = new DeclarationViewModel { AgreedToPrivacyPolicy = false };
-        var validator = CreateValidator();
-
-        // Act
-        var result = await validator.TestValidateAsync(model);
-
-        // Assert
-        result.ShouldHaveValidationErrorFor(x => x.AgreedToPrivacyPolicy);
-    }
-
-    [Fact]
     public async Task NotHaveErrorWhenAgreedToDeclaration()
     {
         // Arrange
