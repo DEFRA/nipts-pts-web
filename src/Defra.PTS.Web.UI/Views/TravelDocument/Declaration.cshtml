@@ -4,6 +4,8 @@
 @using Defra.PTS.Web.UI.ViewComponents;
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
     this.SetMetaTitle(Model.FormTitle);
@@ -32,42 +34,33 @@
             <div class="govuk-form-group">
 
                 <h1 class="govuk-heading-xl">
-                    @Model.FormTitle
+                    @Localizer[@Model.FormTitle]
                 </h1>
 
                 @await Component.InvokeAsync(nameof(MicrochipInformationCard))
                 @await Component.InvokeAsync(nameof(PetDetailsCard))
                 @await Component.InvokeAsync(nameof(PetKeeperDetailsCard))
 
-                <div id="formroot-accuracy" class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
-                    @Html.ValidationMessageFor(x => x.AgreedToAccuracy, string.Empty, new { @id = "accuracy-error-message", @class = "govuk-error-message" })
-                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                        <div class="govuk-checkboxes__item">
-                            @Html.CheckBoxFor(m => m.AgreedToAccuracy, new { @class = "govuk-checkboxes__input", id = "AgreedToAccuracy", aria_labelledby = "AccuracyLabel" })
-                            <div id="AccuracyLabel" class="govuk-label govuk-checkboxes__label" for="AgreedToAccuracy">
-                                I have provided accurate and truthful information.
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @{
+                    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+                }
 
-                <div id="formroot-privacy" class="govuk-form-group govuk-!-static-margin-bottom-9 @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
-                    @Html.ValidationMessageFor(x => x.AgreedToPrivacyPolicy, string.Empty, new { @id = "privacy-error-message", @class = "govuk-error-message" })
-                    <div class="govuk-checkboxes" data-module="govuk-checkboxes">
-                        <div class="govuk-checkboxes__item">
-                            @Html.CheckBoxFor(m => m.AgreedToPrivacyPolicy, new { @class = "govuk-checkboxes__input", id = "AgreedToPrivacyPolicy", aria_labelledby = "PrivacyPolicyLabel" })
-                            <div id="PrivacyPolicyLabel" class="govuk-label govuk-checkboxes__label" for="AgreedToPrivacyPolicy">
-                                I agree to <a class="govuk-link" href="@WebAppConstants.ExternalLinks.PrivacyNotice" target="_blank" rel="noopener noreferrer">Defra's privacy policy (opens in a new tab)</a>.
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <h2 class="govuk-heading-l">Declaration</h2>
-                <h3 class="govuk-body">I declare that:</h3>
+                <h2 class="govuk-heading-l">@Localizer["Declaration"]</h2>
+                <h3 class="govuk-body">@Localizer["I declare that:"]</h3>
                 <ul class="govuk-list govuk-list--bullet">
-                    <li>I will only use the lifelong travel document to travel with my dog, cat or ferret from Great Britain (England, Scotland and Wales) to Northern Ireland</li>
-                    <li>I need an EU pet passport or animal health certificate to travel from Northern Ireland to the EU</li>
+                    <li>@Localizer["I am the applicant"]</li>
+                    <li>@Localizer["the answers I have given are true and correct to the best of my knowledge"]</li>
+                    <li>@Localizer["I understand that I can travel with this pet to and from Northern Ireland only and not to an EU member state (Ireland is an EU member state)"]</li>
+                    <li>@Localizer["I am not taking the animal as part of a commercial movement"]</li>
+                    @if (currentCulture == "en")
+                    {
+                        <li>I have read and I accept the <a class="govuk-link" href="@WebAppConstants.Pages.Content.TermsAndConditions">Pet Travel Scheme terms and conditions</a></li>
+                    }
+                    @if (currentCulture == "cy")
+                    {
+                        <li>Rwyf wedi darllen telerau ac amodau'r <a class="govuk-link" href="@WebAppConstants.Pages.Content.TermsAndConditions">Cynllun Teithio Anifeiliaid Anwes</a>, ac rwy’n eu derbyn</li>
+                    }
+                    <li>@Localizer["I have read "]<a class="govuk-link" target="_blank" rel="noopener noreferrer" href="@WebAppConstants.ExternalLinks.PrivacyNotice"> @Localizer["Defra's privacy notice"] <span class="govuk-!-display-none-print">@Localizer["(opens in a new tab)"]</span></a></li>
                 </ul>
 
                 <div id="formroot-declaration" class="govuk-form-group govuk-!-static-margin-bottom-9 @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
@@ -76,7 +69,7 @@
                         <div class="govuk-checkboxes__item">
                             @Html.CheckBoxFor(m => m.AgreedToDeclaration, new { @class = "govuk-checkboxes__input", id = "AgreedToDeclaration", aria_labelledby = "DeclarationLabel" })
                             <div id="DeclarationLabel" class="govuk-label govuk-checkboxes__label" for="AgreedToDeclaration">
-                                I agree to the declaration
+                                @Localizer["I agree"]
                             </div>
                         </div>
                     </div>
