@@ -36,43 +36,43 @@
                     </div>
 
                     <div class="govuk-form-group">
-                        <label class="govuk-label" for="AddressLineOne">
+                        <div class="govuk-label" for="AddressLineOne">
                             @Localizer["Address line 1"]
-                        </label>
+                        </div>
                         @Html.ValidationMessageFor(x => x.AddressLineOne, string.Empty, new { @class = "govuk-error-message" })
-                        @Html.TextBoxFor(x => x.AddressLineOne, new { @class = "govuk-input", @spellcheck = "false", @autocomplete = @WebAppConstants.FormAutofill.AddressLineOne })
+                        @Html.TextBoxFor(x => x.AddressLineOne, new { @class = "govuk-input", @spellcheck = "false", @autocomplete = @WebAppConstants.FormAutofill.AddressLineOne, aria_label = "Address line 1" })
                     </div>
 
                     <div class="govuk-form-group">
-                        <label class="govuk-label" for="AddressLineTwo">
+                        <div class="govuk-label" for="AddressLineTwo">
                             @Localizer["Address line 2 (optional)"]
-                        </label>
+                        </div>
                         @Html.ValidationMessageFor(x => x.AddressLineTwo, string.Empty, new { @class = "govuk-error-message" })
-                        @Html.TextBoxFor(x => x.AddressLineTwo, new { @class = "govuk-input", @spellcheck = "false", @autocomplete = @WebAppConstants.FormAutofill.AddressLineTwo })
+                        @Html.TextBoxFor(x => x.AddressLineTwo, new { @class = "govuk-input", @spellcheck = "false", @autocomplete = @WebAppConstants.FormAutofill.AddressLineTwo, aria_label = "Address line 2 (optional)" })
                     </div>
 
                     <div class="govuk-form-group">
-                        <label class="govuk-label" for="TownOrCity">
+                        <div class="govuk-label" for="TownOrCity">
                             @Localizer["Town or city"]
-                        </label>
+                        </div>
                         @Html.ValidationMessageFor(x => x.TownOrCity, string.Empty, new { @class = "govuk-error-message" })
-                        @Html.TextBoxFor(x => x.TownOrCity, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false", @autocomplete = @WebAppConstants.FormAutofill.CityOrTown })
+                        @Html.TextBoxFor(x => x.TownOrCity, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false", @autocomplete = @WebAppConstants.FormAutofill.CityOrTown, aria_label = "Town or city" })
                     </div>
 
                     <div class="govuk-form-group">
-                        <label class="govuk-label" for="County">
+                        <div class="govuk-label" for="County">
                             @Localizer["County (optional)"]
-                        </label>
+                        </div>
                         @Html.ValidationMessageFor(x => x.County, string.Empty, new { @class = "govuk-error-message" })
-                        @Html.TextBoxFor(x => x.County, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false" })
+                        @Html.TextBoxFor(x => x.County, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false", aria_label = "County (optional)" })
                     </div>
 
                     <div class="govuk-form-group">
-                        <label class="govuk-label" for="Postcode">
+                        <div class="govuk-label" for="Postcode">
                             @Localizer["Postcode"]
-                        </label>
+                        </div>
                         @Html.ValidationMessageFor(x => x.Postcode, string.Empty, new { @class = "govuk-error-message" })
-                        @Html.TextBoxFor(x => x.Postcode, new { @class = "govuk-input govuk-input--width-10", @spellcheck = "false" })
+                        @Html.TextBoxFor(x => x.Postcode, new { @class = "govuk-input govuk-input--width-10", @spellcheck = "false", aria_label = "Postcode" })
                     </div>
                 </fieldset>
             </div>
