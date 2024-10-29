@@ -77,7 +77,10 @@ extends:
        -AzureAdB2C:Nonce "defaultNonce"
        -KeyVaultUri "https://$(environment)trd$(nc-function-infrastructure-lower)$(nc-resource-keyvault-lower)1001.vault.azure.net/"
        -PTS:MagicWordEnabled "true"
-       -Puppeteer:BrowserURL "http://10.205.128.133:3000/"       
+       -Puppeteer:BrowserURL "http://10.205.128.133:3000/"
+       -GoogleTagManager:ContainerId "GTM-T6T9W65D"
+       -GoogleTagManager:MeasurementId "G-V10Y4PV6PF"
+       -GoogleTagManager:Domain "http://dev-take-your-pet-from-gb-to-ni.azure.defra.cloud"
      tst: >-      
        -AddressApi:BaseUrl "https://$(internalAPIMUrl)/trade-address-api/v1/"
        -AppSettings:UseAuth "true"
