@@ -120,11 +120,11 @@
   <data name="Enter a breed using 150 characters or less" xml:space="preserve">
     <value>Rhowch frid gan ddefnyddio 150 o gymeriadau neu lai</value>
   </data>
-  <data name="Enter your cat's breed, for example, Scottish Fold" xml:space="preserve">
-    <value>Rhowch frid eich cath, er enghraifft, cath clustiau plyg o’r Alban</value>
+  <data name="Enter your cat’s breed or select from the suggested options" xml:space="preserve">
+    <value>Enter your cat’s breed or select from the suggested options</value>
   </data>
-  <data name="Enter your dog's breed, for example, Labrador" xml:space="preserve">
-    <value>Rhowch frid eich ci, er enghraifft, Labrador</value>
+  <data name="Enter your dog’s breed or select from the suggested options" xml:space="preserve">
+    <value>Enter your dog’s breed or select from the suggested options</value>
   </data>
   <data name="For example, Domestic Shorthair, Bengal, Scottish Fold, Ragdoll." xml:space="preserve">
     <value>Er enghraifft, Cath ddomestig blew cwta, Cath Bengal, Cath clustiau plyg o’r Alban, Ragdoll.</value>
