@@ -32,8 +32,8 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     private readonly IMediator _mediator;
     private readonly ILogger<TravelDocumentController> _logger;
     private readonly PtsSettings _ptsSettings;
-    private readonly ISelectListLocaliser _selectListLocaliser;
-    private readonly IStringLocalizer<SharedResource> _localizer;
+    private readonly ISelectListLocaliser? _selectListLocaliser;
+    private readonly IStringLocalizer<SharedResource>? _localizer;
 
     public TravelDocumentController(
           IValidationService validationService,

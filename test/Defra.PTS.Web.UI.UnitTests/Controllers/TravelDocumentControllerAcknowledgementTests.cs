@@ -43,8 +43,14 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         public void Setup()
         {
             // Arrange
-            var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());              
-            _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object, _mockBreedHelper.Object, _localizer)
+            var tempData = new TempDataDictionary(Mock.Of<HttpContext>(), Mock.Of<ITempDataProvider>());
+            _travelDocumentController = new Mock<TravelDocumentController>(
+                _mockValidationService.Object,
+                _mockMediator.Object,
+                _mockLogger.Object,
+                _mockPtsSettings.Object,
+                _mockBreedHelper.Object,
+                _localizer)
             {
                 CallBase = true
             };
@@ -52,11 +58,19 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _travelDocumentViewModel = new Mock<TravelDocumentViewModel>();
 
             var mockHttpContext = new Mock<HttpContext>();
-            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
-            _travelDocumentController.Object.ControllerContext = new ControllerContext();
-            _travelDocumentController.Object.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            mockHttpContext.Setup(ctx => ctx.Request.Headers["Referer"]).Returns(GetReferer());
+
+            _travelDocumentController.Object.ControllerContext = new ControllerContext
+            {
+                HttpContext = mockHttpContext.Object
+            };
         }
 
+        private static string GetReferer()
+        {
+            return "aaa";
+        }
 
         [Test]
         public void Acknowledgement_Returns_RedirectToAction_When_Application_NotInProgress()

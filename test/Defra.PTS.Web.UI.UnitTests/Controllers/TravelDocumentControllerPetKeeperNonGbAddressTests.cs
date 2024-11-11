@@ -62,9 +62,14 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _travelDocumentViewModel = new Mock<TravelDocumentViewModel>();
 
             var mockHttpContext = new Mock<HttpContext>();
-            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
+            mockHttpContext.Setup(ctx => ctx.Request.Headers["Referer"]).Returns(GetReferer());
             _travelDocumentController.Object.ControllerContext = new ControllerContext();
             _travelDocumentController.Object.ControllerContext.HttpContext = mockHttpContext.Object;
+        }
+
+        private static string GetReferer()
+        {
+            return "aaa";
         }
 
 
@@ -116,7 +121,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var mockHttpContext = new Mock<HttpContext>();
             var mockSession = new Mock<ISession>();
             mockHttpContext.SetupGet(x => x.Session).Returns(mockSession.Object);
-            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
+            mockHttpContext.Setup(ctx => ctx.Request.Headers["Referer"]).Returns(GetReferer());
 
             _travelDocumentController.Object.ControllerContext = new ControllerContext()
             {

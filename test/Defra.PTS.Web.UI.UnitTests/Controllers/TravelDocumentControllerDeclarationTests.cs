@@ -53,11 +53,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // Arrange
             _travelDocumentController = new TravelDocumentController(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object, _breedHelper.Object, _localizer);
             var mockHttpContext = new Mock<HttpContext>();
-            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
+            mockHttpContext.Setup(ctx => ctx.Request.Headers["Referer"]).Returns(GetReferer());
             _travelDocumentController.ControllerContext = new ControllerContext();
             _travelDocumentController.ControllerContext.HttpContext = mockHttpContext.Object;
         }
 
+        private static string GetReferer()
+        {
+            return "aaa";
+        }
 
         [Test]
         public void Declaration_Get_ReturnsRedirectToPetKeeperUserDetails_WhenApplicationNotInProgress()
