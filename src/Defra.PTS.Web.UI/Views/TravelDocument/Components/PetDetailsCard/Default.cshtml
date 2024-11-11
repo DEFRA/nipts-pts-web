@@ -41,24 +41,24 @@
 
             </div>
 
-            @if (Model.HasBreed)
-            {
-                <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">
-                        Breed
-                    </dt>
-                    <dd class="govuk-summary-list__value">
-                        @Model.Breed
-                    </dd>
+            <div class="govuk-summary-list__row">
+                <dt class="govuk-summary-list__key">
+                    Breed
+                </dt>
+                <dd class="govuk-summary-list__value">
+                    @Model.Breed
+                </dd>
 
+                @if (Model.HasBreed)
+                {
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.PetBreed">
                             Change<span class="govuk-visually-hidden"> pet's breed</span>
                         </a>
                     </dd>
+                }
 
-                </div>
-            }
+            </div>
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
