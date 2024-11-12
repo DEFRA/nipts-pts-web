@@ -47,7 +47,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _travelDocumentController.Object.TempData = tempData;
 
             var mockHttpContext = new Mock<HttpContext>();
-            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
+            mockHttpContext.Setup(_ => _.Request.Headers.Referer).Returns("aaa");
             _travelDocumentController.Object.ControllerContext = new ControllerContext();
             _travelDocumentController.Object.ControllerContext.HttpContext = mockHttpContext.Object;
         }
