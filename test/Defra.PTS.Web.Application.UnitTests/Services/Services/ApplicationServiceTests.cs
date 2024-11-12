@@ -26,7 +26,6 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
     {
         private IApplicationService _sut;
         protected Mock<HttpMessageHandler> _mockHttpMessageHandler = new();
-        private readonly Mock<ILogger<ApplicationService>> _mockLogger = new();
         private readonly Mock<IMapper> _mapper = new();
 
         [Test]
