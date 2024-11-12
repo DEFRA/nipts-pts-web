@@ -7,7 +7,7 @@ namespace Defra.PTS.Web.Application.Validation
 {
     public class PetGenderValidator : AbstractValidator<PetGenderViewModel>
     {
-        public PetGenderValidator(IStringLocalizer<SharedResource> localizer)
+        public PetGenderValidator(IStringLocalizer<ISharedResource> localizer)
         {
             RuleFor(x => x.Gender)
                 .NotEmpty()
