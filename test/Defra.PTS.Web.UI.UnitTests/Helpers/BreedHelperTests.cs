@@ -16,7 +16,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Helpers
 {
     public class BreedHelperTests
     {
-        private readonly IStringLocalizer<SharedResource> _localizer;
+        private readonly IStringLocalizer<ISharedResource> _localizer;
         private readonly Mock<IMediator> _mockMediator = new();
 
         readonly SelectListLocaliser _selectListLocaliser;
@@ -24,7 +24,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Helpers
         {
             var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
-            _localizer = new StringLocalizer<SharedResource>(factory);
+            _localizer = new StringLocalizer<ISharedResource>(factory);
             _selectListLocaliser = new SelectListLocaliser(_mockMediator.Object, _localizer);
 
         }

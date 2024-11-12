@@ -33,7 +33,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     private readonly ILogger<TravelDocumentController> _logger;
     private readonly PtsSettings _ptsSettings;
     private readonly ISelectListLocaliser _selectListLocaliser;
-    private readonly IStringLocalizer<SharedResource> _localizer;
+    private readonly IStringLocalizer<ISharedResource> _localizer;
 
     public TravelDocumentController(
           IValidationService validationService,
@@ -41,7 +41,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
           ILogger<TravelDocumentController> logger,
           IOptions<PtsSettings> ptsSettings,
           ISelectListLocaliser breedHelper,
-          IStringLocalizer<SharedResource> localizer
+          IStringLocalizer<ISharedResource> localizer
           )
     {
         ArgumentNullException.ThrowIfNull(validationService);

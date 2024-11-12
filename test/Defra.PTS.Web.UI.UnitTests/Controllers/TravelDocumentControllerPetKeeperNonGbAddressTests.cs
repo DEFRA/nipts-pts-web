@@ -38,12 +38,12 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private Mock<TravelDocumentController> _travelDocumentController;
         private Mock<ControllerContext> _mockControllerContext;
         private Mock<TravelDocumentViewModel> _travelDocumentViewModel;
-        private readonly IStringLocalizer<SharedResource> _localizer;
+        private readonly IStringLocalizer<ISharedResource> _localizer;
         public TravelDocumentControllerPetKeeperNonGbAddressTests()
         {
             var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
-            _localizer = new StringLocalizer<SharedResource>(factory);
+            _localizer = new StringLocalizer<ISharedResource>(factory);
         }
 
         [SetUp]

@@ -19,7 +19,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
     [TestFixture]
     public class PetServiceTests
     {
-        private IPetService _sut;
+        private PetService _sut;
         protected Mock<HttpMessageHandler> _mockHttpMessageHandler = new();
         private readonly Mock<ILogger<PetService>> _mockLogger = new();        
 

@@ -90,7 +90,7 @@ public static class UserExtensions
             return new Guid(loggedInUserId);
         }
 
-        throw new Exception("Invalid userId provided");
+        throw new InvalidDataException("Invalid userId provided");
     }
 
     public static Guid GetLoggedInContactId(this ClaimsPrincipal principal)
@@ -104,7 +104,7 @@ public static class UserExtensions
         }
 
      
-        throw new Exception("Invalid contactId provided");
+        throw new InvalidDataException("Invalid contactId provided");
     }
 
     public static string GetLoggedInUserName(this ClaimsPrincipal principal)

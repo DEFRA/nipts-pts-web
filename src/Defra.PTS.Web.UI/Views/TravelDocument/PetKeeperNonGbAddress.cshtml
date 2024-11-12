@@ -8,7 +8,7 @@
 @using Microsoft.Extensions.Localization;
 @using Microsoft.AspNetCore.Mvc.Localization;
 @inject IViewLocalizer localizer
-@inject IStringLocalizer<SharedResource> sharedlocalizer
+@inject IStringLocalizer<ISharedResource> sharedlocalizer
 
 @{
     var fieldsetLegend = new FieldsetLegendViewModel { Label = localizer[Model.PetKeeperNonGbAddressFormTitle].Value, LabelFor = "Yes" };
