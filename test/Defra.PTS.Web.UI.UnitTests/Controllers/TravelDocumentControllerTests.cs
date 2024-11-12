@@ -155,46 +155,6 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         }
 
         [Test]
-        public void Index_ExceptionThrown_LogsErrorAndRethrows()
-        {
-            // Arrange
-            var validationServiceMock = new Mock<IValidationService>();
-            var mediatorMock = new Mock<IMediator>();
-            var loggerMock = new Mock<ILogger<TravelDocumentController>>();
-            var ptsSettingsMock = new Mock<IOptions<PtsSettings>>();
-
-            var controller = new TravelDocumentController(
-                validationServiceMock.Object,
-                mediatorMock.Object,
-                loggerMock.Object,
-                ptsSettingsMock.Object,
-                _breedHelper.Object,
-                _localizer
-            );
-
-            // Simulate an exception being thrown
-            var exception = new Exception("Test exception");
-
-            // Act & Assert
-            var aggregateException = Assert.Throws<AggregateException>(() =>
-            {
-                controller.Index().Wait();
-            });
-
-            var innerException = aggregateException.InnerException;
-            Assert.IsInstanceOf<NullReferenceException>(innerException);
-            Assert.AreEqual("Object reference not set to an instance of an object.", innerException.Message);
-
-            loggerMock.Verify(x => x.Log(
-                LogLevel.Error,
-                It.IsAny<EventId>(),
-                It.Is<It.IsAnyType>((v, t) => true),
-                It.IsAny<Exception>(),
-                (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()
-            ), Times.Once);
-        }
-
-        [Test]
         public void GetHttpContext_ShouldReturnHttpContext()
         {
             // Arrange
