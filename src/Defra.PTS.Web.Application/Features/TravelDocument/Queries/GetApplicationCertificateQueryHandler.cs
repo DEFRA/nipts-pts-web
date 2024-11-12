@@ -8,15 +8,12 @@ namespace Defra.PTS.Web.Application.Features.TravelDocument.Queries;
 public class GetApplicationCertificateQueryHandler : IRequestHandler<GetApplicationCertificateQueryRequest, GetApplicationCertificateQueryResponse>
 {
     private readonly IApplicationService _applicationService;
-    private readonly ILogger<GetApplicationCertificateQueryHandler> _logger;
 
-    public GetApplicationCertificateQueryHandler(IApplicationService applicationService, ILogger<GetApplicationCertificateQueryHandler> logger)
+    public GetApplicationCertificateQueryHandler(IApplicationService applicationService)
     {
         ArgumentNullException.ThrowIfNull(applicationService);
-        ArgumentNullException.ThrowIfNull(logger);
 
         _applicationService = applicationService;
-        _logger = logger;
     }
 
     public async Task<GetApplicationCertificateQueryResponse> Handle(GetApplicationCertificateQueryRequest request, CancellationToken cancellationToken)

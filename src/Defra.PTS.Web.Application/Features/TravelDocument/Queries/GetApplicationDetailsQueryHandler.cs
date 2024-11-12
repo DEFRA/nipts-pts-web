@@ -8,15 +8,12 @@ namespace Defra.PTS.Web.Application.Features.TravelDocument.Queries;
 public class GetApplicationDetailsQueryHandler : IRequestHandler<GetApplicationDetailsQueryRequest, GetApplicationDetailsQueryResponse>
 {
     private readonly IApplicationService _applicationService;
-    private readonly ILogger<GetApplicationDetailsQueryHandler> _logger;
 
-    public GetApplicationDetailsQueryHandler(IApplicationService applicationService, ILogger<GetApplicationDetailsQueryHandler> logger)
+    public GetApplicationDetailsQueryHandler(IApplicationService applicationService)
     {
         ArgumentNullException.ThrowIfNull(applicationService);
-        ArgumentNullException.ThrowIfNull(logger);
 
         _applicationService = applicationService;
-        _logger = logger;
     }
 
     public async Task<GetApplicationDetailsQueryResponse> Handle(GetApplicationDetailsQueryRequest request, CancellationToken cancellationToken)

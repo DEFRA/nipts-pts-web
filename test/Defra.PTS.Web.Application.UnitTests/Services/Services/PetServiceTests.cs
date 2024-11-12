@@ -20,8 +20,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
     public class PetServiceTests
     {
         private PetService _sut;
-        protected Mock<HttpMessageHandler> _mockHttpMessageHandler = new();
-        private readonly Mock<ILogger<PetService>> _mockLogger = new();        
+        protected Mock<HttpMessageHandler> _mockHttpMessageHandler = new();       
 
         [Test]
         public async Task GetBreeds_Return_200()
@@ -44,7 +43,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new PetService(_mockLogger.Object, httpClient);
+            _sut = new PetService(httpClient);
 
             var actualResult = await _sut.GetBreeds(PetSpecies.Dog);
 
@@ -62,7 +61,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new PetService(_mockLogger.Object, httpClient);
+            _sut = new PetService(httpClient);
 
             Assert.ThrowsAsync<Exception>(async () => await _sut.GetBreeds(PetSpecies.Dog));
         }
@@ -88,7 +87,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new PetService(_mockLogger.Object, httpClient);
+            _sut = new PetService(httpClient);
 
             var actualResult = await _sut.GetColours(PetSpecies.Dog);
 
@@ -117,7 +116,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new PetService(_mockLogger.Object, httpClient);
+            _sut = new PetService(httpClient);
 
             var actualResult = await _sut.GetColours(PetSpecies.Dog);
 
@@ -136,7 +135,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new PetService(_mockLogger.Object, httpClient);
+            _sut = new PetService(httpClient);
 
             Assert.ThrowsAsync<Exception>(async () => await _sut.GetColours(PetSpecies.Dog));
         }
@@ -162,7 +161,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new PetService(_mockLogger.Object, httpClient);
+            _sut = new PetService(httpClient);
 
             var actualResult = await _sut.CreatePet(new TravelDocumentViewModel());
 
@@ -180,7 +179,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new PetService(_mockLogger.Object, httpClient);
+            _sut = new PetService(httpClient);
 
             Assert.ThrowsAsync<Exception>(async () => await _sut.CreatePet(new TravelDocumentViewModel()));            
         }

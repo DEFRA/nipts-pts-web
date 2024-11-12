@@ -12,16 +12,13 @@ public class ApplicationService : IApplicationService
 {
     private readonly HttpClient _httpClient;
     private readonly IMapper _mapper;
-    private readonly ILogger<ApplicationService> _logger;
 
 
-    public ApplicationService(ILogger<ApplicationService> logger, HttpClient httpClient, IMapper mapper)
+    public ApplicationService(HttpClient httpClient, IMapper mapper)
     {
-        ArgumentNullException.ThrowIfNull(logger);
         ArgumentNullException.ThrowIfNull(httpClient);
         ArgumentNullException.ThrowIfNull(mapper);
 
-        _logger = logger;
         _httpClient = httpClient;
         _mapper = mapper;
     }

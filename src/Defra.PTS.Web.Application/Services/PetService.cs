@@ -11,15 +11,12 @@ namespace Defra.PTS.Web.Application.Services;
 
 public class PetService : IPetService
 {    
-    private readonly HttpClient _httpClient;    
-    private readonly ILogger<PetService> _logger;    
+    private readonly HttpClient _httpClient;        
 
-    public PetService(ILogger<PetService> logger, HttpClient httpClient)
+    public PetService(HttpClient httpClient)
     {
-        ArgumentNullException.ThrowIfNull(httpClient);
-        ArgumentNullException.ThrowIfNull(logger);        
+        ArgumentNullException.ThrowIfNull(httpClient);     
 
-        _logger = logger;
         _httpClient = httpClient;        
     }
 

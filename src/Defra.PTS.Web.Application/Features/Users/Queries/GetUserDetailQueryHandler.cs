@@ -8,14 +8,11 @@ namespace Defra.PTS.Web.Application.Features.Users.Queries;
 public class GetUserDetailQueryHandler : IRequestHandler<GetUserDetailQueryRequest, GetUserDetailQueryResponse>
 {
     private readonly IUserService _userService;
-    private readonly ILogger<GetUserDetailQueryHandler> _logger;
-    public GetUserDetailQueryHandler(IUserService userService, ILogger<GetUserDetailQueryHandler> logger)
+    public GetUserDetailQueryHandler(IUserService userService)
     {
         ArgumentNullException.ThrowIfNull(userService);
-        ArgumentNullException.ThrowIfNull(logger);
 
         _userService = userService;
-        _logger = logger;
     }
 
     public async Task<GetUserDetailQueryResponse> Handle(GetUserDetailQueryRequest request, CancellationToken cancellationToken)
