@@ -21,20 +21,12 @@ public class UpdateUserHandler : IRequestHandler<UpdateUserRequest, UpdateUserRe
 
     public async Task<UpdateUserResponse> Handle(UpdateUserRequest request, CancellationToken cancellationToken)
     {
-        try
+        var response = new UpdateUserResponse
         {
-            var response = new UpdateUserResponse
-            {
-                IsSuccess = true,
-                UserId = await _userService.UpdateUserAsync(request.EmailAddress)
-            };
+            IsSuccess = true,
+            UserId = await _userService.UpdateUserAsync(request.EmailAddress)
+        };
 
-            return response;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "{userService}: Unable to update user {EmailAddress}", nameof(_userService), request?.EmailAddress);
-            throw;
-        }
+        return response;
     }
 }

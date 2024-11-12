@@ -21,21 +21,13 @@ public class GetApplicationCertificateQueryHandler : IRequestHandler<GetApplicat
 
     public async Task<GetApplicationCertificateQueryResponse> Handle(GetApplicationCertificateQueryRequest request, CancellationToken cancellationToken)
     {
-        try
+        var response = new GetApplicationCertificateQueryResponse
         {
-            var response = new GetApplicationCertificateQueryResponse
-            {
-                ApplicationId = request.ApplicationId,
-                ApplicationCertificate = await _applicationService.GetApplicationCertificate(request.ApplicationId),
-            };
+            ApplicationId = request.ApplicationId,
+            ApplicationCertificate = await _applicationService.GetApplicationCertificate(request.ApplicationId),
+        };
 
-            return response;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "{applicationService}: Unable to get application certificate for id {ApplicationId}.", nameof(_applicationService), request?.ApplicationId, ex.Message);
-            throw;
-        }
+        return response;
     }
 
 }

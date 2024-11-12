@@ -33,7 +33,7 @@ public class GetColoursQueryHandler : IRequestHandler<GetColoursQueryRequest, Ge
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "{petService}: Unable to get list of colours for {PetType}.", nameof(_petService), request.PetType.GetDescription(), ex.Message);
+            _logger.LogError(ex, "GetColoursQueryHandler: Unable to get list of colours for {0}.", request.PetType.GetDescription(), ex.Message);
 
             throw;
         }

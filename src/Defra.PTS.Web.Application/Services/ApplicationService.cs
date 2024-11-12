@@ -28,89 +28,55 @@ public class ApplicationService : IApplicationService
 
     public async Task<ApplicationDto> CreateApplication(ApplicationDto application)
     {
-        try
-        {
-            var apiUrl = _httpClient.BaseAddress + "application";
+        var apiUrl = _httpClient.BaseAddress + "application";
 
-            var response = await _httpClient.PostAsJsonAsync(apiUrl, application);
-            response.EnsureSuccessStatusCode();
+        var response = await _httpClient.PostAsJsonAsync(apiUrl, application);
+        response.EnsureSuccessStatusCode();
 
-            var content = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<ApplicationDto>(content);
-            return result;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Exception: Error returned from CreateApplication - {Message}: {StackTrace}", ex.Message, ex.StackTrace);
-            throw;
-        }
-
+        var content = await response.Content.ReadAsStringAsync();
+        var result = JsonConvert.DeserializeObject<ApplicationDto>(content);
+        return result;
     }
 
     public async Task<ApplicationDetailsDto> GetApplicationDetails(Guid applicationId)
     {
-        try
+        var applicationDetailsRequesstDto = new ApplicationDetailsRequesstDto
         {
-            var applicationDetailsRequesstDto = new ApplicationDetailsRequesstDto
-            {
-                ApplicationId = applicationId
-            };
-            var apiUrl = _httpClient.BaseAddress + "Applications/GetApplicationDetails";
-            var response = await _httpClient.PostAsJsonAsync(apiUrl, applicationDetailsRequesstDto);
-            response.EnsureSuccessStatusCode();
+            ApplicationId = applicationId
+        };
+        var apiUrl = _httpClient.BaseAddress + "Applications/GetApplicationDetails";
+        var response = await _httpClient.PostAsJsonAsync(apiUrl, applicationDetailsRequesstDto);
+        response.EnsureSuccessStatusCode();
 
-            var content = await response.Content.ReadAsStringAsync();
-            var vwApplication = JsonConvert.DeserializeObject<VwApplication>(content);
-            return _mapper.Map<ApplicationDetailsDto>(vwApplication);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Exception: Error returned from GetApplicationDetails - {Message}: {StackTrace}", ex.Message, ex.StackTrace);
-            throw;
-        }
-
+        var content = await response.Content.ReadAsStringAsync();
+        var vwApplication = JsonConvert.DeserializeObject<VwApplication>(content);
+        return _mapper.Map<ApplicationDetailsDto>(vwApplication);
     }
 
 
     public async Task<ApplicationCertificateDto> GetApplicationCertificate(Guid applicationId)
     {
-        try
+        var applicationDetailsRequesstDto = new ApplicationDetailsRequesstDto
         {
-            var applicationDetailsRequesstDto = new ApplicationDetailsRequesstDto
-            {
-                ApplicationId = applicationId
-            };
-            var apiUrl = _httpClient.BaseAddress + "Applications/GetApplicationDetails";
-            var response = await _httpClient.PostAsJsonAsync(apiUrl, applicationDetailsRequesstDto);
-            response.EnsureSuccessStatusCode();
+            ApplicationId = applicationId
+        };
+        var apiUrl = _httpClient.BaseAddress + "Applications/GetApplicationDetails";
+        var response = await _httpClient.PostAsJsonAsync(apiUrl, applicationDetailsRequesstDto);
+        response.EnsureSuccessStatusCode();
 
-            var content = await response.Content.ReadAsStringAsync();
-            var vwApplication = JsonConvert.DeserializeObject<VwApplication>(content);
-            return _mapper.Map<ApplicationCertificateDto>(vwApplication);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Exception: Error returned from GetApplicationCertificate - {Message}: {StackTrace}", ex.Message, ex.StackTrace);
-            throw;
-        }
+        var content = await response.Content.ReadAsStringAsync();
+        var vwApplication = JsonConvert.DeserializeObject<VwApplication>(content);
+        return _mapper.Map<ApplicationCertificateDto>(vwApplication);
     }
 
     public async Task<List<ApplicationSummaryDto>> GetUserApplications(Guid userId)
     {
-        try
-        {
-            var response = await _httpClient.GetAsync($"Applications/UserApplications/{userId}");
-            response.EnsureSuccessStatusCode();
+        var response = await _httpClient.GetAsync($"Applications/UserApplications/{userId}");
+        response.EnsureSuccessStatusCode();
 
-            var content = await response.Content.ReadAsStringAsync();
+        var content = await response.Content.ReadAsStringAsync();
 
-            var applications = JsonConvert.DeserializeObject<List<ApplicationSummaryDto>>(content);
-            return applications;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Exception: Error returned from GetUserApplications - {Message}: {StackTrace}", ex.Message, ex.StackTrace);
-            throw;
-        }
+        var applications = JsonConvert.DeserializeObject<List<ApplicationSummaryDto>>(content);
+        return applications;
     }
 }

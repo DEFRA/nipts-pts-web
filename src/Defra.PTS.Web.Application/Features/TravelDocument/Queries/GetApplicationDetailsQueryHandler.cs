@@ -21,20 +21,12 @@ public class GetApplicationDetailsQueryHandler : IRequestHandler<GetApplicationD
 
     public async Task<GetApplicationDetailsQueryResponse> Handle(GetApplicationDetailsQueryRequest request, CancellationToken cancellationToken)
     {
-        try
+        var response = new GetApplicationDetailsQueryResponse
         {
-            var response = new GetApplicationDetailsQueryResponse
-            {
-                ApplicationId = request.ApplicationId,
-                ApplicationDetails = await _applicationService.GetApplicationDetails(request.ApplicationId),
-            };
+            ApplicationId = request.ApplicationId,
+            ApplicationDetails = await _applicationService.GetApplicationDetails(request.ApplicationId),
+        };
 
-            return response;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "{applicationService}: Unable to get application details for id {ApplicationId}. Error: {Message}", nameof(_applicationService), request?.ApplicationId, ex.Message);
-            throw;
-        }
+        return response;
     }
 }

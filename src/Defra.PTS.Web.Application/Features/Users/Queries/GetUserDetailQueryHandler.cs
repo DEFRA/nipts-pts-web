@@ -20,20 +20,12 @@ public class GetUserDetailQueryHandler : IRequestHandler<GetUserDetailQueryReque
 
     public async Task<GetUserDetailQueryResponse> Handle(GetUserDetailQueryRequest request, CancellationToken cancellationToken)
     {
-        try
+        var response = new GetUserDetailQueryResponse
         {
-            var response = new GetUserDetailQueryResponse
-            {
-                UserId = request.UserId,
-                UserDetail = await _userService.GetUserDetail(request.UserId),
-            };
-            return response;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "{userService}: Unable to  UserDetail {UserId}", nameof(_userService), request?.UserId);
-            throw;
-        }
+            UserId = request.UserId,
+            UserDetail = await _userService.GetUserDetail(request.UserId),
+        };
+        return response;
     }
 
 }

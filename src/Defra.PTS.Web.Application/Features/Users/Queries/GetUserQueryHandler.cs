@@ -21,14 +21,6 @@ public class GetUserQueryHandler : IRequestHandler<GetUserQueryRequest, UserDeta
 
     public async Task<UserDetailDto> Handle(GetUserQueryRequest request, CancellationToken cancellationToken)
     {
-        try
-        {
-            return await _userService.GetUserDetail(request.UserId);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "{userService}: Unable to get user details for {UserId}", nameof(_userService), request?.UserId);
-            throw;
-        }
+        return await _userService.GetUserDetail(request.UserId);
     }       
 }

@@ -21,20 +21,12 @@ public class AddressLookupHandler : IRequestHandler<AddressLookupRequest, Addres
 
     public async Task<AddressLookupResponse> Handle(AddressLookupRequest request, CancellationToken cancellationToken)
     {
-        try
+        var response = new AddressLookupResponse
         {
-            var response = new AddressLookupResponse
-            {
-                Postcode = request.Postcode,
-                Addresses = await _addressLookupService.FindAddressesByPostcode(request.Postcode)
-            };
+            Postcode = request.Postcode,
+            Addresses = await _addressLookupService.FindAddressesByPostcode(request.Postcode)
+        };
 
-            return response;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex,"{addressLookupService}: Unable to get list of addresses for {Postcode}", nameof(_addressLookupService), request.Postcode);
-            throw;
-        }
+        return response;
     }
 }
