@@ -46,7 +46,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
 
             var mockHttpContext = new Mock<HttpContext>();
-            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
+            mockHttpContext.Setup(_ => _.Request.Headers.Referer).Returns("aaa");
             _sut.Object.ControllerContext = new ControllerContext();
             _sut.Object.ControllerContext.HttpContext = mockHttpContext.Object;
         }

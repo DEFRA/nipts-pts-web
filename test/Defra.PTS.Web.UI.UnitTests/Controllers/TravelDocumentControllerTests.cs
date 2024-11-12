@@ -38,8 +38,6 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private readonly Mock<ILogger<TravelDocumentController>> _mockLogger = new();
         private IOptions<PtsSettings> _optionsPtsSettings;
         private TravelDocumentController _travelDocumentController;
-        private Mock<ControllerContext> _mockControllerContext;
-        private Mock<TravelDocumentViewModel> _travelDocumentViewModel;
 
         private readonly IStringLocalizer<ISharedResource> _localizer;
         private readonly Mock<ISelectListLocaliser> _breedHelper = new();
@@ -59,12 +57,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             {
                 MagicWordEnabled = true,
             };
-            _mockControllerContext = new Mock<ControllerContext>();
             _optionsPtsSettings = Options.Create(ptsSettings);
             _travelDocumentController = new TravelDocumentController(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _optionsPtsSettings, _breedHelper.Object, _localizer);
-
-
-            _travelDocumentViewModel = new Mock<TravelDocumentViewModel>();
         }
 
 

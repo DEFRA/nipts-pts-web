@@ -25,11 +25,10 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.DynamicsCrm.Commands
         public async Task Handle_AddAddressRequest_ReturnsValidResponse()
         {
             // Arrange
-            var addressLoggerMock = new Mock<ILogger<AddAddressHandler>>();
             var mockDynamicsService = new Mock<IDynamicService>();
 
             var user = new User();
-            var handler = new AddAddressHandler(mockDynamicsService.Object, addressLoggerMock.Object);
+            var handler = new AddAddressHandler(mockDynamicsService.Object);
             var request = new AddAddressRequest(user);
 
             // Act
@@ -51,7 +50,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.DynamicsCrm.Commands
 
             dynamicServiceMock.Setup(x => x.AddAddressAsync(It.IsAny<User>())).ThrowsAsync(new Exception());
 
-            var handler = new AddAddressHandler(dynamicServiceMock.Object, loggerMock.Object);
+            var handler = new AddAddressHandler(dynamicServiceMock.Object);
             var request = new AddAddressRequest(user);
 
             // Assert
