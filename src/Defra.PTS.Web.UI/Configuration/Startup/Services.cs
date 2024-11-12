@@ -33,12 +33,9 @@ public static class Services
         services.Configure<SecretsConfiguration>(configuration.GetSection("PTSB2C"));
         string clientSecret = null;
         string clientId = null;
-        try
-        {
-            clientSecret = configuration.GetValue<string>("PTSB2C:PtsB2CTenantClientSecret");
-            clientId = configuration.GetValue<string>("PTSB2C:PtsB2CTenantClientId");
-        }
-        catch { }
+
+        clientSecret = configuration.GetValue<string>("PTSB2C:PtsB2CTenantClientSecret");
+        clientId = configuration.GetValue<string>("PTSB2C:PtsB2CTenantClientId");
 
         services.AddScoped<ISelectListLocaliser, SelectListLocaliser>();
         services.Configure<CookieConfiguration>(configuration.GetSection("Cookie"));

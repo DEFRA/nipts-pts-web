@@ -50,7 +50,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new ApplicationService(_mockLogger.Object, httpClient, _mapper.Object);
+            _sut = new ApplicationService(httpClient, _mapper.Object);
 
             var actualResult = await _sut.CreateApplication(new ApplicationDto());
 
@@ -68,7 +68,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new ApplicationService(_mockLogger.Object, httpClient, _mapper.Object);
+            _sut = new ApplicationService(httpClient, _mapper.Object);
 
             Assert.ThrowsAsync<Exception>(async () => await _sut.CreateApplication(new ApplicationDto()));
         }
@@ -112,7 +112,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new ApplicationService(_mockLogger.Object, httpClient, mapper);
+            _sut = new ApplicationService(httpClient, mapper);
 
             var actualResult = await _sut.GetApplicationCertificate(Guid.NewGuid());
 
@@ -146,7 +146,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new ApplicationService(_mockLogger.Object, httpClient, mapper);
+            _sut = new ApplicationService(httpClient, mapper);
 
             var actualResult = await _sut.GetApplicationDetails(Guid.NewGuid());
 
@@ -164,7 +164,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new ApplicationService(_mockLogger.Object, httpClient, _mapper.Object);
+            _sut = new ApplicationService(httpClient, _mapper.Object);
 
             Assert.ThrowsAsync<Exception>(async () => await _sut.GetApplicationDetails(Guid.NewGuid()));
         }
@@ -180,7 +180,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new ApplicationService(_mockLogger.Object, httpClient, _mapper.Object);
+            _sut = new ApplicationService(httpClient, _mapper.Object);
 
             Assert.ThrowsAsync<Exception>(async () => await _sut.GetApplicationCertificate(Guid.NewGuid()));
         }
@@ -206,7 +206,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new ApplicationService(_mockLogger.Object, httpClient, _mapper.Object);
+            _sut = new ApplicationService(httpClient, _mapper.Object);
 
             var actualResult = await _sut.GetUserApplications(userId: Guid.NewGuid());
 
@@ -224,7 +224,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new ApplicationService(_mockLogger.Object, httpClient, _mapper.Object);
+            _sut = new ApplicationService(httpClient, _mapper.Object);
 
             Assert.ThrowsAsync<Exception>(async () => await _sut.GetUserApplications(userId: Guid.NewGuid()));
         }

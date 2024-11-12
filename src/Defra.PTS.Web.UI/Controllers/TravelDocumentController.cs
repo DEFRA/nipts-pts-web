@@ -66,50 +66,42 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             HttpContext.Session.SetString("SessionActive", "yes");
         }        
 
-        try
+        if (HttpContext.Request.Cookies.TryGetValue("ManagementLinkClicked", out string managementLinkClicked) && managementLinkClicked == "true")
         {
-            if (HttpContext.Request.Cookies.TryGetValue("ManagementLinkClicked", out string managementLinkClicked) && managementLinkClicked == "true")
-            {
-                return RedirectToAction("CheckIdm2SignOut", "User");
-            }
-
-            if (HttpContext.Request.Cookies.TryGetValue(".AspNetCore.Culture", out string language) && language == "c=cy|uic=cy")
-            {
-                Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("cy");
-            }
-            HandleCache();
-
-            var magicWordData = GetMagicWordFormData(true);
-
-            if (_ptsSettings.MagicWordEnabled && magicWordData != null && !magicWordData.HasUserPassedPasswordCheck)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            else
-            {
-                SaveMagicWordFormData(new MagicWordViewModel { HasUserPassedPasswordCheck = true });
-
-                SetBackUrl(string.Empty);
-
-                await AddOrUpdateUser();
-                await InitializeUserDetails();
-
-                var statuses = new List<string>()
-                {
-                    AppConstants.ApplicationStatus.APPROVED,
-                    AppConstants.ApplicationStatus.AWAITINGVERIFICATION,
-                };
-
-                var userId = CurrentUserId();
-                var response = await _mediator.Send(new GetApplicationsQueryRequest(userId, statuses));
-                return View(response.Applications);
-            }
+            return RedirectToAction("CheckIdm2SignOut", "User");
         }
-        catch (Exception ex)
+
+        if (HttpContext.Request.Cookies.TryGetValue(".AspNetCore.Culture", out string language) && language == "c=cy|uic=cy")
         {
-            _logger.LogError(ex, "An error has occurred, {Message}", ex.Message);
-            throw;
+            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("cy");
+        }
+        HandleCache();
+
+        var magicWordData = GetMagicWordFormData(true);
+
+        if (_ptsSettings.MagicWordEnabled && magicWordData != null && !magicWordData.HasUserPassedPasswordCheck)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
+        else
+        {
+            SaveMagicWordFormData(new MagicWordViewModel { HasUserPassedPasswordCheck = true });
+
+            SetBackUrl(string.Empty);
+
+            await AddOrUpdateUser();
+            await InitializeUserDetails();
+
+            var statuses = new List<string>()
+            {
+                AppConstants.ApplicationStatus.APPROVED,
+                AppConstants.ApplicationStatus.AWAITINGVERIFICATION,
+            };
+
+            var userId = CurrentUserId();
+            var response = await _mediator.Send(new GetApplicationsQueryRequest(userId, statuses));
+            return View(response.Applications);
         }
     }
 
@@ -132,21 +124,13 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     [ExcludeFromCodeCoverage]
     private async Task AddOrUpdateUser()
     {
-        try
-        {
-            var userInfo = GetCurrentUserInfo();
+        var userInfo = GetCurrentUserInfo();
 
-            var response = await _mediator.Send(new AddUserRequest(userInfo));
-            if (response.IsSuccess)
-            {
-                var identity = HttpContext.User.Identities.FirstOrDefault();
-                identity?.AddClaim(new Claim(WebAppConstants.IdentityKeys.PTSUserId, response.UserId.ToString()));
-            }
-        }
-        catch (Exception ex)
+        var response = await _mediator.Send(new AddUserRequest(userInfo));
+        if (response.IsSuccess)
         {
-            _logger.LogError(ex, "Unable to save user details, {Message}", ex.Message);
-            throw;
+            var identity = HttpContext.User.Identities.FirstOrDefault();
+            identity?.AddClaim(new Claim(WebAppConstants.IdentityKeys.PTSUserId, response.UserId.ToString()));
         }
     }
 

@@ -8,33 +8,22 @@ namespace Defra.PTS.Web.Application.Features.Address.Queries;
 public class AddressLookupHandler : IRequestHandler<AddressLookupRequest, AddressLookupResponse>
 {
     private readonly IAddressLookupService _addressLookupService;
-    private readonly ILogger<AddressLookupHandler> _logger;
 
-    public AddressLookupHandler(IAddressLookupService addressLookupService, ILogger<AddressLookupHandler> logger)
+    public AddressLookupHandler(IAddressLookupService addressLookupService)
     {
         ArgumentNullException.ThrowIfNull(addressLookupService);
-        ArgumentNullException.ThrowIfNull(logger);
 
         _addressLookupService = addressLookupService;
-        _logger = logger;
     }
 
     public async Task<AddressLookupResponse> Handle(AddressLookupRequest request, CancellationToken cancellationToken)
     {
-        try
+        var response = new AddressLookupResponse
         {
-            var response = new AddressLookupResponse
-            {
-                Postcode = request.Postcode,
-                Addresses = await _addressLookupService.FindAddressesByPostcode(request.Postcode)
-            };
+            Postcode = request.Postcode,
+            Addresses = await _addressLookupService.FindAddressesByPostcode(request.Postcode)
+        };
 
-            return response;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex,"{addressLookupService}: Unable to get list of addresses for {Postcode}", nameof(_addressLookupService), request.Postcode);
-            throw;
-        }
+        return response;
     }
 }

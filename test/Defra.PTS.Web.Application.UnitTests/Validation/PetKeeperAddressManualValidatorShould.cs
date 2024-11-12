@@ -107,10 +107,10 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
             result.ShouldHaveValidationErrorFor(x => x.County);
         }
 
-        public static IEnumerable<object[]> PetKeeperAddressManualAddressLine1TestData => new List<object[]>
-        {            
-            new object[] { string.Empty },
-            new object[] { new string('a', 251) }
+        public static TheoryData<string> PetKeeperAddressManualAddressLine1TestData => new TheoryData<string>
+        {
+            string.Empty,
+            new string('a', 251)
         };
 
         public static IEnumerable<object[]> PetKeeperAddressManualAddressLine2TestData => new List<object[]>

@@ -92,9 +92,9 @@ public class UserController : BaseController
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Error");
-            
+            _logger.LogError(ex, "Error");          
         }
+
         string cookieLanguageCode = HttpContext.Request.Cookies[".AspNetCore.Culture"];
 
         return RedirectToAction("Index", "TravelDocument", new { setLanguage = cookieLanguageCode});

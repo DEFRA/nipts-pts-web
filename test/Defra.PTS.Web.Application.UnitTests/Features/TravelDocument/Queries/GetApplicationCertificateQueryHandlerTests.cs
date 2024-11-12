@@ -24,9 +24,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Queries
             var applicationServiceMock = new Mock<IApplicationService>();
             applicationServiceMock.Setup(x => x.GetApplicationCertificate(applicationId)).ReturnsAsync(certificate);
 
-            var loggerMock = new Mock<ILogger<GetApplicationCertificateQueryHandler>>();
-
-            var handler = new GetApplicationCertificateQueryHandler(applicationServiceMock.Object, loggerMock.Object);
+            var handler = new GetApplicationCertificateQueryHandler(applicationServiceMock.Object);
             var request = new GetApplicationCertificateQueryRequest(applicationId);
 
             // Act
@@ -50,9 +48,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Queries
             var applicationServiceMock = new Mock<IApplicationService>();
             applicationServiceMock.Setup(x => x.GetApplicationCertificate(applicationId)).ThrowsAsync(new Exception(errorMessage));
 
-            var loggerMock = new Mock<ILogger<GetApplicationCertificateQueryHandler>>();
-
-            var handler = new GetApplicationCertificateQueryHandler(applicationServiceMock.Object, loggerMock.Object);
+            var handler = new GetApplicationCertificateQueryHandler(applicationServiceMock.Object);
             var request = new GetApplicationCertificateQueryRequest(applicationId );
 
             // Act + Assert
