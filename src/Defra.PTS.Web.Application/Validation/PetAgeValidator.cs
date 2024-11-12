@@ -10,7 +10,7 @@ public class PetAgeValidator : AbstractValidator<PetAgeViewModel>
 {
     private static readonly string BirthDateError = "Enter a date in the correct format, for example 11 4 2021";
 
-    public PetAgeValidator(IStringLocalizer<SharedResource> localizer)
+    public PetAgeValidator(IStringLocalizer<ISharedResource> localizer)
     {
         When(x => x.Day == null, () =>
         {

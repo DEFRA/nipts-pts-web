@@ -15,7 +15,7 @@ namespace Defra.PTS.Web.Application.Validation
         private readonly IMediator _mediator;
         private static readonly Regex UkPostcodeRegex = new(AppConstants.RegularExpressions.UKPostcode, RegexOptions.Compiled, TimeSpan.FromMilliseconds(100));
 
-        public PetKeeperPostcodeValidator(IMediator mediator, IStringLocalizer<SharedResource> localizer)
+        public PetKeeperPostcodeValidator(IMediator mediator, IStringLocalizer<ISharedResource> localizer)
         {
             ArgumentNullException.ThrowIfNull(mediator);
             _mediator = mediator;

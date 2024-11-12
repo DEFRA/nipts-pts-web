@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Components.RenderTree;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Identity.Abstractions;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using NuGet.Configuration;
@@ -23,6 +24,9 @@ namespace Defra.PTS.Web.UI.Configuration.Startup;
 [ExcludeFromCodeCoverage]
 public static class Services
 {
+    private static readonly string AuthorizationHeader = "Authorization";
+    private static readonly string SubscriptionKeyHeader = "Ocp-Apim-Subscription-Key";
+
     public static void AddAuthentications(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IHostHelper, HostHelper>();
@@ -129,8 +133,8 @@ public static class Services
             string authToken = MemoryCache.Default[Pages.User.AccessTokenKey] != null ? MemoryCache.Default[Pages.User.AccessTokenKey].ToString() ?? string.Empty : string.Empty;
 
             client.BaseAddress = new Uri(petServiceUrl);
-            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {authToken}");
-            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
+            client.DefaultRequestHeaders.Add(AuthorizationHeader, $"Bearer {authToken}");
+            client.DefaultRequestHeaders.Add(SubscriptionKeyHeader, subscriptionKey);
 
         }).ConfigurePrimaryHttpMessageHandler(() =>
             new HttpClientHandler()
@@ -146,8 +150,8 @@ public static class Services
             string authToken = MemoryCache.Default[Pages.User.AccessTokenKey] != null ? MemoryCache.Default[Pages.User.AccessTokenKey].ToString() ?? string.Empty : string.Empty;
 
             client.BaseAddress = new Uri(ApplicationServiceUrl);
-            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {authToken}");
-            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
+            client.DefaultRequestHeaders.Add(AuthorizationHeader, $"Bearer {authToken}");
+            client.DefaultRequestHeaders.Add(SubscriptionKeyHeader, subscriptionKey);
 
         }).ConfigurePrimaryHttpMessageHandler(() =>
             new HttpClientHandler()
@@ -163,8 +167,8 @@ public static class Services
             string authToken = MemoryCache.Default[Pages.User.AccessTokenKey] != null ? MemoryCache.Default[Pages.User.AccessTokenKey].ToString() ?? string.Empty : string.Empty;
 
             client.BaseAddress = new Uri(userServiceUrl);
-            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {authToken}");
-            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
+            client.DefaultRequestHeaders.Add(AuthorizationHeader, $"Bearer {authToken}");
+            client.DefaultRequestHeaders.Add(SubscriptionKeyHeader, subscriptionKey);
 
         }).ConfigurePrimaryHttpMessageHandler(() =>
             new HttpClientHandler()
@@ -180,8 +184,8 @@ public static class Services
             string authToken = MemoryCache.Default[Pages.User.AccessTokenKey] != null ? MemoryCache.Default[Pages.User.AccessTokenKey].ToString() ?? string.Empty : string.Empty;
 
             client.BaseAddress = new Uri(dynamicsServiceUrl);
-            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {authToken}");
-            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", subscriptionKey);
+            client.DefaultRequestHeaders.Add(AuthorizationHeader, $"Bearer {authToken}");
+            client.DefaultRequestHeaders.Add(SubscriptionKeyHeader, subscriptionKey);
 
         }).ConfigurePrimaryHttpMessageHandler(() =>
             new HttpClientHandler()

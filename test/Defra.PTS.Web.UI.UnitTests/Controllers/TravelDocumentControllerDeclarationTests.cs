@@ -39,12 +39,12 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private readonly Mock<ISelectListLocaliser> _breedHelper = new();
         private TravelDocumentController _travelDocumentController;
 
-        private readonly IStringLocalizer<SharedResource> _localizer;
+        private readonly IStringLocalizer<ISharedResource> _localizer;
         public TravelDocumentControllerDeclarationTests()
         {
             var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
-            _localizer = new StringLocalizer<SharedResource>(factory);
+            _localizer = new StringLocalizer<ISharedResource>(factory);
         }
 
         [SetUp]

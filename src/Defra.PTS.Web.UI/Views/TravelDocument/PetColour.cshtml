@@ -10,7 +10,7 @@
 @using Microsoft.Extensions.Localization;
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
-@inject IStringLocalizer<SharedResource> sharedlocalizer
+@inject IStringLocalizer<ISharedResource> sharedlocalizer
 
 @{
     var fieldsetLegend = new FieldsetLegendViewModel { Label = Localizer[Model.FormTitle].Value, LabelFor = "Black" };
