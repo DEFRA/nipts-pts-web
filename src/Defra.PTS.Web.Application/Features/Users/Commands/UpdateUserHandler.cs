@@ -8,15 +8,12 @@ namespace Defra.PTS.Web.Application.Features.Users.Commands;
 public class UpdateUserHandler : IRequestHandler<UpdateUserRequest, UpdateUserResponse>
 {
     private readonly IUserService _userService;
-    private readonly ILogger<UpdateUserHandler> _logger;
 
     public UpdateUserHandler(IUserService userService, ILogger<UpdateUserHandler> logger)
     {
         ArgumentNullException.ThrowIfNull(userService);
-        ArgumentNullException.ThrowIfNull(logger);
 
         _userService = userService;
-        _logger = logger;
     }
 
     public async Task<UpdateUserResponse> Handle(UpdateUserRequest request, CancellationToken cancellationToken)
