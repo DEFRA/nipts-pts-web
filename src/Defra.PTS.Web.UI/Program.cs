@@ -4,6 +4,7 @@ using Defra.PTS.Web.CertificateGenerator.ViewModels;
 using Defra.PTS.Web.Domain.Models;
 using Defra.PTS.Web.Infrastructure.Extensions;
 using Defra.PTS.Web.UI.Configuration.Startup;
+using Defra.PTS.Web.UI.Constants;
 using Defra.Trade.Common.Api.Infrastructure;
 using Defra.Trade.Common.AppConfig;
 using Defra.Trade.Common.Security.Authentication.Infrastructure;
@@ -43,6 +44,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.Configure<PtsSettings>(builder.Configuration.GetSection("PTS"));
+builder.Services.Configure<GoogleTagManager>(builder.Configuration.GetSection("GoogleTagManager"));
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
