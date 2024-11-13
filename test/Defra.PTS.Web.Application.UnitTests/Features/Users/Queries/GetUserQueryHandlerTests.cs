@@ -24,7 +24,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.Users.Queries
             var userDetailDto = new UserDetailDto { /* Initialize user detail DTO */ };
             userServiceMock.Setup(x => x.GetUserDetail(userId)).ReturnsAsync(userDetailDto);
 
-            var handler = new GetUserQueryHandler(userServiceMock.Object, loggerMock.Object);
+            var handler = new GetUserQueryHandler(userServiceMock.Object);
             var request = new GetUserQueryRequest(userId);
 
             // Act
@@ -43,9 +43,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.Users.Queries
             var userServiceMock = new Mock<IUserService>();
             userServiceMock.Setup(x => x.GetUserDetail(It.IsAny<Guid>())).ThrowsAsync(new Exception("Simulated error"));
 
-            var loggerMock = new Mock<ILogger<GetUserQueryHandler>>();
-
-            var handler = new GetUserQueryHandler(userServiceMock.Object, loggerMock.Object);
+            var handler = new GetUserQueryHandler(userServiceMock.Object);
             var request = new GetUserQueryRequest(userId); // Assuming some user id
 
             // Act + Assert

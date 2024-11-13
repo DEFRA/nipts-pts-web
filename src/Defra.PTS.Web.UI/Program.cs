@@ -9,6 +9,7 @@ using Defra.Trade.Common.AppConfig;
 using Defra.Trade.Common.Security.Authentication.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Azure.Management.Storage.Fluent.Models;
+using Microsoft.FeatureManagement;
 using System.Globalization;
 using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
@@ -46,6 +47,7 @@ builder.Services.Configure<PtsSettings>(builder.Configuration.GetSection("PTS"))
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationApis(builder.Configuration);
+builder.Services.AddFeatureManagement();
 
 builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssemblyContaining<Program>(); });
 

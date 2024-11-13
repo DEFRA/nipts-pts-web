@@ -23,9 +23,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.Lookups.Queries
             // Arrange
             var petServiceMock = new Mock<IPetService>();
 
-            var loggerMock = new Mock<ILogger<GetColoursQueryHandler>>();
-
-            var handler = new GetColoursQueryHandler(petServiceMock.Object, loggerMock.Object);
+            var handler = new GetColoursQueryHandler(petServiceMock.Object);
             var request = new GetColoursQueryRequest(Domain.Enums.PetSpecies.Dog);
 
             // Act
@@ -46,7 +44,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.Lookups.Queries
 
             petServiceMock.Setup(x => x.GetColours(It.IsAny<PetSpecies>())).ThrowsAsync(new Exception());
 
-            var handler = new GetColoursQueryHandler(petServiceMock.Object, loggerMock.Object);
+            var handler = new GetColoursQueryHandler(petServiceMock.Object);
             var request = new GetColoursQueryRequest(Domain.Enums.PetSpecies.Dog);
 
             // Act

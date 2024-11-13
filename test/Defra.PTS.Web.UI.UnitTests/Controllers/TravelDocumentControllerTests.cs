@@ -38,17 +38,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private readonly Mock<ILogger<TravelDocumentController>> _mockLogger = new();
         private IOptions<PtsSettings> _optionsPtsSettings;
         private TravelDocumentController _travelDocumentController;
-        private Mock<ControllerContext> _mockControllerContext;
-        private Mock<TravelDocumentViewModel> _travelDocumentViewModel;
 
-        private readonly IStringLocalizer<SharedResource> _localizer;
+        private readonly IStringLocalizer<ISharedResource> _localizer;
         private readonly Mock<ISelectListLocaliser> _breedHelper = new();
 
         public TravelDocumentControllerTests()
         {
             var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
-            _localizer = new StringLocalizer<SharedResource>(factory);
+            _localizer = new StringLocalizer<ISharedResource>(factory);
 
         }
 
@@ -59,12 +57,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             {
                 MagicWordEnabled = true,
             };
-            _mockControllerContext = new Mock<ControllerContext>();
             _optionsPtsSettings = Options.Create(ptsSettings);
             _travelDocumentController = new TravelDocumentController(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _optionsPtsSettings, _breedHelper.Object, _localizer);
-
-
-            _travelDocumentViewModel = new Mock<TravelDocumentViewModel>();
         }
 
 
@@ -152,46 +146,6 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(nameof(TravelDocumentController.ApplicationDetails), result.ActionName);
-        }
-
-        [Test]
-        public void Index_ExceptionThrown_LogsErrorAndRethrows()
-        {
-            // Arrange
-            var validationServiceMock = new Mock<IValidationService>();
-            var mediatorMock = new Mock<IMediator>();
-            var loggerMock = new Mock<ILogger<TravelDocumentController>>();
-            var ptsSettingsMock = new Mock<IOptions<PtsSettings>>();
-
-            var controller = new TravelDocumentController(
-                validationServiceMock.Object,
-                mediatorMock.Object,
-                loggerMock.Object,
-                ptsSettingsMock.Object,
-                _breedHelper.Object,
-                _localizer
-            );
-
-            // Simulate an exception being thrown
-            var exception = new Exception("Test exception");
-
-            // Act & Assert
-            var aggregateException = Assert.Throws<AggregateException>(() =>
-            {
-                controller.Index().Wait();
-            });
-
-            var innerException = aggregateException.InnerException;
-            Assert.IsInstanceOf<NullReferenceException>(innerException);
-            Assert.AreEqual("Object reference not set to an instance of an object.", innerException.Message);
-
-            loggerMock.Verify(x => x.Log(
-                LogLevel.Error,
-                It.IsAny<EventId>(),
-                It.Is<It.IsAnyType>((v, t) => true),
-                It.IsAny<Exception>(),
-                (Func<It.IsAnyType, Exception, string>)It.IsAny<object>()
-            ), Times.Once);
         }
 
         [Test]

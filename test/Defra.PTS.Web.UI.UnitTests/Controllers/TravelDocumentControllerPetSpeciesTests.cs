@@ -28,12 +28,12 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private readonly Mock<ISelectListLocaliser> _mockBreedHelper = new();
         private Mock<TravelDocumentController> _travelDocumentController;
         private Mock<TravelDocumentViewModel> _travelDocumentViewModel;
-        private readonly IStringLocalizer<SharedResource> _localizer;
+        private readonly IStringLocalizer<ISharedResource> _localizer;
         public TravelDocumentControllerPetSpeciesTests()
         {
             var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
-            _localizer = new StringLocalizer<SharedResource>(factory);
+            _localizer = new StringLocalizer<ISharedResource>(factory);
         }
 
         [SetUp]
@@ -50,7 +50,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _travelDocumentViewModel = new Mock<TravelDocumentViewModel>();
 
             var mockHttpContext = new Mock<HttpContext>();
-            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
+            mockHttpContext.Setup(_ => _.Request.Headers.Referer).Returns("aaa");
             _travelDocumentController.Object.ControllerContext = new ControllerContext();
             _travelDocumentController.Object.ControllerContext.HttpContext = mockHttpContext.Object;
         }

@@ -16,12 +16,12 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 {
     public class PetBreedValidatorShould
     {
-        private readonly IStringLocalizer<SharedResource> _localizer;
+        private readonly IStringLocalizer<ISharedResource> _localizer;
         public PetBreedValidatorShould()
         {
             var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
-            _localizer = new StringLocalizer<SharedResource>(factory);
+            _localizer = new StringLocalizer<ISharedResource>(factory);
         }
 
         [Fact]

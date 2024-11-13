@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 namespace Defra.PTS.Web.Application.Validation;
 public class PetFeatureValidator : AbstractValidator<PetFeatureViewModel>
 {
-    public PetFeatureValidator(IStringLocalizer<SharedResource> localizer)
+    public PetFeatureValidator(IStringLocalizer<ISharedResource> localizer)
     {
         RuleFor(x => x.HasUniqueFeature).NotEmpty().WithMessage(x => localizer["Tell us if your pet has any significant features"]);
 

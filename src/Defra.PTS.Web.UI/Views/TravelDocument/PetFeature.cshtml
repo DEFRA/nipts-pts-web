@@ -8,10 +8,9 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 @using Microsoft.Extensions.Localization;
-@inject IStringLocalizer<SharedResource> sharedlocalizer
+@inject IStringLocalizer<ISharedResource> sharedlocalizer
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Yes" };
     this.SetMetaTitle(Localizer[Model.FormTitle].Value);
 }
 

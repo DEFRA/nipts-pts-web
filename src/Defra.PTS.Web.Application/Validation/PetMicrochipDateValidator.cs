@@ -8,7 +8,7 @@ namespace Defra.PTS.Web.Application.Validation;
 public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewModel>
 {
     private static readonly string MicrochipError = "Enter a date in the correct format, for example 11 4 2021";
-    public PetMicrochipDateValidator(IStringLocalizer<SharedResource> localizer)
+    public PetMicrochipDateValidator(IStringLocalizer<ISharedResource> localizer)
     {
         When(x => x.Day == null, () =>
         {

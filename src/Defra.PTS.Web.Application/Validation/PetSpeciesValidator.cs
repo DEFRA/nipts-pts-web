@@ -6,7 +6,7 @@ using Microsoft.Extensions.Localization;
 namespace Defra.PTS.Web.Application.Validation;
 public class PetSpeciesValidator : AbstractValidator<PetSpeciesViewModel>
 {
-    public PetSpeciesValidator(IStringLocalizer<SharedResource> localizer)
+    public PetSpeciesValidator(IStringLocalizer<ISharedResource> localizer)
     {
         RuleFor(x => x.PetSpecies).NotEmpty().WithMessage(x => localizer["Tell us if you are taking a pet dog, cat or ferret"]);
     }
