@@ -48,24 +48,16 @@ public class DynamicService : IDynamicService
 
     public async Task AddApplicationToQueueAsync(ApplicationSubmittedMessage application)
     {
-        try
-        {
-            string apiUrl = _httpClient.BaseAddress + "writetoqueue";
+        string apiUrl = _httpClient.BaseAddress + "writetoqueue";
 
-            HttpResponseMessage response = await _httpClient.PostAsJsonAsync(apiUrl, application);
-            if (response.IsSuccessStatusCode)
-            {
-                _logger.LogInformation("Message Added to Queue Successfully : {IsSuccessStatusCode}", response.IsSuccessStatusCode);
-            }
-            else
-            {
-                _logger.LogError("Message post Failed: {statusCode}", response.StatusCode);                
-            }
-        }
-        catch (Exception ex)
+        HttpResponseMessage response = await _httpClient.PostAsJsonAsync(apiUrl, application);
+        if (response.IsSuccessStatusCode)
         {
-            _logger.LogError(ex, "AddApplicationToQueueAsync: Message {Message} : StackTrace {StackTrace}", ex.Message, ex.StackTrace);
-            throw;
-        }        
+            _logger.LogInformation("Message Added to Queue Successfully : {IsSuccessStatusCode}", response.IsSuccessStatusCode);
+        }
+        else
+        {
+            _logger.LogError("Message post Failed: {0}", response.StatusCode);                
+        }      
     }
 }

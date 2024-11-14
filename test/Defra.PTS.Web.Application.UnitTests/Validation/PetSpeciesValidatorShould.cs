@@ -48,7 +48,7 @@ public class PetSpeciesValidatorShould
     private static PetSpeciesValidator CreateValidator() 
     {
         //Mock localizer
-        var mockStringLocalizer = new Mock<IStringLocalizer<SharedResource>>();
+        var mockStringLocalizer = new Mock<IStringLocalizer<ISharedResource>>();
         string key = "Hello my dear friend!";
         var localizedString = new LocalizedString(key, key);
         mockStringLocalizer.Setup(_ => _[key]).Returns(localizedString);

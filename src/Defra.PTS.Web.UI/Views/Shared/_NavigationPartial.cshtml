@@ -2,7 +2,7 @@
 @using Defra.PTS.Web.Domain.Models;
 @using Defra.PTS.Web.UI.Extensions;
 @using Microsoft.Extensions.Localization;
-@inject IStringLocalizer<SharedResource> sharedlocalizer
+@inject IStringLocalizer<ISharedResource> sharedlocalizer
 @{
     var isAuthenticated = User.Identity.IsAuthenticated;
     var separator = "|";
@@ -15,8 +15,6 @@
 
         @if (isAuthenticated)
         {
-            var user = User.ToUserInfo();
-
             <li class="login-nav__list-item">
                 @fullName @separator
             </li>

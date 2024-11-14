@@ -129,6 +129,9 @@
   <data name="Defra's privacy notice" xml:space="preserve">
     <value>hysbysiad preifatrwydd Defra</value>
   </data>
+	<data name="privacy notice" xml:space="preserve">
+    <value>hysbysiad preifatrwydd</value>
+  </data>
   <data name="I agree" xml:space="preserve">
     <value>Rwy’n cytuno</value>
   </data>
@@ -141,7 +144,7 @@
   <data name="I declare that:" xml:space="preserve">
     <value>Rwy’n datgan y canlynol:</value>
   </data>
-  <data name="I have read " xml:space="preserve">
+  <data name="I have read the " xml:space="preserve">
     <value>Rwyf wedi darllen </value>
   </data>
   <data name="I understand that I can travel with this pet to and from Northern Ireland only and not to an EU member state (Ireland is an EU member state)" xml:space="preserve">

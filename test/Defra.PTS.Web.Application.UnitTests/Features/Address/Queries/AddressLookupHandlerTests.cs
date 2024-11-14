@@ -28,9 +28,8 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.Address.Queries
         {
             // Arrange
             var adressLookupServiceMock = new Mock<IAddressLookupService>();
-            var addressLoggerMock = new Mock<ILogger<AddressLookupHandler>>();
 
-            var handler = new AddressLookupHandler(adressLookupServiceMock.Object, addressLoggerMock.Object);
+            var handler = new AddressLookupHandler(adressLookupServiceMock.Object);
             var request = new AddressLookupRequest("");
 
             // Act
@@ -49,7 +48,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.Address.Queries
 
             adressLookupServiceMock.Setup(x => x.FindAddressesByPostcode(It.IsAny<string>())).ThrowsAsync(new Exception());
 
-            var handler = new AddressLookupHandler(adressLookupServiceMock.Object, addressLoggerMock.Object);
+            var handler = new AddressLookupHandler(adressLookupServiceMock.Object);
             var request = new AddressLookupRequest("");
 
             // Assert

@@ -78,7 +78,7 @@ public class CreateTravelDocumentHandler : IRequestHandler<CreateTravelDocumentR
         }
         catch (Exception e)
         {
-            _logger.LogError(e, "Error occured: {message}", e.Message);
+            _logger.LogError(e, "Error occured: {0}", e.Message);
             response = new CreateTravelDocumentResponse
             {
                 IsSuccess = false
@@ -86,16 +86,8 @@ public class CreateTravelDocumentHandler : IRequestHandler<CreateTravelDocumentR
             return response;
         }
 
-        try
-        {
-            var message = new ApplicationSubmittedMessage { ApplicationId = appId };
-            await _dynamicService.AddApplicationToQueueAsync(message);
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "Unable to send application submitted message, message: {Message}", ex.Message);
-            throw;
-        }
+        var message = new ApplicationSubmittedMessage { ApplicationId = appId };
+        await _dynamicService.AddApplicationToQueueAsync(message);
 
         return response;
     }

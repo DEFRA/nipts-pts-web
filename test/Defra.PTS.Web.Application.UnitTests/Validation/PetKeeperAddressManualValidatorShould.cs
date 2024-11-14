@@ -17,12 +17,12 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 {
     public class PetKeeperAddressManualValidatorShould
     {
-        private readonly IStringLocalizer<SharedResource> _localizer;
+        private readonly IStringLocalizer<ISharedResource> _localizer;
         public PetKeeperAddressManualValidatorShould()
         {
             var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
-            _localizer = new StringLocalizer<SharedResource>(factory);
+            _localizer = new StringLocalizer<ISharedResource>(factory);
         }
 
         [Fact]
@@ -107,10 +107,10 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
             result.ShouldHaveValidationErrorFor(x => x.County);
         }
 
-        public static IEnumerable<object[]> PetKeeperAddressManualAddressLine1TestData => new List<object[]>
-        {            
-            new object[] { string.Empty },
-            new object[] { new string('a', 251) }
+        public static TheoryData<string> PetKeeperAddressManualAddressLine1TestData => new TheoryData<string>
+        {
+            string.Empty,
+            new string('a', 251)
         };
 
         public static IEnumerable<object[]> PetKeeperAddressManualAddressLine2TestData => new List<object[]>

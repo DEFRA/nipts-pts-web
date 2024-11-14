@@ -15,7 +15,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
     [TestFixture]
     public class DynamicServiceTests
     {
-        private IDynamicService _systemUnderTest;
+        private DynamicService _systemUnderTest;
 
         protected Mock<HttpMessageHandler> _mockHttpMessageHandler;
         private Mock<ILogger<DynamicService>> _mockLogger;
