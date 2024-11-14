@@ -41,8 +41,8 @@
 
             @if (Model.ShowDownloadLink)
             {
-                var downloadFilename = ApplicationHelper.BuildPdfDownloadFilename(Model.Id, Model.PdfType);
-                var downloadUrl = ApplicationHelper.BuildPdfDownloadUrl(Model.Id, Model.PdfType);
+                var downloadFilename = ApplicationHelper.BuildPdfDownloadFilename(Model.PetName, Model.PdfType);
+                var downloadUrl = ApplicationHelper.BuildPdfDownloadUrl(Model.Id, Model.PdfType, Model.PetName);
 
                 <li>
                     <span class="hod-icons-download-button"></span>
