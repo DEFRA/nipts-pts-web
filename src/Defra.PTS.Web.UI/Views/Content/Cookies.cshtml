@@ -1,4 +1,5 @@
-﻿@using Defra.PTS.Web.UI.Extensions;
+﻿@model CookiesModel
+@using Defra.PTS.Web.UI.Extensions;
 
 @{
     var pageTitle = "Cookies";
@@ -9,12 +10,33 @@
 
     <main class="govuk-main-wrapper pet-main" id="main-content">
 
-        <form class="form" action="cookies/post-submit" method="post">
+        @* <form class="form" action="cookies/post-submit" method="post"> *@
+        @using (Html.BeginForm("SetCookie", "Content", FormMethod.Post, new { @class = "form" }))
+        {
+            @Html.HiddenFor(x => x.MeasurementId)
 
             <div class="govuk-width-container">
                 <div class="govuk-main-wrapper " id="main-content">
                     <div class="govuk-grid-row">
                         <div class="govuk-grid-column-two-thirds">
+                            
+                            <!-- Put saved message here -->
+                            @if (Model.Saved)
+                            {
+                                <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" data-govuk-notification-banner-init="">
+                                    <div class="govuk-notification-banner__header">
+                                        <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
+                                            Success
+                                        </h2>
+                                    </div>
+                                    <div class="govuk-notification-banner__content">
+                                        <p class="govuk-notification-banner__heading">
+                                            You’ve set your cookie preferences.
+                                        </p>
+                                    </div>
+                                </div>
+                            }
+
                             <h1 class="govuk-heading-xl">@pageTitle</h1>
                         </div>
                     </div>
@@ -215,14 +237,16 @@
                                     </legend>
                                     <div class="govuk-radios" data-module="govuk-radios" data-govuk-radios-init="">
                                         <div class="govuk-radios__item">
-                                            <input class="govuk-radios__input" id="interviewNeeds" name="interviewNeeds" type="radio" value="yes">
-                                            <label class="govuk-label govuk-radios__label" for="interviewNeeds">
+                                            @* <input class="govuk-radios__input" id="interviewNeeds" name="interviewNeeds" type="radio" value="yes"> *@
+                                            @Html.RadioButtonFor(m => m.GaCookieAcceptYesNo, "accept", new { @class = "govuk-radios__input", id = "yes" })
+                                            <label class="govuk-label govuk-radios__label" for="yes">
                                                 Yes
                                             </label>
                                         </div>
                                         <div class="govuk-radios__item">
-                                            <input class="govuk-radios__input" id="interviewNeeds-2" name="interviewNeeds" type="radio" value="no">
-                                            <label class="govuk-label govuk-radios__label" for="interviewNeeds-2">
+                                            @* <input class="govuk-radios__input" id="interviewNeeds-2" name="interviewNeeds" type="radio" value="no"> *@
+                                            @Html.RadioButtonFor(m => m.GaCookieAcceptYesNo, "reject", new { @class = "govuk-radios__input", id = "no" })
+                                            <label class="govuk-label govuk-radios__label" for="no">
                                                 No
                                             </label>
                                         </div>
@@ -237,7 +261,8 @@
                     </div>
                 </div>
             </div>
-        </form>
+            }
+        @* </form> *@
 
 
     </main>
