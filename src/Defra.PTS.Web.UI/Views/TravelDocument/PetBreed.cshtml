@@ -7,20 +7,19 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 @using Microsoft.Extensions.Localization;
-@inject IStringLocalizer<SharedResource> sharedlocalizer
+@inject IStringLocalizer<ISharedResource> sharedlocalizer
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = (Localizer[Model.FormTitle].Value), LabelFor = "BreedId" };
     this.SetMetaTitle(Localizer[Model.FormTitle].Value);
 
     var exampleText = string.Empty;
     if (Model.PetSpecies == PetSpecies.Cat)
     {
-        exampleText = Localizer["For example, Domestic Shorthair, Bengal, Scottish Fold, Ragdoll."].Value;
+        exampleText = Localizer["Enter your cat’s breed or select from the suggested options"].Value;
     }
     else if (Model.PetSpecies == PetSpecies.Dog)
     {
-        exampleText = Localizer["For example, Labrador, Greyhound, Cockapoo, Labradoodle."].Value;
+        exampleText = Localizer["Enter your dog’s breed or select from the suggested options"].Value;
     }
 }
 

@@ -125,7 +125,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         List<SelectListItem> breeds = null;
         breeds = await GetBreedsAsSelectListItems(model.PetSpecies);
 
-        if (model.BreedId == 0 || model.BreedId == 98 || model.BreedId == 99)
+        if (model.BreedId == 0 || model.BreedId == 99 || model.BreedId == 100)
         {
             var normalisedBreed = model.BreedName?.Trim();
             var intendedBreed = breeds.Find(x => x.Text.Equals(normalisedBreed?.ToLower(), StringComparison.CurrentCultureIgnoreCase));
@@ -146,7 +146,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                 }
                 else if (model.PetSpecies == Domain.Enums.PetSpecies.Cat)
                 {
-                    model.BreedId = 98;
+                    model.BreedId = 100;
                     model.BreedAdditionalInfo = model.BreedName;
                 }
             }

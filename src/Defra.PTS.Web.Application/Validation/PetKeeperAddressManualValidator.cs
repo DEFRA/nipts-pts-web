@@ -11,7 +11,7 @@ namespace Defra.PTS.Web.Application.Validation
 {
     public class PetKeeperAddressManualValidator : AbstractValidator<PetKeeperAddressManualViewModel>
     {
-        public PetKeeperAddressManualValidator(IStringLocalizer<SharedResource> localizer)
+        public PetKeeperAddressManualValidator(IStringLocalizer<ISharedResource> localizer)
         {
             RuleLevelCascadeMode = CascadeMode.Stop;
 

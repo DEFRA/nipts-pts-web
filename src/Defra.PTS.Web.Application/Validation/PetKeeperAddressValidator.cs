@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace Defra.PTS.Web.Application.Validation;
 public class PetKeeperAddressValidator : AbstractValidator<PetKeeperAddressViewModel>
 {
-    public PetKeeperAddressValidator(IStringLocalizer<SharedResource> localizer)
+    public PetKeeperAddressValidator(IStringLocalizer<ISharedResource> localizer)
     {
         RuleFor(x => x.Address).NotEmpty().WithMessage(x => localizer[$"Select your address from the list"]);
     }

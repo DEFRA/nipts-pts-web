@@ -23,9 +23,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.Users.Commands
             var userServiceMock = new Mock<IUserService>();
             userServiceMock.Setup(x => x.AddUserAsync(user)).ReturnsAsync(userId);
 
-            var loggerMock = new Mock<ILogger<AddUserHandler>>();
-
-            var handler = new AddUserHandler(userServiceMock.Object, loggerMock.Object);
+            var handler = new AddUserHandler(userServiceMock.Object);
             var request = new AddUserRequest(user);
 
             // Act
@@ -47,9 +45,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.Users.Commands
             var userServiceMock = new Mock<IUserService>();
             userServiceMock.Setup(x => x.AddUserAsync(user)).ThrowsAsync(new Exception(errorMessage));
 
-            var loggerMock = new Mock<ILogger<AddUserHandler>>();
-
-            var handler = new AddUserHandler(userServiceMock.Object, loggerMock.Object);
+            var handler = new AddUserHandler(userServiceMock.Object);
             var request = new AddUserRequest(user);
 
             // Act + Assert

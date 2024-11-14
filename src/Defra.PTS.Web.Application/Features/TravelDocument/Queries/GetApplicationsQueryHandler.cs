@@ -9,43 +9,32 @@ namespace Defra.PTS.Web.Application.Features.TravelDocument.Queries;
 public class GetApplicationsQueryHandler : IRequestHandler<GetApplicationsQueryRequest, GetApplicationsQueryResponse>
 {
     private readonly IApplicationService _applicationService;
-    private readonly ILogger<GetApplicationsQueryHandler> _logger;
 
-    public GetApplicationsQueryHandler(IApplicationService applicationService, ILogger<GetApplicationsQueryHandler> logger)
+    public GetApplicationsQueryHandler(IApplicationService applicationService)
     {
         ArgumentNullException.ThrowIfNull(applicationService);
-        ArgumentNullException.ThrowIfNull(logger);
 
         _applicationService = applicationService;
-        _logger = logger;
     }
 
     public async Task<GetApplicationsQueryResponse> Handle(GetApplicationsQueryRequest request, CancellationToken cancellationToken)
     {
-        try
+        var response = new GetApplicationsQueryResponse
         {
-            var response = new GetApplicationsQueryResponse
-            {
-                UserId = request.UserId,
-                Applications = await _applicationService.GetUserApplications(request.UserId),
-            };
+            UserId = request.UserId,
+            Applications = await _applicationService.GetUserApplications(request.UserId),
+        };
 
-            // Map Status
-            foreach (var application in response.Applications)
-            {
-                application.Status = ApplicationHelper.MapStatusToDisplayStatus(application.Status);
-            }
-
-            response.Applications = response.Applications
-                .Where(x => request.Statuses.Contains(x.Status))
-                .ToList();
-
-            return response;
-        }
-        catch (Exception ex)
+        // Map Status
+        foreach (var application in response.Applications)
         {
-            _logger.LogError(ex, "{applicationService}: Unable to get list of applications for User {UserId}", nameof(_applicationService), request?.UserId);
-            throw;
+            application.Status = ApplicationHelper.MapStatusToDisplayStatus(application.Status);
         }
+
+        response.Applications = response.Applications
+            .Where(x => request.Statuses.Contains(x.Status))
+            .ToList();
+
+        return response;
     }
 }

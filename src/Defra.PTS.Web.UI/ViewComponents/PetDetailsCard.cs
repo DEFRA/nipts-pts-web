@@ -17,7 +17,7 @@ public class PetDetailsCard : ViewComponent
         {
             Name = dto.PetName.PetName,
             Species = dto.PetSpecies.PetSpecies.GetDescription(),
-            Breed = dto.PetBreed.BreedName,
+            Breed = dto.PetSpecies.PetSpecies == PetSpecies.Ferret ? "-" : dto.PetBreed.BreedName,
             HasBreed = dto.PetSpecies.PetSpecies.HasBreed(),
             Gender = dto.PetGender.Gender.GetDescription(),
             Colour = !string.IsNullOrEmpty(dto.PetColour.PetColourOther) ? dto.PetColour.PetColourOther : dto.PetColour.PetColourName,

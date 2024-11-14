@@ -1,11 +1,8 @@
 ﻿@using Defra.PTS.Web.UI.Constants;
 @using Microsoft.AspNetCore.Mvc.Localization;
 @using Microsoft.Extensions.Localization;
-@inject IStringLocalizer<SharedResource> sharedlocalizer
+@inject IStringLocalizer<ISharedResource> sharedlocalizer
 
-@{
-    var serviceName = sharedlocalizer["Taking a pet from Great Britain to Northern Ireland"];
-}
 <header class="govuk-header" role="banner" data-module="govuk-header">
     <div class="govuk-header__container govuk-width-container">
         <div class="govuk-header__logo">

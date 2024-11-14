@@ -23,9 +23,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.Lookups.Queries
             // Arrange
             var petServiceMock = new Mock<IPetService>();
 
-            var loggerMock = new Mock<ILogger<GetBreedsQueryHandler>>();
-
-            var handler = new GetBreedsQueryHandler(petServiceMock.Object, loggerMock.Object);
+            var handler = new GetBreedsQueryHandler(petServiceMock.Object);
             var request = new GetBreedsQueryRequest(Domain.Enums.PetSpecies.Dog);
 
             // Act
@@ -46,7 +44,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.Lookups.Queries
 
             petServiceMock.Setup(x => x.GetBreeds(It.IsAny<PetSpecies>())).ThrowsAsync(new Exception());
 
-            var handler = new GetBreedsQueryHandler(petServiceMock.Object, loggerMock.Object);
+            var handler = new GetBreedsQueryHandler(petServiceMock.Object);
             var request = new GetBreedsQueryRequest(Domain.Enums.PetSpecies.Dog);
 
             // Act

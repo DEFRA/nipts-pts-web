@@ -125,7 +125,7 @@ public class UserExtensionsTests
     }
 
     [Fact]
-    public void GetLoggedInUserId_WhenNoValidUser_ThorwsException()
+    public void GetLoggedInUserId_WhenNoValidUser_ThrowsException()
     {
         // Arrange
         var claimsPrincipal = MockUser(hasUserId: false);
@@ -136,7 +136,7 @@ public class UserExtensionsTests
         // Assert
         using (new AssertionScope())
         {
-            var exception = Assert.Throws<Exception>(act);
+            var exception = Assert.Throws<InvalidDataException>(act);
             exception.Message.Should().StartWith("Invalid userId provided");
         }
     }
@@ -186,7 +186,7 @@ public class UserExtensionsTests
         // Assert
         using (new AssertionScope())
         {
-            var exception = Assert.Throws<Exception>(act);
+            var exception = Assert.Throws<InvalidDataException>(act);
             exception.Message.Should().StartWith("Invalid contactId provided");
         }
     }
