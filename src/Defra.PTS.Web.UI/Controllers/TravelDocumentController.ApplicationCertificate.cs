@@ -19,7 +19,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);
 
         var response = await _mediator.Send(new GetApplicationCertificateQueryRequest(id));
-
+        
         var userId = CurrentUserId();
         if (!response.ApplicationCertificate.UserId.Equals(userId))
         {
@@ -30,13 +30,12 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         {
             return RedirectToAction(nameof(ApplicationDetails), new { id });
         }
-
         return View(response.ApplicationCertificate);
     }
 
     [ExcludeFromCodeCoverage]
-    [HttpGet]
-    public async Task<IActionResult> DownloadCertificatePdf(Guid id)
+    [HttpGet("TravelDocument/DownloadCertificatePdf/{id}/{petName}")]
+    public async Task<IActionResult> DownloadCertificatePdf(Guid id, string petName)
     {
         var userId = CurrentUserId();
 
@@ -46,7 +45,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             return new NotFoundObjectResult("Unable to download the PDF");
         }
 
-        var fileName = ApplicationHelper.BuildPdfDownloadFilename(id, PdfType.Certificate);
+        var fileName = ApplicationHelper.BuildPdfDownloadFilename(petName, PdfType.Certificate);
 
         return File(response.Content, response.MimeType, fileName);
     }
