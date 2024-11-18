@@ -1,5 +1,8 @@
-﻿namespace Defra.PTS.Web.Domain.Models;
+﻿using System.Diagnostics.CodeAnalysis;
 
+namespace Defra.PTS.Web.Domain.Models;
+
+[ExcludeFromCodeCoverage]
 public class CookiesModel
 {
     public string GaCookieAcceptYesNo { get; set; } = string.Empty;
