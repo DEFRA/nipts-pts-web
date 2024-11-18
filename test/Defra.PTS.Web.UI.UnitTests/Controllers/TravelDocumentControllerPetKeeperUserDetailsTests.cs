@@ -14,6 +14,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Azure.Management.Monitor.Fluent.AutoscaleSetting.Definition;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
@@ -191,6 +192,53 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         }
 
         [Test]
+        public void PetName_WithValidModel_If_UserDetailsAreCorrect_Yes_ResetsPetModels_RedirectsToPetMicrochip()
+        {
+            // Arrange
+            var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
+            var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = true };
+            tempData.SetHasUserUsedMagicWord(magicWordViewModel);
+            _travelDocumentController.Object.TempData = tempData;
+            var formData = new TravelDocumentViewModel
+            {
+                PetKeeperUserDetails = new PetKeeperUserDetailsViewModel
+                {
+                    Name = "John " + "Doe",
+                    Email = "john.doe@example.com",
+                    IsCompleted = true,
+                    UserDetailsAreCorrect = YesNoOptions.Yes,
+                    PetOwnerDetailsRequired = false,
+                },
+                PetKeeperName = new PetKeeperNameViewModel() { IsCompleted = true, Name = "Test Pet" },
+                PetKeeperPhone = new PetKeeperPhoneViewModel() { IsCompleted = true, Phone = "07515174177"},
+                PetKeeperPostcode = new PetKeeperPostcodeViewModel() { IsCompleted = true, Postcode = "RM6 4FB"},
+                PetKeeperAddress = new PetKeeperAddressViewModel() { IsCompleted = true },
+                PetKeeperAddressManual = new PetKeeperAddressManualViewModel() { IsCompleted = true },
+            };
+
+            // Arrange
+            _travelDocumentController.Setup(x => x.IsApplicationInProgress())
+                .Returns(false);
+            _travelDocumentController.Setup(x => x.GetFormData(false))
+                .Returns(formData);
+
+            // Act
+            var result = _travelDocumentController.Object.PetKeeperUserDetails(formData.PetKeeperUserDetails) as RedirectToActionResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(nameof(TravelDocumentController.PetMicrochip), result.ActionName);
+            Assert.AreEqual(formData.PetKeeperName.IsCompleted, false);
+            Assert.IsNull(formData.PetKeeperName.Name);
+            Assert.AreEqual(formData.PetKeeperPhone.IsCompleted, false);
+            Assert.IsNull(formData.PetKeeperPhone.Phone);
+            Assert.AreEqual(formData.PetKeeperPostcode.IsCompleted, false);
+            Assert.IsNull(formData.PetKeeperPostcode.Postcode);
+            Assert.AreEqual(formData.PetKeeperAddress.IsCompleted, false);
+            Assert.AreEqual(formData.PetKeeperAddressManual.IsCompleted, false);
+        }
+
+        [Test]
         public void PetName_WithValidModel_If_UserDetailsAreCorrect_Yes_RedirectsToPetKeeperName()
         {
             // Arrange
@@ -262,8 +310,6 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _travelDocumentController.Setup(c => c.GetHttpContext()).Returns(mockHttpContext.Object);
 
         }
-
-
 
     }
 
