@@ -126,4 +126,7 @@
   <data name="Pet travel document number" xml:space="preserve">
     <value>Rhif y ddogfen deithio i anifail anwes</value>
   </data>
+	<data name="FOR OFFICIAL USE ONLY" xml:space="preserve">
+    <value>AT DDEFNYDD SWYDDOGOL YN UNIG</value>
+</data>
 </root>

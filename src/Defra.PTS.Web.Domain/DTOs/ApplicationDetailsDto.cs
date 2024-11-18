@@ -42,7 +42,9 @@ public class CertificateIssuingAuthorityDto
     public string TownOrCity { get; set; }
     public string Postcode { get; set; }
 
-    public string SignedOnBehalfOfAPHA { get; set; }
+    public string DocumentSignedBy { get; set; }
+    public string DocumentSignedByTitle { get; set; }
+    public string DocumentSignedBySignature { get; set; }
 }
 
 public class MicrochipInformationDto
