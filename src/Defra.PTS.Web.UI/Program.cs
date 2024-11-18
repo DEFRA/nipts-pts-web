@@ -70,7 +70,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     // This lambda determines whether user consent for non-essential 
     // cookies is needed for a given request.
     //set to true when GA is implemented
-    options.CheckConsentNeeded = context => false;
+    options.CheckConsentNeeded = context => true;
     options.MinimumSameSitePolicy = SameSiteMode.Strict;
     options.Secure = CookieSecurePolicy.Always;
 });
