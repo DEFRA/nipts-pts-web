@@ -3,6 +3,7 @@ using Defra.PTS.Web.Application.DTOs.Services;
 using Defra.PTS.Web.Application.Extensions;
 using Defra.PTS.Web.Domain.Enums;
 using System.Linq;
+using System.Numerics;
 
 namespace Defra.PTS.Web.Application.Mapping.Converters;
 
@@ -21,15 +22,17 @@ public static class MappingConverter
     {
         return new CertificateIssuingAuthorityDto
         {
-            AuthorityName = "Animal and Plant Health Agency",
+            AuthorityName = "Animal and Plant Health Agency (APHA)",
+            AddressLine1 = "",
+            AddressLine2 = "Lane New Haw",
+            AddressLine3 = "Addlestone",
+            TownOrCity = "Surrey",
+            Postcode = "KT15 3NB",
 
-            AddressLine1 = "Pet Travel Section",
-            AddressLine2 = "Eden Bridge House",
-            AddressLine3 = "Lowther Street",
-            TownOrCity = "Carlisle",
-            Postcode = "CA3 8DX",
+            DocumentSignedBy = src.DocumentSignedBy,
+            DocumentSignedByTitle = src.DocumentSignedByTitle,
+            DocumentSignedBySignature = Convert.ToBase64String(src.DocumentSignedBySignature)
 
-            SignedOnBehalfOfAPHA = src.DocumentSignedBy
         };
     }
 
