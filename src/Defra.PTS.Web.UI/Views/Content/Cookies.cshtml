@@ -10,7 +10,6 @@
 
     <main class="govuk-main-wrapper pet-main" id="main-content">
 
-        @* <form class="form" action="cookies/post-submit" method="post"> *@
         @using (Html.BeginForm("SetCookie", "Content", FormMethod.Post, new { @class = "form" }))
         {
             @Html.HiddenFor(x => x.MeasurementId)
@@ -52,7 +51,7 @@
                                 <li>optional cookies – these are used to measure your use of the service</li>
                             </ul>
 
-                            <p>You can learn more about cookies and how to manage them on the <a href="https://ico.org.uk/for-the-public/online/cookies" target="_blank">website for the Information Commissioner’s Office (opens in a new tab)</a>.</p>
+                            <p>You can learn more about cookies and how to manage them on the <a href="https://ico.org.uk/for-the-public/online/cookies" rel="noreferrer noopener" target="_blank">website for the Information Commissioner’s Office (opens in a new tab)</a>.</p>
 
                             <h2 class="govuk-heading-m">Essential cookies (strictly necessary)</h2>
 
@@ -237,14 +236,12 @@
                                     </legend>
                                     <div class="govuk-radios" data-module="govuk-radios" data-govuk-radios-init="">
                                         <div class="govuk-radios__item">
-                                            @* <input class="govuk-radios__input" id="interviewNeeds" name="interviewNeeds" type="radio" value="yes"> *@
                                             @Html.RadioButtonFor(m => m.GaCookieAcceptYesNo, "accept", new { @class = "govuk-radios__input", id = "yes" })
                                             <label class="govuk-label govuk-radios__label" for="yes">
                                                 Yes
                                             </label>
                                         </div>
                                         <div class="govuk-radios__item">
-                                            @* <input class="govuk-radios__input" id="interviewNeeds-2" name="interviewNeeds" type="radio" value="no"> *@
                                             @Html.RadioButtonFor(m => m.GaCookieAcceptYesNo, "reject", new { @class = "govuk-radios__input", id = "no" })
                                             <label class="govuk-label govuk-radios__label" for="no">
                                                 No
@@ -262,7 +259,6 @@
                 </div>
             </div>
             }
-        @* </form> *@
 
 
     </main>
