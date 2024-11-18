@@ -68,7 +68,8 @@ public class ContentController : BaseController
         {
             Expires = DateTime.UtcNow.AddMonths(12),
             IsEssential = true,
-            Secure = true
+            Secure = true,
+            HttpOnly = true,
         };
         Response.Cookies.Delete("seen_cookie_message");
         Response.Cookies.Delete("cookie_policy");
@@ -77,8 +78,8 @@ public class ContentController : BaseController
         if (model.GaCookieAcceptYesNo == "reject")
         {
             Response.Cookies.Append("cookie_policy", "reject", cookieOptions);
-            Response.Cookies.Delete(model.MeasurementId!, new CookieOptions { Path = "/", Domain = _googleTagManager.Value.Domain, Secure = true });
-            Response.Cookies.Delete("_ga", new CookieOptions { Path = "/", Domain = _googleTagManager.Value.Domain, Secure = true });
+            Response.Cookies.Delete(model.MeasurementId!, new CookieOptions { Path = "/", Domain = _googleTagManager.Value.Domain, Secure = true, HttpOnly = true, });
+            Response.Cookies.Delete("_ga", new CookieOptions { Path = "/", Domain = _googleTagManager.Value.Domain, Secure = true, HttpOnly = true, });
         }
         else
         {
