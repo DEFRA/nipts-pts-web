@@ -51,7 +51,7 @@ public class ContentController : BaseController
         {
             GaCookieAcceptYesNo = Request.Cookies[cookiePolicy],
             MeasurementId = "_ga_" + _googleTagManager.Value.MeasurementId,
-            SeenCookieMessage = Request.Cookies[cookiesSeenMessage] == "yes" ? true : false,
+            SeenCookieMessage = Request.Cookies[cookiesSeenMessage] == "yes",
         };
 
 
