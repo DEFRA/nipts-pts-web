@@ -64,27 +64,7 @@ public class ContentController : BaseController
     [ValidateAntiForgeryToken]
     public IActionResult SetCookie(CookiesModel model)
     {
-        CookieOptions cookieOptions = new CookieOptions()
-        {
-            Expires = DateTime.UtcNow.AddMonths(12),
-            IsEssential = true,
-            Secure = true,
-            HttpOnly = true,
-        };
-        Response.Cookies.Delete("seen_cookie_message");
-        Response.Cookies.Delete("cookie_policy");
-        Response.Cookies.Append("seen_cookie_message", "yes", cookieOptions);
-
-        if (model.GaCookieAcceptYesNo == "reject")
-        {
-            Response.Cookies.Append("cookie_policy", "reject", cookieOptions);
-            Response.Cookies.Delete(model.MeasurementId!, new CookieOptions { Path = "/", Domain = _googleTagManager.Value.Domain, Secure = true, HttpOnly = true, });
-            Response.Cookies.Delete("_ga", new CookieOptions { Path = "/", Domain = _googleTagManager.Value.Domain, Secure = true, HttpOnly = true, });
-        }
-        else
-        {
-            Response.Cookies.Append("cookie_policy", "accept", cookieOptions);
-        }
+        AddCookies(model);
 
         return RedirectToAction(nameof(Cookies), new {saved = true});
     }
@@ -92,6 +72,13 @@ public class ContentController : BaseController
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult SetCookieViaBanner(CookiesModel model)
+    {
+        AddCookies(model);
+        // Return the same view without redirecting
+        return NoContent();
+    }
+
+    private void AddCookies(CookiesModel model)
     {
         CookieOptions cookieOptions = new CookieOptions()
         {
@@ -114,9 +101,6 @@ public class ContentController : BaseController
         {
             Response.Cookies.Append("cookie_policy", "accept", cookieOptions);
         }
-
-        // Return the same view without redirecting
-        return NoContent();
     }
 
     public IActionResult TermsAndConditions()

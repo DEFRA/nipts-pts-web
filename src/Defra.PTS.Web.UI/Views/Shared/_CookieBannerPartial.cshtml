@@ -24,10 +24,10 @@
                     @Html.AntiForgeryToken()
                     <input type="hidden" name="GaCookieAcceptYesNo" value="" id="cookieChoice" />
 
-                    <button type="submit" class="govuk-button" data-module="govuk-button" data-govuk-button-init="" onclick="handleCookieChoice('accept')">
+                    <button type="button" class="govuk-button" data-module="govuk-button" data-govuk-button-init="" onclick="handleCookieChoice('accept')">
                         Accept additional cookies
                     </button>
-                    <button type="submit" class="govuk-button" data-module="govuk-button" data-govuk-button-init="" onclick="handleCookieChoice('reject')">
+                    <button type="button" class="govuk-button" data-module="govuk-button" data-govuk-button-init="" onclick="handleCookieChoice('reject')">
                         Reject additional cookies
                     </button>
                 }
@@ -36,18 +36,69 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function handleCookieChoice(choice) {
-            document.getElementById('cookieChoice').value = choice;
-
-            // Hide the cookie banner
-            const banner = document.getElementById('govuk-cookie-banner');
-            if (banner) {
-                banner.style.display = 'none';
-            }
-
-            document.getElementById('cookie-form').submit();
-        }
-    </script>
 }
+
+<!-- Accepted Banner (Initially hidden) -->
+<div id="govuk-cookie-banner-accepted" class="govuk-cookie-banner" style="display:none;" data-nosnippet="" role="region" aria-label="Cookies on Taking a pet from Great Britain to Northern Ireland">
+    <div class="govuk-cookie-banner__message govuk-width-container">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-cookie-banner__content">
+                    <p class="govuk-body">You’ve accepted additional cookies. You can <a class="govuk-link" href="/v10/service/cookies">change your cookie settings</a> at any time.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="govuk-button-group">
+            <button type="button" class="govuk-button" data-module="govuk-button" onclick="hideBanner('govuk-cookie-banner-accepted')">
+                Hide cookie message
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Rejected Banner (Initially hidden) -->
+<div id="govuk-cookie-banner-rejected" class="govuk-cookie-banner" style="display:none;" data-nosnippet="" role="region" aria-label="Cookies on Taking a pet from Great Britain to Northern Ireland">
+    <div class="govuk-cookie-banner__message govuk-width-container">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <div class="govuk-cookie-banner__content">
+                    <p class="govuk-body">You’ve rejected additional cookies. You can <a class="govuk-link" href="/v10/service/cookies">change your cookie settings</a> at any time.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="govuk-button-group">
+            <button type="button" class="govuk-button" data-module="govuk-button" onclick="hideBanner('govuk-cookie-banner-rejected')">
+                Hide cookie message
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function handleCookieChoice(choice) {
+        document.getElementById('cookieChoice').value = choice;
+
+        // Hide the initial cookie banner
+        document.getElementById('govuk-cookie-banner').style.display = 'none';
+
+        if (choice === 'accept') {
+            document.getElementById('govuk-cookie-banner-accepted').style.display = 'block';
+        }
+
+        else if (choice === 'reject') {
+            document.getElementById('govuk-cookie-banner-rejected').style.display = 'block';
+        }
+
+        // Submit the form to save the user's choice
+        document.getElementById('cookie-form').submit();
+    }
+
+    function hideBanner(bannerId) {
+        const banner = document.getElementById(bannerId);
+        if (banner) {
+            banner.style.display = 'none';
+        }
+    }
+</script>
