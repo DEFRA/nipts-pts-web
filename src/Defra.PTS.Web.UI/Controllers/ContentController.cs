@@ -87,7 +87,36 @@ public class ContentController : BaseController
         }
 
         return RedirectToAction(nameof(Cookies), new {saved = true});
+    }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult SetCookieViaBanner(CookiesModel model)
+    {
+        CookieOptions cookieOptions = new CookieOptions()
+        {
+            Expires = DateTime.UtcNow.AddMonths(12),
+            IsEssential = true,
+            Secure = true,
+            HttpOnly = true,
+        };
+        Response.Cookies.Delete("seen_cookie_message");
+        Response.Cookies.Delete("cookie_policy");
+        Response.Cookies.Append("seen_cookie_message", "yes", cookieOptions);
+
+        if (model.GaCookieAcceptYesNo == "reject")
+        {
+            Response.Cookies.Append("cookie_policy", "reject", cookieOptions);
+            Response.Cookies.Delete(model.MeasurementId!, new CookieOptions { Path = "/", Domain = _googleTagManager.Value.Domain, Secure = true, HttpOnly = true, });
+            Response.Cookies.Delete("_ga", new CookieOptions { Path = "/", Domain = _googleTagManager.Value.Domain, Secure = true, HttpOnly = true, });
+        }
+        else
+        {
+            Response.Cookies.Append("cookie_policy", "accept", cookieOptions);
+        }
+
+        // Return the same view without redirecting
+        return NoContent();
     }
 
     public IActionResult TermsAndConditions()
