@@ -85,11 +85,13 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         if (model.UserDetailsAreCorrect == YesNoOptions.Yes)
         {
             var formData = GetFormData();
-            formData.PetKeeperName.IsCompleted = false;
-            formData.PetKeeperPhone.IsCompleted = false;
-            formData.PetKeeperPostcode.IsCompleted = false;
-            formData.PetKeeperAddress.IsCompleted = false;
-            formData.PetKeeperAddressManual.IsCompleted = false;
+
+            formData.PetKeeperName = new PetKeeperNameViewModel();
+            formData.PetKeeperPhone = new PetKeeperPhoneViewModel();
+            formData.PetKeeperPostcode = new PetKeeperPostcodeViewModel();
+            formData.PetKeeperAddress = new PetKeeperAddressViewModel();
+            formData.PetKeeperAddressManual = new PetKeeperAddressManualViewModel();
+
             SaveFormData(formData);
 
             return RedirectToAction(nameof(PetMicrochip));

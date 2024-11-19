@@ -4,7 +4,6 @@
 @using Defra.PTS.Web.Application.Helpers;
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
-
 <div class="govuk-grid-row pet-declaration-row pet-declaration-row-qrcode">
     <div class="govuk-grid-column-three-quarters">
         <div id="document-issued-card" class="govuk-summary-card">
@@ -13,7 +12,7 @@
             </div>
             <div class="govuk-summary-card__content">
                 <dl class="govuk-summary-list">
-                    <div class="govuk-summary-list__row">
+                    <div class="govuk-summary-list__row remove-border">
                         <dt class="govuk-summary-list__key">
                             @Localizer["Pet travel document number"]
                         </dt>
@@ -21,8 +20,7 @@
                             @Model.DocumentReferenceNumber
                         </dd>
                     </div>
-
-                    <div class="govuk-summary-list__row">
+                    <div class="govuk-summary-list__row remove-border">
                         <dt class="govuk-summary-list__key">
                             @Localizer["Date"]
                         </dt>
@@ -36,6 +34,67 @@
         <div class="pet-declaration-qrcode">
             <img src="@ApplicationHelper.BuildQRCodeUrl(Model.DocumentReferenceNumberAsQRCode)"
                  alt="Embedded QR Code for pet travel document" />
+           <div class="qrcode-text">FOR OFFICIAL</div>
+           <div class="qrcode-text">USE ONLY</div>
         </div>
     </div>
 </div>
+
+<style>
+    .pet-declaration-row-qrcode {
+        margin-bottom: 2px;
+    }
+
+    .pet-declaration-row-qrcode .govuk-grid-column-three-quarters {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    .govuk-summary-card__content {
+        padding: 15px 20px;
+    }
+
+    .govuk-summary-list__row {
+        margin-bottom: 10px;
+    }
+
+    .remove-border {
+        border-bottom: 0;
+    }
+
+    .govuk-summary-list__key {
+        padding: 0 20px 0 0;
+        margin: 0;
+    }
+
+    .govuk-summary-list__value {
+        padding: 0;
+        margin: 0;
+    }
+
+    .pet-declaration-qrcode {
+        display: none;
+        border: 1px solid #0b0c0c;
+        padding: 8px;
+        text-align: center;
+        width: 120px;
+    }
+
+    .pet-declaration-qrcode img {
+        width: 90px;
+        margin: 0 auto 5px;
+    }
+
+    .qrcode-text {
+        font-family: "GDS Transport", arial, sans-serif;
+        font-weight: 700;
+        font-size: 11px;
+    }
+
+    @@media print {
+        .pet-declaration-qrcode {
+            display: block;
+        }
+    }
+</style>

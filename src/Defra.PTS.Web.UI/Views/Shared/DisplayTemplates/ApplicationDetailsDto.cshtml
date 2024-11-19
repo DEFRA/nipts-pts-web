@@ -63,6 +63,8 @@
         <div class="pet-declaration-qrcode">
             <img src="@ApplicationHelper.BuildQRCodeUrl(Model.ReferenceNumberAsQRCode)"
                  alt="Embedded QR Code for application" />
+                 <div class="qrcode-text">FOR OFFICIAL</div>
+                 <div class="qrcode-text">USE ONLY</div>
         </div>
 
     </div>
@@ -83,4 +85,64 @@
 <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_Declaration" model=Model.Declaration />
 
 <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_ActionLinks" model=Model.ActionLinks />
+
+<style>
+    .pet-declaration-row-qrcode {
+        margin-bottom: 2px;
+    }
+
+    .pet-declaration-row-qrcode .govuk-grid-column-three-quarters {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    .govuk-summary-card__content {
+        padding: 15px 20px;
+    }
+
+    .govuk-summary-list__row {
+        margin-bottom: 10px;
+    }
+
+    .remove-border {
+        border-bottom: 0;
+    }
+
+    .govuk-summary-list__key {
+        padding: 0 20px 0 0;
+        margin: 0;
+    }
+
+    .govuk-summary-list__value {
+        padding: 0;
+        margin: 0;
+    }
+
+    .pet-declaration-qrcode {
+        display: none;
+        border: 1px solid #0b0c0c;
+        padding: 8px;
+        text-align: center;
+        width: 120px;
+    }
+
+    .pet-declaration-qrcode img {
+        width: 90px;
+        margin: 0 auto 5px;
+    }
+
+    .qrcode-text {
+        font-family: "GDS Transport", arial, sans-serif;
+        font-weight: 700;
+        font-size: 11px;
+    }
+
+    @@media print {
+        .pet-declaration-qrcode {
+            display: block;
+        }
+    }
+</style>
+
 
