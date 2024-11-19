@@ -14,6 +14,9 @@ namespace Defra.PTS.Web.UI.Controllers;
 public class ContentController : BaseController
 {
     private readonly IOptions<GoogleTagManager> _googleTagManager;
+    private readonly string cookiePolicy = "cookie_policy";
+    private readonly string cookiesSeenMessage = "seen_cookie_message";
+    private readonly string cookiesReject = "reject";
 
     public ContentController(IOptions<GoogleTagManager> googleTagManager) : base()
     {
@@ -46,14 +49,14 @@ public class ContentController : BaseController
         //Retrieve GA cookie values from request
         var model = new CookiesModel()
         {
-            GaCookieAcceptYesNo = Request.Cookies["cookie_policy"],
+            GaCookieAcceptYesNo = Request.Cookies[cookiePolicy],
             MeasurementId = "_ga_" + _googleTagManager.Value.MeasurementId,
-            SeenCookieMessage = Request.Cookies["seen_cookie_message"] == "yes" ? true : false,
+            SeenCookieMessage = Request.Cookies[cookiesSeenMessage] == "yes" ? true : false,
         };
 
 
         if (!model.SeenCookieMessage)
-            model.GaCookieAcceptYesNo = "reject";
+            model.GaCookieAcceptYesNo = cookiesReject;
 
         model.Saved = saved;
 
@@ -87,19 +90,19 @@ public class ContentController : BaseController
             Secure = true,
             HttpOnly = true,
         };
-        Response.Cookies.Delete("seen_cookie_message");
-        Response.Cookies.Delete("cookie_policy");
-        Response.Cookies.Append("seen_cookie_message", "yes", cookieOptions);
+        Response.Cookies.Delete(cookiesSeenMessage);
+        Response.Cookies.Delete(cookiePolicy);
+        Response.Cookies.Append(cookiesSeenMessage, "yes", cookieOptions);
 
-        if (model.GaCookieAcceptYesNo == "reject")
+        if (model.GaCookieAcceptYesNo == cookiesReject)
         {
-            Response.Cookies.Append("cookie_policy", "reject", cookieOptions);
+            Response.Cookies.Append(cookiePolicy, cookiesReject, cookieOptions);
             Response.Cookies.Delete(model.MeasurementId!, new CookieOptions { Path = "/", Domain = _googleTagManager.Value.Domain, Secure = true, HttpOnly = true, });
             Response.Cookies.Delete("_ga", new CookieOptions { Path = "/", Domain = _googleTagManager.Value.Domain, Secure = true, HttpOnly = true, });
         }
         else
         {
-            Response.Cookies.Append("cookie_policy", "accept", cookieOptions);
+            Response.Cookies.Append(cookiePolicy, "accept", cookieOptions);
         }
     }
 
