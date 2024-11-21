@@ -92,58 +92,7 @@
         let submitting = false;
         $(document).ready(function () {
             submitting = false;
-            $('#submitButton').prop('disabled', false);
-
-            $("#AgreedToDeclaration").click(function () {
-                $('#declaration-error-message').hide();
-                $('#formroot-declaration').removeClass("govuk-form-group--error");
-                $('#AgreedToDeclaration').removeClass("input-validation-error");
-                $('#error-list #AgreedToDeclaration-error').remove();
-                if ($('#AgreedToDeclaration-error').length == 0 && $('#AgreedToPrivacyPolicy-error').length == 0 && $('#AgreedToAccuracy-error').length == 0) {
-                    $('.govuk-error-summary').hide();
-                }
-            });
-
-            if ($("#AgreedToDeclaration").is(":checked")) {
-                $('#declaration-error-message').hide();
-                $('#formroot-declaration').removeClass("govuk-form-group--error");
-                $('#AgreedToDeclaration').removeClass("input-validation-error");
-                $('#error-list #AgreedToDeclaration-error').remove();
-            };
-
-            $("#AgreedToPrivacyPolicy").click(function () {
-                $('#privacy-error-message').hide();
-                $('#formroot-privacy').removeClass("govuk-form-group--error");
-                $('#AgreedToPrivacy').removeClass("input-validation-error");
-                $('#error-list #AgreedToPrivacyPolicy-error').remove();
-                if ($('#AgreedToDeclaration-error').length == 0 && $('#AgreedToPrivacyPolicy-error').length == 0 && $('#AgreedToAccuracy-error').length == 0) {
-                    $('.govuk-error-summary').hide();
-                }
-            });
-
-            if ($("#AgreedToPrivacyPolicy").is(":checked")) {
-                $('#privacy-error-message').hide();
-                $('#formroot-privacy').removeClass("govuk-form-group--error");
-                $('#AgreedToPrivacy').removeClass("input-validation-error");
-                $('#error-list #AgreedToPrivacyPolicy-error').remove();
-            };
-
-            $("#AgreedToAccuracy").click(function () {
-                $('#accuracy-error-message').hide();
-                $('#formroot-accuracy').removeClass("govuk-form-group--error");
-                $('#AgreedToAccuracy').removeClass("input-validation-error");
-                $('#error-list #AgreedToAccuracy-error').remove();
-                if ($('#AgreedToDeclaration-error').length == 0 && $('#AgreedToPrivacyPolicy-error').length == 0 && $('#AgreedToAccuracy-error').length == 0) {
-                    $('.govuk-error-summary').hide();
-                }
-            });
-
-            if ($("#AgreedToAccuracy").is(":checked")) {
-                $('#accuracy-error-message').hide();
-                $('#formroot-accuracy').removeClass("govuk-form-group--error");
-                $('#AgreedToAccuracy').removeClass("input-validation-error");
-                $('#error-list #AgreedToAccuracy-error').remove();
-            };
+            $('#submitButton').prop('disabled', false);        
         })
 
         function submitForm() {
