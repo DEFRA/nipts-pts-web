@@ -838,6 +838,13 @@ p + .govuk-heading-s,
   }
 }
 
+.govuk-button-group-cookies {
+    margin-right: -15px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
 
 
 
