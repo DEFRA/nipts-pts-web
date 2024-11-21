@@ -91,26 +91,6 @@
 @section Scripts
 {
     <script>
-        $(document).ready(function () {
-
-            $("#No").click(function () {
-                $('input[type="text"]').val('');
-                $('.govuk-error-summary').hide();
-                $('.govuk-error-message').hide();
-                $('#formroot').removeClass("govuk-form-group--error");
-                $('#MicrochipNumber').removeClass("govuk-form-group--error");
-                $('#microchipinput').removeClass("input-validation-error");
-            });
-
-            $("#Yes").click(function () {
-                $('.govuk-error-summary').hide();
-                $('.govuk-error-message').hide();
-                $('#formroot').removeClass("govuk-form-group--error");
-                $('#MicrochipNumber').removeClass("govuk-form-group--error");
-                $('#microchipinput').removeClass("input-validation-error");
-            });
-        })
-
         // Clear MicrochipNumber text if 'No' is selcted
         function clearInput() {
             document.getElementById("MicrochipNumber").value = "";

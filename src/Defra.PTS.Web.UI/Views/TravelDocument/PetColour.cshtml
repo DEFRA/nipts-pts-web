@@ -96,25 +96,6 @@
 @section Scripts
     {
     <script>
-        $(document).ready(function () {
-
-            //if the form has an error, but it is specific to the other box, we relocate it
-
-            if ($("#formroot").hasClass("govuk-form-group--error") && $("#Other").is(":checked")) {
-                $('#formroot').removeClass("govuk-form-group--error");
-                $('#OtherColour').addClass("govuk-form-group--error");
-            }
-
-            $(".govuk-radios__input").click(function () {
-
-                $('.govuk-error-summary').hide();
-                $('.govuk-error-message').hide();
-                $('#formroot').removeClass("govuk-form-group--error");
-                $('#OtherColour').removeClass("govuk-form-group--error");
-
-            });
-        })
-
         function clearInput() {
             document.getElementById("PetColourOther").value = "";
         }
