@@ -17,7 +17,7 @@ public class ApplicationCertificateProfile : Profile
             .ForMember(dest => dest.Declaration, opt => opt.MapFrom(src => MappingConverter.MapDeclaration(src)))
             .ForMember(dest => dest.CertificateIssued, opt => opt.MapFrom(src => MappingConverter.MapCertificateIssued(src)))
             .ForMember(dest => dest.CertificateIssuingAuthority, opt => opt.MapFrom(src => MappingConverter.MapCertificateIssuingAuthority(src)))
-            .ForMember(dest => dest.ActionLinks, opt => opt.MapFrom(src => MappingConverter.MapActionLinks(src.ApplicationId, PdfType.Certificate, src.PetName, true)))
+            .ForMember(dest => dest.ActionLinks, opt => opt.MapFrom(src => MappingConverter.MapActionLinks(src.ApplicationId, PdfType.Certificate, true)))
             .AfterMap<SetApplicationCertificateAction>();
     }
 }
