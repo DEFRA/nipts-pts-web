@@ -34,8 +34,8 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     }
 
     [ExcludeFromCodeCoverage]
-    [HttpGet("TravelDocument/DownloadCertificatePdf/{id}/{petName}")]
-    public async Task<IActionResult> DownloadCertificatePdf(Guid id, string petName)
+    [HttpGet]
+    public async Task<IActionResult> DownloadCertificatePdf(Guid id)
     {
         var userId = CurrentUserId();
 
@@ -45,7 +45,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             return new NotFoundObjectResult("Unable to download the PDF");
         }
 
-        var fileName = ApplicationHelper.BuildPdfDownloadFilename(petName, PdfType.Certificate);
+        var fileName = ApplicationHelper.BuildPdfDownloadFilename(id, PdfType.Certificate);
 
         return File(response.Content, response.MimeType, fileName);
     }

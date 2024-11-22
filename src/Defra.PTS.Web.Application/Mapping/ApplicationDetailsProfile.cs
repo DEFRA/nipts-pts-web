@@ -15,7 +15,7 @@ public class ApplicationDetailsProfile : Profile
             .ForMember(dest => dest.PetDetails, opt => opt.MapFrom(src => MappingConverter.MapPetDetails(src)))
             .ForMember(dest => dest.PetKeeperDetails, opt => opt.MapFrom(src => MappingConverter.MapPetKeeperDetails(src)))
             .ForMember(dest => dest.Declaration, opt => opt.MapFrom(src => MappingConverter.MapDeclaration(src)))
-            .ForMember(dest => dest.ActionLinks, opt => opt.MapFrom(src => MappingConverter.MapActionLinks(src.ApplicationId, PdfType.Application, src.PetName, true)))
+            .ForMember(dest => dest.ActionLinks, opt => opt.MapFrom(src => MappingConverter.MapActionLinks(src.ApplicationId, PdfType.Application, true)))
             .AfterMap<SetApplicationDetailsAction>();
     }
 }
