@@ -2779,10 +2779,13 @@ p + .govuk-heading-s,
   outline: none;
 }
 
-
-
-
-
+@media print {
+    #govuk-cookie-banner,
+    #govuk-cookie-banner-accepted,
+    #govuk-cookie-banner-rejected {
+        display: none !important;
+    }
+}
 
 .govuk-input {
   font-family: "GDS Transport", arial, sans-serif;
