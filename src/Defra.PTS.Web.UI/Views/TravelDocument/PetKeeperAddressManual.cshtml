@@ -1,4 +1,5 @@
 ﻿@model PetKeeperAddressManualViewModel
+@using Defra.PTS.Web.Application.Extensions
 @using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 @using Defra.PTS.Web.Domain.Enums;
 @using System.Web;
@@ -27,7 +28,7 @@
 
             <partial name="_ErrorSummaryOrdered" model=errorOrder />
 
-            <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
+            <div class="govuk-form-group">
                 <fieldset class="govuk-fieldset">
                     <partial name="_FieldsetLegend" model=fieldsetLegend />
 
@@ -35,7 +36,7 @@
                         @Localizer["Enter a valid address in England, Scotland or Wales."]
                     </div>
 
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group @(ViewData.ModelState.HasError("AddressLineOne") ? "govuk-form-group--error" : null)">
                         <div class="govuk-label" for="AddressLineOne">
                             @Localizer["Address line 1"]
                         </div>
@@ -51,7 +52,7 @@
                         @Html.TextBoxFor(x => x.AddressLineTwo, new { @class = "govuk-input", @spellcheck = "false", @autocomplete = @WebAppConstants.FormAutofill.AddressLineTwo, aria_label = "Address line 2 (optional)" })
                     </div>
 
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group @(ViewData.ModelState.HasError("TownOrCity") ? "govuk-form-group--error" : null)">
                         <div class="govuk-label" for="TownOrCity">
                             @Localizer["Town or city"]
                         </div>
@@ -67,7 +68,7 @@
                         @Html.TextBoxFor(x => x.County, new { @class = "govuk-input govuk-!-width-two-thirds", @spellcheck = "false", aria_label = "County (optional)" })
                     </div>
 
-                    <div class="govuk-form-group">
+                    <div class="govuk-form-group @(ViewData.ModelState.HasError("Postcode") ? "govuk-form-group--error" : null)">
                         <div class="govuk-label" for="Postcode">
                             @Localizer["Postcode"]
                         </div>
