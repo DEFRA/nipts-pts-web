@@ -43,7 +43,7 @@ public class ApplicationHelperTests
         var id = Guid.NewGuid();
         var referenceNumber = "NW7549A";
         var pdfType = PdfType.Application;
-        var expected = $"/TravelDocument/DownloadApplicationDetailsPdf/{referenceNumber}";
+        var expected = $"/TravelDocument/DownloadApplicationDetailsPdf/{id}/{referenceNumber}";
 
         // Act
         var response = ApplicationHelper.BuildPdfDownloadUrl(id, referenceNumber, pdfType);
@@ -60,7 +60,7 @@ public class ApplicationHelperTests
         var id = Guid.NewGuid();
         var referenceNumber = "NW7549A";
         var pdfType = PdfType.Certificate;
-        var expected = $"/TravelDocument/DownloadCertificatePdf/{referenceNumber}";
+        var expected = $"/TravelDocument/DownloadCertificatePdf/{id}/{referenceNumber}";
 
         // Act
         var response = ApplicationHelper.BuildPdfDownloadUrl(id, referenceNumber, pdfType);
