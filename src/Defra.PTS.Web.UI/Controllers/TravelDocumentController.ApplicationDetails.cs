@@ -12,7 +12,7 @@ namespace Defra.PTS.Web.UI.Controllers;
 [Authorize]
 public partial class TravelDocumentController : BaseTravelDocumentController
 {
-    [HttpGet]
+    [HttpGet("/TravelDocument/ApplicationDetails/{id}")]
     public async Task<IActionResult> ApplicationDetails(Guid id)
     {
         SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);
@@ -29,8 +29,8 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     }
 
     [ExcludeFromCodeCoverage]
-    [HttpGet]
-    public async Task<IActionResult> DownloadApplicationDetailsPdf(Guid id)
+    [HttpGet("/TravelDocument/DownloadApplicationDetailsPdf/{id}/{referenceNumber}")]
+    public async Task<IActionResult> DownloadApplicationDetailsPdf(Guid id, string referenceNumber)
     {
         var userId = CurrentUserId();
 
@@ -40,7 +40,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             return new NotFoundObjectResult("Unable to download the PDF");
         }
 
-        var fileName = ApplicationHelper.BuildPdfDownloadFilename(id, PdfType.Application);
+        var fileName = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber);
 
         return File(response.Content, response.MimeType, fileName);
     }

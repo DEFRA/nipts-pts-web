@@ -100,4 +100,5 @@ public class ActionLinksDto
     public Guid Id { get; set; }
     public bool ShowDownloadLink { get; set; }
     public PdfType PdfType { get; set; }
+    public string ReferenceNumber { get; set; }
 }

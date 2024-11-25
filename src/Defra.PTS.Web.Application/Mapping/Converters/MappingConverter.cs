@@ -118,13 +118,14 @@ public static class MappingConverter
         };
     }
 
-    public static ActionLinksDto MapActionLinks(Guid id, PdfType pdfType, bool showPdfDownloadLink = true)
+    public static ActionLinksDto MapActionLinks(Guid id, PdfType pdfType, string referenceNumber, bool showPdfDownloadLink = true)
     {
         return new ActionLinksDto
         {
             Id = id,
             PdfType = pdfType,
-            ShowDownloadLink = showPdfDownloadLink
+            ShowDownloadLink = showPdfDownloadLink,
+            ReferenceNumber = referenceNumber
         };
     }
 }
