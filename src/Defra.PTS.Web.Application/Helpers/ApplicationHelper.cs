@@ -41,10 +41,10 @@ public static class ApplicationHelper
         return nonGBPrefixes.Exists(x => postcode.StartsWith(x, StringComparison.CurrentCultureIgnoreCase));
     }
 
-    public static string BuildPdfDownloadFilename(Guid id, PdfType pdfType, string prefix = "pet-travel-document")
+    public static string BuildPdfDownloadFilename(string referenceNumber, PdfType pdfType, string prefix = "pet-travel-document")
     {
         prefix ??= string.Empty;
-        return $"{prefix.ToLower()}-{pdfType.ToString().ToLower()}-{id}.pdf";
+        return $"{prefix.ToLower()}-{pdfType.ToString().ToLower()}-{referenceNumber}.pdf";
     }
 
     public static string BuildQRCodeUrl(string base64String)
@@ -52,9 +52,9 @@ public static class ApplicationHelper
         return $"data:image/png;base64,{base64String}";
     }
 
-    public static string BuildPdfDownloadUrl(Guid id, PdfType pdfType)
+    public static string BuildPdfDownloadUrl(Guid id, string referenceNumber, PdfType pdfType)
     {
         var pdfAction = pdfType == PdfType.Certificate ? "DownloadCertificatePdf" : "DownloadApplicationDetailsPdf";
-        return $"/TravelDocument/{pdfAction}/{id}";
+        return $"/TravelDocument/{pdfAction}/{id}/{referenceNumber}";
     }
 }

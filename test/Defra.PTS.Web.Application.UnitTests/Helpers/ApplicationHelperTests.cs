@@ -24,13 +24,13 @@ public class ApplicationHelperTests
     public void BuildPdfDownloadFilename()
     {
         // Arrange
-        var id = Guid.NewGuid();
+        var referenceNumber = "NW7549A";
         var pdfType = PdfType.Certificate;
         var prefix = "pet-travel-document";
-        var expected = $"{prefix.ToLower()}-{pdfType.ToString().ToLower()}-{id}.pdf";
+        var expected = $"{prefix.ToLower()}-{pdfType.ToString().ToLower()}-{referenceNumber}.pdf";
 
         // Act
-        var response = ApplicationHelper.BuildPdfDownloadFilename(id, pdfType, prefix);
+        var response = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber, pdfType, prefix);
 
         // Assert
         Assert.Contains(expected,response);
@@ -41,11 +41,12 @@ public class ApplicationHelperTests
     {
         // Arrange
         var id = Guid.NewGuid();
+        var referenceNumber = "NW7549A";
         var pdfType = PdfType.Application;
-        var expected = $"/TravelDocument/DownloadApplicationDetailsPdf/{id}";
+        var expected = $"/TravelDocument/DownloadApplicationDetailsPdf/{referenceNumber}";
 
         // Act
-        var response = ApplicationHelper.BuildPdfDownloadUrl(id, pdfType);
+        var response = ApplicationHelper.BuildPdfDownloadUrl(id, referenceNumber, pdfType);
 
         // Assert
         Assert.Contains(expected, response);
@@ -57,11 +58,12 @@ public class ApplicationHelperTests
     {
         // Arrange
         var id = Guid.NewGuid();
+        var referenceNumber = "NW7549A";
         var pdfType = PdfType.Certificate;
-        var expected = $"/TravelDocument/DownloadCertificatePdf/{id}";
+        var expected = $"/TravelDocument/DownloadCertificatePdf/{referenceNumber}";
 
         // Act
-        var response = ApplicationHelper.BuildPdfDownloadUrl(id, pdfType);
+        var response = ApplicationHelper.BuildPdfDownloadUrl(id, referenceNumber, pdfType);
 
         // Assert
         Assert.Contains(expected, response);
