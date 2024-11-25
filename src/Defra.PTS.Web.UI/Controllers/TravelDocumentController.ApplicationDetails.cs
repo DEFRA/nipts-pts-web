@@ -10,9 +10,11 @@ using System.Diagnostics.CodeAnalysis;
 namespace Defra.PTS.Web.UI.Controllers;
 
 [Authorize]
+[Route("TravelDocument")]
 public partial class TravelDocumentController : BaseTravelDocumentController
 {
     [HttpGet]
+    [HttpGet("ApplicationDetails/{id}")]
     public async Task<IActionResult> ApplicationDetails(Guid id)
     {
         SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);
@@ -29,7 +31,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     }
 
     [ExcludeFromCodeCoverage]
-    [HttpGet("TravelDocument/DownloadApplicationDetailsPdf/{id}/{referenceNumber}")]
+    [HttpGet("DownloadApplicationDetailsPdf/{id}/{referenceNumber}")]
     public async Task<IActionResult> DownloadApplicationDetailsPdf(Guid id, string referenceNumber)
     {
         var userId = CurrentUserId();
