@@ -34,7 +34,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     }
 
     [ExcludeFromCodeCoverage]
-    [HttpGet]
+    [HttpGet("TravelDocument/DownloadCertificatePdf/{id}/{referenceNumber}")]
     public async Task<IActionResult> DownloadCertificatePdf(Guid id, string referenceNumber)
     {
         var userId = CurrentUserId();
