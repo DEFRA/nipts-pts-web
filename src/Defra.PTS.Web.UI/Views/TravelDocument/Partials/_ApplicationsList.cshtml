@@ -9,7 +9,7 @@
 @if (Model != null && Model.Any())
 {
     <div class="scroll-container" id="scrollContainer">
-        <table class="govuk-table">
+        <table class="govuk-table govuk-!-margin-bottom-0">
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th scope="col" class="govuk-table__header">@Localizer["Pet name"]</th>
@@ -65,25 +65,38 @@
 }
 
 <script>
-    // Function to toggle scrollbar based on screen size
-    function toggleScrollbar() {
+    function handleTableScroll() {
         var container = document.getElementById('scrollContainer');
+        if (!container) return;
+
         if (window.innerWidth >= 768) {
             container.classList.add('hide-scrollbar');
+            container.style.overflowX = 'hidden';
         } else {
             container.classList.remove('hide-scrollbar');
+            container.style.overflowX = 'auto';
+            // For Safari/iOS 
+            container.style.webkitTransform = 'translateZ(0)';
         }
     }
 
-    // Initial call to set scrollbar state on page load
-    toggleScrollbar();
+    
+    handleTableScroll();
 
-    // Event listener to update scrollbar state on window resize
-    window.addEventListener('resize', toggleScrollbar);
-    function submitForm(formId) {
-        $(`#${formId}`).prop('disabled', true);
-        $(`#${formId}`).submit();
-        return true;
+    // Resize
+    let timeout;
+    window.addEventListener('resize', function () {
+        clearTimeout(timeout);
+        timeout = setTimeout(handleTableScroll, 250);
+    });
+
+    // Touch event handling for  mobile scrolling
+    if ('ontouchstart' in window) {
+        const scrollContainer = document.getElementById('scrollContainer');
+        if (scrollContainer) {
+            scrollContainer.addEventListener('touchstart', function () {
+                this.style.webkitOverflowScrolling = 'touch';
+            });
+        }
     }
-
 </script>

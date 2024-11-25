@@ -26,3 +26,30 @@ html, body {
     clip: rect(0, 0, 0, 0);
     border: 0;
 }
+
+
+.scroll-container {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.govuk-table {
+    min-width: 640px; /* Minimum width to force horizontal scroll */
+    margin-bottom: 0;
+}
+
+/* Modify the pet-long-text class to handle text overflow */
+.pet-long-text {
+    max-width: 150px; 
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Hide scrollbar for desktop */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
