@@ -75,22 +75,22 @@
         } else {
             container.classList.remove('hide-scrollbar');
             container.style.overflowX = 'auto';
-            // Force redraw on Safari/iOS
+            // For Safari/iOS 
             container.style.webkitTransform = 'translateZ(0)';
         }
     }
 
-    // Initial call
+    
     handleTableScroll();
 
-    // Update on resize with debounce
+    // Resize
     let timeout;
     window.addEventListener('resize', function () {
         clearTimeout(timeout);
         timeout = setTimeout(handleTableScroll, 250);
     });
 
-    // Touch event handling for better mobile scrolling
+    // Touch event handling for  mobile scrolling
     if ('ontouchstart' in window) {
         const scrollContainer = document.getElementById('scrollContainer');
         if (scrollContainer) {

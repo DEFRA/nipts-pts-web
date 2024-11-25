@@ -27,7 +27,7 @@ html, body {
     border: 0;
 }
 
-/* Add to /stylesheets/pts.css */
+
 .scroll-container {
     width: 100%;
     overflow-x: auto;
@@ -43,7 +43,7 @@ html, body {
 
 /* Modify the pet-long-text class to handle text overflow */
 .pet-long-text {
-    max-width: 150px; /* Adjust based on your needs */
+    max-width: 150px; 
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
