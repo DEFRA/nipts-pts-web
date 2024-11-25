@@ -20,9 +20,28 @@
     <link rel="stylesheet" href="~/stylesheets/application.css" type="text/css" media="all">
     <link rel="stylesheet" href="~/stylesheets/accessible-autocomplete.min.css" type="text/css" media="all">
     <link rel="stylesheet" href="~/stylesheets/pts.css" type="text/css" media="all">
+
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-T6T9W65D');</script>
+    <!-- End Google Tag Manager -->
 </head>
 
 <body class="govuk-template__body @ViewData.GetKeyValue("BodyExtraCssClass")">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T6T9W65D "
+                height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
     <script>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
    <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
 
