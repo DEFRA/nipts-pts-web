@@ -12,7 +12,7 @@ namespace Defra.PTS.Web.UI.Controllers;
 [Authorize]
 public partial class TravelDocumentController : BaseTravelDocumentController
 {
-    [HttpGet]
+    [HttpGet("/TravelDocument/ApplicationDetails/{id}")]
     public async Task<IActionResult> ApplicationDetails(Guid id)
     {
         SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);
@@ -29,7 +29,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     }
 
     [ExcludeFromCodeCoverage]
-    [HttpGet("TravelDocument/DownloadApplicationDetailsPdf/{id}/{referenceNumber}")]
+    [HttpGet("/TravelDocument/DownloadApplicationDetailsPdf/{id}/{referenceNumber}")]
     public async Task<IActionResult> DownloadApplicationDetailsPdf(Guid id, string referenceNumber)
     {
         var userId = CurrentUserId();
