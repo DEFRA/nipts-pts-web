@@ -228,14 +228,14 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(nameof(TravelDocumentController.PetMicrochip), result.ActionName);
-            Assert.AreEqual(formData.PetKeeperName.IsCompleted, false);
+            Assert.IsTrue(!formData.PetKeeperName.IsCompleted);
             Assert.IsNull(formData.PetKeeperName.Name);
-            Assert.AreEqual(formData.PetKeeperPhone.IsCompleted, false);
+            Assert.IsTrue(!formData.PetKeeperPhone.IsCompleted);
             Assert.IsNull(formData.PetKeeperPhone.Phone);
-            Assert.AreEqual(formData.PetKeeperPostcode.IsCompleted, false);
+            Assert.IsTrue(!formData.PetKeeperPostcode.IsCompleted);
             Assert.IsNull(formData.PetKeeperPostcode.Postcode);
-            Assert.AreEqual(formData.PetKeeperAddress.IsCompleted, false);
-            Assert.AreEqual(formData.PetKeeperAddressManual.IsCompleted, false);
+            Assert.IsTrue(!formData.PetKeeperAddress.IsCompleted);
+            Assert.IsTrue(!formData.PetKeeperAddressManual.IsCompleted);
         }
 
         [Test]
