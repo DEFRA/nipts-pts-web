@@ -41,10 +41,9 @@ public static class ApplicationHelper
         return nonGBPrefixes.Exists(x => postcode.StartsWith(x, StringComparison.CurrentCultureIgnoreCase));
     }
 
-    public static string BuildPdfDownloadFilename(string referenceNumber, PdfType pdfType, string prefix = "pet-travel-document")
+    public static string BuildPdfDownloadFilename(string referenceNumber)
     {
-        prefix ??= string.Empty;
-        return $"{prefix.ToLower()}-{pdfType.ToString().ToLower()}-{referenceNumber}.pdf";
+        return $"{referenceNumber}.pdf";
     }
 
     public static string BuildQRCodeUrl(string base64String)

@@ -40,7 +40,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             return new NotFoundObjectResult("Unable to download the PDF");
         }
 
-        var fileName = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber, PdfType.Application);
+        var fileName = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber);
 
         return File(response.Content, response.MimeType, fileName);
     }

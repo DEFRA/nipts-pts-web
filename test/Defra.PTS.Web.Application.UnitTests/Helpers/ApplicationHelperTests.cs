@@ -25,12 +25,10 @@ public class ApplicationHelperTests
     {
         // Arrange
         var referenceNumber = "NW7549A";
-        var pdfType = PdfType.Certificate;
-        var prefix = "pet-travel-document";
-        var expected = $"{prefix.ToLower()}-{pdfType.ToString().ToLower()}-{referenceNumber}.pdf";
+        var expected = $"{referenceNumber}.pdf";
 
         // Act
-        var response = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber, pdfType, prefix);
+        var response = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber);
 
         // Assert
         Assert.Contains(expected,response);

@@ -41,7 +41,7 @@
 
             @if (Model.ShowDownloadLink)
             {
-                var downloadFilename = ApplicationHelper.BuildPdfDownloadFilename(Model.ReferenceNumber, Model.PdfType);
+                var downloadFilename = ApplicationHelper.BuildPdfDownloadFilename(Model.ReferenceNumber);
                 var downloadUrl = ApplicationHelper.BuildPdfDownloadUrl(Model.Id, Model.ReferenceNumber, Model.PdfType);
 
                 <li>
