@@ -77,6 +77,12 @@ public class ContentController : BaseController
     public IActionResult SetCookieViaBanner(CookiesModel model)
     {
         AddCookies(model);
+
+
+        //this is required to appease Safari browser,
+        //as it tries to download an empty file otherwise
+        Response.Headers["Content-Type"] = "application/json";
+
         // Return the same view without redirecting
         return NoContent();
     }
