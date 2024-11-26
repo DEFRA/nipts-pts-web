@@ -1,6 +1,6 @@
 ﻿@using Defra.PTS.Web.UI.Constants;
 @using Microsoft.Extensions.Localization;
-@inject IStringLocalizer<SharedResource> sharedlocalizer
+@inject IStringLocalizer<ISharedResource> sharedlocalizer
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor context
 
 @{
@@ -24,17 +24,20 @@
                         </a>
                     </li>
 
+                    
                     <li class="govuk-footer__inline-list-item">
                         <a class="govuk-footer__link" href="@WebAppConstants.Pages.Content.Cookies">
                             @sharedlocalizer["Cookies"]
                         </a>
                     </li>
 
-                    <li class="govuk-footer__inline-list-item">
-                        <a class="govuk-footer__link" href="" id=@languageId>
-                            @language
-                        </a>
-                    </li>
+                    <feature name="Nipts-AP-Welsh-Translation">
+                        <li class="govuk-footer__inline-list-item">
+                            <a class="govuk-footer__link" href="" id=@languageId>
+                                @language
+                            </a>
+                        </li>
+                    </feature>
 
                     <li class="govuk-footer__inline-list-item">
                         <a class="govuk-footer__link" href="@WebAppConstants.ExternalLinks.PrivacyNotice" target="_blank" rel="noopener noreferrer">

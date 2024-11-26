@@ -3,9 +3,13 @@
 @using Defra.PTS.Web.Domain.Enums;
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<ISharedResource> sharedlocalizer
 
 @{
-    this.SetMetaTitle(Model.FormTitle);
+    this.SetMetaTitle(Localizer[Model.FormTitle].Value);
 }
 
 <div class="govuk-grid-row">
@@ -13,26 +17,30 @@
         <br />
         <div class="govuk-panel govuk-panel--confirmation govuk-!-static-margin-bottom-7">
             <h1 id="documents" class="govuk-panel__title">
-                @Model.FormTitle
+                @Localizer[@Model.FormTitle]
             </h1>
             <div class="govuk-panel__body">
-                Your reference number<br><strong>@Model.Reference</strong>
+                @Localizer["Your reference number"]
             </div>
+            <div class="govuk-panel__body">
+                <strong>@Model.Reference</strong>
+            </div>
+            
         </div>
 
-        <p class="govuk-body">We have sent you a confirmation email.</p>
+        <p class="govuk-body">@Localizer["We have sent you a confirmation email."]</p>
 
-        <h2 class="govuk-heading-m">What happens next</h2>
-        <p class="govuk-body">We’ve sent your application to the Animal and Plant Health Agency (APHA) for review.</p>
-        <p class="govuk-body">You will receive a response to your application within 5 working days.</p>
-        <p class="govuk-body">APHA may contact you and ask for more evidence to support your application.</p>
+        <h2 class="govuk-heading-m">@Localizer["What happens next"]</h2>
+        <p class="govuk-body">@Localizer["We’ve sent your application to the Animal and Plant Health Agency (APHA) for review."]</p>
+        <p class="govuk-body">@Localizer["You will receive a response to your application within 5 working days."]</p>
+        <p class="govuk-body">@Localizer["APHA may contact you and ask for more evidence to support your application."]</p>
 
-        <h2 class="govuk-heading-m">If someone else is taking your pet</h2>
-        <p class="govuk-body">They will need:</p>
+        <h2 class="govuk-heading-m">@Localizer["If someone else is taking your pet"]</h2>
+        <p class="govuk-body">@Localizer["They will need:"]</p>
         <ul class="govuk-list govuk-list--bullet govuk-list--spaced">
-            <li>the lifelong pet travel document</li>
-            <li>written approval from you, like a letter or email</li>
-            <li>to sign a declaration, if asked to, at the ferry port or airport</li>
+            <li>@Localizer["the lifelong pet travel document"]</li>
+            <li>@Localizer["written approval from you, like a letter or email"]</li>
+            <li>@Localizer["to sign a declaration, if asked to, at the ferry port or airport"]</li>
         </ul>
 
         <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible">
@@ -40,13 +48,13 @@
 
         <p class="govuk-body">
             <a href="@WebAppConstants.Pages.TravelDocument.PetKeeperUserDetails" class="govuk-link">
-                Apply for another lifelong pet travel document
-            </a>.
+                @Localizer["Apply for another lifelong pet travel document."]
+            </a>
         </p>
         <p class="govuk-body govuk-!-static-padding-bottom-4">
             <a href="@WebAppConstants.Pages.TravelDocument.Index" class="govuk-link">
-                View all your lifelong pet travel documents
-            </a>.
+                @Localizer["View all your lifelong pet travel documents."]
+            </a>
         </p>
 
     </div>

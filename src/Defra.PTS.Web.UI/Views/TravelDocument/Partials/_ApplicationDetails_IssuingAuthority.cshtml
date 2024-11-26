@@ -1,35 +1,57 @@
-﻿@model Defra.PTS.Web.Application.DTOs.Services.CertificateIssuingAuthorityDto;
+﻿@model Defra.PTS.Web.Application.DTOs.Services.CertificateIssuingAuthorityDto
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 
-<div id="document-authority-card" class="govuk-summary-card">
-    <div class="govuk-summary-card__title-wrapper">
-        <h2 class="govuk-summary-card__title">@Localizer["Issuing authority"]</h2>
-    </div>
-    <div class="govuk-summary-card__content">
-     
-        <dl class="govuk-summary-list">
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    @Localizer["Name and address of competent authority"]
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    <strong>@Localizer["Animal and Plant Health Agency"]</strong><br />
-                    @Localizer["Pet Travel Section"]
-                    <br />
-                    @Localizer["Eden Bridge House"], @Localizer["Lowther Street"], @Localizer["Carlisle"], CA3 8DX
-                    <br />
-                </dd>
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+        <div id="document-authority-card" class="govuk-summary-card">
+            <div class="govuk-summary-card__title-wrapper">
+                <h2 class="govuk-summary-card__title">@Localizer["Issuing authority"]</h2>
             </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    @Localizer["Signed on behalf of the competent authority"] (APHA)
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @Model.SignedOnBehalfOfAPHA (@Localizer["Signed digitally"])
-                </dd>
+            <div class="govuk-summary-card__content">
+                <dl class="govuk-summary-list">
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            @Localizer["Name and address of competent authority"]
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            <strong>@Localizer["Animal and Plant Health Agency"]</strong><br />
+                            @Localizer["Woodham Lane"],<br/>
+                            @Localizer["New Haw"], @Localizer["Addlestone"], @Localizer["Surrey"]<br>
+                            @Localizer["KT15 3NB"]
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            @Localizer["Signed on behalf of the competent authority (APHA)"]
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            ‎
+                            <div><img src="data:image/png;base64,@Model.DocumentSignedBySignature" 
+                                 alt="Signature on behalf of the competent authority, the Animal and Plant Health Agency" 
+                                 class="signature-image" /></div>
+                            <p class="govuk-body">
+                                @if (!string.IsNullOrEmpty(Model.DocumentSignedByTitle))
+                                {
+                                    @Model.DocumentSignedByTitle
+                                }
+                                else
+                                {
+                                    @Localizer["APHA Veterinary Director"]
+                                }
+                            </p>
+                        </dd>
+                    </div>
+                </dl>
             </div>
-        </dl>
+        </div>
     </div>
 </div>
+
+<style>
+    .signature-image {
+        width: 190px;
+        height: 48px;
+        display: block;
+    }
+</style>

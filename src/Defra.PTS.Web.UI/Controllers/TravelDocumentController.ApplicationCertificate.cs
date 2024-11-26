@@ -13,7 +13,7 @@ namespace Defra.PTS.Web.UI.Controllers;
 [Authorize]
 public partial class TravelDocumentController : BaseTravelDocumentController
 {
-    [HttpGet]
+    [HttpGet("/TravelDocument/ApplicationCertificate/{id}")]
     public async Task<IActionResult> ApplicationCertificate(Guid id)
     {
         SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);
@@ -30,13 +30,12 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         {
             return RedirectToAction(nameof(ApplicationDetails), new { id });
         }
-
         return View(response.ApplicationCertificate);
     }
 
     [ExcludeFromCodeCoverage]
-    [HttpGet]
-    public async Task<IActionResult> DownloadCertificatePdf(Guid id)
+    [HttpGet("/TravelDocument/DownloadCertificatePdf/{id}/{referenceNumber}")]
+    public async Task<IActionResult> DownloadCertificatePdf(Guid id, string referenceNumber)
     {
         var userId = CurrentUserId();
 
@@ -46,7 +45,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             return new NotFoundObjectResult("Unable to download the PDF");
         }
 
-        var fileName = ApplicationHelper.BuildPdfDownloadFilename(id, PdfType.Certificate);
+        var fileName = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber);
 
         return File(response.Content, response.MimeType, fileName);
     }

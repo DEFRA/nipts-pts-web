@@ -43,8 +43,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 
         private static PetGenderValidator CreateValidator()
         {
-            // Mock IStringLocalizer<SharedResource>
-            var mockLocalizer = new Mock<IStringLocalizer<SharedResource>>();
+            var mockLocalizer = new Mock<IStringLocalizer<ISharedResource>>();
             mockLocalizer.Setup(l => l["Tell us if your pet is male or female"]).Returns(new LocalizedString("Tell us if your pet is male or female", "Tell us if your pet is male or female"));
 
             // Create PetGenderValidator with mocked localizer

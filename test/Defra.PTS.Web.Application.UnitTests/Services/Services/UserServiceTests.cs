@@ -18,7 +18,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
     [TestFixture]
     public class UserServiceTests
     {
-        private IUserService _sut;
+        private UserService _sut;
         protected Mock<HttpMessageHandler> _mockHttpMessageHandler = new();
         private readonly Mock<ILogger<UserService>> _mockLogger = new();
 

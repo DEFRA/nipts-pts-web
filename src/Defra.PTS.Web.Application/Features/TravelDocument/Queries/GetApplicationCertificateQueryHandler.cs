@@ -8,34 +8,23 @@ namespace Defra.PTS.Web.Application.Features.TravelDocument.Queries;
 public class GetApplicationCertificateQueryHandler : IRequestHandler<GetApplicationCertificateQueryRequest, GetApplicationCertificateQueryResponse>
 {
     private readonly IApplicationService _applicationService;
-    private readonly ILogger<GetApplicationCertificateQueryHandler> _logger;
 
-    public GetApplicationCertificateQueryHandler(IApplicationService applicationService, ILogger<GetApplicationCertificateQueryHandler> logger)
+    public GetApplicationCertificateQueryHandler(IApplicationService applicationService)
     {
         ArgumentNullException.ThrowIfNull(applicationService);
-        ArgumentNullException.ThrowIfNull(logger);
 
         _applicationService = applicationService;
-        _logger = logger;
     }
 
     public async Task<GetApplicationCertificateQueryResponse> Handle(GetApplicationCertificateQueryRequest request, CancellationToken cancellationToken)
     {
-        try
+        var response = new GetApplicationCertificateQueryResponse
         {
-            var response = new GetApplicationCertificateQueryResponse
-            {
-                ApplicationId = request.ApplicationId,
-                ApplicationCertificate = await _applicationService.GetApplicationCertificate(request.ApplicationId),
-            };
+            ApplicationId = request.ApplicationId,
+            ApplicationCertificate = await _applicationService.GetApplicationCertificate(request.ApplicationId),
+        };
 
-            return response;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "{applicationService}: Unable to get application certificate for id {ApplicationId}.", nameof(_applicationService), request?.ApplicationId, ex.Message);
-            throw;
-        }
+        return response;
     }
 
 }

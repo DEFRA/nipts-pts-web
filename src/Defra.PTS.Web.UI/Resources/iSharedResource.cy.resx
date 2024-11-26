@@ -133,6 +133,9 @@
     <value>Cwcis</value>
   </data>
   <data name="Download your application" xml:space="preserve">
+    <value>Lawrlwytho’ch cais</value>
+  </data>
+	<data name="Download your document" xml:space="preserve">
     <value>Lawrlwytho’ch dogfen</value>
   </data>
   <data name="Email" xml:space="preserve">
@@ -154,7 +157,10 @@
     <value>Rhif ffôn</value>
   </data>
   <data name="Print your application" xml:space="preserve">
-    <value>Argraffu’ch dogfen</value>
+    <value>Argraffu’ch cais</value>
+  </data>
+    <data name="Print your document" xml:space="preserve">
+    <value>Argraffwch eich dogfen</value>
   </data>
   <data name="Privacy notice" xml:space="preserve">
     <value>Hysbysiad preifatrwydd</value>
@@ -696,5 +702,11 @@
   </data>
   <data name="Stay signed in" xml:space="preserve">
     <value>Parhau i fod wedi’ch mewngofnodi</value>
+  </data>
+  <data name="Get help" xml:space="preserve">
+    <value>Cael help</value>
+  </data>
+  <data name="Need help using this service? " xml:space="preserve">
+    <value>Angen help gyda'r gwasanaeth yma?</value>
   </data>
 </root>

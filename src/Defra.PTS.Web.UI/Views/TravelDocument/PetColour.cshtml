@@ -10,7 +10,7 @@
 @using Microsoft.Extensions.Localization;
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
-@inject IStringLocalizer<SharedResource> sharedlocalizer
+@inject IStringLocalizer<ISharedResource> sharedlocalizer
 
 @{
     var fieldsetLegend = new FieldsetLegendViewModel { Label = Localizer[Model.FormTitle].Value, LabelFor = "Black" };
@@ -70,7 +70,7 @@
                             <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-PetColourOther">
                                 <div class="govuk-form-group @(ViewData.ModelState.HasError("PetColourOther") ? "govuk-form-group--error" : null)">
                                     <div class="govuk-form-group">
-                                        <label class="govuk-label govuk-label--s" for="PetColourOther">
+                                        <label class="govuk-label" for="PetColourOther">
                                            @Localizer[$"Describe the colour of your {@Model.PetTypeNameLowered}"]
                                         </label>
                                         @Html.ValidationMessageFor(x => x.PetColourOther, string.Empty, new { @class = "govuk-error-message" })
@@ -96,25 +96,6 @@
 @section Scripts
     {
     <script>
-        $(document).ready(function () {
-
-            //if the form has an error, but it is specific to the other box, we relocate it
-
-            if ($("#formroot").hasClass("govuk-form-group--error") && $("#Other").is(":checked")) {
-                $('#formroot').removeClass("govuk-form-group--error");
-                $('#OtherColour').addClass("govuk-form-group--error");
-            }
-
-            $(".govuk-radios__input").click(function () {
-
-                $('.govuk-error-summary').hide();
-                $('.govuk-error-message').hide();
-                $('#formroot').removeClass("govuk-form-group--error");
-                $('#OtherColour').removeClass("govuk-form-group--error");
-
-            });
-        })
-
         function clearInput() {
             document.getElementById("PetColourOther").value = "";
         }

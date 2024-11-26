@@ -15,8 +15,6 @@ public class DeclarationValidator : AbstractValidator<DeclarationViewModel>
         ArgumentNullException.ThrowIfNull(mediator);
         _mediator = mediator;
 
-        RuleFor(x => x.AgreedToAccuracy).Must(x => x).WithMessage("Confirm that you have provided truthful and accurate information");
-        RuleFor(x => x.AgreedToPrivacyPolicy).Must(x => x).WithMessage("Agree to Defra's privacy policy");
         RuleFor(x => x.AgreedToDeclaration).Must(x => x).WithMessage("Agree to the declaration");
 
         RuleFor(x => x.Phone)

@@ -4,37 +4,54 @@
 @using Defra.PTS.Web.Domain.Enums;
 @using Defra.PTS.Web.Application.Helpers;
 @using Microsoft.Extensions.Localization;
-@inject IStringLocalizer<SharedResource> sharedlocalizer
+@inject IStringLocalizer<ISharedResource> sharedlocalizer
 
 <div class="govuk-grid-row govuk-!-display-none-print">
 
     <div class="govuk-grid-column-three-quarters">
         <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible govuk-!-margin-top-4">
 
+        @{
+            string printLinkText = string.Empty;
+            string downloadLinkText = string.Empty;
+
+            if (Model.PdfType == PdfType.Application)
+            {
+                printLinkText = "Print your application";
+                downloadLinkText = "Download your application";
+            }
+            else
+            {
+                printLinkText = "Print your document";
+                downloadLinkText = "Download your document";
+            }
+        }
+
+
         <ul class="pet-print-download-nav">
 
             <li>
                 <span class="hod-icons-printer"></span>
                 <p class="govuk-body">
-                    <a class="govuk-link" aria-label="Print your application" href="#" id="print-this-page" onclick="window.print()">
-                        @sharedlocalizer["Print your application"]
+                    <a class="govuk-link" aria-label=@sharedlocalizer[printLinkText] href="#" id="print-this-page" onclick="window.print()">
+                        @sharedlocalizer[printLinkText]
                     </a>
                 </p>
             </li>
 
             @if (Model.ShowDownloadLink)
             {
-                var downloadFilename = ApplicationHelper.BuildPdfDownloadFilename(Model.Id, Model.PdfType);
-                var downloadUrl = ApplicationHelper.BuildPdfDownloadUrl(Model.Id, Model.PdfType);
+                var downloadFilename = ApplicationHelper.BuildPdfDownloadFilename(Model.ReferenceNumber);
+                var downloadUrl = ApplicationHelper.BuildPdfDownloadUrl(Model.Id, Model.ReferenceNumber, Model.PdfType);
 
                 <li>
                     <span class="hod-icons-download-button"></span>
                     <p class="govuk-body">
-                        <a aria-label="Download your application"
+                        <a aria-label=@sharedlocalizer[downloadLinkText]
                            class="govuk-link"
                            download="@downloadFilename"
                            href="@downloadUrl">
-                            @sharedlocalizer["Download your application"]
+                            @sharedlocalizer[downloadLinkText]
                         </a>
                     </p>
                 </li>

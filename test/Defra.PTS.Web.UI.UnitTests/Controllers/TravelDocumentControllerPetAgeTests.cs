@@ -31,12 +31,12 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
         private Mock<TravelDocumentController> _travelDocumentController;
         private Mock<TravelDocumentViewModel> _travelDocumentViewModel;
-        private readonly IStringLocalizer<SharedResource> _localizer;
+        private readonly IStringLocalizer<ISharedResource> _localizer;
         public TravelDocumentControllerPetAgeTests()
         {
             var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
-            _localizer = new StringLocalizer<SharedResource>(factory);
+            _localizer = new StringLocalizer<ISharedResource>(factory);
 
         }
 
@@ -51,9 +51,9 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
             _travelDocumentController.Object.TempData = tempData;
             _travelDocumentViewModel = new Mock<TravelDocumentViewModel>();
-            
+
             var mockHttpContext = new Mock<HttpContext>();
-            mockHttpContext.Setup(_ => _.Request.Headers["Referer"]).Returns("aaa");
+            mockHttpContext.Setup(_ => _.Request.Headers.Referer).Returns("aaa");
             _travelDocumentController.Object.ControllerContext = new ControllerContext();
             _travelDocumentController.Object.ControllerContext.HttpContext = mockHttpContext.Object;
 

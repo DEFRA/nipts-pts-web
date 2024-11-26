@@ -117,31 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Animal and Plant Health Agency" xml:space="preserve">
+  <data name="Animal and Plant Health Agency (APHA)" xml:space="preserve">
     <value>Asiantaeth Iechyd Anifeiliaid a Phlanhigion</value>
-  </data>
-  <data name="Carlisle" xml:space="preserve">
-    <value>Carlisle</value>
-  </data>
-  <data name="Eden Bridge House" xml:space="preserve">
-    <value>Eden Bridge House</value>
-  </data>
-  <data name="Issuing authority" xml:space="preserve">
-    <value>Awdurdod dyroddi</value>
-  </data>
-  <data name="Lowther Street" xml:space="preserve">
-    <value>Lowther Street</value>
   </data>
   <data name="Name and address of competent authority" xml:space="preserve">
     <value>Enw a chyfeiriad yr awdurdod cymwys</value>
   </data>
-  <data name="Pet Travel Section" xml:space="preserve">
-    <value>Adran Teithio Anifeiliaid Anwes</value>
+  <data name="" xml:space="preserve">
+    <value></value>
   </data>
   <data name="Signed digitally" xml:space="preserve">
     <value>Wedi’i lofnodi’n ddigidol</value>
   </data>
   <data name="Signed on behalf of the competent authority" xml:space="preserve">
     <value>Wedi'i llofnodi ar ran yr awdurdod cymwys</value>
+  </data>
+  <data name="Surrey" xml:space="preserve">
+    <value>Surrey</value>
+  </data>
+	<data name="Lane New Haw" xml:space="preserve">
+    <value>Lane New Haw</value>
+  </data>
+	<data name="Issuing authority" xml:space="preserve">
+    <value>Awdurdod dyroddi</value>
+  </data>
+	<data name="Addlestone" xml:space="preserve">
+    <value>Addlestone</value>
+  </data>
+	<data name="APHA Veterinary Director" xml:space="preserve">
+    <value>Cyfarwyddwr Milfeddygol APHA</value>
+  </data>
+	<data name="Woodham Lane" xml:space="preserve">
+    <value>Woodham Lane</value>
+  </data>
+	<data name="KT15 3NB" xml:space="preserve">
+    <value>KT15 3NB</value>
   </data>
 </root>

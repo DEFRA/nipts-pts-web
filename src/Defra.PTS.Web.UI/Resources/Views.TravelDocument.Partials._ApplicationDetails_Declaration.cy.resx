@@ -129,16 +129,19 @@
   <data name="Defra's privacy notice" xml:space="preserve">
     <value>hysbysiad preifatrwydd Defra</value>
   </data>
+	<data name="privacy notice" xml:space="preserve">
+    <value>hysbysiad preifatrwydd</value>
+  </data>
   <data name="I am not taking the animal as part of a commercial movement" xml:space="preserve">
     <value>Nid wyf yn mynd â’r anifail fel rhan o symudiad masnachol</value>
   </data>
   <data name="I am the applicant" xml:space="preserve">
-    <value>Fi yw’r ymgeisydd</value>
+    <value>fi yw’r ymgeisydd</value>
   </data>
   <data name="I declare that:" xml:space="preserve">
-    <value>Dwi’n datgan:</value>
+    <value>Rwy’n datgan y canlynol:</value>
   </data>
-  <data name="I have read " xml:space="preserve">
+  <data name="I have read the " xml:space="preserve">
     <value>Rwyf wedi darllen </value>
   </data>
   <data name="I have read and I accept the" xml:space="preserve">
@@ -162,7 +165,7 @@
   <data name="Signed digitally" xml:space="preserve">
     <value>Wedi’i lofnodi’n ddigidol</value>
   </data>
-  <data name="The answers I have given are true and correct to the best of my knowledge" xml:space="preserve">
-    <value>Mae’r atebion a roddais yn wir ac yn gywir hyd eithaf fy ngwybodaeth</value>
+  <data name="the answers I have given are true and correct to the best of my knowledge" xml:space="preserve">
+    <value>mae’r atebion a roddais yn wir ac yn gywir hyd eithaf fy ngwybodaeth</value>
   </data>
 </root>

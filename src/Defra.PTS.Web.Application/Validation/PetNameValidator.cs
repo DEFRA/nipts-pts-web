@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace Defra.PTS.Web.Application.Validation;
 public class PetNameValidator : AbstractValidator<PetNameViewModel>
 {
-    public PetNameValidator(IStringLocalizer<SharedResource> localizer)
+    public PetNameValidator(IStringLocalizer<ISharedResource> localizer)
     {
         RuleFor(x => x.PetName).NotEmpty().WithMessage(localizer["Enter your pet's name"]);
 

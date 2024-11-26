@@ -8,32 +8,21 @@ namespace Defra.PTS.Web.Application.Features.Users.Queries;
 public class GetUserDetailQueryHandler : IRequestHandler<GetUserDetailQueryRequest, GetUserDetailQueryResponse>
 {
     private readonly IUserService _userService;
-    private readonly ILogger<GetUserDetailQueryHandler> _logger;
-    public GetUserDetailQueryHandler(IUserService userService, ILogger<GetUserDetailQueryHandler> logger)
+    public GetUserDetailQueryHandler(IUserService userService)
     {
         ArgumentNullException.ThrowIfNull(userService);
-        ArgumentNullException.ThrowIfNull(logger);
 
         _userService = userService;
-        _logger = logger;
     }
 
     public async Task<GetUserDetailQueryResponse> Handle(GetUserDetailQueryRequest request, CancellationToken cancellationToken)
     {
-        try
+        var response = new GetUserDetailQueryResponse
         {
-            var response = new GetUserDetailQueryResponse
-            {
-                UserId = request.UserId,
-                UserDetail = await _userService.GetUserDetail(request.UserId),
-            };
-            return response;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "{userService}: Unable to  UserDetail {UserId}", nameof(_userService), request?.UserId);
-            throw;
-        }
+            UserId = request.UserId,
+            UserDetail = await _userService.GetUserDetail(request.UserId),
+        };
+        return response;
     }
 
 }

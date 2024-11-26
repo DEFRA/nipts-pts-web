@@ -9,33 +9,21 @@ namespace Defra.PTS.Web.Application.Features.Lookups.Queries;
 public class GetColoursQueryHandler : IRequestHandler<GetColoursQueryRequest, GetColoursQueryResponse>
 {
     private readonly IPetService _petService;
-    private readonly ILogger<GetColoursQueryHandler> _logger;
-    public GetColoursQueryHandler(IPetService petService, ILogger<GetColoursQueryHandler> logger)
+    public GetColoursQueryHandler(IPetService petService)
     {
         ArgumentNullException.ThrowIfNull(petService);
-        ArgumentNullException.ThrowIfNull(logger);
 
         _petService = petService;
-        _logger = logger;
     }
 
     public async Task<GetColoursQueryResponse> Handle(GetColoursQueryRequest request, CancellationToken cancellationToken)
     {
-        try
+        var response = new GetColoursQueryResponse
         {
-            var response = new GetColoursQueryResponse
-            {
-                PetType = request.PetType,
-                Colours = await _petService.GetColours(request.PetType)
-            };
+            PetType = request.PetType,
+            Colours = await _petService.GetColours(request.PetType)
+        };
 
-            return response;
-        }
-        catch (Exception ex)
-        {
-            _logger.LogError(ex, "{petService}: Unable to get list of colours for {PetType}.", nameof(_petService), request.PetType.GetDescription(), ex.Message);
-
-            throw;
-        }
+        return response;
     }
 }

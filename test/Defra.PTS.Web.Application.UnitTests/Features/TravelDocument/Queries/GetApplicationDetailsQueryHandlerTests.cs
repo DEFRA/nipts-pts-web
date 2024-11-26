@@ -23,9 +23,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Queries
             var applicationServiceMock = new Mock<IApplicationService>();
             applicationServiceMock.Setup(x => x.GetApplicationDetails(applicationId)).ReturnsAsync(applicationDetails);
 
-            var loggerMock = new Mock<ILogger<GetApplicationDetailsQueryHandler>>();
-
-            var handler = new GetApplicationDetailsQueryHandler(applicationServiceMock.Object, loggerMock.Object);
+            var handler = new GetApplicationDetailsQueryHandler(applicationServiceMock.Object);
             var request = new GetApplicationDetailsQueryRequest(applicationId);
 
             // Act
@@ -49,9 +47,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Queries
             var applicationServiceMock = new Mock<IApplicationService>();
             applicationServiceMock.Setup(x => x.GetApplicationDetails(applicationId)).ThrowsAsync(new Exception(errorMessage));
 
-            var loggerMock = new Mock<ILogger<GetApplicationDetailsQueryHandler>>();
-
-            var handler = new GetApplicationDetailsQueryHandler(applicationServiceMock.Object, loggerMock.Object);
+            var handler = new GetApplicationDetailsQueryHandler(applicationServiceMock.Object);
             var request = new GetApplicationDetailsQueryRequest(applicationId);
 
             // Act + Assert

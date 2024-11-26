@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace Defra.PTS.Web.Application.Validation;
 public class PetColourValidator : AbstractValidator<PetColourViewModel>
 {
-    public PetColourValidator(IStringLocalizer<SharedResource> localizer)
+    public PetColourValidator(IStringLocalizer<ISharedResource> localizer)
     {
         RuleFor(x => x.PetColour).NotEmpty().WithMessage(x => localizer[$"Select the main colour of your {x.PetTypeNameLowered}"]);
 

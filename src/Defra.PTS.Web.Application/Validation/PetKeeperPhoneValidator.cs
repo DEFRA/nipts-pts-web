@@ -8,7 +8,7 @@ using Microsoft.Extensions.Localization;
 namespace Defra.PTS.Web.Application.Validation;
 public class PetKeeperPhoneValidator : AbstractValidator<PetKeeperPhoneViewModel>
 {
-    public PetKeeperPhoneValidator(IStringLocalizer<SharedResource> localizer)
+    public PetKeeperPhoneValidator(IStringLocalizer<ISharedResource> localizer)
     {
         RuleFor(x => x.Phone)
             .NotEmpty()

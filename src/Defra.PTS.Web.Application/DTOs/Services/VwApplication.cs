@@ -42,4 +42,7 @@ public class VwApplication
     public string DocumentReferenceNumber { get; set; }
     public DateTime? DocumentIssueDate { get; set; }
     public string DocumentSignedBy { get; set; }
+    public string DocumentSignedByTitle { get; set; }
+    public byte[] DocumentSignedBySignature { get; set; }
+
 }

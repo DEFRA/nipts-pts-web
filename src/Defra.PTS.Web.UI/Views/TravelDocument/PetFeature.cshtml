@@ -8,10 +8,9 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 @using Microsoft.Extensions.Localization;
-@inject IStringLocalizer<SharedResource> sharedlocalizer
+@inject IStringLocalizer<ISharedResource> sharedlocalizer
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = Model.FormTitle, LabelFor = "Yes" };
     this.SetMetaTitle(Localizer[Model.FormTitle].Value);
 }
 
@@ -91,24 +90,6 @@
     {
 
     <script>
-        $(document).ready(function () {
-            $(".govuk-radios__input").click(function () {
-                $('.govuk-error-summary').hide();
-                $('.govuk-error-message').hide();
-                $('#FeatureDescriptionRadios').removeClass("govuk-form-group--error");
-                $('#featureinput').removeClass("input-validation-error");
-            });
-        })
-
-        // $('input, textarea').bind("input", function (e) {
-        //     var blockSpecialRegex = /[!$(){}[\]:;<+?\\>]/g;
-        //     let txtOrig = $(this).val();
-        //     let txtFinal = txtOrig.replace(blockSpecialRegex, '');
-        //     if (txtOrig !== txtFinal) {
-        //         $(this).val(txtFinal);
-        //     }
-        // })
-
         function clearInput() {
             document.getElementById("FeatureDescription").value = "";
         }

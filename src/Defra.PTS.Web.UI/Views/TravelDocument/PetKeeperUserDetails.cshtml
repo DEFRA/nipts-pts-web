@@ -7,7 +7,7 @@
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 @using Microsoft.Extensions.Localization;
-@inject IStringLocalizer<SharedResource> sharedlocalizer
+@inject IStringLocalizer<ISharedResource> sharedlocalizer
 
 @{
     var fieldsetLegend = new FieldsetLegendViewModel { Label = @Localizer["Are your details correct?"].Value, LabelFor = "Yes" };
@@ -101,16 +101,3 @@
         }
     </div>
 </div>
-
-@section Scripts
-    {
-    <script>
-        $(document).ready(function () {
-            $(".govuk-radios__input").click(function () {
-                $('.govuk-error-summary').hide();
-                $('.govuk-error-message').hide();
-                $('#formroot').removeClass("govuk-form-group--error");
-            });
-        })
-    </script>
-}

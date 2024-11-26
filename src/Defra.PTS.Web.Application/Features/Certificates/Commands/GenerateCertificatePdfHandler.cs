@@ -53,7 +53,7 @@ public class GenerateCertificatePdfHandler : IRequestHandler<GenerateCertificate
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "{applicationService}: Unable to generate certificate PDF for id {Id}", nameof(_applicationService), request?.ApplicationId);
+            _logger.LogError(ex, "GenerateCertificatePdfHandler: Unable to generate application PDF for ID {0}", request?.ApplicationId);
             return null;
         }
                     

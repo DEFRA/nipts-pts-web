@@ -4,11 +4,13 @@ using Defra.PTS.Web.CertificateGenerator.ViewModels;
 using Defra.PTS.Web.Domain.Models;
 using Defra.PTS.Web.Infrastructure.Extensions;
 using Defra.PTS.Web.UI.Configuration.Startup;
+using Defra.PTS.Web.UI.Constants;
 using Defra.Trade.Common.Api.Infrastructure;
 using Defra.Trade.Common.AppConfig;
 using Defra.Trade.Common.Security.Authentication.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Azure.Management.Storage.Fluent.Models;
+using Microsoft.FeatureManagement;
 using System.Globalization;
 using System.Reflection;
 var builder = WebApplication.CreateBuilder(args);
@@ -42,10 +44,12 @@ builder.Services.AddRazorPages();
 builder.Services.AddHttpClient();
 builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
 builder.Services.Configure<PtsSettings>(builder.Configuration.GetSection("PTS"));
+builder.Services.Configure<GoogleTagManager>(builder.Configuration.GetSection("GoogleTagManager"));
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationApis(builder.Configuration);
+builder.Services.AddFeatureManagement();
 
 builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssemblyContaining<Program>(); });
 
@@ -66,7 +70,7 @@ builder.Services.Configure<CookiePolicyOptions>(options =>
     // This lambda determines whether user consent for non-essential 
     // cookies is needed for a given request.
     //set to true when GA is implemented
-    options.CheckConsentNeeded = context => false;
+    options.CheckConsentNeeded = context => true;
     options.MinimumSameSitePolicy = SameSiteMode.Strict;
     options.Secure = CookieSecurePolicy.Always;
 });
