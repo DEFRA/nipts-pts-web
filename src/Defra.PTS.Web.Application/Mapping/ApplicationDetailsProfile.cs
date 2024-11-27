@@ -20,7 +20,7 @@ public class ApplicationDetailsProfile : Profile
                 MappingConverter.MapActionLinks(
                 src.ApplicationId,
                 PdfType.Application,
-                (src.Status == AppConstants.ApplicationStatus.APPROVED || src.Status == AppConstants.ApplicationStatus.REVOKED) ? src.DocumentReferenceNumber : src.ReferenceNumber,
+                src.ReferenceNumber,
                 true)))
             .AfterMap<SetApplicationDetailsAction>();
     }
