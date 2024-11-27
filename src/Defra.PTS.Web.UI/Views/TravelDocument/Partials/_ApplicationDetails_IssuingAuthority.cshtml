@@ -33,11 +33,7 @@
                             <p class="govuk-body">
                                 @if (!string.IsNullOrEmpty(Model.DocumentSignedByTitle))
                                 {
-                                    @Model.DocumentSignedByTitle
-                                }
-                                else
-                                {
-                                    @Localizer["APHA Veterinary Director"]
+                                    @Localizer[@Model.DocumentSignedByTitle]
                                 }
                             </p>
                         </dd>
