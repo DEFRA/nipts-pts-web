@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Defra.PTS.Web.Application.Constants;
 using Defra.PTS.Web.Application.DTOs.Services;
 using Defra.PTS.Web.Application.Mapping.Converters;
 using Defra.PTS.Web.Domain.Enums;
@@ -18,8 +19,8 @@ public class ApplicationDetailsProfile : Profile
             .ForMember(dest => dest.ActionLinks, opt => opt.MapFrom(src =>
                 MappingConverter.MapActionLinks(
                 src.ApplicationId,
-                PdfType.Certificate,
-                (src.Status == "Approved" || src.Status == "Revoked") ? src.DocumentReferenceNumber : src.ReferenceNumber,
+                PdfType.Application,
+                (src.Status == AppConstants.ApplicationStatus.APPROVED || src.Status == AppConstants.ApplicationStatus.REVOKED) ? src.DocumentReferenceNumber : src.ReferenceNumber,
                 true)))
             .AfterMap<SetApplicationDetailsAction>();
     }
