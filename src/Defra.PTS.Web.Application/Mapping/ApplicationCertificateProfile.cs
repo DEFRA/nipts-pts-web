@@ -23,7 +23,7 @@ CreateMap<VwApplication, ApplicationCertificateDto>()
     MappingConverter.MapActionLinks(
     src.ApplicationId,
     PdfType.Certificate,
-            (src.Status == AppConstants.ApplicationStatus.APPROVED || src.Status == AppConstants.ApplicationStatus.REVOKED) ? src.DocumentReferenceNumber : src.ReferenceNumber,
+    src.DocumentReferenceNumber,
             true)))
     .AfterMap<SetApplicationCertificateAction>();
 
