@@ -123,34 +123,31 @@
   <data name="Name and address of competent authority" xml:space="preserve">
     <value>Enw a chyfeiriad yr awdurdod cymwys</value>
   </data>
-  <data name="" xml:space="preserve">
-    <value></value>
-  </data>
   <data name="Signed digitally" xml:space="preserve">
     <value>Wedi’i lofnodi’n ddigidol</value>
   </data>
-  <data name="Signed on behalf of the competent authority" xml:space="preserve">
+  <data name="Signed on behalf of the competent authority (APHA)" xml:space="preserve">
     <value>Wedi'i llofnodi ar ran yr awdurdod cymwys</value>
   </data>
   <data name="Surrey" xml:space="preserve">
     <value>Surrey</value>
   </data>
-	<data name="Lane New Haw" xml:space="preserve">
+  <data name="Lane New Haw" xml:space="preserve">
     <value>Lane New Haw</value>
   </data>
-	<data name="Issuing authority" xml:space="preserve">
+  <data name="Issuing authority" xml:space="preserve">
     <value>Awdurdod dyroddi</value>
   </data>
-	<data name="Addlestone" xml:space="preserve">
+  <data name="Addlestone" xml:space="preserve">
     <value>Addlestone</value>
   </data>
-	<data name="APHA Veterinary Director" xml:space="preserve">
+  <data name="APHA Veterinary Director" xml:space="preserve">
     <value>Cyfarwyddwr Milfeddygol APHA</value>
   </data>
-	<data name="Woodham Lane" xml:space="preserve">
+  <data name="Woodham Lane" xml:space="preserve">
     <value>Woodham Lane</value>
   </data>
-	<data name="KT15 3NB" xml:space="preserve">
+  <data name="KT15 3NB" xml:space="preserve">
     <value>KT15 3NB</value>
   </data>
 </root>
