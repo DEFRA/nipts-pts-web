@@ -223,92 +223,153 @@ function printWithStyles() {
     printStyles.setAttribute('type', 'text/css');
     printStyles.setAttribute('id', 'print-specific-styles');
 
-    // Define print-specific styles with additional forcing techniques
     const printCss = `
         @media print {
-            /* Force black colors and exact color matching */
+            /* Base print settings */
             * {
                 -webkit-print-color-adjust: exact !important;
                 color-adjust: exact !important;
                 print-color-adjust: exact !important;
             }
 
-            /* Add outline to main content area */
-            .govuk-main-wrapper {
-                outline: 2px solid #000 !important;
-                outline-offset: -2px !important;
-            }
-
-            /* Multiple border techniques for boxes */
+            /* Only apply borders to specific sections */
             .microchip-info-box,
             .pet-info-box,
-            .owner-info-box,
-            .declaration-box,
-            .application-box {
+            .pet-details-box,
+            .owner-info-box {
                 position: relative !important;
-                border: 0 !important;
-                outline: 2px solid #000 !important;
-                box-shadow: 
-                    inset 0 0 0 2px #000,
-                    0 0 0 2px #000 !important;
-                -webkit-box-shadow: 
-                    inset 0 0 0 2px #000,
-                    0 0 0 2px #000 !important;
+                border: 2px solid #000000 !important;
+                margin: 20px 0 !important;
                 padding: 15px !important;
-                margin: 15px 0 !important;
                 page-break-inside: avoid !important;
+                background: 
+                    linear-gradient(to right, #000 2px, transparent 2px) 0 0,
+                    linear-gradient(to right, #000 2px, transparent 2px) 0 100%,
+                    linear-gradient(to left, #000 2px, transparent 2px) 100% 0,
+                    linear-gradient(to left, #000 2px, transparent 2px) 100% 100%,
+                    linear-gradient(to bottom, #000 2px, transparent 2px) 0 0,
+                    linear-gradient(to bottom, #000 2px, transparent 2px) 100% 0,
+                    linear-gradient(to top, #000 2px, transparent 2px) 0 100%,
+                    linear-gradient(to top, #000 2px, transparent 2px) 100% 100% !important;
+                background-repeat: no-repeat !important;
+                background-size: 20px 20px !important;
             }
 
-            /* Add pseudo-elements for additional border reinforcement */
-            .microchip-info-box::before,
-            .pet-info-box::before,
-            .owner-info-box::before,
-            .declaration-box::before,
-            .application-box::before {
-                content: '' !important;
-                position: absolute !important;
-                top: 0 !important;
-                left: 0 !important;
-                right: 0 !important;
-                bottom: 0 !important;
-                border: 2px solid #000 !important;
-                pointer-events: none !important;
+            /* Remove outer border */
+            .govuk-main-wrapper {
+                border: none !important;
+                outline: none !important;
+                box-shadow: none !important;
             }
 
-            /* Enhanced table styles */
+            /* Remove declaration box border */
+            .declaration-box {
+                border: none !important;
+                outline: none !important;
+                box-shadow: none !important;
+                background: none !important;
+            }
+
+            /* Table styles */
             .govuk-table {
-                border: 2px solid #000 !important;
                 border-collapse: separate !important;
                 border-spacing: 0 !important;
+                width: 100% !important;
             }
 
+            /* Cell styles */
             .govuk-table th,
             .govuk-table td {
-                border: 2px solid #000 !important;
-                outline: 2px solid #000 !important;
-                box-shadow: inset 0 0 0 2px #000 !important;
-                -webkit-box-shadow: inset 0 0 0 2px #000 !important;
+                position: relative !important;
+                border: 2px solid #000000 !important;
+                background-clip: padding-box !important;
+                background: 
+                    linear-gradient(to right, #000 2px, transparent 2px) 0 0,
+                    linear-gradient(to right, #000 2px, transparent 2px) 0 100%,
+                    linear-gradient(to left, #000 2px, transparent 2px) 100% 0,
+                    linear-gradient(to left, #000 2px, transparent 2px) 100% 100%,
+                    linear-gradient(to bottom, #000 2px, transparent 2px) 0 0,
+                    linear-gradient(to bottom, #000 2px, transparent 2px) 100% 0,
+                    linear-gradient(to top, #000 2px, transparent 2px) 0 100%,
+                    linear-gradient(to top, #000 2px, transparent 2px) 100% 100% !important;
+                background-repeat: no-repeat !important;
+                background-size: 10px 10px !important;
             }
 
-            /* Firefox-specific overrides */
+            /* Firefox-specific styles for MacOS */
             @-moz-document url-prefix() {
-                .microchip-info-box,
-                .pet-info-box,
-                .owner-info-box,
-                .declaration-box,
-                .application-box,
-                .govuk-table,
-                .govuk-table th,
-                .govuk-table td {
-                    border: 3px solid #000 !important;
-                    outline: 3px solid #000 !important;
-                    outline-offset: -3px !important;
+                @media not all and (min-resolution:.001dpcm) { 
+                    @supports (-moz-appearance:none) {
+                        /* Extra border reinforcement for Firefox on MacOS */
+                        .govuk-table {
+                            border-collapse: separate !important;
+                            border-spacing: 0 !important;
+                        }
+
+                        .govuk-table th,
+                        .govuk-table td {
+                            outline: 2px solid #000000 !important;
+                            border: 2px solid #000000 !important;
+                            position: relative !important;
+                        }
+
+                        .govuk-table th::after,
+                        .govuk-table td::after {
+                            content: '' !important;
+                            position: absolute !important;
+                            top: -2px !important;
+                            left: -2px !important;
+                            right: -2px !important;
+                            bottom: -2px !important;
+                            border: 2px solid #000000 !important;
+                            pointer-events: none !important;
+                            z-index: 1 !important;
+                        }
+
+                        /* Section borders for Firefox on MacOS */
+                        .microchip-info-box,
+                        .pet-info-box,
+                        .pet-details-box,
+                        .owner-info-box {
+                            outline: 2px solid #000000 !important;
+                            border: 2px solid #000000 !important;
+                            position: relative !important;
+                        }
+
+                        .microchip-info-box::after,
+                        .pet-info-box::after,
+                        .pet-details-box::after,
+                        .owner-info-box::after {
+                            content: '' !important;
+                            position: absolute !important;
+                            top: -2px !important;
+                            left: -2px !important;
+                            right: -2px !important;
+                            bottom: -2px !important;
+                            border: 2px solid #000000 !important;
+                            pointer-events: none !important;
+                            z-index: 1 !important;
+                        }
+
+                        /* Explicitly remove borders from main wrapper and declaration */
+                        .govuk-main-wrapper,
+                        .declaration-box {
+                            outline: none !important;
+                            border: none !important;
+                            box-shadow: none !important;
+                            background: none !important;
+                        }
+
+                        .govuk-main-wrapper::after,
+                        .declaration-box::after {
+                            display: none !important;
+                        }
+                    }
                 }
             }
         }
     `;
 
-    // Add the styles
     if (printStyles.styleSheet) {
         printStyles.styleSheet.cssText = printCss;
     } else {
@@ -321,26 +382,18 @@ function printWithStyles() {
         existingStyles.remove();
     }
 
-    // Add classes to main sections if they don't exist
-    const sections = document.querySelectorAll('.govuk-grid-column-three-quarters > section');
-    sections.forEach(section => {
-        if (!section.classList.contains('application-box')) {
-            section.classList.add('application-box');
-        }
-    });
-
-    // Add the new print styles to the document head
+    // Add the new print styles
     document.head.appendChild(printStyles);
 
-    // Trigger print after a short delay to ensure styles are applied
+    // Wait a moment for styles to be applied
     setTimeout(() => {
         window.print();
-    }, 100);
+    }, 200);
 
-    // Remove the print styles after printing
+    // Cleanup after printing
     setTimeout(() => {
         printStyles.remove();
-    }, 1000);
+    }, 2000);
 }
 
 function checkCookie() {
