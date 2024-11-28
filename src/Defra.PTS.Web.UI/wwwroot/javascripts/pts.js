@@ -218,163 +218,162 @@ function getCookie(cname) {
 }
 
 function printWithStyles() {
-    // Create new style element
+    // Force paint refresh workaround for Firefox
+    const forcePaint = () => {
+        document.body.style.display = 'none';
+        document.body.offsetHeight; // Force reflow
+        document.body.style.display = '';
+    };
+
+    // Create style element
     const printStyles = document.createElement('style');
     printStyles.setAttribute('type', 'text/css');
     printStyles.setAttribute('id', 'print-specific-styles');
 
     const printCss = `
         @media print {
-            /* Base print settings */
+            /* Base reset */
             * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
                 color-adjust: exact !important;
             }
 
-            /* Hide print nav */
+            /* Hide print navigation */
             .pet-print-download-nav {
                 display: none !important;
             }
 
-            /* Firefox MacOS specific styles */
+            /* Firefox-specific border fix */
             @-moz-document url-prefix() {
-                .application-box {
+                .border-box {
+                    /* Multiple border techniques */
+                    border: 1px solid #000 !important;
+                    outline: 1px solid #000 !important;
+                    box-shadow: inset 0 0 0 1px #000 !important;
+                    position: relative !important;
+                    margin-bottom: 15px !important;
+                    background-color: white !important;
+                    page-break-inside: avoid !important;
                     display: block !important;
-                    position: relative !important;
-                    background: white !important;
-                    margin-bottom: 15px !important;
-                }
-
-                .application-box::before {
-                    content: "" !important;
-                    position: absolute !important;
-                    top: 0 !important;
-                    left: 0 !important;
-                    right: 0 !important;
-                    bottom: 0 !important;
-                    border: 1px solid black !important;
-                    pointer-events: none !important;
-                }
-
-                .dual-column-container {
-                    display: flex !important;
-                    justify-content: space-between !important;
-                    margin-bottom: 15px !important;
-                    gap: 20px !important;
-                }
-
-                .microchip-box,
-                .pet-details-box {
-                    flex: 1 !important;
-                    position: relative !important;
-                    background: white !important;
-                }
-
-                .microchip-box::before,
-                .pet-details-box::before {
-                    content: "" !important;
-                    position: absolute !important;
-                    top: 0 !important;
-                    left: 0 !important;
-                    right: 0 !important;
-                    bottom: 0 !important;
-                    border: 1px solid black !important;
-                    pointer-events: none !important;
-                }
-
-                .pet-owner-box {
-                    display: block !important;
-                    position: relative !important;
-                    background: white !important;
-                    margin-bottom: 15px !important;
-                }
-
-                .pet-owner-box::before {
-                    content: "" !important;
-                    position: absolute !important;
-                    top: 0 !important;
-                    left: 0 !important;
-                    right: 0 !important;
-                    bottom: 0 !important;
-                    border: 1px solid black !important;
-                    pointer-events: none !important;
-                }
-
-                /* Content spacing */
-                .box-content {
                     padding: 10px !important;
-                    position: relative !important;
-                    z-index: 1 !important;
+                }
+
+                /* Pseudo-element border reinforcement */
+                .border-box::before {
+                    content: "" !important;
+                    position: absolute !important;
+                    top: 0 !important;
+                    right: 0 !important;
+                    bottom: 0 !important;
+                    left: 0 !important;
+                    border: 1px solid #000 !important;
+                    pointer-events: none !important;
+                }
+
+                /* Side by side boxes container */
+                .side-by-side {
+                    display: block !important;
+                    margin-bottom: 15px !important;
+                    page-break-inside: avoid !important;
+                }
+
+                /* Side by side boxes */
+                .side-by-side .border-box {
+                    width: 48% !important;
+                    display: inline-block !important;
+                    vertical-align: top !important;
+                }
+
+                .side-by-side .border-box:first-child {
+                    margin-right: 2% !important;
+                }
+
+                /* No borders for declaration */
+                .declaration-section {
+                    border: none !important;
+                    outline: none !important;
+                    box-shadow: none !important;
+                }
+
+                .declaration-section::before {
+                    display: none !important;
                 }
             }
         }
     `;
 
-    // Add styles
+    // Add styles to document
     if (printStyles.styleSheet) {
         printStyles.styleSheet.cssText = printCss;
     } else {
         printStyles.appendChild(document.createTextNode(printCss));
     }
 
-    // Remove any existing print styles
+    // Remove existing print styles
     const existingStyles = document.getElementById('print-specific-styles');
     if (existingStyles) {
         existingStyles.remove();
     }
 
-    // Function to apply wrapper elements
-    function applyWrappers() {
-        // Find all sections
+    document.head.appendChild(printStyles);
+
+    // Apply structural changes
+    function applyBorderStructure() {
+        // Remove any existing border structures
+        document.querySelectorAll('.border-box, .side-by-side').forEach(el => {
+            const parent = el.parentNode;
+            while (el.firstChild) {
+                parent.insertBefore(el.firstChild, el);
+            }
+            parent.removeChild(el);
+        });
+
+        // Apply new structure
         const sections = document.querySelectorAll('.govuk-grid-row');
+        let sideByContainer = null;
 
         sections.forEach(section => {
-            const heading = section.querySelector('h3')?.textContent?.toLowerCase() || '';
-            const content = section.querySelector('.govuk-grid-column-full');
+            const title = section.querySelector('h2, h3')?.textContent?.toLowerCase() || '';
 
-            if (content) {
-                content.classList.add('box-content');
-            }
-
-            if (heading.includes('application')) {
-                section.classList.add('application-box');
-            } else if (heading.includes('microchip')) {
-                // Create dual column container if it doesn't exist
-                let container = document.querySelector('.dual-column-container');
-                if (!container) {
-                    container = document.createElement('div');
-                    container.className = 'dual-column-container';
-                    section.parentNode.insertBefore(container, section);
+            if (title.includes('microchip') || title.includes('pet details')) {
+                if (!sideByContainer) {
+                    sideByContainer = document.createElement('div');
+                    sideByContainer.className = 'side-by-side';
+                    section.parentNode.insertBefore(sideByContainer, section);
                 }
-                section.classList.add('microchip-box');
-                container.appendChild(section);
-            } else if (heading.includes('pet details')) {
-                section.classList.add('pet-details-box');
-                const container = document.querySelector('.dual-column-container');
-                if (container) {
-                    container.appendChild(section);
+                const box = document.createElement('div');
+                box.className = 'border-box';
+                while (section.firstChild) {
+                    box.appendChild(section.firstChild);
                 }
-            } else if (heading.includes('pet owner')) {
-                section.classList.add('pet-owner-box');
+                sideByContainer.appendChild(box);
+                section.parentNode.removeChild(section);
+            } else if (!title.includes('declaration')) {
+                const box = document.createElement('div');
+                box.className = 'border-box';
+                while (section.firstChild) {
+                    box.appendChild(section.firstChild);
+                }
+                section.appendChild(box);
             }
         });
     }
 
-    // Apply wrappers
-    applyWrappers();
-
-    // Add styles to document
-    document.head.appendChild(printStyles);
+    // Apply structure
+    applyBorderStructure();
+    forcePaint();
 
     // Print with delay
     setTimeout(() => {
+        forcePaint();
         window.print();
     }, 250);
 
-    // Cleanup
+    // Cleanup after printing
     setTimeout(() => {
         printStyles.remove();
+        applyBorderStructure(); // Reapply structure to ensure consistency
     }, 2000);
 }
 
