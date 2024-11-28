@@ -218,6 +218,12 @@ function getCookie(cname) {
 }
 
 function printWithStyles() {
+    // Remove any existing print styles
+    const existingStyles = document.getElementById('print-specific-styles');
+    if (existingStyles) {
+        existingStyles.remove();
+    }
+
     // Create style element
     const printStyles = document.createElement('style');
     printStyles.setAttribute('type', 'text/css');
@@ -225,11 +231,10 @@ function printWithStyles() {
 
     const printCss = `
         @media print {
-            /* Reset all print styles */
+            /* Base settings */
             * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
-                color-adjust: exact !important;
             }
 
             /* Hide print nav */
@@ -237,68 +242,71 @@ function printWithStyles() {
                 display: none !important;
             }
 
-            /* Base table properties */
-            table {
-                border-collapse: collapse !important;
-                width: 100% !important;
-            }
-
-            /* Common box styles */
-            .box-with-border {
-                border: 1px solid #000 !important;
-                margin-bottom: 20px !important;
-                page-break-inside: avoid !important;
-                width: 100% !important;
-            }
-
-            /* Side-by-side container */
-            .side-by-side-container {
-                display: table !important;
-                width: 100% !important;
-                margin-bottom: 20px !important;
-                border-spacing: 0 !important;
-                border-collapse: separate !important;
-            }
-
-            .side-by-side-container > div {
-                display: table-cell !important;
-                width: 49% !important;
-                vertical-align: top !important;
-            }
-
-            .side-by-side-container > div:first-child {
-                padding-right: 10px !important;
-            }
-
-            /* Content padding */
-            .section-content {
-                padding: 10px !important;
-            }
-
-            /* Firefox specific styles */
+            /* Border settings for Firefox */
             @-moz-document url-prefix() {
-                .box-with-border {
-                    border: 1px solid #000 !important;
-                    outline: 1px solid #000 !important;
-                    position: relative !important;
-                    background: white !important;
+                /* Application section */
+                .govuk-grid-row h3:contains("Application"),
+                .govuk-grid-row h3:contains("Microchip information"),
+                .govuk-grid-row h3:contains("Pet details"),
+                .govuk-grid-row h3:contains("Pet owner details") {
+                    margin-top: 0 !important;
+                    padding: 10px !important;
                 }
 
-                .box-with-border::after {
+                /* Main sections with borders */
+                .govuk-grid-row:has(h3:contains("Application")),
+                .govuk-grid-row:has(h3:contains("Microchip information")),
+                .govuk-grid-row:has(h3:contains("Pet details")),
+                .govuk-grid-row:has(h3:contains("Pet owner details")) {
+                    position: relative !important;
+                    padding: 10px !important;
+                    margin-bottom: 20px !important;
+                }
+
+                /* Use SVG for border as a workaround */
+                .govuk-grid-row:has(h3:contains("Application"))::before,
+                .govuk-grid-row:has(h3:contains("Microchip information"))::before,
+                .govuk-grid-row:has(h3:contains("Pet details"))::before,
+                .govuk-grid-row:has(h3:contains("Pet owner details"))::before {
                     content: '' !important;
                     position: absolute !important;
                     top: 0 !important;
                     left: 0 !important;
                     right: 0 !important;
                     bottom: 0 !important;
-                    border: 1px solid #000 !important;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25'%3E%3Crect width='100%25' height='100%25' fill='none' stroke='black' stroke-width='2'/%3E%3C/svg%3E") !important;
                     pointer-events: none !important;
+                    z-index: 1 !important;
                 }
-            }
 
-            /* Declaration section - no border */
-            .declaration-section {
-                margin-top: 20px !important;
+                /* Side by side layout */
+                .govuk-grid-row:has(h3:contains("Microchip information")),
+                .govuk-grid-row:has(h3:contains("Pet details")) {
+                    display: inline-block !important;
+                    width: 48% !important;
+                    vertical-align: top !important;
+                }
+
+                .govuk-grid-row:has(h3:contains("Pet details")) {
+                    margin-left: 2% !important;
+                }
+
+                /* Clear float for pet owner details */
+                .govuk-grid-row:has(h3:contains("Pet owner details")) {
+                    clear: both !important;
+                    display: block !important;
+                    width: 100% !important;
+                }
+
+                /* Content padding */
+                .govuk-grid-column-full {
+                    padding: 0 10px !important;
+                }
+
+                /* Remove border from declaration */
+                .govuk-grid-row:has(strong:contains("Declaration"))::before {
+                    display: none !important;
+                }
             }
         }
     `;
@@ -310,54 +318,6 @@ function printWithStyles() {
         printStyles.appendChild(document.createTextNode(printCss));
     }
 
-    // Remove existing styles
-    const existingStyles = document.getElementById('print-specific-styles');
-    if (existingStyles) {
-        existingStyles.remove();
-    }
-
-    // Function to wrap content in proper structure
-    function restructureContent() {
-        const mainContainer = document.querySelector('.govuk-grid-column-three-quarters');
-        if (!mainContainer) return;
-
-        // Process each section
-        const sections = mainContainer.querySelectorAll('.govuk-grid-row');
-        sections.forEach(section => {
-            const title = section.querySelector('h3')?.textContent?.toLowerCase() || '';
-            const content = section.querySelector('.govuk-grid-column-full');
-
-            if (content) {
-                content.classList.add('section-content');
-            }
-
-            if (title.includes('application')) {
-                section.classList.add('box-with-border');
-            } else if (title.includes('microchip') || title.includes('pet details')) {
-                let container = document.querySelector('.side-by-side-container');
-                if (!container) {
-                    container = document.createElement('div');
-                    container.className = 'side-by-side-container';
-                    section.parentNode.insertBefore(container, section);
-                }
-
-                const wrapper = document.createElement('div');
-                wrapper.className = 'box-with-border';
-                wrapper.appendChild(section.cloneNode(true));
-                container.appendChild(wrapper);
-                section.remove();
-            } else if (title.includes('pet owner')) {
-                section.classList.add('box-with-border');
-            } else if (title.includes('declaration')) {
-                section.classList.add('declaration-section');
-            }
-        });
-    }
-
-    // Apply structure
-    restructureContent();
-
-    // Add styles to document
     document.head.appendChild(printStyles);
 
     // Print with delay
