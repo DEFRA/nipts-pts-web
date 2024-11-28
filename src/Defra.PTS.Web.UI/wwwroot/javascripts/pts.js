@@ -217,6 +217,42 @@ function getCookie(cname) {
     return "";
 }
 
+function printWithStyles() {
+    // Add specific styles for print before triggering the print
+    let style = document.createElement("style");
+    style.innerHTML = `
+            @@media print {
+                /* Remove any extra borders from elements*/
+                .govuk-grid-column-three-quarters {
+                    border: none !important;
+                    padding: 0 !important;
+                }
+                .pet-print-download-nav {
+                    border: none !important;
+                    padding: 0 !important;
+                }
+                /* Add borders around specific sections */
+                .microchip-info-box,
+                .pet-info-box,
+                .owner-info-box,
+                .declaration-box {
+                    border: 1px solid black !important;
+                    padding: 10px !important;
+                    margin-bottom: 15px !important;
+                }
+                * {
+                    -webkit-print-color-adjust: exact !important;
+                    print-color-adjust: exact !important;
+                }
+                .govuk-!-display-none-print {
+                    display: none !important;
+                }
+            }
+        `;
+    document.head.appendChild(style);
+    window.print();
+}
+
 function checkCookie() {
     let culture = getCookie(".AspNetCore.Culture");
     if (culture == "") {
