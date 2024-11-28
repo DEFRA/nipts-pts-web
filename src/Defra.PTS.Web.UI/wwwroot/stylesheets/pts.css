@@ -52,54 +52,67 @@ html, body {
     display: none;
 }
 
-/* Print Styles */
+/* Update your pts.css file with these print styles */
 @media print {
     /* Hide elements not needed in print view */
     .govuk-!-display-none-print {
         display: none !important;
     }
 
-    /* Remove unnecessary borders and padding */
-    .govuk-grid-column-three-quarters,
-    .pet-print-download-nav {
-        border: none !important;
-        padding: 0 !important;
+    /* Base print styles */
+    @page {
+        margin: 2cm;
     }
 
-    /* Ensure key sections have visible borders */
+    /* Force background colors and borders in Firefox */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+    }
+
+    /* Enhanced box styling for better Firefox compatibility */
     .microchip-info-box,
     .pet-info-box,
     .owner-info-box,
     .declaration-box {
-        border: 1px solid black !important; /* Ensure compatibility */
-        padding: 10px !important;
-        margin-bottom: 15px !important;
+        border: 2px solid #000000 !important;
+        box-shadow: inset 0 0 0 2px #000000 !important;
+        -webkit-box-shadow: inset 0 0 0 2px #000000 !important;
+        padding: 15px !important;
+        margin-bottom: 20px !important;
+        page-break-inside: avoid !important;
+        position: relative !important;
+        z-index: 1 !important;
     }
 
-    /* Adjust table layout */
+    /* Enhanced table styling */
     .govuk-table {
-        border-collapse: collapse;
-        width: 100%;
+        border-collapse: collapse !important;
+        width: 100% !important;
+        page-break-inside: auto !important;
     }
 
-        .govuk-table th, .govuk-table td {
-            border: 1px solid black !important;
-            padding: 5px !important;
+        .govuk-table th,
+        .govuk-table td {
+            border: 2px solid #000000 !important;
+            padding: 8px !important;
+            box-shadow: inset 0 0 0 1px #000000 !important;
+            -webkit-box-shadow: inset 0 0 0 1px #000000 !important;
+            page-break-inside: avoid !important;
         }
 
-    /* Force accurate colors for print */
-    * {
-        -webkit-print-color-adjust: exact !important; /* WebKit compatibility */
-        print-color-adjust: exact !important; /* Firefox compatibility */
-    }
-
-    /* Firefox-specific border handling workaround */
-    @supports (-moz-appearance: none) {
+    /* Firefox-specific fixes */
+    @-moz-document url-prefix() {
         .microchip-info-box,
         .pet-info-box,
         .owner-info-box,
-        .declaration-box {
-            border: 2px solid black !important; /* Slightly thicker border for better visibility */
+        .declaration-box,
+        .govuk-table th,
+        .govuk-table td {
+            border-width: 2px !important;
+            border-style: solid !important;
+            border-color: #000000 !important;
         }
     }
 }

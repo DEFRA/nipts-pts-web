@@ -217,8 +217,69 @@ function getCookie(cname) {
     return "";
 }
 
+// Add this to your pts.js file
 function printWithStyles() {
+    // Create a style element for print-specific styles
+    const printStyles = document.createElement('style');
+    printStyles.setAttribute('type', 'text/css');
+    printStyles.setAttribute('id', 'print-specific-styles');
+
+    // Define print-specific styles
+    const printCss = `
+        @media print {
+            .microchip-info-box,
+            .pet-info-box,
+            .owner-info-box,
+            .declaration-box {
+                border: 2px solid #000000 !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                box-shadow: inset 0 0 0 2px #000000 !important;
+                -webkit-box-shadow: inset 0 0 0 2px #000000 !important;
+                padding: 15px !important;
+                margin-bottom: 20px !important;
+                page-break-inside: avoid !important;
+            }
+
+            .govuk-table {
+                border-collapse: collapse !important;
+                width: 100% !important;
+            }
+
+            .govuk-table th,
+            .govuk-table td {
+                border: 2px solid #000000 !important;
+                padding: 8px !important;
+                box-shadow: inset 0 0 0 1px #000000 !important;
+                -webkit-box-shadow: inset 0 0 0 1px #000000 !important;
+            }
+        }
+    `;
+
+    // Add the styles to the style element
+    if (printStyles.styleSheet) {
+        printStyles.styleSheet.cssText = printCss;
+    } else {
+        printStyles.appendChild(document.createTextNode(printCss));
+    }
+
+    // Remove any existing print styles
+    const existingStyles = document.getElementById('print-specific-styles');
+    if (existingStyles) {
+        existingStyles.remove();
+    }
+
+    // Add the new print styles to the document head
+    document.head.appendChild(printStyles);
+
+    // Trigger print
     window.print();
+
+    // Optional: Remove the print styles after printing
+    setTimeout(() => {
+        printStyles.remove();
+    }, 1000);
 }
 
 function checkCookie() {
