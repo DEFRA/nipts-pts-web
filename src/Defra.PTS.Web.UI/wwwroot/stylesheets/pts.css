@@ -27,7 +27,6 @@ html, body {
     border: 0;
 }
 
-
 .scroll-container {
     width: 100%;
     overflow-x: auto;
@@ -37,37 +36,32 @@ html, body {
 }
 
 .govuk-table {
-    min-width: 640px; /* Minimum width to force horizontal scroll */
+    min-width: 640px;
     margin-bottom: 0;
 }
 
-/* Modify the pet-long-text class to handle text overflow */
 .pet-long-text {
-    max-width: 150px; 
+    max-width: 150px;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-/* Hide scrollbar for desktop */
 .hide-scrollbar::-webkit-scrollbar {
     display: none;
 }
 
 @media print {
-    /* Hiding unnecessary elements in the print view */
     .govuk-!-display-none-print {
         display: none !important;
     }
 
-    /* Remove extra borders from elements */
     .govuk-grid-column-three-quarters,
     .pet-print-download-nav {
         border: none !important;
         padding: 0 !important;
     }
 
-    /* Add borders around specific sections */
     .microchip-info-box,
     .pet-info-box,
     .owner-info-box,
@@ -77,7 +71,6 @@ html, body {
         margin-bottom: 15px !important;
     }
 
-    /* Print color adjustments */
     * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
