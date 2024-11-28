@@ -218,158 +218,134 @@ function getCookie(cname) {
 }
 
 function printWithStyles() {
-    // Create a style element for print-specific styles
+    // Create new style element
     const printStyles = document.createElement('style');
     printStyles.setAttribute('type', 'text/css');
     printStyles.setAttribute('id', 'print-specific-styles');
 
     const printCss = `
         @media print {
-            /* Base print settings */
+            /* Universal print settings */
             * {
                 -webkit-print-color-adjust: exact !important;
-                color-adjust: exact !important;
                 print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                box-sizing: border-box !important;
             }
 
-            /* Only apply borders to specific sections */
-            .microchip-info-box,
-            .pet-info-box,
-            .pet-details-box,
-            .owner-info-box {
-                position: relative !important;
-                border: 2px solid #000000 !important;
-                margin: 20px 0 !important;
-                padding: 15px !important;
+            /* Hide print nav */
+            .pet-print-download-nav {
+                display: none !important;
+            }
+
+            /* Core section styles */
+            .section-border {
+                border: 1px solid #000000 !important;
+                margin-bottom: 15px !important;
                 page-break-inside: avoid !important;
-                background: 
-                    linear-gradient(to right, #000 2px, transparent 2px) 0 0,
-                    linear-gradient(to right, #000 2px, transparent 2px) 0 100%,
-                    linear-gradient(to left, #000 2px, transparent 2px) 100% 0,
-                    linear-gradient(to left, #000 2px, transparent 2px) 100% 100%,
-                    linear-gradient(to bottom, #000 2px, transparent 2px) 0 0,
-                    linear-gradient(to bottom, #000 2px, transparent 2px) 100% 0,
-                    linear-gradient(to top, #000 2px, transparent 2px) 0 100%,
-                    linear-gradient(to top, #000 2px, transparent 2px) 100% 100% !important;
-                background-repeat: no-repeat !important;
-                background-size: 20px 20px !important;
-            }
-
-            /* Remove outer border */
-            .govuk-main-wrapper {
-                border: none !important;
-                outline: none !important;
-                box-shadow: none !important;
-            }
-
-            /* Remove declaration box border */
-            .declaration-box {
-                border: none !important;
-                outline: none !important;
-                box-shadow: none !important;
-                background: none !important;
-            }
-
-            /* Table styles */
-            .govuk-table {
-                border-collapse: separate !important;
-                border-spacing: 0 !important;
-                width: 100% !important;
-            }
-
-            /* Cell styles */
-            .govuk-table th,
-            .govuk-table td {
+                display: block !important;
                 position: relative !important;
-                border: 2px solid #000000 !important;
-                background-clip: padding-box !important;
-                background: 
-                    linear-gradient(to right, #000 2px, transparent 2px) 0 0,
-                    linear-gradient(to right, #000 2px, transparent 2px) 0 100%,
-                    linear-gradient(to left, #000 2px, transparent 2px) 100% 0,
-                    linear-gradient(to left, #000 2px, transparent 2px) 100% 100%,
-                    linear-gradient(to bottom, #000 2px, transparent 2px) 0 0,
-                    linear-gradient(to bottom, #000 2px, transparent 2px) 100% 0,
-                    linear-gradient(to top, #000 2px, transparent 2px) 0 100%,
-                    linear-gradient(to top, #000 2px, transparent 2px) 100% 100% !important;
-                background-repeat: no-repeat !important;
-                background-size: 10px 10px !important;
+                background-color: white !important;
             }
 
-            /* Firefox-specific styles for MacOS */
+            /* Section headings */
+            .section-border h3 {
+                margin: 0 !important;
+                padding: 8px 10px !important;
+                background: white !important;
+                font-weight: bold !important;
+                position: relative !important;
+                z-index: 1 !important;
+            }
+
+            /* Section content */
+            .section-border .govuk-grid-column-full {
+                padding: 0 10px 10px 10px !important;
+                margin: 0 !important;
+            }
+
+            /* Layout for side-by-side sections */
+            .microchip-pet-container {
+                display: flex !important;
+                justify-content: space-between !important;
+                margin-bottom: 15px !important;
+                page-break-inside: avoid !important;
+            }
+
+            .microchip-section,
+            .pet-details-section {
+                width: 48.5% !important;
+                position: relative !important;
+                border: 1px solid #000000 !important;
+                background: white !important;
+            }
+
+            /* Declaration section */
+            .declaration-section {
+                margin-top: 20px !important;
+                border: none !important;
+            }
+
+            /* Signature alignment */
+            .signature-section {
+                padding-left: 0 !important;
+            }
+
+            /* Firefox-specific fixes for all versions */
             @-moz-document url-prefix() {
+                /* Force borders in Firefox */
+                .section-border,
+                .microchip-section,
+                .pet-details-section {
+                    border: 1px solid #000000 !important;
+                    outline: 1px solid #000000 !important;
+                    position: relative !important;
+                }
+
+                /* MacOS Firefox specific */
                 @media not all and (min-resolution:.001dpcm) { 
                     @supports (-moz-appearance:none) {
-                        /* Extra border reinforcement for Firefox on MacOS */
-                        .govuk-table {
-                            border-collapse: separate !important;
-                            border-spacing: 0 !important;
-                        }
-
-                        .govuk-table th,
-                        .govuk-table td {
-                            outline: 2px solid #000000 !important;
-                            border: 2px solid #000000 !important;
-                            position: relative !important;
-                        }
-
-                        .govuk-table th::after,
-                        .govuk-table td::after {
+                        .section-border::after,
+                        .microchip-section::after,
+                        .pet-details-section::after {
                             content: '' !important;
                             position: absolute !important;
-                            top: -2px !important;
-                            left: -2px !important;
-                            right: -2px !important;
-                            bottom: -2px !important;
-                            border: 2px solid #000000 !important;
+                            top: 0 !important;
+                            left: 0 !important;
+                            right: 0 !important;
+                            bottom: 0 !important;
+                            border: 1px solid #000000 !important;
                             pointer-events: none !important;
-                            z-index: 1 !important;
-                        }
-
-                        /* Section borders for Firefox on MacOS */
-                        .microchip-info-box,
-                        .pet-info-box,
-                        .pet-details-box,
-                        .owner-info-box {
-                            outline: 2px solid #000000 !important;
-                            border: 2px solid #000000 !important;
-                            position: relative !important;
-                        }
-
-                        .microchip-info-box::after,
-                        .pet-info-box::after,
-                        .pet-details-box::after,
-                        .owner-info-box::after {
-                            content: '' !important;
-                            position: absolute !important;
-                            top: -2px !important;
-                            left: -2px !important;
-                            right: -2px !important;
-                            bottom: -2px !important;
-                            border: 2px solid #000000 !important;
-                            pointer-events: none !important;
-                            z-index: 1 !important;
-                        }
-
-                        /* Explicitly remove borders from main wrapper and declaration */
-                        .govuk-main-wrapper,
-                        .declaration-box {
-                            outline: none !important;
-                            border: none !important;
-                            box-shadow: none !important;
-                            background: none !important;
-                        }
-
-                        .govuk-main-wrapper::after,
-                        .declaration-box::after {
-                            display: none !important;
                         }
                     }
+                }
+            }
+
+            /* Safari-specific fixes */
+            @media not all and (min-resolution:.001dpcm) { 
+                @supports (-webkit-appearance:none) {
+                    .section-border,
+                    .microchip-section,
+                    .pet-details-section {
+                        border: 1px solid #000000 !important;
+                        -webkit-print-color-adjust: exact !important;
+                    }
+                }
+            }
+
+            /* Chrome/Edge specific */
+            @media screen and (-webkit-min-device-pixel-ratio:0) {
+                .section-border,
+                .microchip-section,
+                .pet-details-section {
+                    border: 1px solid #000000 !important;
+                    background: white !important;
                 }
             }
         }
     `;
 
+    // Add styles
     if (printStyles.styleSheet) {
         printStyles.styleSheet.cssText = printCss;
     } else {
@@ -382,17 +358,57 @@ function printWithStyles() {
         existingStyles.remove();
     }
 
-    // Add the new print styles
+    // Function to wrap sections with proper structure
+    function applyStructure() {
+        // Wrap sections with border class
+        document.querySelectorAll('.govuk-grid-row').forEach(row => {
+            const heading = row.querySelector('h3')?.textContent?.toLowerCase() || '';
+
+            if (heading.includes('application')) {
+                row.classList.add('section-border');
+            } else if (heading.includes('microchip')) {
+                if (!row.closest('.microchip-pet-container')) {
+                    const container = document.createElement('div');
+                    container.className = 'microchip-pet-container';
+                    row.parentNode.insertBefore(container, row);
+                    row.classList.add('microchip-section');
+                    container.appendChild(row);
+                }
+            } else if (heading.includes('pet details')) {
+                row.classList.add('pet-details-section');
+                const container = document.querySelector('.microchip-pet-container');
+                if (container) {
+                    container.appendChild(row);
+                }
+            } else if (heading.includes('pet owner')) {
+                row.classList.add('section-border');
+            } else if (heading.includes('declaration')) {
+                row.classList.add('declaration-section');
+            }
+        });
+
+        // Fix signature alignment
+        const signatureRow = document.querySelector('.govuk-grid-row:last-child');
+        if (signatureRow) {
+            signatureRow.classList.add('signature-section');
+        }
+    }
+
+    // Apply structure
+    applyStructure();
+
+    // Add to document
     document.head.appendChild(printStyles);
 
-    // Wait a moment for styles to be applied
+    // Print with increased delay for browser compatibility
     setTimeout(() => {
         window.print();
-    }, 200);
+    }, 250);
 
-    // Cleanup after printing
+    // Cleanup
     setTimeout(() => {
         printStyles.remove();
+        // Optionally remove added classes if needed
     }, 2000);
 }
 
