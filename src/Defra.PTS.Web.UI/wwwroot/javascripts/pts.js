@@ -217,47 +217,98 @@ function getCookie(cname) {
     return "";
 }
 
-// Add this to your pts.js file
 function printWithStyles() {
     // Create a style element for print-specific styles
     const printStyles = document.createElement('style');
     printStyles.setAttribute('type', 'text/css');
     printStyles.setAttribute('id', 'print-specific-styles');
 
-    // Define print-specific styles
+    // Define print-specific styles with additional forcing techniques
     const printCss = `
         @media print {
+            /* Force black colors and exact color matching */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            /* Add outline to main content area */
+            .govuk-main-wrapper {
+                outline: 2px solid #000 !important;
+                outline-offset: -2px !important;
+            }
+
+            /* Multiple border techniques for boxes */
             .microchip-info-box,
             .pet-info-box,
             .owner-info-box,
-            .declaration-box {
-                border: 2px solid #000000 !important;
-                -webkit-print-color-adjust: exact !important;
-                print-color-adjust: exact !important;
-                color-adjust: exact !important;
-                box-shadow: inset 0 0 0 2px #000000 !important;
-                -webkit-box-shadow: inset 0 0 0 2px #000000 !important;
+            .declaration-box,
+            .application-box {
+                position: relative !important;
+                border: 0 !important;
+                outline: 2px solid #000 !important;
+                box-shadow: 
+                    inset 0 0 0 2px #000,
+                    0 0 0 2px #000 !important;
+                -webkit-box-shadow: 
+                    inset 0 0 0 2px #000,
+                    0 0 0 2px #000 !important;
                 padding: 15px !important;
-                margin-bottom: 20px !important;
+                margin: 15px 0 !important;
                 page-break-inside: avoid !important;
             }
 
+            /* Add pseudo-elements for additional border reinforcement */
+            .microchip-info-box::before,
+            .pet-info-box::before,
+            .owner-info-box::before,
+            .declaration-box::before,
+            .application-box::before {
+                content: '' !important;
+                position: absolute !important;
+                top: 0 !important;
+                left: 0 !important;
+                right: 0 !important;
+                bottom: 0 !important;
+                border: 2px solid #000 !important;
+                pointer-events: none !important;
+            }
+
+            /* Enhanced table styles */
             .govuk-table {
-                border-collapse: collapse !important;
-                width: 100% !important;
+                border: 2px solid #000 !important;
+                border-collapse: separate !important;
+                border-spacing: 0 !important;
             }
 
             .govuk-table th,
             .govuk-table td {
-                border: 2px solid #000000 !important;
-                padding: 8px !important;
-                box-shadow: inset 0 0 0 1px #000000 !important;
-                -webkit-box-shadow: inset 0 0 0 1px #000000 !important;
+                border: 2px solid #000 !important;
+                outline: 2px solid #000 !important;
+                box-shadow: inset 0 0 0 2px #000 !important;
+                -webkit-box-shadow: inset 0 0 0 2px #000 !important;
+            }
+
+            /* Firefox-specific overrides */
+            @-moz-document url-prefix() {
+                .microchip-info-box,
+                .pet-info-box,
+                .owner-info-box,
+                .declaration-box,
+                .application-box,
+                .govuk-table,
+                .govuk-table th,
+                .govuk-table td {
+                    border: 3px solid #000 !important;
+                    outline: 3px solid #000 !important;
+                    outline-offset: -3px !important;
+                }
             }
         }
     `;
 
-    // Add the styles to the style element
+    // Add the styles
     if (printStyles.styleSheet) {
         printStyles.styleSheet.cssText = printCss;
     } else {
@@ -270,13 +321,23 @@ function printWithStyles() {
         existingStyles.remove();
     }
 
+    // Add classes to main sections if they don't exist
+    const sections = document.querySelectorAll('.govuk-grid-column-three-quarters > section');
+    sections.forEach(section => {
+        if (!section.classList.contains('application-box')) {
+            section.classList.add('application-box');
+        }
+    });
+
     // Add the new print styles to the document head
     document.head.appendChild(printStyles);
 
-    // Trigger print
-    window.print();
+    // Trigger print after a short delay to ensure styles are applied
+    setTimeout(() => {
+        window.print();
+    }, 100);
 
-    // Optional: Remove the print styles after printing
+    // Remove the print styles after printing
     setTimeout(() => {
         printStyles.remove();
     }, 1000);
