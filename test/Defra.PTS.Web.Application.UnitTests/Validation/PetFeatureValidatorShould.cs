@@ -74,10 +74,10 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
             result.ShouldHaveValidationErrorFor(x => x.FeatureDescription);
         }
 
-        public static IEnumerable<object[]> PetFeatureTestData => new List<object[]>
+        public static TheoryData<string> PetFeatureTestData => new TheoryData<string>
         {
-            new object[] { string.Empty },
-            new object[] { new string('a', 301) }
+            string.Empty, // Case: Empty string
+            new string('a', 301) // Case: Exceeds maximum length
         };
     }
 }

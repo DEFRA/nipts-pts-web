@@ -66,11 +66,11 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
             result.ShouldHaveValidationErrorFor(x => x.BreedName);
         }
 
-        public static IEnumerable<object[]> PetBreedTestData => new List<object[]>()
+        public static TheoryData<PetSpecies, string> PetBreedTestData => new TheoryData<PetSpecies, string>
         {
-            new object[] { PetSpecies.Dog, null },
-            new object[] { PetSpecies.Cat, null },
-            new object[] { PetSpecies.Ferret, null },
+             { PetSpecies.Dog, null },
+             { PetSpecies.Cat, null },
+             { PetSpecies.Ferret, null },
         };
     }
 }
