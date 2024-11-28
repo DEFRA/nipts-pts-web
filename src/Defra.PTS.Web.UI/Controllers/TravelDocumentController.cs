@@ -75,7 +75,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         {
             Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("cy");
         }
-        HandleCache();
 
         var magicWordData = GetMagicWordFormData(true);
 
@@ -216,27 +215,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         }
 
         return user;
-    }
-    public  void HandleCache()
-    {
-        if (Response != null && Response.Headers != null)
-        {
-            if (!Response.Headers.ContainsKey("Cache-Control"))
-            {
-                Response.Headers.Append("Cache-Control", "no-cache, no-store, must-revalidate");
-            }
-
-            if (!Response.Headers.ContainsKey("Pragma"))
-            {
-                Response.Headers.Append("Pragma", "no-cache"); // HTTP 1.0 backward compatibility
-            }
-
-            if (!Response.Headers.ContainsKey("Expires"))
-            {
-                Response.Headers.Append("Expires", "0"); // Expire immediately
-            }
-
-        }
     }
 
     #endregion Private Methods
