@@ -24,7 +24,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
     [TestFixture]
     public class ApplicationServiceTests
     {
-        private IApplicationService _sut;
+        private ApplicationService _sut;
         protected Mock<HttpMessageHandler> _mockHttpMessageHandler = new();
         private readonly Mock<IMapper> _mapper = new();
 
