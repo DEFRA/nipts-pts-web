@@ -6,7 +6,22 @@
 @using Microsoft.Extensions.Localization;
 @inject IStringLocalizer<ISharedResource> sharedlocalizer
 
+<style>
+    .govuk-link {
+        font-family: 'GDS Transport', arial, sans-serif;
+        font-size: 1.1875rem;
+        background: none;
+        border: none;
+        color: #1d70b8;
+        text-decoration: underline;
+        cursor: pointer;
+    }
 
+        .govuk-link:hover {
+            text-decoration: none;
+        }
+
+</style>
 
 <div class="govuk-grid-row govuk-!-display-none-print">
     <div class="govuk-grid-column-three-quarters">
@@ -32,9 +47,13 @@
             <li>
                 <span class="hod-icons-printer"></span>
                 <p class="govuk-body">
-                    <a class="govuk-link" aria-label="@sharedlocalizer[printLinkText]" href="#" id="print-this-page" onclick="printWithStyles()">
+                    <button class="govuk-link"
+                            aria-label="@sharedlocalizer[printLinkText]"
+                            id="print-this-page"
+                            onclick="printWithStyles()"
+                            type="button">
                         @sharedlocalizer[printLinkText]
-                    </a>
+                    </button>
                 </p>
             </li>
 
