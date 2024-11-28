@@ -218,13 +218,6 @@ function getCookie(cname) {
 }
 
 function printWithStyles() {
-    // Force paint refresh workaround for Firefox
-    const forcePaint = () => {
-        document.body.style.display = 'none';
-        document.body.offsetHeight; // Force reflow
-        document.body.style.display = '';
-    };
-
     // Create style element
     const printStyles = document.createElement('style');
     printStyles.setAttribute('type', 'text/css');
@@ -232,148 +225,149 @@ function printWithStyles() {
 
     const printCss = `
         @media print {
-            /* Base reset */
+            /* Reset all print styles */
             * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
                 color-adjust: exact !important;
             }
 
-            /* Hide print navigation */
+            /* Hide print nav */
             .pet-print-download-nav {
                 display: none !important;
             }
 
-            /* Firefox-specific border fix */
+            /* Base table properties */
+            table {
+                border-collapse: collapse !important;
+                width: 100% !important;
+            }
+
+            /* Common box styles */
+            .box-with-border {
+                border: 1px solid #000 !important;
+                margin-bottom: 20px !important;
+                page-break-inside: avoid !important;
+                width: 100% !important;
+            }
+
+            /* Side-by-side container */
+            .side-by-side-container {
+                display: table !important;
+                width: 100% !important;
+                margin-bottom: 20px !important;
+                border-spacing: 0 !important;
+                border-collapse: separate !important;
+            }
+
+            .side-by-side-container > div {
+                display: table-cell !important;
+                width: 49% !important;
+                vertical-align: top !important;
+            }
+
+            .side-by-side-container > div:first-child {
+                padding-right: 10px !important;
+            }
+
+            /* Content padding */
+            .section-content {
+                padding: 10px !important;
+            }
+
+            /* Firefox specific styles */
             @-moz-document url-prefix() {
-                .border-box {
-                    /* Multiple border techniques */
+                .box-with-border {
                     border: 1px solid #000 !important;
                     outline: 1px solid #000 !important;
-                    box-shadow: inset 0 0 0 1px #000 !important;
                     position: relative !important;
-                    margin-bottom: 15px !important;
-                    background-color: white !important;
-                    page-break-inside: avoid !important;
-                    display: block !important;
-                    padding: 10px !important;
+                    background: white !important;
                 }
 
-                /* Pseudo-element border reinforcement */
-                .border-box::before {
-                    content: "" !important;
+                .box-with-border::after {
+                    content: '' !important;
                     position: absolute !important;
                     top: 0 !important;
+                    left: 0 !important;
                     right: 0 !important;
                     bottom: 0 !important;
-                    left: 0 !important;
                     border: 1px solid #000 !important;
                     pointer-events: none !important;
                 }
+            }
 
-                /* Side by side boxes container */
-                .side-by-side {
-                    display: block !important;
-                    margin-bottom: 15px !important;
-                    page-break-inside: avoid !important;
-                }
-
-                /* Side by side boxes */
-                .side-by-side .border-box {
-                    width: 48% !important;
-                    display: inline-block !important;
-                    vertical-align: top !important;
-                }
-
-                .side-by-side .border-box:first-child {
-                    margin-right: 2% !important;
-                }
-
-                /* No borders for declaration */
-                .declaration-section {
-                    border: none !important;
-                    outline: none !important;
-                    box-shadow: none !important;
-                }
-
-                .declaration-section::before {
-                    display: none !important;
-                }
+            /* Declaration section - no border */
+            .declaration-section {
+                margin-top: 20px !important;
             }
         }
     `;
 
-    // Add styles to document
+    // Add styles
     if (printStyles.styleSheet) {
         printStyles.styleSheet.cssText = printCss;
     } else {
         printStyles.appendChild(document.createTextNode(printCss));
     }
 
-    // Remove existing print styles
+    // Remove existing styles
     const existingStyles = document.getElementById('print-specific-styles');
     if (existingStyles) {
         existingStyles.remove();
     }
 
-    document.head.appendChild(printStyles);
+    // Function to wrap content in proper structure
+    function restructureContent() {
+        const mainContainer = document.querySelector('.govuk-grid-column-three-quarters');
+        if (!mainContainer) return;
 
-    // Apply structural changes
-    function applyBorderStructure() {
-        // Remove any existing border structures
-        document.querySelectorAll('.border-box, .side-by-side').forEach(el => {
-            const parent = el.parentNode;
-            while (el.firstChild) {
-                parent.insertBefore(el.firstChild, el);
-            }
-            parent.removeChild(el);
-        });
-
-        // Apply new structure
-        const sections = document.querySelectorAll('.govuk-grid-row');
-        let sideByContainer = null;
-
+        // Process each section
+        const sections = mainContainer.querySelectorAll('.govuk-grid-row');
         sections.forEach(section => {
-            const title = section.querySelector('h2, h3')?.textContent?.toLowerCase() || '';
+            const title = section.querySelector('h3')?.textContent?.toLowerCase() || '';
+            const content = section.querySelector('.govuk-grid-column-full');
 
-            if (title.includes('microchip') || title.includes('pet details')) {
-                if (!sideByContainer) {
-                    sideByContainer = document.createElement('div');
-                    sideByContainer.className = 'side-by-side';
-                    section.parentNode.insertBefore(sideByContainer, section);
+            if (content) {
+                content.classList.add('section-content');
+            }
+
+            if (title.includes('application')) {
+                section.classList.add('box-with-border');
+            } else if (title.includes('microchip') || title.includes('pet details')) {
+                let container = document.querySelector('.side-by-side-container');
+                if (!container) {
+                    container = document.createElement('div');
+                    container.className = 'side-by-side-container';
+                    section.parentNode.insertBefore(container, section);
                 }
-                const box = document.createElement('div');
-                box.className = 'border-box';
-                while (section.firstChild) {
-                    box.appendChild(section.firstChild);
-                }
-                sideByContainer.appendChild(box);
-                section.parentNode.removeChild(section);
-            } else if (!title.includes('declaration')) {
-                const box = document.createElement('div');
-                box.className = 'border-box';
-                while (section.firstChild) {
-                    box.appendChild(section.firstChild);
-                }
-                section.appendChild(box);
+
+                const wrapper = document.createElement('div');
+                wrapper.className = 'box-with-border';
+                wrapper.appendChild(section.cloneNode(true));
+                container.appendChild(wrapper);
+                section.remove();
+            } else if (title.includes('pet owner')) {
+                section.classList.add('box-with-border');
+            } else if (title.includes('declaration')) {
+                section.classList.add('declaration-section');
             }
         });
     }
 
     // Apply structure
-    applyBorderStructure();
-    forcePaint();
+    restructureContent();
+
+    // Add styles to document
+    document.head.appendChild(printStyles);
 
     // Print with delay
     setTimeout(() => {
-        forcePaint();
         window.print();
     }, 250);
 
-    // Cleanup after printing
+    // Cleanup
     setTimeout(() => {
         printStyles.remove();
-        applyBorderStructure(); // Reapply structure to ensure consistency
     }, 2000);
 }
 
