@@ -225,12 +225,11 @@ function printWithStyles() {
 
     const printCss = `
         @media print {
-            /* Universal print settings */
+            /* Base print settings */
             * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
                 color-adjust: exact !important;
-                box-sizing: border-box !important;
             }
 
             /* Hide print nav */
@@ -238,108 +237,75 @@ function printWithStyles() {
                 display: none !important;
             }
 
-            /* Core section styles */
-            .section-border {
-                border: 1px solid #000000 !important;
-                margin-bottom: 15px !important;
-                page-break-inside: avoid !important;
-                display: block !important;
-                position: relative !important;
-                background-color: white !important;
-            }
-
-            /* Section headings */
-            .section-border h3 {
-                margin: 0 !important;
-                padding: 8px 10px !important;
-                background: white !important;
-                font-weight: bold !important;
-                position: relative !important;
-                z-index: 1 !important;
-            }
-
-            /* Section content */
-            .section-border .govuk-grid-column-full {
-                padding: 0 10px 10px 10px !important;
-                margin: 0 !important;
-            }
-
-            /* Layout for side-by-side sections */
-            .microchip-pet-container {
-                display: flex !important;
-                justify-content: space-between !important;
-                margin-bottom: 15px !important;
-                page-break-inside: avoid !important;
-            }
-
-            .microchip-section,
-            .pet-details-section {
-                width: 48.5% !important;
-                position: relative !important;
-                border: 1px solid #000000 !important;
-                background: white !important;
-            }
-
-            /* Declaration section */
-            .declaration-section {
-                margin-top: 20px !important;
-                border: none !important;
-            }
-
-            /* Signature alignment */
-            .signature-section {
-                padding-left: 0 !important;
-            }
-
-            /* Firefox-specific fixes for all versions */
+            /* Firefox MacOS specific styles */
             @-moz-document url-prefix() {
-                /* Force borders in Firefox */
-                .section-border,
-                .microchip-section,
-                .pet-details-section {
-                    border: 1px solid #000000 !important;
-                    outline: 1px solid #000000 !important;
+                .application-box {
+                    display: block !important;
                     position: relative !important;
-                }
-
-                /* MacOS Firefox specific */
-                @media not all and (min-resolution:.001dpcm) { 
-                    @supports (-moz-appearance:none) {
-                        .section-border::after,
-                        .microchip-section::after,
-                        .pet-details-section::after {
-                            content: '' !important;
-                            position: absolute !important;
-                            top: 0 !important;
-                            left: 0 !important;
-                            right: 0 !important;
-                            bottom: 0 !important;
-                            border: 1px solid #000000 !important;
-                            pointer-events: none !important;
-                        }
-                    }
-                }
-            }
-
-            /* Safari-specific fixes */
-            @media not all and (min-resolution:.001dpcm) { 
-                @supports (-webkit-appearance:none) {
-                    .section-border,
-                    .microchip-section,
-                    .pet-details-section {
-                        border: 1px solid #000000 !important;
-                        -webkit-print-color-adjust: exact !important;
-                    }
-                }
-            }
-
-            /* Chrome/Edge specific */
-            @media screen and (-webkit-min-device-pixel-ratio:0) {
-                .section-border,
-                .microchip-section,
-                .pet-details-section {
-                    border: 1px solid #000000 !important;
                     background: white !important;
+                    margin-bottom: 15px !important;
+                }
+
+                .application-box::before {
+                    content: "" !important;
+                    position: absolute !important;
+                    top: 0 !important;
+                    left: 0 !important;
+                    right: 0 !important;
+                    bottom: 0 !important;
+                    border: 1px solid black !important;
+                    pointer-events: none !important;
+                }
+
+                .dual-column-container {
+                    display: flex !important;
+                    justify-content: space-between !important;
+                    margin-bottom: 15px !important;
+                    gap: 20px !important;
+                }
+
+                .microchip-box,
+                .pet-details-box {
+                    flex: 1 !important;
+                    position: relative !important;
+                    background: white !important;
+                }
+
+                .microchip-box::before,
+                .pet-details-box::before {
+                    content: "" !important;
+                    position: absolute !important;
+                    top: 0 !important;
+                    left: 0 !important;
+                    right: 0 !important;
+                    bottom: 0 !important;
+                    border: 1px solid black !important;
+                    pointer-events: none !important;
+                }
+
+                .pet-owner-box {
+                    display: block !important;
+                    position: relative !important;
+                    background: white !important;
+                    margin-bottom: 15px !important;
+                }
+
+                .pet-owner-box::before {
+                    content: "" !important;
+                    position: absolute !important;
+                    top: 0 !important;
+                    left: 0 !important;
+                    right: 0 !important;
+                    bottom: 0 !important;
+                    border: 1px solid black !important;
+                    pointer-events: none !important;
+                }
+
+                /* Content spacing */
+                .box-content {
+                    padding: 10px !important;
+                    position: relative !important;
+                    z-index: 1 !important;
                 }
             }
         }
@@ -358,49 +324,50 @@ function printWithStyles() {
         existingStyles.remove();
     }
 
-    // Function to wrap sections with proper structure
-    function applyStructure() {
-        // Wrap sections with border class
-        document.querySelectorAll('.govuk-grid-row').forEach(row => {
-            const heading = row.querySelector('h3')?.textContent?.toLowerCase() || '';
+    // Function to apply wrapper elements
+    function applyWrappers() {
+        // Find all sections
+        const sections = document.querySelectorAll('.govuk-grid-row');
+
+        sections.forEach(section => {
+            const heading = section.querySelector('h3')?.textContent?.toLowerCase() || '';
+            const content = section.querySelector('.govuk-grid-column-full');
+
+            if (content) {
+                content.classList.add('box-content');
+            }
 
             if (heading.includes('application')) {
-                row.classList.add('section-border');
+                section.classList.add('application-box');
             } else if (heading.includes('microchip')) {
-                if (!row.closest('.microchip-pet-container')) {
-                    const container = document.createElement('div');
-                    container.className = 'microchip-pet-container';
-                    row.parentNode.insertBefore(container, row);
-                    row.classList.add('microchip-section');
-                    container.appendChild(row);
+                // Create dual column container if it doesn't exist
+                let container = document.querySelector('.dual-column-container');
+                if (!container) {
+                    container = document.createElement('div');
+                    container.className = 'dual-column-container';
+                    section.parentNode.insertBefore(container, section);
                 }
+                section.classList.add('microchip-box');
+                container.appendChild(section);
             } else if (heading.includes('pet details')) {
-                row.classList.add('pet-details-section');
-                const container = document.querySelector('.microchip-pet-container');
+                section.classList.add('pet-details-box');
+                const container = document.querySelector('.dual-column-container');
                 if (container) {
-                    container.appendChild(row);
+                    container.appendChild(section);
                 }
             } else if (heading.includes('pet owner')) {
-                row.classList.add('section-border');
-            } else if (heading.includes('declaration')) {
-                row.classList.add('declaration-section');
+                section.classList.add('pet-owner-box');
             }
         });
-
-        // Fix signature alignment
-        const signatureRow = document.querySelector('.govuk-grid-row:last-child');
-        if (signatureRow) {
-            signatureRow.classList.add('signature-section');
-        }
     }
 
-    // Apply structure
-    applyStructure();
+    // Apply wrappers
+    applyWrappers();
 
-    // Add to document
+    // Add styles to document
     document.head.appendChild(printStyles);
 
-    // Print with increased delay for browser compatibility
+    // Print with delay
     setTimeout(() => {
         window.print();
     }, 250);
@@ -408,7 +375,6 @@ function printWithStyles() {
     // Cleanup
     setTimeout(() => {
         printStyles.remove();
-        // Optionally remove added classes if needed
     }, 2000);
 }
 
