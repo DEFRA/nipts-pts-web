@@ -53,3 +53,33 @@ html, body {
 .hide-scrollbar::-webkit-scrollbar {
     display: none;
 }
+
+@media print {
+    /* Hiding unnecessary elements in the print view */
+    .govuk-!-display-none-print {
+        display: none !important;
+    }
+
+    /* Remove extra borders from elements */
+    .govuk-grid-column-three-quarters,
+    .pet-print-download-nav {
+        border: none !important;
+        padding: 0 !important;
+    }
+
+    /* Add borders around specific sections */
+    .microchip-info-box,
+    .pet-info-box,
+    .owner-info-box,
+    .declaration-box {
+        border: 1px solid black !important;
+        padding: 10px !important;
+        margin-bottom: 15px !important;
+    }
+
+    /* Print color adjustments */
+    * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+    }
+}
