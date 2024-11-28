@@ -218,24 +218,17 @@ function getCookie(cname) {
 }
 
 function printWithStyles() {
-    // Remove any existing print styles
-    const existingStyles = document.getElementById('print-specific-styles');
-    if (existingStyles) {
-        existingStyles.remove();
-    }
-
-    // Create style element
+    // Create print style element
     const printStyles = document.createElement('style');
     printStyles.setAttribute('type', 'text/css');
     printStyles.setAttribute('id', 'print-specific-styles');
 
     const printCss = `
         @media print {
-            /* Base reset */
+            /* Base settings */
             * {
                 -webkit-print-color-adjust: exact !important;
                 print-color-adjust: exact !important;
-                color-adjust: exact !important;
             }
 
             /* Hide print nav */
@@ -243,84 +236,50 @@ function printWithStyles() {
                 display: none !important;
             }
 
-            /* Global box sizing */
-            .print-section {
-                box-sizing: border-box !important;
+            /* For all browsers including Firefox Mac */
+            .print-border {
+                outline: 1px solid #000000 !important;
+                border: 1px solid #000000 !important;
+                background-color: #ffffff !important;
                 margin-bottom: 15px !important;
-                page-break-inside: avoid !important;
-                background-color: white !important;
-            }
-
-            /* Application section */
-            .print-section.application {
-                border: 1px solid #000000 !important;
-                width: 100% !important;
                 padding: 10px !important;
             }
 
-            /* Side by side container */
-            .print-row {
-                display: flex !important;
-                justify-content: space-between !important;
-                gap: 20px !important;
-                margin-bottom: 15px !important;
-                width: 100% !important;
-            }
-
-            /* Microchip and Pet details sections */
-            .print-section.microchip,
-            .print-section.pet-details {
-                border: 1px solid #000000 !important;
-                flex: 1 !important;
-                padding: 10px !important;
-            }
-
-            /* Pet owner section */
-            .print-section.owner {
-                border: 1px solid #000000 !important;
-                width: 100% !important;
-                padding: 10px !important;
-            }
-
-            /* Firefox specific fixes */
+            /* Specific Firefox Mac fixes */
             @-moz-document url-prefix() {
-                .print-section {
+                .print-border {
+                    display: block !important;
                     position: relative !important;
                 }
 
-                .print-section::after {
-                    content: '' !important;
+                .print-border:after {
+                    content: "" !important;
                     position: absolute !important;
-                    top: 0 !important;
-                    left: 0 !important;
-                    right: 0 !important;
-                    bottom: 0 !important;
+                    top: -1px !important;
+                    left: -1px !important;
+                    right: -1px !important;
+                    bottom: -1px !important;
                     border: 1px solid #000000 !important;
                     pointer-events: none !important;
                 }
-
-                /* Ensure flex layout works in Firefox */
-                .print-row {
-                    display: -moz-box !important;
-                    -moz-box-pack: justify !important;
-                }
-
-                .print-section.microchip,
-                .print-section.pet-details {
-                    -moz-box-flex: 1 !important;
-                    width: 48% !important;
-                }
             }
 
-            /* Header styles */
-            .print-section h3 {
-                margin-top: 0 !important;
-                margin-bottom: 10px !important;
+            /* Layout container for microchip and pet details */
+            .side-by-side {
+                width: 100% !important;
+                display: table !important;
+                table-layout: fixed !important;
+                margin-bottom: 15px !important;
             }
 
-            /* Content alignment */
-            .govuk-grid-column-full {
-                padding: 0 !important;
+            .side-by-side > div {
+                display: table-cell !important;
+                width: 50% !important;
+                padding-right: 10px !important;
+            }
+
+            .side-by-side > div:last-child {
+                padding-right: 0 !important;
             }
         }
     `;
@@ -332,54 +291,66 @@ function printWithStyles() {
         printStyles.appendChild(document.createTextNode(printCss));
     }
 
-    // Add to document
-    document.head.appendChild(printStyles);
+    // Remove any existing print styles
+    const existingStyles = document.getElementById('print-specific-styles');
+    if (existingStyles) {
+        existingStyles.remove();
+    }
 
-    // Function to restructure content
-    function restructureForPrint() {
+    // Function to wrap sections
+    function wrapSections() {
         const sections = document.querySelectorAll('.govuk-grid-row');
-        let row = null;
+        let sideByContainer;
 
         sections.forEach(section => {
             const heading = section.querySelector('h3')?.textContent?.toLowerCase() || '';
 
             // Skip if already processed
-            if (section.classList.contains('print-section')) return;
+            if (section.classList.contains('processed')) return;
+            section.classList.add('processed');
 
             if (heading.includes('application')) {
-                section.classList.add('print-section', 'application');
+                section.classList.add('print-border');
             }
             else if (heading.includes('microchip')) {
-                if (!row) {
-                    row = document.createElement('div');
-                    row.className = 'print-row';
-                    section.parentNode.insertBefore(row, section);
-                }
-                section.classList.add('print-section', 'microchip');
-                row.appendChild(section);
+                sideByContainer = document.createElement('div');
+                sideByContainer.className = 'side-by-side';
+                section.parentNode.insertBefore(sideByContainer, section);
+
+                const wrapper = document.createElement('div');
+                wrapper.classList.add('print-border');
+                wrapper.appendChild(section.cloneNode(true));
+                sideByContainer.appendChild(wrapper);
+                section.remove();
             }
             else if (heading.includes('pet details')) {
-                section.classList.add('print-section', 'pet-details');
-                if (row) {
-                    row.appendChild(section);
-                }
+                const wrapper = document.createElement('div');
+                wrapper.classList.add('print-border');
+                wrapper.appendChild(section.cloneNode(true));
+                sideByContainer?.appendChild(wrapper);
+                section.remove();
             }
-            else if (heading.includes('owner')) {
-                section.classList.add('print-section', 'owner');
+            else if (heading.includes('pet owner')) {
+                section.classList.add('print-border');
             }
         });
     }
 
-    // Apply structure
-    restructureForPrint();
+    // Apply the wrappers
+    wrapSections();
 
-    // Print with delay
+    // Add styles to document
+    document.head.appendChild(printStyles);
+
+    // Print with a delay to ensure styles are applied
     setTimeout(() => {
         window.print();
-    }, 250);
+    }, 300);
 
     // Cleanup after printing
     setTimeout(() => {
+        const processedElements = document.querySelectorAll('.processed');
+        processedElements.forEach(el => el.classList.remove('processed'));
         printStyles.remove();
     }, 2000);
 }
