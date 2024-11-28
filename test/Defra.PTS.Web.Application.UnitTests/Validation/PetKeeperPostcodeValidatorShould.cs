@@ -65,12 +65,12 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
             result.ShouldHaveValidationErrorFor(x => x.Postcode).WithErrorMessage(expectedErrorMessage);
         }
 
-        public static IEnumerable<object[]> PetKeeperPostCodeTestData => new List<object[]>
+        public static TheoryData<string, string> PetKeeperPostCodeTestData => new TheoryData<string, string>
         {
-            new object[] { string.Empty, "Enter a postcode" },
-            new object[] { "ED34 ER", "Enter a postcode in England, Scotland or Wales" },
-            new object[] { new string('a', 21), "Enter a full postcode in the correct format, for example TF7 5AY or TF75AY" },
-            new object[] { "SW1A 2AA", "Enter a postcode in England, Scotland or Wales" } // Add this to cover
+            { string.Empty, "Enter a postcode" },
+            { "ED34 ER", "Enter a postcode in England, Scotland or Wales" },
+            { new string('a', 21), "Enter a full postcode in the correct format, for example TF7 5AY or TF75AY" },
+            { "SW1A 2AA", "Enter a postcode in England, Scotland or Wales" } // Add this to cover
         };
-        }
+    }
 }

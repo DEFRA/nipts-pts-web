@@ -48,10 +48,10 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
             result.ShouldHaveValidationErrorFor(x => x.Name);
         }
 
-        public static IEnumerable<object[]> PetKeeperNameTestData => new List<object[]>
+        public static TheoryData<string> PetKeeperNameTestData => new TheoryData<string>
         {
-            new object[] { string.Empty },
-            new object[] { new string('a', 301) },
+            string.Empty,
+            new string('a', 301),
         };
     }
 }
