@@ -165,9 +165,9 @@ public class MiscExtensionsTests
         {
             result.Should().BeOfType<List<SelectListItem>>();
             result.Count.Should().Be(model.Count + 1);
-            result[0].Text.Should().Be(model[0].BreedName);
-            result[0].Value.Should().Be(model[0].BreedId.ToString());
-            result[2].Text.Should().Be(string.Empty);
+            result[0].Text.Should().Be(string.Empty);
+            result[1].Text.Should().Be(model[0].BreedName);
+            result[1].Value.Should().Be(model[0].BreedId.ToString());
         }
     }
 }

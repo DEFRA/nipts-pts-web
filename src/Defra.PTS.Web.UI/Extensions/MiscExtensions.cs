@@ -71,7 +71,7 @@ public static class MiscExtensions
 
         if (hasSelectRow)
         {
-            result.Add(new SelectListItem { Text = string.Empty, Value = "0" });
+            result.Insert(0, new SelectListItem { Text = string.Empty, Value = "0" });
         }
 
         return result;
