@@ -71,13 +71,13 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
         if (model.BreedId != 0 && ModelState.HasError(nameof(model.BreedName)))
         {
-            // Correct and set the BreedName
+            // Correct and set the BreedName if possible
             model.BreedName = breeds.Find(b => b.Value == model.BreedId.ToString())?.Text;
 
             // Clear the existing validation state for BreedName
             ModelState.Remove(nameof(model.BreedName));
 
-            // Re-validate the updated property or entire model
+            // Re-validate model
             TryValidateModel(model);
         }
 
