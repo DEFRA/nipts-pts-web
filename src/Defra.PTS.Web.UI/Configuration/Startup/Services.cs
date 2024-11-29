@@ -93,11 +93,11 @@ public static class Services
                 }
             };
 
-            HttpClientHandler handler = new()
-            {
-                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-            };
-            options.BackchannelHttpHandler = handler;
+            //HttpClientHandler handler = new()
+            //{
+            //    ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            //};
+            //options.BackchannelHttpHandler = handler;
         });
 
     }
@@ -133,13 +133,15 @@ public static class Services
             client.DefaultRequestHeaders.Add(AuthorizationHeader, $"Bearer {authToken}");
             client.DefaultRequestHeaders.Add(SubscriptionKeyHeader, subscriptionKey);
 
-        }).ConfigurePrimaryHttpMessageHandler(() =>
-            new HttpClientHandler()
-            {
-                //This must be changed, proper certificate should be added asap by devops team or CCOE.
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
-            }
-        );
+        });
+            
+        //    .ConfigurePrimaryHttpMessageHandler(() =>
+        //    new HttpClientHandler()
+        //    {
+        //        //This must be changed, proper certificate should be added asap by devops team or CCOE.
+        //        ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
+        //    }
+        //);
 
         services.AddHttpClient<IApplicationService, ApplicationService>((client) =>
         {
@@ -150,13 +152,15 @@ public static class Services
             client.DefaultRequestHeaders.Add(AuthorizationHeader, $"Bearer {authToken}");
             client.DefaultRequestHeaders.Add(SubscriptionKeyHeader, subscriptionKey);
 
-        }).ConfigurePrimaryHttpMessageHandler(() =>
-            new HttpClientHandler()
-            {
-                //This must be changed, proper certificate should be added asap by devops team or CCOE.
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
-            }
-       );
+        });
+            
+       //     .ConfigurePrimaryHttpMessageHandler(() =>
+       //     new HttpClientHandler()
+       //     {
+       //         //This must be changed, proper certificate should be added asap by devops team or CCOE.
+       //         ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
+       //     }
+       //);
 
         services.AddHttpClient<IUserService, UserService>((client) =>
         {
@@ -167,13 +171,15 @@ public static class Services
             client.DefaultRequestHeaders.Add(AuthorizationHeader, $"Bearer {authToken}");
             client.DefaultRequestHeaders.Add(SubscriptionKeyHeader, subscriptionKey);
 
-        }).ConfigurePrimaryHttpMessageHandler(() =>
-            new HttpClientHandler()
-            {
-                //This must be changed, proper certificate should be added asap by devops team or CCOE.
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
-            }
-       );
+        });
+            
+       //     .ConfigurePrimaryHttpMessageHandler(() =>
+       //     new HttpClientHandler()
+       //     {
+       //         //This must be changed, proper certificate should be added asap by devops team or CCOE.
+       //         ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
+       //     }
+       //);
 
         services.AddHttpClient<IDynamicService, DynamicService>((client) =>
         {
@@ -184,13 +190,14 @@ public static class Services
             client.DefaultRequestHeaders.Add(AuthorizationHeader, $"Bearer {authToken}");
             client.DefaultRequestHeaders.Add(SubscriptionKeyHeader, subscriptionKey);
 
-        }).ConfigurePrimaryHttpMessageHandler(() =>
-            new HttpClientHandler()
-            {
-                //This must be changed, proper certificate should be added asap by devops team or CCOE.
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
-            }
-      );
+        });
+      //      .ConfigurePrimaryHttpMessageHandler(() =>
+      //      new HttpClientHandler()
+      //      {
+      //          //This must be changed, proper certificate should be added asap by devops team or CCOE.
+      //          ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
+      //      }
+      //);
 
         return services;
     }
