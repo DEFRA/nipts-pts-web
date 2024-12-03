@@ -67,10 +67,10 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 
         public static TheoryData<string, string> PetKeeperPostCodeTestData => new TheoryData<string, string>
         {
-            { string.Empty, "Enter a postcode" },
-            { "ED34 ER", "Enter a postcode in England, Scotland or Wales" },
-            { new string('a', 21), "Enter a full postcode in the correct format, for example TF7 5AY or TF75AY" },
-            { "SW1A 2AA", "Enter a postcode in England, Scotland or Wales" } // Add this to cover
+            { string.Empty, "Enter your postcode" },
+            { "ED34 ER", "Enter your postcode in England, Scotland or Wales" },
+            { new string('a', 21), "Enter your full postcode in the correct format, for example TF7 5AY or TF75AY" },
+            { "SW1A 2AA", "Enter your postcode in England, Scotland or Wales" } // Add this to cover
         };
     }
 }

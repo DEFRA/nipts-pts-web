@@ -18,13 +18,13 @@ public class PetKeeperPhoneValidator : AbstractValidator<PetKeeperPhoneViewModel
         {
             RuleFor(x => x.Phone)
             .MaximumLength(AppConstants.MaxLength.PetKeeperPhone)
-            .WithMessage(localizer["Enter a phone number, like 01632 960 001 or 07700 900 982"]);
+            .WithMessage(localizer["Enter your phone number, like 01632 960 001 or 07700 900 982"]);
 
             When(x => x.Phone.Length <= AppConstants.MaxLength.PetKeeperPhone, () =>
             {
                 RuleFor(x => x.Phone)
                 .Matches(AppConstants.RegularExpressions.UKPhone)
-                .WithMessage(localizer["Enter a phone number, like 01632 960 001 or 07700 900 982"]);
+                .WithMessage(localizer["Enter your phone number, like 01632 960 001 or 07700 900 982"]);
             });
         });
     }

@@ -10,7 +10,7 @@ public class PetFeatureValidator : AbstractValidator<PetFeatureViewModel>
 {
     public PetFeatureValidator(IStringLocalizer<ISharedResource> localizer)
     {
-        RuleFor(x => x.HasUniqueFeature).NotEmpty().WithMessage(x => localizer["Tell us if your pet has any significant features"]);
+        RuleFor(x => x.HasUniqueFeature).NotEmpty().WithMessage(x => localizer["Select if your pet has any significant features"]);
 
         When(x => x.HasUniqueFeature == YesNoOptions.Yes, () =>
         {

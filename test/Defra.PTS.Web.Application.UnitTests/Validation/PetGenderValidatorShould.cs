@@ -22,7 +22,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
 
             // Assert
             result.ShouldHaveValidationErrorFor(x => x.Gender)
-                  .WithErrorMessage("Tell us if your pet is male or female");
+                  .WithErrorMessage("Select if your pet is male or female");
         }
 
         [Theory]
@@ -44,7 +44,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
         private static PetGenderValidator CreateValidator()
         {
             var mockLocalizer = new Mock<IStringLocalizer<ISharedResource>>();
-            mockLocalizer.Setup(l => l["Tell us if your pet is male or female"]).Returns(new LocalizedString("Tell us if your pet is male or female", "Tell us if your pet is male or female"));
+            mockLocalizer.Setup(l => l["Select if your pet is male or female"]).Returns(new LocalizedString("Select if your pet is male or female", "Select if your pet is male or female"));
 
             // Create PetGenderValidator with mocked localizer
             return new PetGenderValidator(mockLocalizer.Object);
