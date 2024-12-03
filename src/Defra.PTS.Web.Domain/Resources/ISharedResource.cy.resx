@@ -123,10 +123,10 @@
   <data name="Enter a phone number, like 01632 960 001 or 07700 900 982" xml:space="preserve">
     <value>Rhowch rif ffôn, fel 01632 960 001 neu 07700 900 982</value>
   </data>
-  <data name="Enter a postcode" xml:space="preserve">
+  <data name="Enter your postcode" xml:space="preserve">
     <value>Rhowch god post</value>
   </data>
-  <data name="Enter a postcode in England, Scotland or Wales" xml:space="preserve">
+  <data name="Enter your postcode in England, Scotland or Wales" xml:space="preserve">
     <value>Rhowch god post yng Nghymru, Lloegr neu'r Alban</value>
   </data>
   <data name="Enter your full name" xml:space="preserve">
