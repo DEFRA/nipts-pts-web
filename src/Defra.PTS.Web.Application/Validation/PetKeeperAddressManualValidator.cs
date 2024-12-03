@@ -26,7 +26,7 @@ namespace Defra.PTS.Web.Application.Validation
             });
 
             RuleFor(x => x.TownOrCity)
-                .NotEmpty().WithMessage(x => localizer[$"Enter a town or city"]);
+                .NotEmpty().WithMessage(x => localizer[$"Enter your town or city"]);
 
             When(x => !string.IsNullOrWhiteSpace(x.TownOrCity), () =>
             {
