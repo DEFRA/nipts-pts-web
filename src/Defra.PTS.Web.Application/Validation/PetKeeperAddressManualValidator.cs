@@ -35,13 +35,13 @@ namespace Defra.PTS.Web.Application.Validation
             });
 
             RuleFor(x => x.Postcode)
-                .NotEmpty().WithMessage(x => localizer[$"Enter a postcode"]);
+                .NotEmpty().WithMessage(x => localizer[$"Enter your postcode"]);
 
             When(x => !string.IsNullOrWhiteSpace(x.Postcode), () =>
             {
                 RuleFor(x => x.Postcode).Cascade(CascadeMode.Stop).Matches(AppConstants.RegularExpressions.UKPostcode).WithMessage(x => localizer[$"Enter your full postcode in the correct format, for example TF7 5AY or TF75AY"])
                 .MaximumLength(AppConstants.MaxLength.Postcode).WithMessage(x => localizer[$"Enter your full postcode in the correct format, for example TF7 5AY or TF75AY"])
-                .Matches($"^(?!BT|JE|GY|IM|bt|je|gy|im).*").WithMessage(x => localizer[$"Enter a postcode in England, Scotland or Wales"]);
+                .Matches($"^(?!BT|JE|GY|IM|bt|je|gy|im).*").WithMessage(x => localizer[$"Enter your postcode in England, Scotland or Wales"]);
             });
 
             When(x => !string.IsNullOrWhiteSpace(x.AddressLineTwo), () =>
