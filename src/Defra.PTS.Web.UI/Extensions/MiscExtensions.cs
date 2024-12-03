@@ -14,7 +14,7 @@ public static class MiscExtensions
         {
             AppConstants.ApplicationStatus.UNSUCCESSFUL or AppConstants.ApplicationStatus.REVOKED => "govuk-tag--red",
             AppConstants.ApplicationStatus.APPROVED => "govuk-tag--green",
-            AppConstants.ApplicationStatus.AWAITINGVERIFICATION => "govuk-tag--yellow",
+            AppConstants.ApplicationStatus.AWAITINGVERIFICATION => "govuk-tag--blue",
             _ => "govuk-tag--red",
         };
 

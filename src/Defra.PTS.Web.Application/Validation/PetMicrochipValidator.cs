@@ -10,7 +10,7 @@ namespace Defra.PTS.Web.Application.Validation
     {
         public PetMicrochipValidator(IStringLocalizer<ISharedResource> localizer)
         {
-            RuleFor(x => x.Microchipped).NotEmpty().WithMessage(localizer[@"Tell us if your pet is microchipped"]);
+            RuleFor(x => x.Microchipped).NotEmpty().WithMessage(localizer[@"Select if your pet is microchipped"]);
 
             When(x => x.Microchipped == YesNoOptions.Yes, () =>
             {
