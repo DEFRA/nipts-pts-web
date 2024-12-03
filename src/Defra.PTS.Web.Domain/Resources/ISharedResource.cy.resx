@@ -153,10 +153,10 @@
   <data name="Enter a county using 100 characters or less" xml:space="preserve">
     <value>Rhowch sir gan ddefnyddio 100 o gymeriadau neu lai</value>
   </data>
-  <data name="Enter a town or city" xml:space="preserve">
+  <data name="Enter your town or city" xml:space="preserve">
     <value>Rhowch dref neu ddinas</value>
   </data>
-  <data name="Enter a town or city using 250 characters or less" xml:space="preserve">
+  <data name="Enter your town or city using 250 characters or less" xml:space="preserve">
     <value>Rhowch dref neu ddinas gan ddefnyddio 250 o gymeriadau neu lai</value>
   </data>
   <data name="Enter line 1 of your address" xml:space="preserve">
