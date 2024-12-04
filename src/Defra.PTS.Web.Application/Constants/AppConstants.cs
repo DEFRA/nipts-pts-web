@@ -33,7 +33,7 @@ public static class AppConstants
     public static class ApplicationStatus
     {
         public const string UNSUCCESSFUL = "Unsuccessful";
-        public const string REVOKED = "Cancelled";
+        public const string REVOKED = "Revoked";
         public const string APPROVED = "Approved";
         public const string AWAITINGVERIFICATION = "Awaiting Verification";
     }

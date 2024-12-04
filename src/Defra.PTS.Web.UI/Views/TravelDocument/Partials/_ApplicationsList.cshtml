@@ -41,9 +41,21 @@
                         </td>
                         <td class="govuk-table__cell">
                             <strong class="govuk-tag @statusCssClass">
-                                @(application.Status == @AppConstants.ApplicationStatus.APPROVED 
-                                ? @Localizer["Approved"] 
-                                : @Localizer["Pending"])
+                                @if (application.Status == @AppConstants.ApplicationStatus.APPROVED){
+                                    @Localizer["Approved"]
+                                }
+                                @if (application.Status == @AppConstants.ApplicationStatus.AWAITINGVERIFICATION)
+                                {
+                                    @Localizer["Pending"]
+                                }
+                                @if (application.Status == @AppConstants.ApplicationStatus.REVOKED)
+                                {
+                                    @Localizer["Cancelled"]
+                                }
+                                @if (application.Status == @AppConstants.ApplicationStatus.UNSUCCESSFUL)
+                                {
+                                    @Localizer["Unsuccessful"]
+                                }
                             </strong>
                         </td>
                         <td class="govuk-table__cell govuk-table__cell--numeric">
