@@ -113,26 +113,26 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
             new string('a', 251)
         };
 
-        public static IEnumerable<object[]> PetKeeperAddressManualAddressLine2TestData => new List<object[]>
+        public static TheoryData<string> PetKeeperAddressManualAddressLine2TestData => new TheoryData<string>
         {            
-            new object[] { new string('a', 251) }
+            new string('a', 251) 
         };
 
-        public static IEnumerable<object[]> PetKeeperAddressManualTownOrCityTestData => new List<object[]>
+        public static TheoryData<string> PetKeeperAddressManualTownOrCityTestData => new TheoryData<string>
         {
-            new object[] { string.Empty },
-            new object[] { new string('a', 251) }
+             string.Empty,
+             new string('a', 251)
         };
 
-        public static IEnumerable<object[]> PetKeeperAddressManualPostCodeTestData => new List<object[]>
+        public static TheoryData<string> PetKeeperAddressManualPostCodeTestData => new TheoryData<string>
         {
-            new object[] { string.Empty },
-            new object[] { new string('a', 21) }
+             string.Empty ,
+             new string('a', 21)
         };
 
-        public static IEnumerable<object[]> PetKeeperAddressManualCountyTestData => new List<object[]>
+        public static TheoryData<string> PetKeeperAddressManualCountyTestData => new TheoryData<string>
         {            
-            new object[] { new string('a', 101) }
+            new string('a', 101)
         };
     }
 }

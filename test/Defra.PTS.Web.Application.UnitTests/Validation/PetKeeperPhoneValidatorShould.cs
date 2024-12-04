@@ -50,11 +50,11 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
             result.ShouldHaveValidationErrorFor(x => x.Phone);
         }
 
-        public static IEnumerable<object[]> PetKeeperPhoneTestData => new List<object[]>
+        public static TheoryData<string> PetKeeperPhoneTestData => new TheoryData<string>
         {
-            new object[] { string.Empty },
-            new object[] { new string('a', 51) },
-            new object[] { "0739 62345g" },
+            string.Empty,
+            new string('a', 51),
+            "0739 62345g",
         };
     }
 }

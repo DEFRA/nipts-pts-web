@@ -40,13 +40,13 @@ public class DeclarationValidator : AbstractValidator<DeclarationViewModel>
             When(x => ApplicationHelper.PostcodeStartsWithNonGBPrefix(x.Postcode), () =>
             {
                 var validPostcode = false;
-                RuleFor(x => x.Postcode).Must(x => validPostcode).WithMessage("Enter a postcode in England, Scotland or Wales");
+                RuleFor(x => x.Postcode).Must(x => validPostcode).WithMessage("Enter your postcode in England, Scotland or Wales");
             });
         });
 
         When(x => !x.IsManualAddress, () =>
         {
-            RuleFor(x => x.Postcode).Must(BeValidUKPostcode).WithMessage("Enter a postcode in England, Scotland or Wales");
+            RuleFor(x => x.Postcode).Must(BeValidUKPostcode).WithMessage("Enter your postcode in England, Scotland or Wales");
         });
 
     }

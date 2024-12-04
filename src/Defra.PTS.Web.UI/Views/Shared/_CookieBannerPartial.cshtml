@@ -13,7 +13,7 @@
                     </h2>
                     <div class="govuk-cookie-banner__content">
                         <p class="govuk-body">We use some essential cookies to make this service work.</p>
-                        <p class="govuk-body">We’d also like to use additional cookies so we can understand how you use the service and make improvements.</p>
+                        <p class="govuk-body">We'd also like to use additional cookies so we can understand how you use the service and make improvements.</p>
                     </div>
                 </div>
             </div>
@@ -38,13 +38,13 @@
     </div>
 }
 
-<!-- Accepted Banner (Initially hidden) -->
+
 <div id="govuk-cookie-banner-accepted" class="govuk-cookie-banner" style="display:none;" data-nosnippet="" role="region" aria-label="Cookies on Taking a pet from Great Britain to Northern Ireland">
     <div class="govuk-cookie-banner__message govuk-width-container">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-cookie-banner__content">
-                    <p class="govuk-body">You’ve accepted additional cookies. You can <a class="govuk-link" href="@WebAppConstants.Pages.Content.Cookies">change your cookie settings</a> at any time.</p>
+                    <p class="govuk-body">You've accepted additional cookies. You can <a class="govuk-link" href="@WebAppConstants.Pages.Content.Cookies">change your cookie settings</a> at any time.</p>
                 </div>
             </div>
         </div>
@@ -57,13 +57,13 @@
     </div>
 </div>
 
-<!-- Rejected Banner (Initially hidden) -->
+
 <div id="govuk-cookie-banner-rejected" class="govuk-cookie-banner" style="display:none;" data-nosnippet="" role="region" aria-label="Cookies on Taking a pet from Great Britain to Northern Ireland">
     <div class="govuk-cookie-banner__message govuk-width-container">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-cookie-banner__content">
-                    <p class="govuk-body">You’ve rejected additional cookies. You can <a class="govuk-link" href="@WebAppConstants.Pages.Content.Cookies">change your cookie settings</a> at any time.</p>
+                    <p class="govuk-body">You've rejected additional cookies. You can <a class="govuk-link" href="@WebAppConstants.Pages.Content.Cookies">change your cookie settings</a> at any time.</p>
                 </div>
             </div>
         </div>
@@ -78,21 +78,40 @@
 
 <script>
     function handleCookieChoice(choice) {
+        
+        event.preventDefault();
+
         document.getElementById('cookieChoice').value = choice;
 
-        // Hide the initial cookie banner
+        
         document.getElementById('govuk-cookie-banner').style.display = 'none';
 
+        
         if (choice === 'accept') {
             document.getElementById('govuk-cookie-banner-accepted').style.display = 'block';
-        }
-
-        else if (choice === 'reject') {
+        } else if (choice === 'reject') {
             document.getElementById('govuk-cookie-banner-rejected').style.display = 'block';
         }
 
-        // Submit the form to save the user's choice
-        document.getElementById('cookie-form').submit();
+        
+        const form = document.getElementById('cookie-form');
+        const formData = new FormData(form);
+
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        })
+            .then(response => {
+                if (!response.ok) {
+                    console.error('Cookie preference submission failed');
+                }
+            })
+            .catch(error => {
+                console.error('Error submitting cookie preference:', error);
+            });
     }
 
     function hideBanner(bannerId) {
@@ -101,4 +120,12 @@
             banner.style.display = 'none';
         }
     }
+
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('cookie-form');
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+        });
+    });
 </script>

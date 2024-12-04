@@ -26,22 +26,22 @@ namespace Defra.PTS.Web.Application.Validation
             });
 
             RuleFor(x => x.TownOrCity)
-                .NotEmpty().WithMessage(x => localizer[$"Enter a town or city"]);
+                .NotEmpty().WithMessage(x => localizer[$"Enter your town or city"]);
 
             When(x => !string.IsNullOrWhiteSpace(x.TownOrCity), () =>
             {
                 RuleFor(x => x.TownOrCity)
-                    .MaximumLength(AppConstants.MaxLength.TownOrCity).WithMessage(x => localizer[$"Enter a town or city using {AppConstants.MaxLength.TownOrCity} characters or less"]);
+                    .MaximumLength(AppConstants.MaxLength.TownOrCity).WithMessage(x => localizer[$"Enter your town or city using {AppConstants.MaxLength.TownOrCity} characters or less"]);
             });
 
             RuleFor(x => x.Postcode)
-                .NotEmpty().WithMessage(x => localizer[$"Enter a postcode"]);
+                .NotEmpty().WithMessage(x => localizer[$"Enter your postcode"]);
 
             When(x => !string.IsNullOrWhiteSpace(x.Postcode), () =>
             {
-                RuleFor(x => x.Postcode).Cascade(CascadeMode.Stop).Matches(AppConstants.RegularExpressions.UKPostcode).WithMessage(x => localizer[$"Enter a full postcode in the correct format, for example TF7 5AY or TF75AY"])
-                .MaximumLength(AppConstants.MaxLength.Postcode).WithMessage(x => localizer[$"Enter a full postcode in the correct format, for example TF7 5AY or TF75AY"])
-                .Matches($"^(?!BT|JE|GY|IM|bt|je|gy|im).*").WithMessage(x => localizer[$"Enter a postcode in England, Scotland or Wales"]);
+                RuleFor(x => x.Postcode).Cascade(CascadeMode.Stop).Matches(AppConstants.RegularExpressions.UKPostcode).WithMessage(x => localizer[$"Enter your full postcode in the correct format, for example TF7 5AY or TF75AY"])
+                .MaximumLength(AppConstants.MaxLength.Postcode).WithMessage(x => localizer[$"Enter your full postcode in the correct format, for example TF7 5AY or TF75AY"])
+                .Matches($"^(?!BT|JE|GY|IM|bt|je|gy|im).*").WithMessage(x => localizer[$"Enter your postcode in England, Scotland or Wales"]);
             });
 
             When(x => !string.IsNullOrWhiteSpace(x.AddressLineTwo), () =>
@@ -54,7 +54,7 @@ namespace Defra.PTS.Web.Application.Validation
             When(x => !string.IsNullOrWhiteSpace(x.County), () =>
             {
                 RuleFor(x => x.County)
-                    .MaximumLength(AppConstants.MaxLength.County).WithMessage(x => localizer[$"Enter a county using {AppConstants.MaxLength.County} characters or less"]);
+                    .MaximumLength(AppConstants.MaxLength.County).WithMessage(x => localizer[$"Enter your county using {AppConstants.MaxLength.County} characters or less"]);
 
             });
         }

@@ -21,18 +21,18 @@ namespace Defra.PTS.Web.Application.Validation
             _mediator = mediator;
 
             RuleFor(x => x.Postcode)
-                .NotEmpty().WithMessage(x => localizer["Enter a postcode"])
+                .NotEmpty().WithMessage(x => localizer["Enter your postcode"])
                 .Custom((postcode, context) =>
                 {
                     if (!string.IsNullOrWhiteSpace(postcode))
                     {
                         if (!UkPostcodeRegex.IsMatch(postcode) || postcode.Length > AppConstants.MaxLength.Postcode)
                         {
-                            context.AddFailure(localizer["Enter a full postcode in the correct format, for example TF7 5AY or TF75AY"]);
+                            context.AddFailure(localizer["Enter your full postcode in the correct format, for example TF7 5AY or TF75AY"]);
                         }
                         else if (!BeValidUKPostcode(postcode))
                         {
-                            context.AddFailure(localizer["Enter a postcode in England, Scotland or Wales"]);
+                            context.AddFailure(localizer["Enter your postcode in England, Scotland or Wales"]);
                         }
                     }
                 });

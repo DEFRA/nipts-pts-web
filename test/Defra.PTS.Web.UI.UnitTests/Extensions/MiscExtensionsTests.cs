@@ -20,7 +20,7 @@ public class MiscExtensionsTests
     [Theory]
     [InlineData(AppConstants.ApplicationStatus.APPROVED, "govuk-tag--green")]
     [InlineData(AppConstants.ApplicationStatus.UNSUCCESSFUL, "govuk-tag--red")]
-    [InlineData(AppConstants.ApplicationStatus.AWAITINGVERIFICATION, "govuk-tag--yellow")]
+    [InlineData(AppConstants.ApplicationStatus.AWAITINGVERIFICATION, "govuk-tag--blue")]
     [InlineData(AppConstants.ApplicationStatus.REVOKED, "govuk-tag--red")]
     [InlineData("Other", "govuk-tag--red")]
     public void StatusBasedCssClassReturnsCorrectClass(string status, string cssClass)
@@ -165,9 +165,9 @@ public class MiscExtensionsTests
         {
             result.Should().BeOfType<List<SelectListItem>>();
             result.Count.Should().Be(model.Count + 1);
-            result[0].Text.Should().Be(model[0].BreedName);
-            result[0].Value.Should().Be(model[0].BreedId.ToString());
-            result[2].Text.Should().Be(string.Empty);
+            result[0].Text.Should().Be(string.Empty);
+            result[1].Text.Should().Be(model[0].BreedName);
+            result[1].Value.Should().Be(model[0].BreedId.ToString());
         }
     }
 }

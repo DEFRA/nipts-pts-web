@@ -217,6 +217,144 @@ function getCookie(cname) {
     return "";
 }
 
+function printWithStyles() {
+    // Create print style element
+    const printStyles = document.createElement('style');
+    printStyles.setAttribute('type', 'text/css');
+    printStyles.setAttribute('id', 'print-specific-styles');
+
+    const printCss = `
+        @media print {
+            /* Base settings */
+            * {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+
+            /* Hide print nav */
+            .pet-print-download-nav {
+                display: none !important;
+            }
+
+            /* For all browsers including Firefox Mac */
+            .print-border {
+                outline: 1px solid #000000 !important;
+                border: 1px solid #000000 !important;
+                background-color: #ffffff !important;
+                margin-bottom: 15px !important;
+                padding: 10px !important;
+            }
+
+            /* Specific Firefox Mac fixes */
+            @-moz-document url-prefix() {
+                .print-border {
+                    display: block !important;
+                    position: relative !important;
+                }
+
+                .print-border:after {
+                    content: "" !important;
+                    position: absolute !important;
+                    top: -1px !important;
+                    left: -1px !important;
+                    right: -1px !important;
+                    bottom: -1px !important;
+                    border: 1px solid #000000 !important;
+                    pointer-events: none !important;
+                }
+            }
+
+            /* Layout container for microchip and pet details */
+            .side-by-side {
+                width: 100% !important;
+                display: table !important;
+                table-layout: fixed !important;
+                margin-bottom: 15px !important;
+            }
+
+            .side-by-side > div {
+                display: table-cell !important;
+                width: 50% !important;
+                padding-right: 10px !important;
+            }
+
+            .side-by-side > div:last-child {
+                padding-right: 0 !important;
+            }
+        }
+    `;
+
+    // Add styles
+    if (printStyles.styleSheet) {
+        printStyles.styleSheet.cssText = printCss;
+    } else {
+        printStyles.appendChild(document.createTextNode(printCss));
+    }
+
+    // Remove any existing print styles
+    const existingStyles = document.getElementById('print-specific-styles');
+    if (existingStyles) {
+        existingStyles.remove();
+    }
+
+    // Function to wrap sections
+    function wrapSections() {
+        const sections = document.querySelectorAll('.govuk-grid-row');
+        let sideByContainer;
+
+        sections.forEach(section => {
+            const heading = section.querySelector('h3')?.textContent?.toLowerCase() || '';
+
+            // Skip if already processed
+            if (section.classList.contains('processed')) return;
+            section.classList.add('processed');
+
+            if (heading.includes('application')) {
+                section.classList.add('print-border');
+            }
+            else if (heading.includes('microchip')) {
+                sideByContainer = document.createElement('div');
+                sideByContainer.className = 'side-by-side';
+                section.parentNode.insertBefore(sideByContainer, section);
+
+                const wrapper = document.createElement('div');
+                wrapper.classList.add('print-border');
+                wrapper.appendChild(section.cloneNode(true));
+                sideByContainer.appendChild(wrapper);
+                section.remove();
+            }
+            else if (heading.includes('pet details')) {
+                const wrapper = document.createElement('div');
+                wrapper.classList.add('print-border');
+                wrapper.appendChild(section.cloneNode(true));
+                sideByContainer?.appendChild(wrapper);
+                section.remove();
+            }
+            else if (heading.includes('pet owner')) {
+                section.classList.add('print-border');
+            }
+        });
+    }
+
+    // Apply the wrappers
+    wrapSections();
+
+    // Add styles to document
+    document.head.appendChild(printStyles);
+
+    // Print with a delay to ensure styles are applied
+    setTimeout(() => {
+        window.print();
+    }, 300);
+
+    // Cleanup after printing
+    setTimeout(() => {
+        const processedElements = document.querySelectorAll('.processed');
+        processedElements.forEach(el => el.classList.remove('processed'));
+        printStyles.remove();
+    }, 2000);
+}
+
 function checkCookie() {
     let culture = getCookie(".AspNetCore.Culture");
     if (culture == "") {

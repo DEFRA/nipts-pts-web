@@ -75,10 +75,10 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
             result.ShouldHaveValidationErrorFor(x => x.PetColourOther);
         }
 
-        public static IEnumerable<object[]> PetColourTestData => new List<object[]>
+        public static TheoryData<string> PetColourTestData => new TheoryData<string>
         {
-            new object[] { string.Empty },
-            new object[] { new string('a', 151) }
+            string.Empty, // Case: Empty string
+            new string('a', 151) // Case: Exceeds maximum length
         };
     }
 }

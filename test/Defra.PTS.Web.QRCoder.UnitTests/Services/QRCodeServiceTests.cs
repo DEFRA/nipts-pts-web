@@ -6,7 +6,7 @@ namespace Defra.PTS.Web.QRCoder.UnitTests.Services;
 
 public class QRCodeServiceTests
 {
-    private readonly IQRCodeService qrCodeService;
+    private readonly QRCodeService qrCodeService;
     public QRCodeServiceTests()
     {
         qrCodeService = new QRCodeService();

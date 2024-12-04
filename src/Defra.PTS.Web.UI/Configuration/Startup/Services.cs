@@ -92,12 +92,6 @@ public static class Services
                     return Task.CompletedTask;
                 }
             };
-
-            HttpClientHandler handler = new()
-            {
-                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-            };
-            options.BackchannelHttpHandler = handler;
         });
 
     }
@@ -133,14 +127,8 @@ public static class Services
             client.DefaultRequestHeaders.Add(AuthorizationHeader, $"Bearer {authToken}");
             client.DefaultRequestHeaders.Add(SubscriptionKeyHeader, subscriptionKey);
 
-        }).ConfigurePrimaryHttpMessageHandler(() =>
-            new HttpClientHandler()
-            {
-                //This must be changed, proper certificate should be added asap by devops team or CCOE.
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
-            }
-        );
-
+        });
+            
         services.AddHttpClient<IApplicationService, ApplicationService>((client) =>
         {
             var ApplicationServiceUrl = configuration.GetValue<string>("AppSettings:ApplicationServiceUrl");
@@ -150,14 +138,8 @@ public static class Services
             client.DefaultRequestHeaders.Add(AuthorizationHeader, $"Bearer {authToken}");
             client.DefaultRequestHeaders.Add(SubscriptionKeyHeader, subscriptionKey);
 
-        }).ConfigurePrimaryHttpMessageHandler(() =>
-            new HttpClientHandler()
-            {
-                //This must be changed, proper certificate should be added asap by devops team or CCOE.
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
-            }
-       );
-
+        });
+            
         services.AddHttpClient<IUserService, UserService>((client) =>
         {
             var userServiceUrl = configuration.GetValue<string>("AppSettings:UserServiceUrl");
@@ -167,14 +149,8 @@ public static class Services
             client.DefaultRequestHeaders.Add(AuthorizationHeader, $"Bearer {authToken}");
             client.DefaultRequestHeaders.Add(SubscriptionKeyHeader, subscriptionKey);
 
-        }).ConfigurePrimaryHttpMessageHandler(() =>
-            new HttpClientHandler()
-            {
-                //This must be changed, proper certificate should be added asap by devops team or CCOE.
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
-            }
-       );
-
+        });
+            
         services.AddHttpClient<IDynamicService, DynamicService>((client) =>
         {
             var dynamicsServiceUrl = configuration.GetValue<string>("AppSettings:DynamicServiceUrl");
@@ -184,13 +160,7 @@ public static class Services
             client.DefaultRequestHeaders.Add(AuthorizationHeader, $"Bearer {authToken}");
             client.DefaultRequestHeaders.Add(SubscriptionKeyHeader, subscriptionKey);
 
-        }).ConfigurePrimaryHttpMessageHandler(() =>
-            new HttpClientHandler()
-            {
-                //This must be changed, proper certificate should be added asap by devops team or CCOE.
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; }
-            }
-      );
+        });
 
         return services;
     }

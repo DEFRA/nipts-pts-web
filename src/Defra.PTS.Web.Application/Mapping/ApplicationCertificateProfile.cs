@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using Defra.PTS.Web.Application.Constants;
 using Defra.PTS.Web.Application.DTOs.Services;
 using Defra.PTS.Web.Application.Mapping.Converters;
 using Defra.PTS.Web.Domain.Enums;
+using Microsoft.Azure.Management.ContainerRegistry.Fluent.Models;
 
 namespace Defra.PTS.Web.Application.Mapping;
 
@@ -17,11 +19,11 @@ CreateMap<VwApplication, ApplicationCertificateDto>()
     .ForMember(dest => dest.Declaration, opt => opt.MapFrom(src => MappingConverter.MapDeclaration(src)))
     .ForMember(dest => dest.CertificateIssued, opt => opt.MapFrom(src => MappingConverter.MapCertificateIssued(src)))
     .ForMember(dest => dest.CertificateIssuingAuthority, opt => opt.MapFrom(src => MappingConverter.MapCertificateIssuingAuthority(src)))
-    .ForMember(dest => dest.ActionLinks, opt => opt.MapFrom(src => 
-        MappingConverter.MapActionLinks(
-            src.ApplicationId,
-            PdfType.Certificate,
-            (src.Status == "Approved" || src.Status == "Revoked") ? src.DocumentReferenceNumber : src.ReferenceNumber,
+    .ForMember(dest => dest.ActionLinks, opt => opt.MapFrom(src =>
+    MappingConverter.MapActionLinks(
+    src.ApplicationId,
+    PdfType.Certificate,
+    src.DocumentReferenceNumber,
             true)))
     .AfterMap<SetApplicationCertificateAction>();
 

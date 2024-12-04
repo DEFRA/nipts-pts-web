@@ -66,7 +66,20 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     {
         SetBackUrl(WebAppConstants.Pages.TravelDocument.PetSpecies);
 
-        List<SelectListItem> breeds = null;
+        List<SelectListItem> breeds = await GetBreedsAsSelectListItems(model.PetSpecies);
+
+
+        if (model.BreedId != 0 && ModelState.HasError(nameof(model.BreedName)))
+        {
+            // Correct and set the BreedName if possible
+            model.BreedName = breeds.Find(b => b.Value == model.BreedId.ToString())?.Text;
+
+            // Clear the existing validation state for BreedName
+            ModelState.Remove(nameof(model.BreedName));
+
+            // Re-validate model
+            TryValidateModel(model);
+        }
 
         if (!ModelState.IsValid)
         {
@@ -74,7 +87,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             return View(model);
         }
 
-        breeds = await GetBreedsAsSelectListItems(model.PetSpecies);
         ViewBag.BreedList = breeds;
 
         //If typed value is not in breedList (matched by BreedName) set ID to 0

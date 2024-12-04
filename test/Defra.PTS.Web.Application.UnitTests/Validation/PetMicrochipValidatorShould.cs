@@ -62,12 +62,12 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
                   .WithErrorMessage(expectedErrorMessage);
         }
 
-        public static IEnumerable<object[]> PetMicrochipValidatorNumberTestData => new List<object[]>
+        public static TheoryData<string, string> PetMicrochipValidatorNumberTestData => new TheoryData<string, string>
         {
-            new object[] { string.Empty, "Enter your pet’s 15-digit microchip number" },
-            new object[] { new string('1', 14), "Enter your pet’s 15-digit microchip number" },
-            new object[] { new string('1', 16), "Enter your pet’s 15-digit microchip number" },
-            new object[] { new string('a', 15), "Enter a 15-digit number, using only numbers" },
+            { string.Empty, "Enter your pet’s 15-digit microchip number" },
+            { new string('1', 14), "Enter your pet’s 15-digit microchip number" },
+            { new string('1', 16), "Enter your pet’s 15-digit microchip number" },
+            { new string('a', 15), "Enter a 15-digit number, using only numbers" },
         };
     }
 }

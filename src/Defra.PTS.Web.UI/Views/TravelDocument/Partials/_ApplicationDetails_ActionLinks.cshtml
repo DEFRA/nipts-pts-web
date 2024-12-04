@@ -1,4 +1,4 @@
-﻿@model Defra.PTS.Web.Application.DTOs.Services.ActionLinksDto;
+﻿@model Defra.PTS.Web.Application.DTOs.Services.ActionLinksDto; 
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.Application.Extensions;
 @using Defra.PTS.Web.Domain.Enums;
@@ -6,8 +6,24 @@
 @using Microsoft.Extensions.Localization;
 @inject IStringLocalizer<ISharedResource> sharedlocalizer
 
-<div class="govuk-grid-row govuk-!-display-none-print">
+<style>
+    .govuk-link {
+        font-family: 'GDS Transport', arial, sans-serif;
+        font-size: 1.1875rem;
+        background: none;
+        border: none;
+        color: #1d70b8;
+        text-decoration: underline;
+        cursor: pointer;
+    }
 
+        .govuk-link:hover {
+            text-decoration: none;
+        }
+
+</style>
+
+<div class="govuk-grid-row govuk-!-display-none-print">
     <div class="govuk-grid-column-three-quarters">
         <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible govuk-!-margin-top-4">
 
@@ -27,15 +43,17 @@
             }
         }
 
-
         <ul class="pet-print-download-nav">
-
             <li>
                 <span class="hod-icons-printer"></span>
                 <p class="govuk-body">
-                    <a class="govuk-link" aria-label=@sharedlocalizer[printLinkText] href="#" id="print-this-page" onclick="window.print()">
+                    <button class="govuk-link"
+                            aria-label="@sharedlocalizer[printLinkText]"
+                            id="print-this-page"
+                            onclick="printWithStyles()"
+                            type="button">
                         @sharedlocalizer[printLinkText]
-                    </a>
+                    </button>
                 </p>
             </li>
 
@@ -47,7 +65,7 @@
                 <li>
                     <span class="hod-icons-download-button"></span>
                     <p class="govuk-body">
-                        <a aria-label=@sharedlocalizer[downloadLinkText]
+                        <a aria-label="@sharedlocalizer[downloadLinkText]"
                            class="govuk-link"
                            download="@downloadFilename"
                            href="@downloadUrl">
@@ -59,3 +77,6 @@
         </ul>
     </div>
 </div>
+
+
+

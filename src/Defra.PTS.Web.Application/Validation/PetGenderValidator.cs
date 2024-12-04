@@ -11,7 +11,7 @@ namespace Defra.PTS.Web.Application.Validation
         {
             RuleFor(x => x.Gender)
                 .NotEmpty()
-                .WithMessage(x => localizer["Tell us if your pet is male or female"]);
+                .WithMessage(x => localizer["Select if your pet is male or female"]);
         }
     }
 }
