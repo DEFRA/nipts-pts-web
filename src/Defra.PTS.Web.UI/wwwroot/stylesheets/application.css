@@ -8406,7 +8406,7 @@ time {
 }
 .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--single-identity, .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--eo, .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--org {
   background: url(/assets/images/HMGFullSize.png) no-repeat 5px 0;
-  background-size: auto 20px;
+  background-size: auto 45px;
 }
 .gem-c-organisation-logo .gem-c-organisation-logo__container .gem-c-organisation-logo__name {
   font-family: HelveticaNeue, "Helvetica Neue", Arial, Helvetica, sans-serif;
@@ -8427,7 +8427,7 @@ time {
   }
     .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--single-identity, .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--eo, .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--org {
         background: url(/assets/images/HMGFullSize.png) no-repeat 6px 0;
-        background-size: auto 26px;
+        background-size: auto 45px;
     }
 }
 @media only screen and (min-width: 40.0625em) and (-webkit-min-device-pixel-ratio: 2), only screen and (min-width: 40.0625em) and (min-resolution: 192dpi), only screen and (min-width: 40.0625em) and (min-resolution: 2dppx) {
@@ -8436,12 +8436,11 @@ time {
     }
 }
 .pet-logo-print.gem-c-organisation-logo {
-  font-size: 13px;
   font-weight: 400;
-  line-height: 1.35;
+  line-height: 1.75;
   margin: 0;
-  height: 50px;
-  margin-bottom: 30px;
+  height: 75px;
+  margin-bottom: 15px;
 }
 .pet-logo-print.gem-c-organisation-logo .gem-c-organisation-logo__container {
   text-transform: none;
@@ -8457,12 +8456,17 @@ time {
     padding-top: 0;
     padding-left: 60px;
     background: url(/assets/images/HMGFullSize.png) no-repeat 5px 5px;
-    background-size: auto 40px;
+    background-size: auto 45px;
 }
 
-/*.pet-declaration-print .pet-declaration-logos {
+.pet-declaration-print .pet-declaration-logos {
   display: none;
-}*/
+}
+
+.pet-declaration-print-logo {
+  display: none;
+}
+
 .pet-declaration-print .pet-declaration-print-only {
   display: none;
 }
@@ -8619,11 +8623,12 @@ time {
   .pet-declaration-print footer {
     display: none;
   }
-  .pet-declaration-print .pet-declaration-logos {
+
+.pet-declaration-print-logo {
     display: block;
     margin-top: 1em;
     width: 100%;
-  }
+}
   .pet-declaration-print .govuk-grid-column-one-quarter {
     width: 35%;
     display: inline-block;
@@ -8791,13 +8796,13 @@ time {
 }
 @media (min-width: 40.0625em) {
   .login-nav {
-    font-size: 1rem;
+    font-size: 1rem !Important;
     line-height: 1.25;
   }
 }
 @media print {
   .login-nav {
-    font-size: 14pt;
+    font-size: 12pt;
     line-height: 1.2;
   }
 }
