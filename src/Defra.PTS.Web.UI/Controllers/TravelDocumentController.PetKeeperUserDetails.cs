@@ -86,15 +86,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         {
             var formData = GetFormData();
 
-            Address IDMAddress = new Address
-            {
-                AddressLineOne = model.AddressLineOne,
-                County = model.County,
-                TownOrCity = model.TownOrCity,
-                Postcode = model.Postcode,
-
-            };
-
             formData.PetKeeperName = new PetKeeperNameViewModel
             {
                 Name = model.Name
