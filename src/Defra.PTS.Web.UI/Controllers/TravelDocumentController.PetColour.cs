@@ -56,7 +56,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
         SaveFormData(model);
 
-        return RedirectToAction(nameof(PetFeature));
+        return CYARedirect(nameof(PetFeature));
     }
     private async Task<List<ColourDto>> GetColoursList(PetSpecies petSpecies)
     {

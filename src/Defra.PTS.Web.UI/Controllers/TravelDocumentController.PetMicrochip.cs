@@ -46,7 +46,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             return RedirectToAction(nameof(PetMicrochipNotAvailable));
         }
 
-        return RedirectToAction(nameof(PetMicrochipDate));
+        return CYARedirect(nameof(PetMicrochipDate));
     }
 
     [HttpGet]

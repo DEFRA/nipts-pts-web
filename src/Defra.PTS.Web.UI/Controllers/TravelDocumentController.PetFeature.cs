@@ -41,6 +41,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         model.IsCompleted = true;
         SaveFormData(model);
 
-        return RedirectToAction(nameof(Declaration));
+        return CYARedirect(nameof(Declaration));
     }
 }

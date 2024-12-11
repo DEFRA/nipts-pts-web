@@ -68,6 +68,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
         List<SelectListItem> breeds = await GetBreedsAsSelectListItems(model.PetSpecies);
 
+        var formData = GetFormData();
 
         if (model.BreedId != 0 && ModelState.HasError(nameof(model.BreedName)))
         {
@@ -112,7 +113,11 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         model.IsCompleted = true;
         SaveFormData(model);
 
-        return RedirectToAction(nameof(PetName));
+        if (GetCYACheck() && formData.PetColour.PetColour == 0)
+        {
+            return RedirectToAction(nameof(PetColour));
+        }
+        return CYARedirect(nameof(PetName));
     }
 
     #region Private Methods

@@ -31,7 +31,7 @@
                 </h1>
 
                 @Html.ValidationMessageFor(x => x.PetName, string.Empty, new { @class = "govuk-error-message" })
-                @Html.TextBoxFor(x => x.PetName, new { @class = "govuk-input", @id = "PetName", @spellcheck = "false", @autocomplete = "name", aria_label = @Localizer[Model.FormTitle].Value })
+                @Html.TextBoxFor(x => x.PetName, new { @class = "govuk-input", @id = "PetName", @spellcheck = "false", aria_label = @Localizer[Model.FormTitle].Value })
             </div>
 
             <div class="govuk-button-group">
