@@ -9,12 +9,15 @@
 <style>
     .govuk-link {
         font-family: 'GDS Transport', arial, sans-serif;
-        font-size: 1.1875rem;
         background: none;
         border: none;
         color: #1d70b8;
         text-decoration: underline;
         cursor: pointer;
+    }
+
+    .print-link {
+        font-size: 14pt !important;
     }
 
         .govuk-link:hover {
@@ -46,8 +49,8 @@
         <ul class="pet-print-download-nav">
             <li>
                 <span class="hod-icons-printer"></span>
-                <p class="govuk-body">
-                    <button class="govuk-link"
+                <p class="govuk-body print-link">
+                    <button class="govuk-link print-link"
                             aria-label="@sharedlocalizer[printLinkText]"
                             id="print-this-page"
                             onclick="printWithStyles()"
@@ -64,7 +67,7 @@
 
                 <li>
                     <span class="hod-icons-download-button"></span>
-                    <p class="govuk-body">
+                    <p class="govuk-body govuk-\!-font-size-14">
                         <a aria-label="@sharedlocalizer[downloadLinkText]"
                            class="govuk-link"
                            download="@downloadFilename"
