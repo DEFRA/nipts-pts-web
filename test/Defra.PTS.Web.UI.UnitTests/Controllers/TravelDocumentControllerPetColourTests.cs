@@ -124,11 +124,12 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 {
                     PetSpecies = PetSpecies.Dog
                 },
-                PetColour = selectedPetColour
+                PetColour = selectedPetColour,
             };
+
             _sut.Setup(x => x.GetFormData(false))
                 .Returns(formData);
-
+            _sut.Setup(x => x.GetCYACheck()).Returns(false);
             _mockSelectListLocaliser.Setup(x => x.GetPetColoursList(It.IsAny<PetSpecies>()))
                .ReturnsAsync(petColoursList);
 

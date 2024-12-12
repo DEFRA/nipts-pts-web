@@ -40,6 +40,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         model.IsCompleted = true;
         SaveFormData(model);
 
-        return RedirectToAction(nameof(PetAge));
+        return CYARedirect(nameof(PetAge));
     }
 }

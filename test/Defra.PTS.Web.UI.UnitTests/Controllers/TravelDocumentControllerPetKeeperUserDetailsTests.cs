@@ -170,6 +170,12 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 {
                     Name = "John " + "Doe",
                     Email = "john.doe@example.com",
+                    AddressLineOne = "test",
+                    County = "test",
+                    Postcode = "test",
+                    PostcodeRegion = PostcodeRegion.GB,
+                    TownOrCity = "test",
+                    Phone = "01234567890",
                     IsCompleted = true,
                     UserDetailsAreCorrect = YesNoOptions.Yes,
                     PetOwnerDetailsRequired = false,
@@ -187,7 +193,6 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var result = _travelDocumentController.Object.PetKeeperUserDetails(formData.PetKeeperUserDetails) as RedirectToActionResult;
 
             // Assert
-            Assert.IsNotNull(result);
             Assert.AreEqual(nameof(TravelDocumentController.PetMicrochip), result.ActionName);
         }
 
@@ -205,6 +210,11 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 {
                     Name = "John " + "Doe",
                     Email = "john.doe@example.com",
+                    Phone = "01234567890",
+                    AddressLineOne = "test",
+                    County = "test",
+                    Postcode = "test",
+                    PostcodeRegion = PostcodeRegion.GB,
                     IsCompleted = true,
                     UserDetailsAreCorrect = YesNoOptions.Yes,
                     PetOwnerDetailsRequired = false,
@@ -226,14 +236,13 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var result = _travelDocumentController.Object.PetKeeperUserDetails(formData.PetKeeperUserDetails) as RedirectToActionResult;
 
             // Assert
-            Assert.IsNotNull(result);
             Assert.AreEqual(nameof(TravelDocumentController.PetMicrochip), result.ActionName);
             Assert.IsTrue(!formData.PetKeeperName.IsCompleted);
-            Assert.IsNull(formData.PetKeeperName.Name);
+            Assert.IsNotNull(formData.PetKeeperName.Name);
             Assert.IsTrue(!formData.PetKeeperPhone.IsCompleted);
-            Assert.IsNull(formData.PetKeeperPhone.Phone);
+            Assert.IsNotNull(formData.PetKeeperPhone.Phone);
             Assert.IsTrue(!formData.PetKeeperPostcode.IsCompleted);
-            Assert.IsNull(formData.PetKeeperPostcode.Postcode);
+            Assert.IsNotNull(formData.PetKeeperPostcode.Postcode);
             Assert.IsTrue(!formData.PetKeeperAddress.IsCompleted);
             Assert.IsTrue(!formData.PetKeeperAddressManual.IsCompleted);
         }

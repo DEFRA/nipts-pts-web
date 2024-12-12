@@ -68,6 +68,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         formData.PetKeeperAddressManual.ClearData();
         SaveFormData(formData.PetKeeperAddressManual);
 
-        return RedirectToAction(nameof(PetKeeperPhone));
+        return CYARedirect(nameof(PetKeeperPhone));
     }
 }

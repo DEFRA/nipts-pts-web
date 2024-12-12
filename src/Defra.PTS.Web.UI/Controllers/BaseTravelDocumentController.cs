@@ -3,6 +3,8 @@ using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Extensions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using NUglify.JavaScript.Syntax;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Defra.PTS.Web.UI.Controllers;
@@ -279,5 +281,27 @@ public class BaseTravelDocumentController : BaseController
         return TempData.GetApplicationReference();
     }
     #endregion ApplicationReference
+    public void SetCYACheck()
+    {
+        TempData.Set("CYA", "Yes");
+    }
 
+    public virtual bool GetCYACheck()
+    {
+        var CYA = TempData.Peek("CYA");
+        if (CYA != null && CYA.ToString().Contains("Yes"))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public IActionResult CYARedirect(string actionResult)
+    {
+        if (GetCYACheck())
+        {
+            return RedirectToAction(nameof(Declaration));
+        }
+        return RedirectToAction(actionResult);
+    }
 }
