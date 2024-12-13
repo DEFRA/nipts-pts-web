@@ -11,6 +11,10 @@
     var GTMLink = string.Format("https://www.googletagmanager.com/ns.html?id={0}", config["GoogleTagManager:ContainerId"]);
     var magicWordEnabled = (bool?)ViewData["MagicWordEnabled"] ?? false;
     var hasUserPassedPasswordCheck = (bool?)ViewData["HasUserPassedPasswordCheck"] ?? true;
+    if (magicWordEnabled && !hasUserPassedPasswordCheck)
+    {
+        onPasswordPage = true;
+    }
 
     double cookieExpiry = Convert.ToDouble(Context.Response.Headers["X-Auth-Cookie-Expiration"]);
     DateTime expiry = DateTime.UnixEpoch.AddMilliseconds(cookieExpiry).ToLocalTime();
