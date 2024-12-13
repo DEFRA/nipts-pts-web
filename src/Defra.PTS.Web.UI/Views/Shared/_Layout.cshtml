@@ -1,6 +1,7 @@
 @using Defra.PTS.Web.UI.Constants;
 @using Microsoft.AspNetCore.Mvc.Localization;
 @using Microsoft.Extensions.Localization;
+@using System.Net
 @inject IStringLocalizer<ISharedResource> sharedlocalizer
 @inject IConfiguration config
 
@@ -11,10 +12,10 @@
     var magicWordEnabled = (bool?)ViewData["MagicWordEnabled"] ?? false;
     var hasUserPassedPasswordCheck = (bool?)ViewData["HasUserPassedPasswordCheck"] ?? true;
 
-    if (magicWordEnabled && !hasUserPassedPasswordCheck)
-    {
-        onPasswordPage = true;
-    }
+    double cookieExpiry = Convert.ToDouble(Context.Response.Headers["X-Auth-Cookie-Expiration"]);
+    DateTime expiry = DateTime.UnixEpoch.AddMilliseconds(cookieExpiry).ToLocalTime();
+    expiry.AddMinutes(-2);
+    int timeout = (int)(expiry - DateTime.Now).TotalSeconds;
 }
 <!DOCTYPE html>
 <html lang="en" class="govuk-template">
@@ -45,7 +46,7 @@
     <meta name="hmrc-timeout-dialog"
           content="hmrc-timeout-dialog"
           data-language=@sharedlocalizer["en"]
-          data-timeout="1800"
+          data-timeout="@timeout"
           data-countdown="120"
           data-keep-alive-url="?continue=true"
           data-sign-out-url="@Url.Action("ApplicationTimeout", "Home")"
