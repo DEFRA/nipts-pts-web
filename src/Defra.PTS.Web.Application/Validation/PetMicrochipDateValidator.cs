@@ -107,7 +107,7 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
                 .Null().WithMessage(" ");
             });
 
-            When(x => x.MicrochippedDate < x.BirthDate, () =>
+            When(x => x.MicrochippedDate <= x.BirthDate, () =>
             {
                 RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
                 .Null().WithMessage(localizer["Enter a date that is after the pet’s date of birth"]);
