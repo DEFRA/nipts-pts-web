@@ -16,14 +16,25 @@
         cursor: pointer;
     }
 
-    .print-link {
-        font-size: 14pt !important;
+    .govuk-\!-font-size-14 {
+        font-size: 19px !important;
+        line-height: 1.25 !important;
     }
 
-        .govuk-link:hover {
-            text-decoration: none;
-        }
+    @@media (max-width: 800px) {
+      .govuk-\!-font-size-14 {
+        font-size: 16px !important;
+        line-height: 1.4285714286 !important;
+      }
+    }
 
+    .print-link{
+        padding: 0px !important;
+    }
+    
+    .govuk-link:hover {
+        text-decoration: none;
+    }
 </style>
 
 <div class="govuk-grid-row govuk-!-display-none-print">
@@ -49,8 +60,8 @@
         <ul class="pet-print-download-nav">
             <li>
                 <span class="hod-icons-printer"></span>
-                <p class="govuk-body print-link">
-                    <button class="govuk-link print-link"
+                <p class="govuk-body govuk-!-font-size-14 ">
+                    <button class="govuk-link govuk-!-font-size-14 print-link"
                             aria-label="@sharedlocalizer[printLinkText]"
                             id="print-this-page"
                             onclick="printWithStyles()"

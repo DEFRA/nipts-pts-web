@@ -4,6 +4,7 @@
 
 @if (showBanner)
 {
+    
     <div id="govuk-cookie-banner" class="govuk-cookie-banner" data-nosnippet="" role="region" aria-label="Cookies on Taking a pet from Great Britain to Northern Ireland">
         <div class="govuk-cookie-banner__message govuk-width-container">
             <div class="govuk-grid-row">
@@ -18,7 +19,7 @@
                 </div>
             </div>
 
-            <div class="govuk-button-group govuk-button-group-cookies">
+            <div class="govuk-button-group">
                 @using (Html.BeginForm("SetCookieViaBanner", "Content", FormMethod.Post, new { @class = "form", id = "cookie-form" }))
                 {
                     @Html.AntiForgeryToken()
