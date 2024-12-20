@@ -54,7 +54,7 @@
           data-countdown="120"
           data-keep-alive-url="?continue=true"
           data-sign-out-url="@Url.Action("ApplicationTimeout", "Home")"
-          data-timeout-url=""
+          data-timeout-url="@Url.Action("ApplicationTimeout", "Home")"
           data-title="@sharedlocalizer["You’re about to be signed out"]"
           data-message="@sharedlocalizer["For your security, we will sign you out in"]"
           data-message-suffix=""

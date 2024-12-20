@@ -80,6 +80,8 @@ namespace Defra.PTS.Web.UI.Configuration.Authentication
                 {
                     identity.AddClaim(new Claim(WebAppConstants.IdentityKeys.PTSUserId, response.UserId.ToString()));
                 }
+
+                //context.Properties.ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30); //TODO - remove this line
             }
 
             await Task.CompletedTask;
