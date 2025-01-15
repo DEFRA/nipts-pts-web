@@ -36,8 +36,8 @@
                                     <label class="govuk-label" for="EnteredPassword">
                                         Password
                                     </label>
-                                    <p id="PasswordError" class="govuk-error-message" gds-validation-for="Password"></p>
-                                    @Html.TextBoxFor(x => x.EnteredPassword, new { @class = "govuk-input" })
+                                    @Html.ValidationMessageFor(x => x.EnteredPassword, string.Empty, new { @class = "govuk-error-message" })
+                                    @Html.TextBoxFor(x => x.EnteredPassword, new { @class = "govuk-input", @type = "password" })
                                 </div>
                             </div>
                         </div>
