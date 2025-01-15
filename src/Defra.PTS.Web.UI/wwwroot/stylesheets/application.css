@@ -8401,27 +8401,20 @@ time {
   direction: ltr;
 }
 .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest {
-  border-left: 2px solid #0b0c0c;
   padding-top: 23px;
   padding-left: 6px;
 }
 .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--single-identity, .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--eo, .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--org {
-  background: url(/assets/images/org_crest_13px-02cd4dc76429840b335048d7ea971c06a2e01dee302feb05cec74fbaf927400a.png) no-repeat 5px 0;
-  background-size: auto 20px;
+  background: url(/assets/images/HMGFullSize.png) no-repeat 5px 0;
+  background-size: auto 45px;
 }
 .gem-c-organisation-logo .gem-c-organisation-logo__container .gem-c-organisation-logo__name {
   font-family: HelveticaNeue, "Helvetica Neue", Arial, Helvetica, sans-serif;
 }
-.gem-c-organisation-logo.brand--department-for-environment-food-rural-affairs.brand__border-color {
-  border-color: #00a33b;
-}
-.gem-c-organisation-logo.brand--department-for-environment-food-rural-affairs .brand__border-color {
-  border-color: #00a33b;
-}
 
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min-resolution: 192dpi), only screen and (min-resolution: 2dppx) {
     .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--single-identity, .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--eo, .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--org {
-        background-image: url(/assets/images/org_crest_13px_x2-f412306c518f95598c202e3383932301f187c7e966d56e2e3f5112a4ecfcbde5.png);
+        background-image: url(/assets/images/HMGFullSize.png);
     }
 }
 @media (min-width: 40.0625em) {
@@ -8433,22 +8426,21 @@ time {
     padding-left: 7px;
   }
     .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--single-identity, .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--eo, .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--org {
-        background: url(/assets/images/org_crest_18px-5863abda23ccb562f7ca4599038901db5a7f03eb277df5d86d51491033492b62.png) no-repeat 6px 0;
-        background-size: auto 26px;
+        background: url(/assets/images/HMGFullSize.png) no-repeat 6px 0;
+        background-size: auto 45px;
     }
 }
 @media only screen and (min-width: 40.0625em) and (-webkit-min-device-pixel-ratio: 2), only screen and (min-width: 40.0625em) and (min-resolution: 192dpi), only screen and (min-width: 40.0625em) and (min-resolution: 2dppx) {
     .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--single-identity, .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--eo, .gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--org {
-        background-image: url(/assets/images/org_crest_18px_x2-d759444376a83ad439650d64c8de4158658aa1b5034e5a6080e66ebaa9594b0d.png);
+        background-image: url(/assets/images/HMGFullSize.png);
     }
 }
 .pet-logo-print.gem-c-organisation-logo {
-  font-size: 13px;
   font-weight: 400;
-  line-height: 1.35;
+  line-height: 1.75;
   margin: 0;
-  height: 50px;
-  margin-bottom: 30px;
+  height: 75px;
+  margin-bottom: 15px;
 }
 .pet-logo-print.gem-c-organisation-logo .gem-c-organisation-logo__container {
   text-transform: none;
@@ -8459,40 +8451,31 @@ time {
   width: auto;
   direction: ltr;
 }
+
 .pet-logo-print.gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest {
-  border-left: 3px solid #0b0c0c;
-  padding-top: 0;
-  padding-left: 60px;
-}
-    .pet-logo-print.gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--single-identity, .pet-logo-print.gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--eo, .pet-logo-print.gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--org {
-        background: url(/assets/images/org_crest_18px_x2-d759444376a83ad439650d64c8de4158658aa1b5034e5a6080e66ebaa9594b0d.png) no-repeat 5px 5px;
-        background-size: auto 40px;
-    }
-.pet-logo-print.gem-c-organisation-logo .gem-c-organisation-logo__container .gem-c-organisation-logo__name {
-  font-family: GDS Transport, arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  font-weight: 500;
-  font-size: 19px;
-  font-size: 1.4rem;
-  line-height: 1.14286;
-  white-space: nowrap;
-}
-.pet-logo-print.gem-c-organisation-logo.brand--department-for-environment-food-rural-affairs.brand__border-color {
-  border-color: #008938;
-}
-.pet-logo-print.gem-c-organisation-logo.brand--department-for-environment-food-rural-affairs .brand__border-color {
-  border-color: #008938;
+    padding-top: 0;
+    padding-left: 60px;
+    background: url(/assets/images/HMGFullSize.png) no-repeat 5px 5px;
+    background-size: auto 45px;
 }
 
 .pet-declaration-print .pet-declaration-logos {
   display: none;
 }
+
+.pet-declaration-print-logo {
+  display: none;
+}
+
 .pet-declaration-print .pet-declaration-print-only {
   display: none;
 }
 .pet-declaration-print .govuk-summary-list__key {
   width: 47%;
+}
+
+.pet-declaration-logos-print .govuk-summary-list__key {
+  width: auto;
 }
 .pet-declaration-print .pet-declaration-row-qrcode .govuk-grid-column-three-quarters {
   display: flex;
@@ -8640,14 +8623,23 @@ time {
   .pet-declaration-print footer {
     display: none;
   }
-  .pet-declaration-print .pet-declaration-logos {
+
+.pet-declaration-print-logo {
     display: block;
     margin-top: 1em;
     width: 100%;
-  }
-  .pet-declaration-print .pet-declaration-logos .govuk-grid-column-one-quarter {
+}
+  .pet-declaration-print .govuk-grid-column-one-quarter {
     width: 35%;
     display: inline-block;
+  }
+
+  pet-logo-print.gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest {
+      flex-basis: content;
+        width: auto;
+        min-width: auto;
+        flex-grow: 0;
+        flex-shrink: 1;
   }
   .pet-declaration-print .pet-declaration-logos .gem-c-organisation-logo {
     -moz-transform-origin: left top; /* Firefox */
@@ -8804,13 +8796,13 @@ time {
 }
 @media (min-width: 40.0625em) {
   .login-nav {
-    font-size: 1rem;
+    font-size: 1rem !Important;
     line-height: 1.25;
   }
 }
 @media print {
   .login-nav {
-    font-size: 14pt;
+    font-size: 12pt;
     line-height: 1.2;
   }
 }

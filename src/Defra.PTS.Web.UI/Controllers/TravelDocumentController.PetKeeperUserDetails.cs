@@ -86,11 +86,30 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         {
             var formData = GetFormData();
 
-            formData.PetKeeperName = new PetKeeperNameViewModel();
-            formData.PetKeeperPhone = new PetKeeperPhoneViewModel();
-            formData.PetKeeperPostcode = new PetKeeperPostcodeViewModel();
-            formData.PetKeeperAddress = new PetKeeperAddressViewModel();
-            formData.PetKeeperAddressManual = new PetKeeperAddressManualViewModel();
+            formData.PetKeeperName = new PetKeeperNameViewModel
+            {
+                Name = model.Name
+            };
+            formData.PetKeeperPhone = new PetKeeperPhoneViewModel
+            {
+                Phone = model.Phone
+            };
+
+            formData.PetKeeperPostcode = new PetKeeperPostcodeViewModel { 
+                Postcode = model.Postcode,
+                PostcodeRegion = PostcodeRegion.GB
+            };
+            formData.PetKeeperAddress = new PetKeeperAddressViewModel
+            {
+                Postcode = model.Postcode
+            };
+            formData.PetKeeperAddressManual = new PetKeeperAddressManualViewModel {
+                AddressLineOne = model.AddressLineOne,
+                TownOrCity = model.TownOrCity,
+                County = model.County,
+                Postcode = model.Postcode,
+                PostcodeRegion = PostcodeRegion.GB
+            };
 
             SaveFormData(formData);
 

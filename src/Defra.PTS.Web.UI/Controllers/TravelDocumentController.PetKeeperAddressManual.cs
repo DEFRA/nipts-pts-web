@@ -68,6 +68,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
         TempData.SetTravelDocument(travelDocument);
 
-        return RedirectToAction(nameof(PetKeeperPhone));
+        return CYARedirect(nameof(PetKeeperPhone));
     }
 }

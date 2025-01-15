@@ -24,6 +24,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             return RedirectToAction(actionName);
         }
 
+        SetCYACheck();
         SetBackUrl(WebAppConstants.Pages.TravelDocument.PetFeature);
 
         var address = formData.GetPetOwnerAddress();

@@ -33,6 +33,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     [ValidateAntiForgeryToken]
     public IActionResult PetSpecies(PetSpeciesViewModel model)
     {
+        bool newSpecies = false;
         SetBackUrl(WebAppConstants.Pages.TravelDocument.PetMicrochipDate);
 
         if (!ModelState.IsValid)
@@ -44,19 +45,26 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         var formData = GetFormData();        
 
         if (formData.PetSpecies.PreviousSelectedSpecies != model.PetSpecies)
-        {            
-            formData.PetBreed.BreedId = 0;
-            formData.PetBreed.BreedName = "";
+        {
+            formData.PetBreed.ClearData();
+            formData.PetColour.ClearData();
             SaveFormData(formData.PetBreed);
+            SaveFormData(formData.PetColour);
+            newSpecies = true;
         }
 
         SaveFormData(model);
    
         if (model.PetSpecies == Domain.Enums.PetSpecies.Ferret)
         {
-            return base.RedirectToAction(nameof(PetName));
+            var redirect = GetCYACheck() ? nameof(PetColour) : nameof(PetName);
+            return base.RedirectToAction(redirect);
         }
 
+        if (!newSpecies)
+        {
+            return CYARedirect(nameof(PetBreed));
+        }
         return RedirectToAction(nameof(PetBreed));
     }
 }
