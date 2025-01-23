@@ -225,7 +225,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             Assert.AreEqual(fileName, result.FileDownloadName);
         }
 
-        public MemoryStream CreateSamplePdfStream()
+        public static MemoryStream CreateSamplePdfStream()
         {
             // Create a new PDF document
             var document = new PdfDocument();
@@ -240,7 +240,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // Define a font and draw some text
             var font = new XFont("Arial", 20, XFontStyleEx.Bold);
             graphics.DrawString("Hello, this is a test PDF!", font, XBrushes.Black,
-                new XRect(0, 0, page.Width, page.Height), XStringFormats.Center);
+                new XRect(0, 0, page.Width.Point, page.Height.Point), XStringFormats.Center);
 
             // Save the document into a MemoryStream
             var memoryStream = new MemoryStream();
