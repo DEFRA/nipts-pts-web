@@ -306,7 +306,7 @@ public class BaseTravelDocumentController : BaseController
         return RedirectToAction(actionResult);
     }
 
-    protected async virtual Task<IActionResult> SetFileTitle(CertificateResult response, string fileName, string fileTitle)
+    public async virtual Task<IActionResult> SetFileTitle(CertificateResult response, string fileName, string fileTitle)
     {
         // Convert response.Content (Stream) to a MemoryStream
         using (var inputStream = new MemoryStream())
