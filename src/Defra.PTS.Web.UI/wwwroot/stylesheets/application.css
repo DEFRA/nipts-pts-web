@@ -5187,7 +5187,7 @@ p + .govuk-heading-s,
 
 .govuk-summary-list__row:not(.govuk-summary-list__row--no-actions) > :last-child {
   padding-right: 0;
-  padding-bottom:6px;
+  padding-bottom:10px;
 }
 
 @media (min-width: 40.0625em) {
