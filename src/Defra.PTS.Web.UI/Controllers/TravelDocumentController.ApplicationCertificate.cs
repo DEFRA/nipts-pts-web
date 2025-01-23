@@ -46,7 +46,8 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         }
 
         var fileName = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber);
+        var fileTitle = "Pet-Travel-Document-" + referenceNumber + ".pdf";
 
-        return File(response.Content, response.MimeType, fileName);
+        return await SetFileTitle(response, fileName, fileTitle);
     }
 }
