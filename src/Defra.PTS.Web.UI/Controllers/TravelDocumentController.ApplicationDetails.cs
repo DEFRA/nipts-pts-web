@@ -42,7 +42,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         }
 
         var fileName = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber);
-        var fileTitle = "Application number: " + referenceNumber;
+        var fileTitle = "Application number: " + referenceNumber + ".pdf";
 
         return await SetFileTitle(response, fileName, fileTitle);
     }   

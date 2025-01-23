@@ -214,7 +214,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 .ReturnsAsync(response);
 
             var fileName = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber);
-            var fileTitle = "Application number: " + referenceNumber;
+            var fileTitle = "Application number: " + referenceNumber + ".pdf";
 
             // Act
             var result = await _travelDocumentController.Object.DownloadApplicationDetailsPdf(id, referenceNumber) as FileContentResult;

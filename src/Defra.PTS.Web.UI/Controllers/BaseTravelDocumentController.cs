@@ -6,6 +6,7 @@ using Defra.PTS.Web.UI.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NUglify.JavaScript.Syntax;
+using PdfSharp.Pdf;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Defra.PTS.Web.UI.Controllers;
@@ -319,6 +320,15 @@ public class BaseTravelDocumentController : BaseController
             {
                 // Set metadata and viewer preferences
                 pdfDocument.Info.Title = fileTitle;
+
+                // Manually add ViewerPreferences dictionary
+                PdfDictionary viewerPreferences = new PdfDictionary();
+                viewerPreferences.Elements["/DisplayDocTitle"] = new PdfBoolean(true);
+
+                // Access the catalog dictionary and set ViewerPreferences
+                PdfDictionary catalog = pdfDocument.Internals.Catalog;
+                catalog.Elements["/ViewerPreferences"] = viewerPreferences;
+
 
                 using (var outputStream = new MemoryStream())
                 {

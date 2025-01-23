@@ -223,7 +223,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 .ReturnsAsync(response);
 
             var fileName = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber);
-            var fileTitle = "PTD number: " + referenceNumber;
+            var fileTitle = "PTD number: " + referenceNumber + ".pdf";
 
             // Act
             var result = await _travelDocumentController.Object.DownloadCertificatePdf(id, referenceNumber) as FileContentResult;
