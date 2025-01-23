@@ -1,6 +1,7 @@
 ﻿using Defra.PTS.Web.Application.Features.Certificates.Commands;
 using Defra.PTS.Web.Application.Features.TravelDocument.Queries;
 using Defra.PTS.Web.Application.Helpers;
+using Defra.PTS.Web.CertificateGenerator.Models;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.UI.Constants;
 using Microsoft.AspNetCore.Authorization;
@@ -41,7 +42,8 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         }
 
         var fileName = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber);
+        var fileTitle = "Application number: " + referenceNumber + ".pdf";
 
-        return File(response.Content, response.MimeType, fileName);
-    }
+        return await SetFileTitle(response, fileName, fileTitle);
+    }   
 }

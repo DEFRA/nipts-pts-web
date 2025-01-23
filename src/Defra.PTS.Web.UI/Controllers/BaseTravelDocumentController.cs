@@ -1,4 +1,5 @@
 ﻿using Defra.PTS.Web.Application.Extensions;
+using Defra.PTS.Web.CertificateGenerator.Models;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Extensions;
@@ -303,5 +304,29 @@ public class BaseTravelDocumentController : BaseController
             return RedirectToAction(nameof(Declaration));
         }
         return RedirectToAction(actionResult);
+    }
+
+    public async virtual Task<IActionResult> SetFileTitle(CertificateResult response, string fileName, string fileTitle)
+    {
+        // Convert response.Content (Stream) to a MemoryStream
+        using (var inputStream = new MemoryStream())
+        {
+            await response.Content.CopyToAsync(inputStream);
+            inputStream.Position = 0;  // Reset position to the beginning
+
+            // Use MemoryStream with PdfReader.Open
+            using (var pdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(inputStream, PdfSharp.Pdf.IO.PdfDocumentOpenMode.Modify))
+            {
+                // Set metadata and viewer preferences
+                pdfDocument.Info.Title = fileTitle;
+
+                using (var outputStream = new MemoryStream())
+                {
+                    pdfDocument.Save(outputStream);
+                    outputStream.Position = 0;
+                    return File(outputStream.ToArray(), response.MimeType, fileName);
+                }
+            }
+        }
     }
 }
