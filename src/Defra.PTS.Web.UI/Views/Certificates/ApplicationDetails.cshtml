@@ -2,14 +2,15 @@
 @using Defra.PTS.Web.Application.Extensions;
 @using Defra.PTS.Web.CertificateGenerator.ViewModels;
 @using Defra.PTS.Web.UI.Constants;
+@inject IConfiguration Configuration
 @{
     var pageTitle = "Your application summary";
     ViewData.SetKeyValue("BodyExtraCssClass", "pet-declaration-print");
     this.SetMetaTitle(pageTitle);
 
     var baseUrl = Context.Request.GetHostUrl();
-    var logoFile = $"{baseUrl}/assets/images/HMGFullSize.png";
-    
+    var logoFile = Configuration["AppSettings:PdfLogoUrl"] ?? $"{baseUrl}/assets/images/HMGFullSize.png";
+
     Layout = null;
 }
 
@@ -50,7 +51,6 @@
             background-size: 100% 100%, auto;
             height: 100%;
         }
-
 
     </style>
 
@@ -126,7 +126,6 @@
         .pet-logo-print.gem-c-organisation-logo .gem-c-organisation-logo__container.gem-c-organisation-logo__crest--org {
             background-image: url('@logoFile') !important;
         }
-
 
         .govuk-summary-list__key {
             width: 50% !important;
