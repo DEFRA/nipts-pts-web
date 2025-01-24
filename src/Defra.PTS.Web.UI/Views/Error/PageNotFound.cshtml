@@ -3,21 +3,38 @@
 @{
     var pageTitle = "Page not found";
     this.SetMetaTitle(pageTitle);
+    Layout = "_LayoutSlim";
 }
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+<div class="govuk-width-container">
+    <main class="govuk-main-wrapper govuk-main-wrapper--l" id="main-content" role="main">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <h1 class="govuk-heading-l">Page not found</h1>
+                <p class="govuk-body">
+                    If you typed the web address, check it is correct.
+                </p>
+                <p class="govuk-body">
+                    If you pasted the web address, check you copied the entire address.
+                </p>
+                <p class="govuk-body">
+                    If the web address is correct or you selected a link or button, contact APHA:
+                </p>
 
-        <h1 class="govuk-heading-l">Page not found</h1>
-        <p class="govuk-body">This may be because:</p>
-        <ul class="govuk-list govuk-list--bullet">
-            <li>you typed or pasted the web address incorrectly</li>
-            <li>a link in your code is wrong</li>
-            <li>a form in your code is wrong</li>
-            <li>you have not created the page yet</li>
-        </ul>
-        <p class="govuk-body">
-            You can try and fix this yourself or <a class="govuk-link" href="https://prototype-kit.service.gov.uk/docs/support" rel="noopener noreferrer">contact the GOV.UK Prototype Kit team</a> if you need help.
-        </p>
-    </div>
+                <h3 class="govuk-heading-s">Phone</h3>
+
+                <ul class="govuk-list">
+                    <li>03300 416 999</li>
+                    <li>Monday to Friday, 8:30am to 5pm (except public holidays)</li>
+                    <li><a href="https://www.gov.uk/call-charges" rel="noopener noreferrer" target="_blank">Find out about call charges (open in new tab)</a></li>
+                </ul>
+
+                <h3 class="govuk-heading-s">Email</h3>
+                <ul class="govuk-list">
+                    <li><a class="govuk-link" href="mailto:APHAServiceDesk@apha.gov.uk" rel="noopener noreferrer">APHAServiceDesk@apha.gov.uk</a></li>
+                    <li>We aim to respond within 5 working days</li>
+                </ul>
+            </div>
+        </div>
+    </main>
 </div>
