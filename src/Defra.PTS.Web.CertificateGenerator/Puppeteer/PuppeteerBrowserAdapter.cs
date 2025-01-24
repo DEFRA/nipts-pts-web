@@ -35,7 +35,7 @@ public class PuppeteerBrowserAdapter : IBrowser
         try
         {
             var page = await browser.NewPageAsync();
-            return new PuppeteerPageAdapter(browser, page);
+            return new PuppeteerPageAdapter((Browser)browser, (Page)page);
         }
         catch
         {

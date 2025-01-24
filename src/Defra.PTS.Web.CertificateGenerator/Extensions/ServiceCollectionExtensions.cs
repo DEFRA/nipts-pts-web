@@ -54,7 +54,7 @@ public static class ServiceCollectionExtensions
     {
         return services.Configure<ConnectOptions>(configuration)
             .AddTransient<Launcher>()
-            .AddTransient<IBrowser, PuppeteerBrowserAdapter>()
+            .AddTransient<Puppeteer.IBrowser, PuppeteerBrowserAdapter>()
             .AddTransient<IHtmlToPdfConverter, HtmlToPdfConverter>();
     }
 
