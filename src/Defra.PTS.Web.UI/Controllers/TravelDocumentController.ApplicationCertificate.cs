@@ -15,8 +15,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 {
     [HttpGet("/TravelDocument/ApplicationCertificate/{id}")]
     public async Task<IActionResult> ApplicationCertificate(Guid id)
-    {       
-
+    {      
         try
         {
             SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);
