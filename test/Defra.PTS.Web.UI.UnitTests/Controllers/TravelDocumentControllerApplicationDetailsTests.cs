@@ -32,6 +32,8 @@ using System.IO;
 using Assert = NUnit.Framework.Assert;
 using Defra.PTS.Web.Application.Features.Certificates.Commands;
 using Defra.PTS.Web.Application.Helpers;
+using Xunit.Sdk;
+using System.Net;
 
 namespace Defra.PTS.Web.UI.UnitTests.Controllers
 {
@@ -153,6 +155,33 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             Assert.IsNull(result);
         }
 
+        [TestCase("404", "Not Found", System.Net.HttpStatusCode.NotFound)]
+        [TestCase("500", "Internal Server Error", System.Net.HttpStatusCode.InternalServerError)]
+        [TestCase("500", "unexpected Error", null)]
+        public void ApplicationDetails_Returns_Error_Code(string expectedErrorCode, string errorMessage, HttpStatusCode? statusCode)
+        {
+            // Arrange
+            var userId = Guid.NewGuid();
+            var applicationId = Guid.NewGuid();
+            var applicationDetails = new ApplicationDetailsDto()
+            {
+                ApplicationId = applicationId,
+                UserId = userId,
+            };
+            applicationDetails.Status = AppConstants.ApplicationStatus.AWAITINGVERIFICATION;
+
+
+            _mockMediator.Setup(x => x.Send(It.IsAny<GetApplicationDetailsQueryRequest>(), CancellationToken.None))
+                .ThrowsAsync(new HttpRequestException(errorMessage, null, statusCode));
+
+            // different UserId
+            _travelDocumentController.Setup(x => x.CurrentUserId()).Returns(Guid.NewGuid());
+
+            var result = _travelDocumentController.Object.ApplicationDetails(applicationId).Result as ViewResult;
+
+            Assert.IsNull(result);
+        }
+
         [Test]
         public async Task SetFileTitle_ShouldSetTitleForApplicationPdfAndReturnFile()
         {
@@ -193,6 +222,28 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             Assert.IsInstanceOf<NotFoundObjectResult>(result);
             var notFoundResult = result as NotFoundObjectResult;
             Assert.AreEqual("Unable to download the PDF", notFoundResult.Value);
+        }
+
+        [TestCase("404", "Not Found", System.Net.HttpStatusCode.NotFound)]
+        [TestCase("500", "Internal Server Error", System.Net.HttpStatusCode.InternalServerError)]
+        [TestCase("500", "unexpected Error", null)]
+        public async Task DownloadApplicationDetailsPdf_Error_Code(string expectedErrorCode, string errorMessage, HttpStatusCode? statusCode)
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var referenceNumber = "12345";
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<GenerateApplicationPdfRequest>(), default))
+                .ThrowsAsync(new HttpRequestException(errorMessage, null, statusCode));
+
+            // Act
+            var result = await _travelDocumentController.Object.DownloadApplicationDetailsPdf(id, referenceNumber) as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.AreEqual("HandleError", result.ActionName);
+            Assert.AreEqual("Error", result.ControllerName);
+            Assert.AreEqual(expectedErrorCode, result.RouteValues.Values.FirstOrDefault().ToString());
         }
 
         [Test]

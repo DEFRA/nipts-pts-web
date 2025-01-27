@@ -15,6 +15,7 @@ using Defra.PTS.Web.Domain.ViewModels;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Controllers;
 using Defra.PTS.Web.UI.Helpers;
+using FluentAssertions;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +29,9 @@ using Moq;
 using NUnit.Framework;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
+using System.Net;
 using System.Security.Claims;
+using Xunit.Sdk;
 using Assert = NUnit.Framework.Assert;
 
 namespace Defra.PTS.Web.UI.UnitTests.Controllers
@@ -162,6 +165,39 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             Assert.IsNull(result);
         }
 
+        [TestCase("404", "Not Found", System.Net.HttpStatusCode.NotFound)]
+        [TestCase("500", "Internal Server Error", System.Net.HttpStatusCode.InternalServerError)]
+        [TestCase("500", "unexpected Error", null)]
+        public void ApplicationCertificate_Returns_Error_Code(string expectedErrorCode, string errorMessage, HttpStatusCode? statusCode)
+        {
+            // Arrange
+            var userId = Guid.NewGuid();
+            var applicationId = Guid.NewGuid();
+            var applicationCertificate = new ApplicationCertificateDto()
+            {
+                ApplicationId = applicationId,
+                UserId = userId,
+                CertificateIssued = new CertificateIssuedDto() { DocumentReferenceNumber = "123" }
+            };
+            applicationCertificate.Status = AppConstants.ApplicationStatus.APPROVED;
+
+
+            _mockMediator.Setup(x => x.Send(It.IsAny<GetApplicationCertificateQueryRequest>(), CancellationToken.None))
+                 .ThrowsAsync(new HttpRequestException(errorMessage, null, statusCode));
+
+            // different UserId
+            _travelDocumentController.Setup(x => x.CurrentUserId()).Returns(Guid.NewGuid());
+
+            var result = _travelDocumentController.Object.ApplicationCertificate(applicationId).Result as RedirectToActionResult;
+
+            Assert.IsNotNull(result);
+            Assert.AreEqual("HandleError", result.ActionName);
+            Assert.AreEqual("Error", result.ControllerName);
+            Assert.AreEqual(expectedErrorCode, result.RouteValues.Values.FirstOrDefault().ToString());
+        }
+
+
+
         [Test]
         public async Task SetFileTitle_ShouldSetTitleForCertificatePdfAndReturnFile()
         {
@@ -232,6 +268,39 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             Assert.NotNull(result);
             Assert.AreEqual("application/pdf", result.ContentType);
             Assert.AreEqual(fileName, result.FileDownloadName);
+        }
+
+        [TestCase("404", "Not Found", System.Net.HttpStatusCode.NotFound)]
+        [TestCase("500", "Internal Server Error", System.Net.HttpStatusCode.InternalServerError)]
+        [TestCase("500", "unexpected Error", null)]
+        public async Task DownloadCertificateDetailsPdf_ShouldCallSetFileTitleAndReturnFile_Error_Code(string expectedErrorCode, string errorMessage, HttpStatusCode? statusCode)
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var referenceNumber = "12345";
+            var mockContent = CreateSamplePdfStream();
+
+            var response = new CertificateResult(
+                "SampleCertificateDetailsName",  // Name parameter
+                mockContent,              // Stream parameter
+                "application/pdf"         // MimeType parameter
+            );
+
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<GenerateCertificatePdfRequest>(), default))
+                .ThrowsAsync(new HttpRequestException(errorMessage, null, statusCode));
+
+            var fileName = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber);
+            var fileTitle = "PTD number: " + referenceNumber + ".pdf";
+
+            // Act
+            var result = await _travelDocumentController.Object.DownloadCertificatePdf(id, referenceNumber) as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.AreEqual("HandleError", result.ActionName);
+            Assert.AreEqual("Error", result.ControllerName);
+            Assert.AreEqual(expectedErrorCode, result.RouteValues.Values.FirstOrDefault().ToString());
         }
 
         public static MemoryStream CreateSamplePdfStream()

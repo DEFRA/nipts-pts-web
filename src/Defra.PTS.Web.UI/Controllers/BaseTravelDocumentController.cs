@@ -339,4 +339,16 @@ public class BaseTravelDocumentController : BaseController
             }
         }
     }
+
+    public IActionResult HandleException(Exception ex)
+    {
+        if (ex is HttpRequestException httpRequestException && httpRequestException.StatusCode.HasValue)
+        {
+            // Log the error if necessary
+            return RedirectToAction("HandleError", "Error", new { code = (int)httpRequestException.StatusCode.Value });
+        }
+
+        // Log the error if necessary
+        return RedirectToAction("HandleError", "Error", new { code = 500 });
+    }
 }
