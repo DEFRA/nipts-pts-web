@@ -1,0 +1,38 @@
+﻿@using Defra.PTS.Web.UI.Extensions;
+
+@{
+    var pageTitle = "Sorry, there is a problem with the service";
+    this.SetMetaTitle(pageTitle);
+    Layout = "_LayoutSlim";
+}
+
+
+<div class="govuk-width-container">
+    <main class="govuk-main-wrapper govuk-main-wrapper--l" id="main-content" role="main">
+        <div class="govuk-grid-row">
+            <div class="govuk-grid-column-two-thirds">
+                <h1 class="govuk-heading-l">Sorry, there is a problem with the service</h1>
+                <p class="govuk-body">Try again later.</p>
+                <p class="govuk-body">If you were in the middle of an application, we have not saved your answers. When the service is available, you will have to start again.</p>
+                <p class="govuk-body">
+                    Contact APHA with any queries:
+                </p>
+
+                <h3 class="govuk-heading-s">Phone</h3>
+
+                <ul class="govuk-list">
+                    <li>03300 416 999</li>
+                    <li>Monday to Friday, 8:30am to 5pm (except public holidays)</li>
+                    <li><a href="https://www.gov.uk/call-charges" rel="noopener noreferrer" target="_blank">Find out about call charges (open in new tab)</a></li>
+                </ul>
+
+                <h3 class="govuk-heading-s">Email</h3>
+                <ul class="govuk-list">
+                    <li><a class="govuk-link" href="mailto:APHAServiceDesk@apha.gov.uk" rel="noopener noreferrer">APHAServiceDesk@apha.gov.uk</a></li>
+                    <li>We aim to respond within 5 working days</li>
+                </ul>
+
+            </div>
+        </div>
+    </main>
+</div>
