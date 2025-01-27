@@ -33,15 +33,9 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             }
             return View(response.ApplicationCertificate);
         }
-        catch (HttpRequestException ex) when (ex.StatusCode.HasValue)
+        catch (Exception ex)
         {
-            // Redirect to the error handler with the specific error code
-            return RedirectToAction("HandleError", "Error", new { code = (int)ex.StatusCode.Value });
-        }
-        catch (Exception)
-        {
-            // Redirect to a generic server error handler (500)
-            return RedirectToAction("HandleError", "Error", new { code = 500 });
+            return HandleException(ex);
         }
     }
 
@@ -64,15 +58,9 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
             return await SetFileTitle(response, fileName, fileTitle);
         }
-        catch (HttpRequestException ex) when (ex.StatusCode.HasValue)
+        catch (Exception ex)
         {
-            // Redirect to the error handler with the specific error code
-            return RedirectToAction("HandleError", "Error", new { code = (int)ex.StatusCode.Value });
-        }
-        catch (Exception)
-        {
-            // Redirect to a generic server error handler (500)
-            return RedirectToAction("HandleError", "Error", new { code = 500 });
+            return HandleException(ex);
         }
     }
 }
