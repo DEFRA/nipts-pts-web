@@ -15,39 +15,65 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 {
     [HttpGet("/TravelDocument/ApplicationCertificate/{id}")]
     public async Task<IActionResult> ApplicationCertificate(Guid id)
-    {
-        SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);
+    {       
 
-        var response = await _mediator.Send(new GetApplicationCertificateQueryRequest(id));
-
-        var userId = CurrentUserId();
-        if (!response.ApplicationCertificate.UserId.Equals(userId))
+        try
         {
-            return RedirectToAction("HandleError", "Error", new { code = 404 });
-        }
+            SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);
+            var response = await _mediator.Send(new GetApplicationCertificateQueryRequest(id));
 
-        if (!response.ApplicationCertificate.IsApproved)
-        {
-            return RedirectToAction(nameof(ApplicationDetails), new { id });
+            var userId = CurrentUserId();
+            if (!response.ApplicationCertificate.UserId.Equals(userId))
+            {
+                return RedirectToAction("HandleError", "Error", new { code = 404 });
+            }
+
+            if (!response.ApplicationCertificate.IsApproved)
+            {
+                return RedirectToAction(nameof(ApplicationDetails), new { id });
+            }
+            return View(response.ApplicationCertificate);
         }
-        return View(response.ApplicationCertificate);
+        catch (HttpRequestException ex) when (ex.StatusCode.HasValue)
+        {
+            // Redirect to the error handler with the specific error code
+            return RedirectToAction("HandleError", "Error", new { code = (int)ex.StatusCode.Value });
+        }
+        catch (Exception)
+        {
+            // Redirect to a generic server error handler (500)
+            return RedirectToAction("HandleError", "Error", new { code = 500 });
+        }
     }
 
     [ExcludeFromCodeCoverage]
     [HttpGet("/TravelDocument/DownloadCertificatePdf/{id}/{referenceNumber}")]
     public async Task<IActionResult> DownloadCertificatePdf(Guid id, string referenceNumber)
     {
-        var userId = CurrentUserId();
-
-        var response = await _mediator.Send(new GenerateCertificatePdfRequest(id, userId));
-        if (response == null)
+        try
         {
-            return new NotFoundObjectResult("Unable to download the PDF");
+            var userId = CurrentUserId();
+
+            var response = await _mediator.Send(new GenerateCertificatePdfRequest(id, userId));
+            if (response == null)
+            {
+                return new NotFoundObjectResult("Unable to download the PDF");
+            }
+
+            var fileName = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber);
+            var fileTitle = "Pet-Travel-Document-" + referenceNumber + ".pdf";
+
+            return await SetFileTitle(response, fileName, fileTitle);
         }
-
-        var fileName = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber);
-        var fileTitle = "Pet-Travel-Document-" + referenceNumber + ".pdf";
-
-        return await SetFileTitle(response, fileName, fileTitle);
+        catch (HttpRequestException ex) when (ex.StatusCode.HasValue)
+        {
+            // Redirect to the error handler with the specific error code
+            return RedirectToAction("HandleError", "Error", new { code = (int)ex.StatusCode.Value });
+        }
+        catch (Exception)
+        {
+            // Redirect to a generic server error handler (500)
+            return RedirectToAction("HandleError", "Error", new { code = 500 });
+        }
     }
 }
