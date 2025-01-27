@@ -34,6 +34,11 @@ public class ErrorController : BaseController
             return View(WebAppConstants.Views.PageNotFound);
         }
 
+        if (code == 500)
+        {
+            return View(WebAppConstants.Views.InternalServer);
+        }
+
         return View(WebAppConstants.Views.HandleError);
     }
 }
