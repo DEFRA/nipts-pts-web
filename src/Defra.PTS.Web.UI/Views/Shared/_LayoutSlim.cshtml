@@ -1,8 +1,22 @@
 ﻿@using Defra.PTS.Web.UI.Constants;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<ISharedResource> sharedlocalizer
 @inject IConfiguration config
 
+
 @{
+    var authenticated = false;
     var GTMLink = string.Format("https://www.googletagmanager.com/ns.html?id={0}", config["GoogleTagManager:ContainerId"]);
+    var cookieToken = Context.Response.Headers["X-Auth-Cookie-Expiration"].ToString();
+    if (cookieToken != null && cookieToken != "")
+    {
+        authenticated = true;
+    }
+    double cookieExpiry = Convert.ToDouble(Context.Response.Headers["X-Auth-Cookie-Expiration"]);
+    DateTime expiry = DateTime.UnixEpoch.AddMilliseconds(cookieExpiry).ToLocalTime();
+    expiry.AddMinutes(-2);
+    int timeout = (int)(expiry - DateTime.Now).TotalSeconds;
 }
 
 <!DOCTYPE html>
@@ -17,12 +31,32 @@
     <meta name="theme-color" content="#0b0c0c">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+    @if (authenticated)
+    {
+        <meta name="hmrc-timeout-dialog"
+              content="hmrc-timeout-dialog"
+              data-language=@sharedlocalizer["en"]
+              data-timeout="@timeout"
+              data-countdown="120"
+              data-keep-alive-url="?continue=true"
+              data-sign-out-url="@Url.Action("ApplicationTimeout", "Home")"
+              data-timeout-url="@Url.Action("ApplicationTimeout", "Home")"
+              data-title="@sharedlocalizer["You’re about to be signed out"]"
+              data-message="@sharedlocalizer["For your security, we will sign you out in"]"
+              data-message-suffix=""
+              data-keep-alive-button-text="@sharedlocalizer["Stay signed in"]"
+              data-sign-out-button-text="@sharedlocalizer["Sign out"]"
+              data-synchronise-tabs=""
+              data-hide-sign-out-button="" />
+    }
+
     <link rel="icon" sizes="48x48" href="/assets/images/favicon.ico">
     <link rel="icon" sizes="any" href="/assets/images/favicon.svg" type="image/svg+xml">
     <link rel="mask-icon" href="/assets/images/govuk-icon-mask.svg" color="#0b0c0c">
     <link rel="apple-touch-icon" href="/assets/images/govuk-icon-180.png">
     <link rel="manifest" href="/assets/manifest.json">
 
+    <link rel="stylesheet" href="~/stylesheets/hmrc-frontend-6.33.0.min.css" type="text/css" media="all">
     <link rel="stylesheet" href="~/stylesheets/govuk-frontend.min.css" type="text/css" media="all">
     <link rel="stylesheet" href="~/stylesheets/application.css" type="text/css" media="all">
     <link rel="stylesheet" href="~/stylesheets/accessible-autocomplete.min.css" type="text/css" media="all">
@@ -65,7 +99,7 @@
         <partial name=@WebAppConstants.PartialViews.NeedHelp />
         <partial name=@WebAppConstants.PartialViews.Footer />
 
-
+    <script type="module" src="~/javascripts/hmrc-frontend-6.33.0.min.js"></script>
     <script type="module" src="~/javascripts/govuk-frontend.min.js"></script>
     <script type="module">
         import { initAll } from '/javascripts/govuk-frontend.min.js'
