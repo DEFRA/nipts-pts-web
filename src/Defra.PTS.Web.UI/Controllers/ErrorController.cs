@@ -24,21 +24,18 @@ public class ErrorController : BaseController
         SetBackUrl(backLink);
 
         ViewData.SetKeyValue("ErrorMessage", $"Error occurred. The ErrorCode is: {code}");
-        if (code == 401)
+        switch (code)
         {
-            return View(WebAppConstants.Views.AccessDenied);
+            case 401:
+                return View(WebAppConstants.Views.AccessDenied);
+            case 404:
+                return View(WebAppConstants.Views.PageNotFound);
+            case 403:
+                return View(WebAppConstants.Views.Forbidden);
+            case 500:
+                return View(WebAppConstants.Views.InternalServer);
+            default:
+                return View(WebAppConstants.Views.HandleError);
         }
-
-        if (code == 404)
-        {
-            return View(WebAppConstants.Views.PageNotFound);
-        }
-
-        if (code == 500)
-        {
-            return View(WebAppConstants.Views.InternalServer);
-        }
-
-        return View(WebAppConstants.Views.HandleError);
     }
 }
