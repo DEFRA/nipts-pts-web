@@ -22,7 +22,9 @@
                 <dt class="govuk-summary-list__key">
                     @Localizer["Address"]
                 </dt>
-                <dd class="govuk-summary-list__value">
+                 @if (!Model.IsGeneratingPdf)  // Assuming you have a flag for PDF generation
+                {
+                    <dd class="govuk-summary-list__value">
                     @if (!string.IsNullOrWhiteSpace(Model.AddressLine1))
                     {
                         @Model.AddressLine1
@@ -55,7 +57,39 @@
                     {
                         @Model.Postcode
                     }
-                </dd>
+                    </dd>
+                }
+                else
+                {
+                    <dd class="govuk-summary-list__value">
+                        @if (!string.IsNullOrWhiteSpace(Model.AddressLine1))
+                        {
+                            @Model.AddressLine1
+
+                            <br />
+                        }
+
+                        @if (!string.IsNullOrWhiteSpace(Model.AddressLine2))
+                        {
+                            @($"{Model.AddressLine2}, ")
+                        }
+
+                        @if (!string.IsNullOrWhiteSpace(Model.AddressLine3))
+                        {
+                            @($"{Model.AddressLine3}, ")
+                        }
+
+                        @if (!string.IsNullOrWhiteSpace(Model.TownOrCity))
+                        {
+                            @($"{Model.TownOrCity}, ")
+                        }
+
+                        @if (!string.IsNullOrWhiteSpace(Model.Postcode))
+                        {
+                            @Model.Postcode
+                        }
+                    </dd>
+                }
 
             </div>
             <div class="govuk-summary-list__row">
