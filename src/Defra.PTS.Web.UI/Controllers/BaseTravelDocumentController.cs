@@ -1,10 +1,12 @@
 ﻿using Defra.PTS.Web.Application.Extensions;
+using Defra.PTS.Web.CertificateGenerator.Models;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NUglify.JavaScript.Syntax;
+using PdfSharp.Pdf;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Defra.PTS.Web.UI.Controllers;
@@ -303,5 +305,50 @@ public class BaseTravelDocumentController : BaseController
             return RedirectToAction(nameof(Declaration));
         }
         return RedirectToAction(actionResult);
+    }
+
+    public async virtual Task<IActionResult> SetFileTitle(CertificateResult response, string fileName, string fileTitle)
+    {
+        // Convert response.Content (Stream) to a MemoryStream
+        using (var inputStream = new MemoryStream())
+        {
+            await response.Content.CopyToAsync(inputStream);
+            inputStream.Position = 0;  // Reset position to the beginning
+
+            // Use MemoryStream with PdfReader.Open
+            using (var pdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(inputStream, PdfSharp.Pdf.IO.PdfDocumentOpenMode.Modify))
+            {
+                // Set metadata and viewer preferences
+                pdfDocument.Info.Title = fileTitle;
+
+                // Manually add ViewerPreferences dictionary
+                PdfDictionary viewerPreferences = new PdfDictionary();
+                viewerPreferences.Elements["/DisplayDocTitle"] = new PdfBoolean(true);
+
+                // Access the catalog dictionary and set ViewerPreferences
+                PdfDictionary catalog = pdfDocument.Internals.Catalog;
+                catalog.Elements["/ViewerPreferences"] = viewerPreferences;
+
+
+                using (var outputStream = new MemoryStream())
+                {
+                    pdfDocument.Save(outputStream);
+                    outputStream.Position = 0;
+                    return File(outputStream.ToArray(), response.MimeType, fileName);
+                }
+            }
+        }
+    }
+
+    public IActionResult HandleException(Exception ex)
+    {
+        if (ex is HttpRequestException httpRequestException && httpRequestException.StatusCode.HasValue)
+        {
+            // Log the error if necessary
+            return RedirectToAction("HandleError", "Error", new { code = (int)httpRequestException.StatusCode.Value });
+        }
+
+        // Log the error if necessary
+        return RedirectToAction("HandleError", "Error", new { code = 500 });
     }
 }

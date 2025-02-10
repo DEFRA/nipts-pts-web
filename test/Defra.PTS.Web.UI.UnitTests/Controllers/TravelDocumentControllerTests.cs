@@ -25,7 +25,9 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
+using System.Net;
 using System.Security.Claims;
+using Xunit.Sdk;
 using Assert = NUnit.Framework.Assert;
 
 namespace Defra.PTS.Web.UI.UnitTests.Controllers
@@ -119,6 +121,35 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             // Assert
             Assert.IsNotNull(result);
+        }
+
+        [TestCase("404", "Not Found", System.Net.HttpStatusCode.NotFound)]
+        [TestCase("500", "Internal Server Error", System.Net.HttpStatusCode.InternalServerError)]
+        [TestCase("500", "unexpected Error", null)]
+        public void If_HasUserPassedPasswordCheck_True_Returns_View_Error_Code(string expectedErrorCode, string errorMessage, HttpStatusCode? statusCode)
+        {
+            // Arrange
+            var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
+            var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = true };
+            tempData.SetHasUserUsedMagicWord(magicWordViewModel);
+            _travelDocumentController.TempData = tempData;
+            MockHttpContext();
+            _mockMediator.Setup(x => x.Send(It.IsAny<AddUserRequest>(), CancellationToken.None))
+               .ReturnsAsync(new AddUserResponse
+               {
+                   IsSuccess = true
+               });
+            _mockMediator.Setup(x => x.Send(It.IsAny<GetApplicationsQueryRequest>(), CancellationToken.None))
+              .ThrowsAsync(new HttpRequestException(errorMessage, null, statusCode));
+
+            // Act
+            var result = _travelDocumentController.Index().Result as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.AreEqual("HandleError", result.ActionName);
+            Assert.AreEqual("Error", result.ControllerName);
+            Assert.AreEqual(expectedErrorCode, result.RouteValues.Values.FirstOrDefault().ToString());
         }
 
         [Test]

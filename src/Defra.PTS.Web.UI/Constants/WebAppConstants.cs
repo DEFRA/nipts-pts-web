@@ -105,6 +105,8 @@ public static class WebAppConstants
     {
         public const string AccessDenied = "~/Views/Error/AccessDenied.cshtml";
         public const string PageNotFound = "~/Views/Error/PageNotFound.cshtml";
+        public const string Forbidden = "~/Views/Error/Forbidden.cshtml";
+        public const string InternalServer = "~/Views/Error/InternalServer.cshtml";
         public const string HandleError = "~/Views/Error/HandleError.cshtml";
     }
 

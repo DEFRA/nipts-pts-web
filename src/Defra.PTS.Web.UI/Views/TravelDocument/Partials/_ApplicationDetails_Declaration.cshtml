@@ -58,7 +58,7 @@
 <script>
     // Disable the link's clickability on print
     window.onbeforeprint = function () {
-        var links = document.querySelectorAll('a');
+        var links = document.querySelectorAll('a:not(.govuk-footer__link.govuk-footer__copyright-logo)');
         links.forEach(function (link) {
             link.dataset.href = link.getAttribute('href');
             link.removeAttribute('href');
@@ -66,7 +66,7 @@
         });
     };
     window.onafterprint = function () {
-        var links = document.querySelectorAll('a');
+        var links = document.querySelectorAll('a:not(.govuk-footer__link.govuk-footer__copyright-logo)');
         links.forEach(function (link) {
             link.setAttribute('href', link.dataset.href);
             link.classList.add("govuk-link");
