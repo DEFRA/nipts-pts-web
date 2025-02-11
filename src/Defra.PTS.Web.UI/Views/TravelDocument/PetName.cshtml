@@ -11,7 +11,8 @@
 @inject IStringLocalizer<ISharedResource> sharedlocalizer
 
 @{
-    this.SetMetaTitle(Localizer[Model.FormTitle].Value);
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = @Localizer[Model.FormTitle].Value, LabelFor = "Yes" };
+    this.SetMetaTitle(@Localizer[Model.FormTitle].Value);
 }
 
 <div class="govuk-grid-row">
@@ -23,14 +24,10 @@
             @Html.HiddenFor(x => x.IsCompleted)
 
             <partial name="_ErrorSummary" />
-
+           
             <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
-
-                <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
-                    <label class="govuk-label govuk-label--l" for="PetName">
-                        @Localizer[Model.FormTitle]
-                    </label>
-                </h1>
+                
+                <partial name="_FieldsetLegend" model=fieldsetLegend />
 
                 @Html.ValidationMessageFor(x => x.PetName, string.Empty, new { @class = "govuk-error-message" })
                 @Html.TextBoxFor(x => x.PetName, new { @class = "govuk-input", @id = "PetName", @spellcheck = "false", @autocomplete = "name" })
