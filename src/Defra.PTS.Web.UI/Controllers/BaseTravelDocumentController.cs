@@ -281,9 +281,9 @@ public class BaseTravelDocumentController : BaseController
         return TempData.GetApplicationReference();
     }
     #endregion ApplicationReference
-    public void SetCYACheck()
+    public void SetCYACheck(string value)
     {
-        TempData.Set("CYA", "Yes");
+        TempData.Set("CYA", value);
     }
 
     public virtual bool GetCYACheck()
