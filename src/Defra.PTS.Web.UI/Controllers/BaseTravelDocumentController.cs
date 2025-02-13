@@ -321,6 +321,8 @@ public class BaseTravelDocumentController : BaseController
                 // Set metadata and viewer preferences
                 pdfDocument.Info.Title = fileTitle;
 
+                pdfDocument.Language = "en-GB";
+
                 // Manually add ViewerPreferences dictionary
                 PdfDictionary viewerPreferences = new PdfDictionary();
                 viewerPreferences.Elements["/DisplayDocTitle"] = new PdfBoolean(true);
