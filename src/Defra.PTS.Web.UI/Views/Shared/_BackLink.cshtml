@@ -14,19 +14,13 @@
 
 @{
     string backUrl = (ViewData[WebAppConstants.ViewKeys.BackUrl] ?? string.Empty) as string;
-    var referer = ViewContext.HttpContext.Request.Headers["Referer"].ToString();
 
     if (!string.IsNullOrWhiteSpace(backUrl))
     {
-        if (referer.Contains("Declaration") 
-        && !ViewContext.HttpContext.Request.Path.ToString().Contains("PetFeature")
-        && !ViewContext.HttpContext.Request.Path.ToString().Contains("Declaration"))
-        {
-            <a href="@WebAppConstants.Pages.TravelDocument.Declaration" class="govuk-back-link pet-travel-back-link">@backWording</a>
-        }
-        else
-        {
-            <a href="@backUrl" class="govuk-back-link pet-travel-back-link">@backWording</a>
-        }        
+        <a href="@backUrl" class="govuk-back-link pet-travel-back-link">@backWording</a>
     }
+    else
+    {
+        
+    }        
 }
