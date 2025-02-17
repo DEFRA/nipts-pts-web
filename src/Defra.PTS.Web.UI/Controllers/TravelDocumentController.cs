@@ -61,46 +61,53 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     [HttpGet]
     public async Task<IActionResult> Index()
     {
-        if (HttpContext != null && HttpContext.Session != null)
+        try
         {
-            HttpContext.Session.SetString("SessionActive", "yes");
-        }        
-
-        if (HttpContext.Request.Cookies.TryGetValue("ManagementLinkClicked", out string managementLinkClicked) && managementLinkClicked == "true")
-        {
-            return RedirectToAction("CheckIdm2SignOut", "User");
-        }
-
-        if (HttpContext.Request.Cookies.TryGetValue(".AspNetCore.Culture", out string language) && language == "c=cy|uic=cy")
-        {
-            Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("cy");
-        }
-
-        var magicWordData = GetMagicWordFormData(true);
-
-        if (_ptsSettings.MagicWordEnabled && magicWordData != null && !magicWordData.HasUserPassedPasswordCheck)
-        {
-            return RedirectToAction("Index", "Home");
-        }
-
-        else
-        {
-            SaveMagicWordFormData(new MagicWordViewModel { HasUserPassedPasswordCheck = true });
-
-            SetBackUrl(string.Empty);
-
-            await AddOrUpdateUser();
-            await InitializeUserDetails();
-
-            var statuses = new List<string>()
+            if (HttpContext != null && HttpContext.Session != null)
             {
-                AppConstants.ApplicationStatus.APPROVED,
-                AppConstants.ApplicationStatus.AWAITINGVERIFICATION,
-            };
+                HttpContext.Session.SetString("SessionActive", "yes");
+            }        
 
-            var userId = CurrentUserId();
-            var response = await _mediator.Send(new GetApplicationsQueryRequest(userId, statuses));
-            return View(response.Applications);
+            if (HttpContext.Request.Cookies.TryGetValue("ManagementLinkClicked", out string managementLinkClicked) && managementLinkClicked == "true")
+            {
+                return RedirectToAction("CheckIdm2SignOut", "User");
+            }
+
+            if (HttpContext.Request.Cookies.TryGetValue(".AspNetCore.Culture", out string language) && language == "c=cy|uic=cy")
+            {
+                Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("cy");
+            }
+
+            var magicWordData = GetMagicWordFormData(true);
+
+            if (_ptsSettings.MagicWordEnabled && magicWordData != null && !magicWordData.HasUserPassedPasswordCheck)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            else
+            {
+                SaveMagicWordFormData(new MagicWordViewModel { HasUserPassedPasswordCheck = true });
+
+                SetBackUrl(string.Empty);
+
+                await AddOrUpdateUser();
+                await InitializeUserDetails();
+
+                var statuses = new List<string>()
+                {
+                    AppConstants.ApplicationStatus.APPROVED,
+                    AppConstants.ApplicationStatus.AWAITINGVERIFICATION,
+                };
+
+                var userId = CurrentUserId();
+                var response = await _mediator.Send(new GetApplicationsQueryRequest(userId, statuses));
+                return View(response.Applications);
+            }
+        }
+        catch (Exception ex)
+        {
+            return HandleException(ex);
         }
     }
 

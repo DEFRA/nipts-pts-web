@@ -1,6 +1,6 @@
 @charset "UTF-8";
 :root {
-  --govuk-frontend-version: "5.2.0";
+  --govuk-frontend-version: "5.8.0";
   --govuk-frontend-breakpoint-mobile: 20rem;
   --govuk-frontend-breakpoint-tablet: 40.0625rem;
   --govuk-frontend-breakpoint-desktop: 48.0625rem;
@@ -3575,7 +3575,7 @@ p + .govuk-heading-s,
   display: inline-block;
   min-width: 125px;
   padding-top: 112px;
-  background-image: url("/assets/images/govuk-crest.png");
+  background-image: url("/assets/images/govuk-crest.svg");
   background-repeat: no-repeat;
   background-position: 50% 0%;
   background-size: 125px 102px;
@@ -5187,6 +5187,7 @@ p + .govuk-heading-s,
 
 .govuk-summary-list__row:not(.govuk-summary-list__row--no-actions) > :last-child {
   padding-right: 0;
+  padding-bottom:10px;
 }
 
 @media (min-width: 40.0625em) {

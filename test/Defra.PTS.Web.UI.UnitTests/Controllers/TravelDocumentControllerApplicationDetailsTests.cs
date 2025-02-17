@@ -6,6 +6,7 @@ using Defra.PTS.Web.Application.Features.DynamicsCrm.Commands;
 using Defra.PTS.Web.Application.Features.TravelDocument.Queries;
 using Defra.PTS.Web.Application.Features.Users.Queries;
 using Defra.PTS.Web.Application.Services.Interfaces;
+using Defra.PTS.Web.CertificateGenerator.Models;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.Models;
 using Defra.PTS.Web.Domain.ViewModels;
@@ -16,14 +17,23 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using Microsoft.Azure.Amqp.Transaction;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
+using PdfSharp.Drawing;
+using PdfSharp.Pdf;
 using System.Security.Claims;
+using System.Text;
+using System.IO;
 using Assert = NUnit.Framework.Assert;
+using Defra.PTS.Web.Application.Features.Certificates.Commands;
+using Defra.PTS.Web.Application.Helpers;
+using Xunit.Sdk;
+using System.Net;
 
 namespace Defra.PTS.Web.UI.UnitTests.Controllers
 {
@@ -143,6 +153,154 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var result = _travelDocumentController.Object.ApplicationDetails(applicationId).Result as ViewResult;
 
             Assert.IsNull(result);
+        }
+
+        [TestCase("404", "Not Found", System.Net.HttpStatusCode.NotFound)]
+        [TestCase("500", "Internal Server Error", System.Net.HttpStatusCode.InternalServerError)]
+        [TestCase("500", "unexpected Error", null)]
+        public void ApplicationDetails_Returns_Error_Code(string expectedErrorCode, string errorMessage, HttpStatusCode? statusCode)
+        {
+            // Arrange
+            var userId = Guid.NewGuid();
+            var applicationId = Guid.NewGuid();
+            var applicationDetails = new ApplicationDetailsDto()
+            {
+                ApplicationId = applicationId,
+                UserId = userId,
+            };
+            applicationDetails.Status = AppConstants.ApplicationStatus.AWAITINGVERIFICATION;
+
+
+            _mockMediator.Setup(x => x.Send(It.IsAny<GetApplicationDetailsQueryRequest>(), CancellationToken.None))
+                .ThrowsAsync(new HttpRequestException(errorMessage, null, statusCode));
+
+            // different UserId
+            _travelDocumentController.Setup(x => x.CurrentUserId()).Returns(Guid.NewGuid());
+
+            var result = _travelDocumentController.Object.ApplicationDetails(applicationId).Result as ViewResult;
+
+            Assert.IsNull(result);
+        }
+
+        [Test]
+        public async Task SetFileTitle_ShouldSetTitleForApplicationPdfAndReturnFile()
+        {
+            // Arrange
+            var mockContent = CreateSamplePdfStream();
+            var response = new CertificateResult(
+                "SampleApplicationDetailsName",  // Name parameter
+                mockContent,              // Stream parameter
+                "application/pdf"         // MimeType parameter
+            );
+
+            var fileName = "test.pdf";
+            var fileTitle = "Test Title";
+
+            // Act
+            var result = await _travelDocumentController.Object.SetFileTitle(response, fileName, fileTitle) as FileContentResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.AreEqual("application/pdf", result.ContentType);
+            Assert.AreEqual(fileName, result.FileDownloadName);
+        }
+
+        [Test]
+        public async Task DownloadApplicationDetailsPdf_ShouldReturnNotFoundWhenResponseIsNull()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var referenceNumber = "12345";
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<GenerateApplicationPdfRequest>(), default))
+                .ReturnsAsync((CertificateResult)null);
+
+            // Act
+            var result = await _travelDocumentController.Object.DownloadApplicationDetailsPdf(id, referenceNumber);
+
+            // Assert
+            Assert.IsInstanceOf<NotFoundObjectResult>(result);
+            var notFoundResult = result as NotFoundObjectResult;
+            Assert.AreEqual("Unable to download the PDF", notFoundResult.Value);
+        }
+
+        [TestCase("404", "Not Found", System.Net.HttpStatusCode.NotFound)]
+        [TestCase("500", "Internal Server Error", System.Net.HttpStatusCode.InternalServerError)]
+        [TestCase("500", "unexpected Error", null)]
+        public async Task DownloadApplicationDetailsPdf_Error_Code(string expectedErrorCode, string errorMessage, HttpStatusCode? statusCode)
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var referenceNumber = "12345";
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<GenerateApplicationPdfRequest>(), default))
+                .ThrowsAsync(new HttpRequestException(errorMessage, null, statusCode));
+
+            // Act
+            var result = await _travelDocumentController.Object.DownloadApplicationDetailsPdf(id, referenceNumber) as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.AreEqual("HandleError", result.ActionName);
+            Assert.AreEqual("Error", result.ControllerName);
+            Assert.AreEqual(expectedErrorCode, result.RouteValues.Values.FirstOrDefault().ToString());
+        }
+
+        [Test]
+        public async Task DownloadApplicationDetailsPdf_ShouldCallSetFileTitleAndReturnFile()
+        {
+            // Arrange
+            var id = Guid.NewGuid();
+            var referenceNumber = "12345";
+            var mockContent = CreateSamplePdfStream();
+
+            var response = new CertificateResult(            
+                "SampleApplicationDetailsName",  // Name parameter
+                mockContent,              // Stream parameter
+                "application/pdf"         // MimeType parameter
+            );
+
+            _mockMediator
+                .Setup(m => m.Send(It.IsAny<GenerateApplicationPdfRequest>(), default))
+                .ReturnsAsync(response);
+
+            var fileName = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber);
+            var fileTitle = "Application number: " + referenceNumber + ".pdf";
+
+            // Act
+            var result = await _travelDocumentController.Object.DownloadApplicationDetailsPdf(id, referenceNumber) as FileContentResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.AreEqual("application/pdf", result.ContentType);
+            Assert.AreEqual(fileName, result.FileDownloadName);
+        }
+
+        public static MemoryStream CreateSamplePdfStream()
+        {
+            // Create a new PDF document
+            var document = new PdfDocument();
+            document.Info.Title = "Sample PDF Document";
+
+            // Add a page to the document
+            var page = document.AddPage();
+
+            // Create graphics for the page
+            var graphics = XGraphics.FromPdfPage(page);
+
+            // Define a font and draw some text
+            var font = new XFont("Arial", 20, XFontStyleEx.Bold);
+            graphics.DrawString("Hello, this is a test PDF!", font, XBrushes.Black,
+                new XRect(0, 0, page.Width.Point, page.Height.Point), XStringFormats.Center);
+
+            // Save the document into a MemoryStream
+            var memoryStream = new MemoryStream();
+            document.Save(memoryStream);
+
+            // Reset the stream's position to the beginning
+            memoryStream.Position = 0;
+
+            return memoryStream;
         }
 
         public class MockHttpSession : ISession

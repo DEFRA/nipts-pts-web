@@ -8,6 +8,7 @@
 
 @{
     var onPasswordPage = false;
+    var authenticated = false;
     var GTMLink = string.Format("https://www.googletagmanager.com/ns.html?id={0}", config["GoogleTagManager:ContainerId"]);
     var magicWordEnabled = (bool?)ViewData["MagicWordEnabled"] ?? false;
     var hasUserPassedPasswordCheck = (bool?)ViewData["HasUserPassedPasswordCheck"] ?? true;
@@ -15,7 +16,11 @@
     {
         onPasswordPage = true;
     }
-
+    var cookieToken = Context.Response.Headers["X-Auth-Cookie-Expiration"].ToString();
+    if (cookieToken != null && cookieToken != "")
+    {
+        authenticated = true;
+    }
     double cookieExpiry = Convert.ToDouble(Context.Response.Headers["X-Auth-Cookie-Expiration"]);
     DateTime expiry = DateTime.UnixEpoch.AddMilliseconds(cookieExpiry).ToLocalTime();
     expiry.AddMinutes(-2);
@@ -41,27 +46,30 @@
 
     
    
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+    <meta name="viewport" content="width=device-width">
     <meta name="format-detection" content="telephone=no">
 
     <meta name="theme-color" content="#0b0c0c">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <meta name="hmrc-timeout-dialog"
-          content="hmrc-timeout-dialog"
-          data-language=@sharedlocalizer["en"]
-          data-timeout="@timeout"
-          data-countdown="120"
-          data-keep-alive-url="?continue=true"
-          data-sign-out-url="@Url.Action("ApplicationTimeout", "Home")"
-          data-timeout-url=""
-          data-title="@sharedlocalizer["You’re about to be signed out"]"
-          data-message="@sharedlocalizer["For your security, we will sign you out in"]"
-          data-message-suffix=""
-          data-keep-alive-button-text="@sharedlocalizer["Stay signed in"]"
-          data-sign-out-button-text="@sharedlocalizer["Sign out"]"
-          data-synchronise-tabs=""
-          data-hide-sign-out-button="" />
+    @if (authenticated)
+    {
+        <meta name="hmrc-timeout-dialog"
+              content="hmrc-timeout-dialog"
+              data-language=@sharedlocalizer["en"]
+              data-timeout="@timeout"
+              data-countdown="120"
+              data-keep-alive-url="?continue=true"
+              data-sign-out-url="@Url.Action("ApplicationTimeout", "Home")"
+              data-timeout-url="@Url.Action("ApplicationTimeout", "Home")"
+              data-title="@sharedlocalizer["You’re about to be signed out"]"
+              data-message="@sharedlocalizer["For your security, we will sign you out in"]"
+              data-message-suffix=""
+              data-keep-alive-button-text="@sharedlocalizer["Stay signed in"]"
+              data-sign-out-button-text="@sharedlocalizer["Sign out"]"
+              data-synchronise-tabs=""
+              data-hide-sign-out-button="" />
+    }
 
     <link rel="icon" sizes="48x48" href="/assets/images/favicon.ico">
     <link rel="icon" sizes="any" href="/assets/images/favicon.svg" type="image/svg+xml">

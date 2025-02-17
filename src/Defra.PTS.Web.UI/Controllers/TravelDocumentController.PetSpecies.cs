@@ -45,9 +45,8 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         var formData = GetFormData();        
 
         if (formData.PetSpecies.PreviousSelectedSpecies != model.PetSpecies)
-        {            
-            formData.PetBreed.BreedId = 0;
-            formData.PetBreed.BreedName = "";
+        {
+            formData.PetBreed.ClearData();
             formData.PetColour.ClearData();
             SaveFormData(formData.PetBreed);
             SaveFormData(formData.PetColour);

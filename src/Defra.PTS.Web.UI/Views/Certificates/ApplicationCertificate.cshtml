@@ -2,13 +2,14 @@
 @using Defra.PTS.Web.Application.Extensions;
 @using Defra.PTS.Web.CertificateGenerator.ViewModels;
 @using Defra.PTS.Web.UI.Constants;
+@inject IConfiguration Configuration
 @{
     var pageTitle = "Lifelong pet travel document and declaration";
     ViewData.SetKeyValue("BodyExtraCssClass", "pet-declaration-print");
     this.SetMetaTitle(pageTitle);
 
     var baseUrl = Context.Request.GetHostUrl();
-    var logoFile = $"{baseUrl}/assets/images/HMGFullSize.png";
+    var logoFile = Configuration["AppSettings:PdfLogoUrl"] ?? $"{baseUrl}/assets/images/HMGFullSize.png";
 
     Layout = null;
 }

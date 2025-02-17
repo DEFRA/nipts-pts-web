@@ -13,11 +13,11 @@
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-xl">
-                This is for testing use only
+                Private beta testing login
             </h1>
 
             <p>
-                Enter the password that we emailed you to enter the move pets from Great Britain to Northern Ireland Scheme service.
+                Enter the private beta password that was emailed to you.
             </p>
 
             @using (Html.BeginForm("SubmitMagicWord", "Home", FormMethod.Post, new { @class = "form" }))
@@ -36,8 +36,8 @@
                                     <label class="govuk-label" for="EnteredPassword">
                                         Password
                                     </label>
-                                    <p id="PasswordError" class="govuk-error-message" gds-validation-for="Password"></p>
-                                    @Html.TextBoxFor(x => x.EnteredPassword, new { @class = "govuk-input" })
+                                    @Html.ValidationMessageFor(x => x.EnteredPassword, string.Empty, new { @class = "govuk-error-message" })
+                                    @Html.TextBoxFor(x => x.EnteredPassword, new { @class = "govuk-input", @type = "password" })
                                 </div>
                             </div>
                         </div>

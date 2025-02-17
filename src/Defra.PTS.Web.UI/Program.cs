@@ -1,6 +1,5 @@
 using Defra.PTS.Web.Application.Extensions;
 using Defra.PTS.Web.CertificateGenerator.Extensions;
-using Defra.PTS.Web.CertificateGenerator.ViewModels;
 using Defra.PTS.Web.Domain.Models;
 using Defra.PTS.Web.Infrastructure.Extensions;
 using Defra.PTS.Web.UI.Configuration.Startup;
@@ -9,7 +8,6 @@ using Defra.Trade.Common.Api.Infrastructure;
 using Defra.Trade.Common.AppConfig;
 using Defra.Trade.Common.Security.Authentication.Infrastructure;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.Azure.Management.Storage.Fluent.Models;
 using Microsoft.FeatureManagement;
 using System.Globalization;
 using System.Reflection;
@@ -55,7 +53,12 @@ builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssemblyContaining<
 
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddMvc().AddSessionStateTempDataProvider();
-builder.Services.AddSession(options => { options.IdleTimeout = TimeSpan.FromMinutes(30); options.Cookie.HttpOnly = true; options.Cookie.IsEssential = true; });
+builder.Services.AddSession(options => 
+{ 
+    options.IdleTimeout = TimeSpan.FromMinutes(30); 
+    options.Cookie.HttpOnly = true; 
+    options.Cookie.IsEssential = true;
+});
 builder.Services.AddApplicationInsightsTelemetry();
 
 builder.Services.AddCertificateServices(builder.Configuration);
@@ -129,18 +132,19 @@ _ = app.UseStaticFiles(new StaticFileOptions
     ServeUnknownFileTypes = true,
 });
 
-_ = app.UseSession();
-_ = app.UseMiddleware<SessionTimeoutMiddleware>();
-
 _ = app.UseStatusCodePagesWithReExecute("/Error/HandleError/{0}");
 _ = app.UseRouting();
 _ = app.UseCors("AllowOrigins");
+
 if (useAuth)
 {
     // UseAuthentication() must be before UseAuthorization()
     _ = app.UseAuthentication();
     _ = app.UseAuthorization();
 }
+
+_ = app.UseSession();
+_ = app.UseMiddleware<SessionTimeoutMiddleware>();
 
 _ = app.MapControllerRoute(
     name: "default",

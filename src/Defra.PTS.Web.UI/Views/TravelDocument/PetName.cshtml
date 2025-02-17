@@ -23,15 +23,17 @@
             @Html.HiddenFor(x => x.IsCompleted)
 
             <partial name="_ErrorSummary" />
-
+           
             <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
-
-                <h1 class="govuk-heading-xl govuk-!-margin-bottom-4" for="PetName">
-                    @Localizer[Model.FormTitle]
+                
+                 <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
+                        <label class="govuk-label govuk-label--xl" for="PetName">
+                        @Localizer[Model.FormTitle]
+                    </label>
                 </h1>
 
                 @Html.ValidationMessageFor(x => x.PetName, string.Empty, new { @class = "govuk-error-message" })
-                @Html.TextBoxFor(x => x.PetName, new { @class = "govuk-input", @id = "PetName", @spellcheck = "false", aria_label = @Localizer[Model.FormTitle].Value })
+                @Html.TextBoxFor(x => x.PetName, new { @class = "govuk-input", @id = "PetName", @spellcheck = "false", @autocomplete = "name" })
             </div>
 
             <div class="govuk-button-group">
@@ -43,16 +45,3 @@
 
     </div>
 </div>
-
-@section Scripts
-{
-    <script>
-        $(document).ready(function () {
-            $("#PetName").on('input', function () {
-                var cleanValue = $(this).val().replace(/"/g, "'").replace(/</g, '').replace(/>/g, '');
-                $(this).val(cleanValue);
-                return false;
-            });
-        });
-    </script>
-}

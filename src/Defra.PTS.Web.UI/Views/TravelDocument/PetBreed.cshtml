@@ -52,7 +52,12 @@
 
                         <label id="BreedLabel" class="sr-only" for="BreedId">@Localizer[Model.FormTitle]</label>
 
-                        <select class="govuk-select govuk-!-width-full" id="BreedId" spellcheck="true" aria-labelledby="BreedLabel" asp-for="BreedId" asp-items="ViewBag.BreedList"></select>
+
+                        <span id="autocomplete-menuClasses__assistiveHint" class="sr-only" aria-live="polite">
+                            When autocomplete results are available use up and down arrows to review and enter to select. Touch device users, explore by touch.
+                        </span>
+
+                        <select class="govuk-select govuk-!-width-full" id="BreedId" spellcheck="true" aria-describedby="autocomplete-menuClasses__assistiveHint" aria-labelledby="BreedLabel" asp-for="BreedId" asp-items="ViewBag.BreedList"></select>
 
                     </div>
                 </fieldset>

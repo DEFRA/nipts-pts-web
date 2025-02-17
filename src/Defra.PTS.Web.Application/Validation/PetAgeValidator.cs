@@ -93,7 +93,7 @@ public class PetAgeValidator : AbstractValidator<PetAgeViewModel>
                 .Null().WithMessage(" ");
             });
 
-            When(x => BePastDate(x.BirthDate) && x.BirthDate > x.MicrochippedDate, () =>
+            When(x => BePastDate(x.BirthDate) && x.BirthDate >= x.MicrochippedDate, () =>
             {
                 RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
                 .Null().WithMessage(localizer["Enter a date that is before the pet’s microchip date"]);

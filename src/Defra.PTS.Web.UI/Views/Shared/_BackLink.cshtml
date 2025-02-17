@@ -14,13 +14,8 @@
 
 @{
     string backUrl = (ViewData[WebAppConstants.ViewKeys.BackUrl] ?? string.Empty) as string;
-
     if (!string.IsNullOrWhiteSpace(backUrl))
     {
         <a href="@backUrl" class="govuk-back-link pet-travel-back-link">@backWording</a>
-    }
-    else
-    {
-        
-    }        
+    }     
 }
