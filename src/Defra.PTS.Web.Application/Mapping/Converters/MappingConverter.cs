@@ -23,7 +23,6 @@ public static class MappingConverter
         return new CertificateIssuingAuthorityDto
         {
             AuthorityName = "Animal and Plant Health Agency (APHA)",
-            AddressLine1 = "",
             AddressLine2 = "Lane New Haw",
             AddressLine3 = "Addlestone",
             TownOrCity = "Surrey",

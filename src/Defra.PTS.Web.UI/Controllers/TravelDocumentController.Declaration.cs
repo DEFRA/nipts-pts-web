@@ -24,7 +24,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             return RedirectToAction(actionName);
         }
 
-        SetCYACheck();
+        SetCYACheck("Yes");
         SetBackUrl(WebAppConstants.Pages.TravelDocument.PetFeature);
 
         var address = formData.GetPetOwnerAddress();
@@ -91,6 +91,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             _logger.LogError(ex, "Exception Message: {Message}", ex.Message);
         }
 
+        SetCYACheck("No");
         return RedirectToAction(nameof(Acknowledgement));
     }
 }
