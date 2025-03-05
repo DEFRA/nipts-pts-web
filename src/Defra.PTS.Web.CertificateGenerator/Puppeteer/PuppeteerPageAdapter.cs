@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 namespace Defra.PTS.Web.CertificateGenerator.Puppeteer;
 
 [ExcludeFromCodeCoverage]
-public class PuppeteerPageAdapter(Browser browser, Page page) : IPage
+public class PuppeteerPageAdapter(PuppeteerSharp.IBrowser browser, PuppeteerSharp.IPage page) : IPage
 {
-    private Browser browser = browser;
-    private Page page = page;
+    private PuppeteerSharp.IBrowser browser = browser;
+    private PuppeteerSharp.IPage page = page;
 
-    private Browser Browser => browser ?? throw new ObjectDisposedException(nameof(PuppeteerBrowserAdapter));
-    private Page Page => page ?? throw new ObjectDisposedException(nameof(PuppeteerBrowserAdapter));
+    private PuppeteerSharp.IBrowser Browser => browser ?? throw new ObjectDisposedException(nameof(PuppeteerBrowserAdapter));
+    private PuppeteerSharp.IPage Page => page ?? throw new ObjectDisposedException(nameof(PuppeteerBrowserAdapter));
 
     public async ValueTask DisposeAsync()
     {

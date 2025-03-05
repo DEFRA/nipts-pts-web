@@ -14,8 +14,8 @@ namespace Defra.PTS.Web.CertificateGenerator.Services;
 [ExcludeFromCodeCoverage]
 public class HtmlToPdfConverter : IHtmlToPdfConverter
 {
-    private readonly IBrowser _browser;
-    public HtmlToPdfConverter(IBrowser browser)
+    private readonly ICustomBrowser _browser;
+    public HtmlToPdfConverter(ICustomBrowser browser)
     {
         ArgumentNullException.ThrowIfNull(browser);
 

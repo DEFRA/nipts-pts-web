@@ -11,7 +11,7 @@ namespace Defra.PTS.Web.CertificateGenerator.Puppeteer;
 
 [ExcludeFromCodeCoverage]
 
-public class PuppeteerBrowserAdapter : IBrowser
+public class PuppeteerBrowserAdapter : ICustomBrowser
 {
     private readonly Launcher launcher;
     private readonly IOptions<ConnectOptions> options;
