@@ -88,7 +88,7 @@ public class PetKeeperDetailsDto
 
     public string Phone { get; set; }
 
-    public bool IsGeneratingPdf = false;
+    public bool IsGeneratingPdf { get; set; } = false;
 }
 
 public class DeclarationDto
