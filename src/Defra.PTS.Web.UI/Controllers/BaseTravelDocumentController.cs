@@ -63,18 +63,7 @@ public class BaseTravelDocumentController : BaseController
         SaveFormData(formData);
     }
 
-    protected void ExcludePetKeeperOtherDetails()
-    {
-        var formData = GetFormData();
 
-        formData.PetKeeperName.IsCompleted = false;
-        formData.PetKeeperPostcode.IsCompleted = false;
-        formData.PetKeeperAddress.IsCompleted = false;
-        formData.PetKeeperAddressManual.IsCompleted = false;
-        formData.PetKeeperPhone.IsCompleted = false;
-
-        SaveFormData(formData);
-    }
     #endregion Application
 
     #region SaveFormData
