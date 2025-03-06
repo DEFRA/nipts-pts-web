@@ -40,6 +40,7 @@ public class GenerateApplicationPdfHandler : IRequestHandler<GenerateApplication
                 return null;
             }
 
+            response.ApplicationDetails.PetKeeperDetails.IsGeneratingPdf = true;
             var model = new ApplicationDetailsViewModel
             {
                 Data = response.ApplicationDetails

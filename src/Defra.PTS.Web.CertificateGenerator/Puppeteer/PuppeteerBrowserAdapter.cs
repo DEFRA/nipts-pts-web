@@ -5,13 +5,14 @@ using PuppeteerSharp;
 using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Defra.PTS.Web.CertificateGenerator.Puppeteer;
 
 [ExcludeFromCodeCoverage]
 
-public class PuppeteerBrowserAdapter : IBrowser
+public class PuppeteerBrowserAdapter : ICustomBrowser
 {
     private readonly Launcher launcher;
     private readonly IOptions<ConnectOptions> options;
@@ -28,12 +29,12 @@ public class PuppeteerBrowserAdapter : IBrowser
     }
 
     public async Task<IPage> NewPageAsync()
-    {        
+    {
         var opt = options.Value;
         await GetContainerIp(opt);
         var browser = await launcher.ConnectAsync(opt);
         try
-        {
+        {          
             var page = await browser.NewPageAsync();
             return new PuppeteerPageAdapter(browser, page);
         }

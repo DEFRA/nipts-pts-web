@@ -40,6 +40,7 @@ public class GenerateCertificatePdfHandler : IRequestHandler<GenerateCertificate
                 return null;
             }
 
+            response.ApplicationCertificate.PetKeeperDetails.IsGeneratingPdf = true;
             var model = new ApplicationCertificateViewModel
             {
                 Data = response.ApplicationCertificate

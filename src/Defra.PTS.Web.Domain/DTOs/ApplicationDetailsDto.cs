@@ -87,6 +87,8 @@ public class PetKeeperDetailsDto
     public string Postcode { get; set; }
 
     public string Phone { get; set; }
+
+    public bool IsGeneratingPdf { get; set; } = false;
 }
 
 public class DeclarationDto

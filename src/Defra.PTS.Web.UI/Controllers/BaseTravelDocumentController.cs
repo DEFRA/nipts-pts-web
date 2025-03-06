@@ -63,18 +63,7 @@ public class BaseTravelDocumentController : BaseController
         SaveFormData(formData);
     }
 
-    protected void ExcludePetKeeperOtherDetails()
-    {
-        var formData = GetFormData();
 
-        formData.PetKeeperName.IsCompleted = false;
-        formData.PetKeeperPostcode.IsCompleted = false;
-        formData.PetKeeperAddress.IsCompleted = false;
-        formData.PetKeeperAddressManual.IsCompleted = false;
-        formData.PetKeeperPhone.IsCompleted = false;
-
-        SaveFormData(formData);
-    }
     #endregion Application
 
     #region SaveFormData
@@ -319,18 +308,34 @@ public class BaseTravelDocumentController : BaseController
             using (var pdfDocument = PdfSharp.Pdf.IO.PdfReader.Open(inputStream, PdfSharp.Pdf.IO.PdfDocumentOpenMode.Modify))
             {
                 // Set metadata and viewer preferences
-                pdfDocument.Info.Title = fileTitle;
+                pdfDocument.Info.Title = fileTitle;                
+
+                //Set language - may need a toggle for Welsh?
+                pdfDocument.Language = "en-GB";
 
                 pdfDocument.Language = "en-GB";
 
                 // Manually add ViewerPreferences dictionary
                 PdfDictionary viewerPreferences = new PdfDictionary();
                 viewerPreferences.Elements["/DisplayDocTitle"] = new PdfBoolean(true);
+                viewerPreferences.Elements["/UseDocumentStructure"] = new PdfBoolean(true);
 
                 // Access the catalog dictionary and set ViewerPreferences
                 PdfDictionary catalog = pdfDocument.Internals.Catalog;
                 catalog.Elements["/ViewerPreferences"] = viewerPreferences;
 
+                // Set "Use Document Structure" for tab order in each page
+                foreach (var page in pdfDocument.Pages)
+                {
+                    if (page.Elements.ContainsKey("/Tabs"))
+                    {
+                        page.Elements["/Tabs"] = new PdfName("/S");  // Set tab order to "Structure"
+                    }
+                    else
+                    {
+                        page.Elements.Add("/Tabs", new PdfName("/S"));  // Add the Tabs key if it doesn't exist
+                    }
+                }
 
                 using (var outputStream = new MemoryStream())
                 {

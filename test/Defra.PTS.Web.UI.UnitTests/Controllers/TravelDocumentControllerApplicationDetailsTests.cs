@@ -252,7 +252,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // Arrange
             var id = Guid.NewGuid();
             var referenceNumber = "12345";
-            var mockContent = CreateSamplePdfStream();
+            var mockContent = CreateSamplePdfStream(true);
 
             var response = new CertificateResult(            
                 "SampleApplicationDetailsName",  // Name parameter
@@ -276,7 +276,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             Assert.AreEqual(fileName, result.FileDownloadName);
         }
 
-        public static MemoryStream CreateSamplePdfStream()
+        public static MemoryStream CreateSamplePdfStream(bool setTabs = false)
         {
             // Create a new PDF document
             var document = new PdfDocument();
@@ -293,6 +293,11 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             graphics.DrawString("Hello, this is a test PDF!", font, XBrushes.Black,
                 new XRect(0, 0, page.Width.Point, page.Height.Point), XStringFormats.Center);
 
+            if (setTabs)
+            {
+                page.Elements["/Tabs"] = new PdfName("/S");
+            }
+
             // Save the document into a MemoryStream
             var memoryStream = new MemoryStream();
             document.Save(memoryStream);
@@ -302,6 +307,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             return memoryStream;
         }
+
 
         public class MockHttpSession : ISession
         {
