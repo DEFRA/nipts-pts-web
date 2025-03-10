@@ -14,8 +14,8 @@ namespace Defra.PTS.Web.CertificateGenerator.Services;
 [ExcludeFromCodeCoverage]
 public class HtmlToPdfConverter : IHtmlToPdfConverter
 {
-    private readonly IBrowser _browser;
-    public HtmlToPdfConverter(IBrowser browser)
+    private readonly ICustomBrowser _browser;
+    public HtmlToPdfConverter(ICustomBrowser browser)
     {
         ArgumentNullException.ThrowIfNull(browser);
 
@@ -28,6 +28,7 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
 
         await using var page = await _browser.NewPageAsync();
         await page.SetContentAsync(context.Content).ConfigureAwait(false);
+
         return await page.PdfStreamAsync(new PdfOptions
         {
             Format = PaperFormat.A4,
@@ -41,7 +42,8 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
                 Top = $"{context.Margin.Top}px",
                 Left = $"{context.Margin.Left}px",
                 Right = $"{context.Margin.Right}px",
-            }
+            },
+            Tagged = true
         }).ConfigureAwait(false);
     }
 }
