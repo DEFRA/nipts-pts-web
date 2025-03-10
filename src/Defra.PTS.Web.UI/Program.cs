@@ -4,6 +4,7 @@ using Defra.PTS.Web.Domain.Models;
 using Defra.PTS.Web.Infrastructure.Extensions;
 using Defra.PTS.Web.UI.Configuration.Startup;
 using Defra.PTS.Web.UI.Constants;
+using Defra.Trade.Common.Api.Health;
 using Defra.Trade.Common.Api.Infrastructure;
 using Defra.Trade.Common.AppConfig;
 using Defra.Trade.Common.Security.Authentication.Infrastructure;
@@ -48,6 +49,7 @@ builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices(builder.Configuration);
 builder.Services.AddApplicationApis(builder.Configuration);
 builder.Services.AddFeatureManagement();
+builder.Services.AddHealthChecks();
 
 builder.Services.AddMediatR(cfg => { cfg.RegisterServicesFromAssemblyContaining<Program>(); });
 
@@ -108,6 +110,7 @@ _ = app.Use(async (context, next) =>
     context.Response.Headers.Expires = "0";
     await next();
 });
+app.UseTradeHealthChecks();
 _ = app.UseHttpsRedirection();
 _ = app.UseCookiePolicy();
 var supportedCultures = new[]
