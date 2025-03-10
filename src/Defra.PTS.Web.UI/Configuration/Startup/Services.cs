@@ -192,6 +192,7 @@ public class SessionTimeoutMiddleware(RequestDelegate next)
                 context.Request.Path.Value == "/" ||
                 context.Request.Path.Value == "/TravelDocument" ||
                 context.Request.Path.Value == "/signin-oidc" ||
+                context.Request.Path.Value == "//health" ||
                 context.Request.Path.StartsWithSegments("/css") ||
                 context.Request.Path.StartsWithSegments("/js") ||
                 context.Request.Path.StartsWithSegments("/images"))

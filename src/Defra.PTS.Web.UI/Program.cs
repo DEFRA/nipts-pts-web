@@ -110,6 +110,7 @@ _ = app.Use(async (context, next) =>
     context.Response.Headers.Expires = "0";
     await next();
 });
+app.UseTradeHealthChecks();
 _ = app.UseHttpsRedirection();
 _ = app.UseCookiePolicy();
 var supportedCultures = new[]
@@ -147,7 +148,6 @@ if (useAuth)
 
 _ = app.UseSession();
 _ = app.UseMiddleware<SessionTimeoutMiddleware>();
-app.UseTradeHealthChecks();
 
 _ = app.MapControllerRoute(
     name: "default",
