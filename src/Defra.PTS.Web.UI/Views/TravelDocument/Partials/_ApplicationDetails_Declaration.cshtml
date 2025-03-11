@@ -42,14 +42,18 @@
         </ul>
 
         <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-display-none-print">
-
-        <div class="govuk-grid-row pet-document-signature">
+        <div class="govuk-grid-row pet-document-signature" style="display: flex; flex-direction: row;">
             <div class="govuk-grid-column-two-thirds">
-
-                <p class="govuk-body"><strong>@Localizer["Name and signature of pet owner"]</strong> <br />@Model.PetOwnerName (@Localizer["Signed digitally"])</p>
+                <p class="govuk-body">
+                    <strong>@Localizer["Name and signature of pet owner"]</strong>
+                    <span class="govuk-!-display-block govuk-!-margin-top-0">@Model.PetOwnerName (@Localizer["Signed digitally"])</span>
+                </p>
             </div>
             <div class="govuk-grid-column-one-third">
-                <p class="govuk-body"><strong>@Localizer["Date"]</strong> <br />@Model.ApplicationDate.ToUKDateString()</p>
+                <p class="govuk-body">
+                    <strong>@Localizer["Date"]</strong>
+                    <span class="govuk-!-display-block govuk-!-margin-top-0">@Model.ApplicationDate.ToUKDateString()</span>
+                </p>
             </div>
         </div>
     </div>
