@@ -6,7 +6,6 @@
 @{
     var isAuthenticated = User.Identity.IsAuthenticated;
     var separator = "|";
-    var conditionalSeparator = isAuthenticated ? "|" : string.Empty;
     var fullName = Context.Session.GetString("FullName");    
 }
 
