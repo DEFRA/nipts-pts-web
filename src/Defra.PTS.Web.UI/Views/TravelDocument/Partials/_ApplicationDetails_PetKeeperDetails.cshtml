@@ -27,22 +27,22 @@
                     <dd class="govuk-summary-list__value">
                     @if (!string.IsNullOrWhiteSpace(Model.AddressLine1))
                     {
-                        @Model.AddressLine1
+                        @(Model.AddressLine1 + ",")
                     }
 
                     @if (!string.IsNullOrWhiteSpace(Model.AddressLine2))
                     {
-                        @Model.AddressLine2
+                        @(Model.AddressLine2 + ",")
                     }
 
                     @if (!string.IsNullOrWhiteSpace(Model.AddressLine3))
                     {
-                        @Model.AddressLine3
+                        @(Model.AddressLine3 + ",")
                     }
 
                     @if (!string.IsNullOrWhiteSpace(Model.TownOrCity))
                     {
-                        @Model.TownOrCity
+                        @(Model.TownOrCity + ",")
                     }
 
                     @if (!string.IsNullOrWhiteSpace(Model.Postcode))
