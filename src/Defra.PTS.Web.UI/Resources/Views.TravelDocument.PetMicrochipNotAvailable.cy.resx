@@ -126,7 +126,7 @@
   <data name="Get your pet microchipped before applying" xml:space="preserve">
     <value>Trefnwch osod microsglodyn ar eich anifail anwes cyn gwneud cais</value>
   </data>
-  <data name="Your pet dog, cat or ferret must be fitted with a microchip and registered on a UK database before you can apply for a lifelong pet travel document." xml:space="preserve">
+  <data name="Your pet dog, cat or ferret must be fitted with a microchip before you can apply for a lifelong pet travel document." xml:space="preserve">
     <value>Mae'n rhaid i'ch ci, eich cath neu’ch ffured anwes fod â microsglodyn wedi’i osod a bod wedi'u cofrestru ar gronfa ddata yn y Deyrnas Unedig cyn eich bod yn cael gwneud cais am ddogfen deithio gydol oes i anifeiliaid anwes.</value>
   </data>
 </root>
