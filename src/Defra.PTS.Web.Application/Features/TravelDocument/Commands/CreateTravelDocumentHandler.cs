@@ -61,7 +61,7 @@ public class CreateTravelDocumentHandler : IRequestHandler<CreateTravelDocumentR
             Status = AppConstants.ApplicationStatus.AWAITINGVERIFICATION.ToUpperInvariant(),
             DateOfApplication = DateTime.UtcNow,
             CreatedOn = DateTime.UtcNow,
-            UpdatedOn = DateTime.UtcNow,
+            UpdatedOn = DateTime.UtcNow,            
         };
 
         Guid appId;
@@ -86,7 +86,9 @@ public class CreateTravelDocumentHandler : IRequestHandler<CreateTravelDocumentR
             return response;
         }
 
-        var message = new ApplicationSubmittedMessage { ApplicationId = appId };
+        var applicationlanguage = Thread.CurrentThread.CurrentCulture.EnglishName == "Welsh" ? 489480001 : 489480000;
+
+        var message = new ApplicationSubmittedMessage { ApplicationId = appId, ApplicationLanguage = applicationlanguage };
         await _dynamicService.AddApplicationToQueueAsync(message);
 
         return response;

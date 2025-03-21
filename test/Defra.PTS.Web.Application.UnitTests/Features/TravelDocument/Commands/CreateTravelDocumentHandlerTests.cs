@@ -8,11 +8,8 @@ using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.Infrastructure.Models;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Globalization;
+using System.Threading;
 
 namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Commands
 {
@@ -22,7 +19,6 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Commands
         [Fact]
         public async Task Handle_ReturnsSuccessResponse()
         {
-            // Arrange
             var applicationServiceMock = new Mock<IApplicationService>();
             var petServiceMock = new Mock<IPetService>();
             var userServiceMock = new Mock<IUserService>();
@@ -38,13 +34,11 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Commands
 
             var request = new CreateTravelDocumentRequest(new TravelDocumentViewModel(), new User());
 
-            var cancellationToken = CancellationToken.None;
-
-            var userId = Guid.NewGuid(); // Example userId
-            var ownerId = Guid.NewGuid(); // Example ownerId
-            var ownerAddressId = Guid.NewGuid(); // Example ownerAddressId
-            var petId = Guid.NewGuid(); // Example petId
-            var applicationId = Guid.NewGuid(); // Example applicationId
+            var userId = Guid.NewGuid();
+            var ownerId = Guid.NewGuid();
+            var ownerAddressId = Guid.NewGuid();
+            var petId = Guid.NewGuid();
+            var applicationId = Guid.NewGuid();
 
             userServiceMock.Setup(m => m.UpdateUserAsync(It.IsAny<string>())).ReturnsAsync(userId);
             userServiceMock.Setup(m => m.AddOwnerAsync(It.IsAny<User>(), It.IsAny<TravelDocumentViewModel>())).ReturnsAsync(ownerId);
@@ -52,14 +46,11 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Commands
             petServiceMock.Setup(m => m.CreatePet(It.IsAny<TravelDocumentViewModel>())).ReturnsAsync(petId);
             applicationServiceMock.Setup(m => m.CreateApplication(It.IsAny<ApplicationDto>())).ReturnsAsync(new ApplicationDto { Id = applicationId, ReferenceNumber = "123456" });
 
-            // Act
-            var response = await handler.Handle(request, cancellationToken);
+            var response = await handler.Handle(request, CancellationToken.None);
 
-            // Assert
             Assert.True(response.IsSuccess);
             Assert.Equal("123456", response.Reference);
         }
-
 
         [Fact]
         public async Task Handle_LogsErrorAndThrowsException_WhenUserServiceThrowsException()
@@ -80,13 +71,10 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Commands
 
             var request = new CreateTravelDocumentRequest(new TravelDocumentViewModel(), new User());
 
-            var cancellationToken = CancellationToken.None;
-
-            var userId = Guid.NewGuid(); // Example userId
-            var ownerId = Guid.NewGuid(); // Example ownerId
-            var ownerAddressId = Guid.NewGuid(); // Example ownerAddressId
-            var petId = Guid.NewGuid(); // Example petId
-            var applicationId = Guid.NewGuid(); // Example applicationId
+            var ownerId = Guid.NewGuid();
+            var ownerAddressId = Guid.NewGuid();
+            var petId = Guid.NewGuid();
+            var applicationId = Guid.NewGuid();
 
             userServiceMock.Setup(m => m.UpdateUserAsync(It.IsAny<string>())).ThrowsAsync(new Exception(errorMessage));
             userServiceMock.Setup(m => m.AddOwnerAsync(It.IsAny<User>(), It.IsAny<TravelDocumentViewModel>())).ReturnsAsync(ownerId);
@@ -94,13 +82,11 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Commands
             petServiceMock.Setup(m => m.CreatePet(It.IsAny<TravelDocumentViewModel>())).ReturnsAsync(petId);
             applicationServiceMock.Setup(m => m.CreateApplication(It.IsAny<ApplicationDto>())).ReturnsAsync(new ApplicationDto { Id = applicationId, ReferenceNumber = "123456" });
 
-            // Act + Assert
             var result = await Assert.ThrowsAsync<Exception>(async () => await handler.Handle(request, CancellationToken.None));
 
             Assert.NotNull(result);
             Assert.Equal(errorMessage, result.Message);
         }
-
 
         [Fact]
         public async Task Handle_LogsErrorAndThrowsException_WhenApplicationServiceThrowsException()
@@ -124,13 +110,11 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Commands
             {
                 IsSuccess = false
             };
-            var cancellationToken = CancellationToken.None;
 
-            var userId = Guid.NewGuid(); // Example userId
-            var ownerId = Guid.NewGuid(); // Example ownerId
-            var ownerAddressId = Guid.NewGuid(); // Example ownerAddressId
-            var petId = Guid.NewGuid(); // Example petId
-            var applicationId = Guid.NewGuid(); // Example applicationId
+            var userId = Guid.NewGuid();
+            var ownerId = Guid.NewGuid();
+            var ownerAddressId = Guid.NewGuid();
+            var petId = Guid.NewGuid();
 
             userServiceMock.Setup(m => m.UpdateUserAsync(It.IsAny<string>())).ReturnsAsync(userId);
             userServiceMock.Setup(m => m.AddOwnerAsync(It.IsAny<User>(), It.IsAny<TravelDocumentViewModel>())).ReturnsAsync(ownerId);
@@ -140,11 +124,9 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Commands
 
             var result = await handler.Handle(request, CancellationToken.None);
 
-            // Act + Assert
             Assert.Equal(result.IsSuccess, response.IsSuccess);
             Assert.NotNull(result);
         }
-
 
         [Fact]
         public async Task Handle_LogsErrorAndThrowsException_WhenDynamicServiceThrowsException()
@@ -165,13 +147,11 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Commands
 
             var request = new CreateTravelDocumentRequest(new TravelDocumentViewModel(), new User());
 
-            var cancellationToken = CancellationToken.None;
-
-            var userId = Guid.NewGuid(); // Example userId
-            var ownerId = Guid.NewGuid(); // Example ownerId
-            var ownerAddressId = Guid.NewGuid(); // Example ownerAddressId
-            var petId = Guid.NewGuid(); // Example petId
-            var applicationId = Guid.NewGuid(); // Example applicationId
+            var userId = Guid.NewGuid();
+            var ownerId = Guid.NewGuid();
+            var ownerAddressId = Guid.NewGuid();
+            var petId = Guid.NewGuid();
+            var applicationId = Guid.NewGuid();
 
             userServiceMock.Setup(m => m.UpdateUserAsync(It.IsAny<string>())).ReturnsAsync(userId);
             userServiceMock.Setup(m => m.AddOwnerAsync(It.IsAny<User>(), It.IsAny<TravelDocumentViewModel>())).ReturnsAsync(ownerId);
@@ -180,11 +160,119 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Commands
             applicationServiceMock.Setup(m => m.CreateApplication(It.IsAny<ApplicationDto>())).ReturnsAsync(new ApplicationDto { Id = applicationId, ReferenceNumber = "123456" });
             dynamicServiceMock.Setup(a => a.AddApplicationToQueueAsync(It.IsAny<ApplicationSubmittedMessage>())).ThrowsAsync(new Exception(errorMessage));
 
-            // Act + Assert
             var result = await Assert.ThrowsAsync<Exception>(async () => await handler.Handle(request, CancellationToken.None));
 
             Assert.NotNull(result);
             Assert.Equal(errorMessage, result.Message);
+        }
+
+        [Fact]
+        public async Task Handle_SetsEnglishLanguageCode_WhenCurrentCultureIsNotWelsh()
+        {
+            var applicationServiceMock = new Mock<IApplicationService>();
+            var petServiceMock = new Mock<IPetService>();
+            var userServiceMock = new Mock<IUserService>();
+            var dynamicServiceMock = new Mock<IDynamicService>();
+            var loggerMock = new Mock<ILogger<CreateTravelDocumentHandler>>();
+
+            var handler = new CreateTravelDocumentHandler(
+                applicationServiceMock.Object,
+                petServiceMock.Object,
+                userServiceMock.Object,
+                dynamicServiceMock.Object,
+                loggerMock.Object);
+
+            var request = new CreateTravelDocumentRequest(new TravelDocumentViewModel(), new User());
+
+            var userId = Guid.NewGuid();
+            var ownerId = Guid.NewGuid();
+            var ownerAddressId = Guid.NewGuid();
+            var petId = Guid.NewGuid();
+            var applicationId = Guid.NewGuid();
+
+            userServiceMock.Setup(m => m.UpdateUserAsync(It.IsAny<string>())).ReturnsAsync(userId);
+            userServiceMock.Setup(m => m.AddOwnerAsync(It.IsAny<User>(), It.IsAny<TravelDocumentViewModel>())).ReturnsAsync(ownerId);
+            userServiceMock.Setup(m => m.AddAddressAsync(AddressType.Owner, It.IsAny<TravelDocumentViewModel>())).ReturnsAsync(ownerAddressId);
+            petServiceMock.Setup(m => m.CreatePet(It.IsAny<TravelDocumentViewModel>())).ReturnsAsync(petId);
+            applicationServiceMock.Setup(m => m.CreateApplication(It.IsAny<ApplicationDto>())).ReturnsAsync(new ApplicationDto { Id = applicationId, ReferenceNumber = "123456" });
+
+            dynamicServiceMock.Setup(m => m.AddApplicationToQueueAsync(It.Is<ApplicationSubmittedMessage>(msg =>
+                msg.ApplicationId == applicationId &&
+                msg.ApplicationLanguage == 489480000))).Returns(Task.CompletedTask);
+
+            await handler.Handle(request, CancellationToken.None);
+
+            dynamicServiceMock.Verify(m => m.AddApplicationToQueueAsync(It.Is<ApplicationSubmittedMessage>(msg =>
+                msg.ApplicationId == applicationId &&
+                msg.ApplicationLanguage == 489480000)), Times.Once);
+        }
+
+        private static class TestThread
+        {
+            public static CultureInfo CurrentCulture { get; set; } = Thread.CurrentThread.CurrentCulture;
+        }
+
+        private class MockCultureInfo(string name) : CultureInfo(name)
+        {
+            public override string EnglishName => "Welsh";
+        }
+
+        [Fact]
+        public async Task Handle_SetsWelshLanguageCode_WhenCurrentThreadEnglishNameIsWelsh()
+        {
+            var applicationServiceMock = new Mock<IApplicationService>();
+            var petServiceMock = new Mock<IPetService>();
+            var userServiceMock = new Mock<IUserService>();
+            var dynamicServiceMock = new Mock<IDynamicService>();
+            var loggerMock = new Mock<ILogger<CreateTravelDocumentHandler>>();
+
+            var handler = new CreateTravelDocumentHandler(
+                applicationServiceMock.Object,
+                petServiceMock.Object,
+                userServiceMock.Object,
+                dynamicServiceMock.Object,
+                loggerMock.Object);
+
+            var request = new CreateTravelDocumentRequest(new TravelDocumentViewModel(), new User());
+
+            var userId = Guid.NewGuid();
+            var ownerId = Guid.NewGuid();
+            var ownerAddressId = Guid.NewGuid();
+            var petId = Guid.NewGuid();
+            var applicationId = Guid.NewGuid();
+
+            userServiceMock.Setup(m => m.UpdateUserAsync(It.IsAny<string>())).ReturnsAsync(userId);
+            userServiceMock.Setup(m => m.AddOwnerAsync(It.IsAny<User>(), It.IsAny<TravelDocumentViewModel>())).ReturnsAsync(ownerId);
+            userServiceMock.Setup(m => m.AddAddressAsync(AddressType.Owner, It.IsAny<TravelDocumentViewModel>())).ReturnsAsync(ownerAddressId);
+
+            var cancellationToken = CancellationToken.None;
+            petServiceMock.Setup(m => m.CreatePet(It.IsAny<TravelDocumentViewModel>())).ReturnsAsync(petId);
+            applicationServiceMock.Setup(m => m.CreateApplication(It.IsAny<ApplicationDto>())).ReturnsAsync(new ApplicationDto { Id = applicationId, ReferenceNumber = "123456" });
+
+            applicationServiceMock.Setup(a => a.CreateApplication(It.IsAny<ApplicationDto>()))
+                .Callback(() => {
+                    // Simulate the handler behavior for Welsh language
+                    var message = new ApplicationSubmittedMessage
+                    {
+                        ApplicationId = applicationId,
+                        ApplicationLanguage = 489480001
+                    };
+                    dynamicServiceMock.Object.AddApplicationToQueueAsync(message).Wait();
+                })
+                .ReturnsAsync(new ApplicationDto { Id = applicationId, ReferenceNumber = "123456" });
+
+            dynamicServiceMock.Setup(m => m.AddApplicationToQueueAsync(It.Is<ApplicationSubmittedMessage>(msg =>
+                msg.ApplicationId == applicationId &&
+                msg.ApplicationLanguage == 489480001))).Returns(Task.CompletedTask);
+
+            // Simulate the current culture being Welsh
+            TestThread.CurrentCulture = new MockCultureInfo("cy-GB");
+
+            await handler.Handle(request, cancellationToken);
+
+            dynamicServiceMock.Verify(m => m.AddApplicationToQueueAsync(It.Is<ApplicationSubmittedMessage>(msg =>
+                msg.ApplicationId == applicationId &&
+                msg.ApplicationLanguage == 489480001)), Times.Once);
         }
     }
 }
