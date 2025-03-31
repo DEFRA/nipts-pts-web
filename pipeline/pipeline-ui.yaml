@@ -69,7 +69,6 @@ extends:
        -AppSettings:IpAddressUrl "https://$(Environment.Name)PTS$(nc-function-web)$(nc-resource-functionapp)1005.azurewebsites.net/api/getContainerIPAddress"
        -AppSettings:PdfLogoUrl "https://$(Environment.Name)-take-your-pet-from-gb-to-ni.azure.defra.cloud/assets/images/HMGFullSize.png"
        -AppSettings:CallChargesUrl "https://www.gov.uk/call-charges"
-
        -Cookie:Name "PTS"
        -Cookie:ExpireTimespan "00:30:00"
        -ConfigurationServer:Uri "https://$(Environment.Name)TRD$(nc-function-infrastructure)$(nc-resource-appconfiguration)1001.azconfig.io"
