@@ -3,11 +3,20 @@
 @inject IViewLocalizer Localizer
 
 @{
+    
     var pageTitle = Localizer["You cannot access this page or perform this action"].Value;
+    
     this.SetMetaTitle(pageTitle);
-    Layout = "_LayoutSlim";
-}
+    Layout ="_LayoutSlim";    
+    
+    var callChargesUrl = "https://www.gov.uk/call-charges";    
+    var welshUrlLocalization = Localizer["CallChargesUrl"];    
+    if(!string.IsNullOrEmpty(welshUrlLocalization?.Value) && welshUrlLocalization.Value !="CallChargesUrl")    
+    {
+       callChargesUrl = welshUrlLocalization.Value;    
+    }
 
+}
 <div class="govuk-width-container">
     <main class="govuk-main-wrapper pet-main" id="main-content">
         <div class="govuk-width-container">
@@ -34,7 +43,7 @@
                         <ul class="govuk-list">
                             <li>@Localizer["03300 416 999"]</li>
                             <li>@Localizer["Monday to Friday, 8:30am to 5pm (except public holidays)"]</li>
-                            <li><a href="https://www.gov.uk/call-charges" target="_blank">@Localizer["Find out about call charges (open in new tab)"]</a></li>
+                            <li><a href="@callChargesUrl" target="_blank">@Localizer["Find out about call charges (open in new tab)"]</a></li>
                         </ul>
 
                         <h3 class="govuk-heading-s">@Localizer["Email"]</h3>
