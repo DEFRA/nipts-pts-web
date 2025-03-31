@@ -1,6 +1,7 @@
 ﻿@using Defra.PTS.Web.UI.Extensions;
 @using Microsoft.AspNetCore.Mvc.Localization;
 @inject IViewLocalizer Localizer
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
 
 @{
     
@@ -9,7 +10,7 @@
     this.SetMetaTitle(pageTitle);
     Layout ="_LayoutSlim";    
     
-    var callChargesUrl = "https://www.gov.uk/call-charges";    
+    var callChargesUrl = Configuration["AppSettings:CallChargesUrl"];
     var welshUrlLocalization = Localizer["CallChargesUrl"];    
     if(!string.IsNullOrEmpty(welshUrlLocalization?.Value) && welshUrlLocalization.Value !="CallChargesUrl")    
     {
