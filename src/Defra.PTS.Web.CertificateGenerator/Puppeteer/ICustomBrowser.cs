@@ -2,7 +2,7 @@
 
 namespace Defra.PTS.Web.CertificateGenerator.Puppeteer;
 
-public interface IBrowser
+public interface ICustomBrowser
 {
     Task<IPage> NewPageAsync();
 }

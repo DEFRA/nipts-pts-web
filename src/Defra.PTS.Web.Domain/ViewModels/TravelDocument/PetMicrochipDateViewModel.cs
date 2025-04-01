@@ -17,10 +17,17 @@ public class PetMicrochipDateViewModel : TravelDocumentFormPage
         {
             try
             {
-                _ = int.TryParse(Day, out int day);
-                _ = int.TryParse(Month, out int month);
-                _ = int.TryParse(Year, out int year);
-                return new DateTime(year, month, day, 0, 0, 0, 0, DateTimeKind.Utc);
+                if (Year != null && Month != null && Day != null)
+                {
+                    _ = int.TryParse(Day, out int day);
+                    _ = int.TryParse(Month, out int month);
+                    _ = int.TryParse(Year, out int year);
+                    return new DateTime(year, month, day, 0, 0, 0, 0, DateTimeKind.Utc);
+                }
+                else
+                {
+                    return null;
+                }
             }
             catch
             {

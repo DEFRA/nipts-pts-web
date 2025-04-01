@@ -117,16 +117,46 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Check how to get your pet microchipped (opens in new tab)" xml:space="preserve">
-    <value>Gwiriwch sut i drefnu gosod microsglodyn ar eich anifail anwes (yn agor mewn tab newydd)</value>
+  <data name="You cannot access this page or perform this action" xml:space="preserve">
+    <value>Does dim modd i chi fynd i'r dudalen hon na gwneud y weithred hon</value>
   </data>
-  <data name="Enter a 15-digit number, using only numbers" xml:space="preserve">
-    <value>Rhowch rif 15 digid, gan ddefnyddio rhifau yn unig</value>
+  <data name="If you typed the web address, check it is correct." xml:space="preserve">
+    <value>Os oeddech chi wedi teipio'r cyfeiriad gwe, gwnewch yn siŵr ei fod yn gywir.</value>
   </data>
-  <data name="Get your pet microchipped before applying" xml:space="preserve">
-    <value>Trefnwch osod microsglodyn ar eich anifail anwes cyn gwneud cais</value>
+  <data name="If you pasted the web address, check you copied the entire address." xml:space="preserve">
+    <value>Os oeddech chi wedi gludo'r cyfeiriad gwe, gwnewch yn siŵr eich bod wedi copïo'r cyfeiriad cyfan.</value>
   </data>
-  <data name="Your pet dog, cat or ferret must be fitted with a microchip before you can apply for a lifelong pet travel document." xml:space="preserve">
-    <value>Mae'n rhaid i'ch ci, eich cath neu’ch ffured anwes fod â microsglodyn wedi’i osod a bod wedi'u cofrestru ar gronfa ddata yn y Deyrnas Unedig cyn eich bod yn cael gwneud cais am ddogfen deithio gydol oes i anifeiliaid anwes.</value>
+  <data name="If you tried to save some information in the service, " xml:space="preserve">
+    <value>Os gwnaethoch chi geisio cadw rhywfaint o wybodaeth yn y gwasanaeth, </value>
+  </data>
+  <data name="For any queries, call the Animal and Plant Health Agency (APHA):" xml:space="preserve">
+    <value>Ar gyfer unrhyw ymholiadau, ffoniwch yr Asiantaeth Iechyd Anifeiliaid a Phlanhigion (APHA):</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Ffôn</value>
+  </data>
+  <data name="03300 416 999" xml:space="preserve">
+    <value>03300 416 999</value>
+  </data>
+  <data name="Monday to Friday, 8:30am to 5pm (except public holidays)" xml:space="preserve">
+    <value>Dydd Llun i ddydd Gwener rhwng 8:30am a 5pm (ac eithrio gwyliau cyhoeddus)</value>
+  </data>
+  <data name="Find out about call charges (open in new tab)" xml:space="preserve">
+    <value>Gwybodaeth am gostau galwadau (agor mewn tab newydd)</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>E-bost</value>
+  </data>
+  <data name="We aim to respond within 5 working days" xml:space="preserve">
+    <value>Rydym yn anelu i ymateb cyn pen 5 diwrnod gwaith</value>
+  </data>
+  <data name="go back to the previous page" xml:space="preserve">
+    <value>ewch yn ôl i'r dudalen flaenorol</value>
+  </data>
+  <data name="and try again." xml:space="preserve">
+    <value>a rhoi cynnig arall arni.</value>
+  </data>
+  <data name="CallChargesUrl" xml:space="preserve">
+    <value>https://www.gov.uk/costau-galwadau</value>
   </data>
 </root>
