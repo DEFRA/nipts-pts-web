@@ -120,6 +120,9 @@
   <data name="Implant location" xml:space="preserve">
     <value>Lleoliad y mewnblaniad</value>
   </data>
+  <data name="Under the skin" xml:space="preserve">
+    <value>O dan y croen</value>
+  </data>
   <data name="Implant or scan date" xml:space="preserve">
     <value>Dyddiad mewnblannu neu sganio</value>
   </data>
