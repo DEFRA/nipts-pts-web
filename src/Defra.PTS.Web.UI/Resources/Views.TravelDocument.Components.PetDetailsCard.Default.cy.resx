@@ -58,73 +58,6 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-	<!-- Existing translations -->
-	<data name="(opens in a new tab)" xml:space="preserve">
-    <value>(yn agor mewn tab newydd)</value>
-  </data>
-	<data name="Check your answers and sign the declaration" xml:space="preserve">
-    <value>Gwiriwch eich atebion a llofnodwch y datganiad</value>
-  </data>
-	<data name="Declaration" xml:space="preserve">
-    <value>Datganiad</value>
-  </data>
-	<data name="Defra's privacy notice" xml:space="preserve">
-    <value>hysbysiad preifatrwydd Defra</value>
-  </data>
-	<data name="privacy notice" xml:space="preserve">
-    <value>hysbysiad preifatrwydd</value>
-  </data>
-	<data name="I agree" xml:space="preserve">
-    <value>Rwy'n cytuno</value>
-  </data>
-	<data name="I am not taking the animal as part of a commercial movement" xml:space="preserve">
-    <value>Nid wyf yn mynd â'r anifail fel rhan o symudiad masnachol</value>
-  </data>
-	<data name="I am the applicant" xml:space="preserve">
-    <value>fi yw'r ymgeisydd</value>
-  </data>
-	<data name="I declare that:" xml:space="preserve">
-    <value>Rwy'n datgan y canlynol:</value>
-  </data>
-	<data name="I have read the " xml:space="preserve">
-    <value>Rwyf wedi darllen </value>
-  </data>
-	<data name="I understand that I can travel with this pet to and from Northern Ireland only and not to an EU member state (Ireland is an EU member state)" xml:space="preserve">
-    <value>Rwy'n deall y gallaf deithio gyda'r anifail anwes hwn yn ôl ac ymlaen i Ogledd Iwerddon yn unig ac nid i un o aelod-wladwriaethau'r UE (mae Iwerddon yn un o aelod-wladwriaethau'r UE)</value>
-  </data>
-	<data name="the answers I have given are true and correct to the best of my knowledge" xml:space="preserve">
-    <value>mae'r atebion a roddais yn wir ac yn gywir hyd eithaf fy ngwybodaeth</value>
-  </data>
-
-	<!-- Added translations for buttons and validation -->
-	<data name="Send application" xml:space="preserve">
-    <value>Anfon cais</value>
-  </data>
-	<data name="Submit application" xml:space="preserve">
-    <value>Cyflwyno cais</value>
-  </data>
-	<data name="Agree to the declaration" xml:space="preserve">
-    <value>Cytuno â'r datganiad</value>
-  </data>
-
-	<!-- Added translations for microchip section -->
-	<data name="Microchip information" xml:space="preserve">
-    <value>Gwybodaeth am y microsglodyn</value>
-  </data>
-	<data name="Microchip number" xml:space="preserve">
-    <value>Rhif y microsglodyn</value>
-  </data>
-	<data name="Implant location" xml:space="preserve">
-    <value>Lleoliad y mewnblaniad</value>
-  </data>
-	<data name="Under the skin" xml:space="preserve">
-    <value>O dan y croen</value>
-  </data>
-	<data name="Implant or scan date" xml:space="preserve">
-    <value>Dyddiad mewnblannu neu sganio</value>
-  </data>
-
-	<!-- Added translations for pet details -->
 	<data name="Pet details" xml:space="preserve">
     <value>Manylion yr anifail anwes</value>
   </data>
@@ -170,31 +103,6 @@
 	<data name="None" xml:space="preserve">
     <value>Dim un</value>
   </data>
-
-	<!-- Added translations for pet owner details -->
-	<data name="Pet owner details" xml:space="preserve">
-    <value>Manylion perchennog yr anifail anwes</value>
-  </data>
-	<data name="Email" xml:space="preserve">
-    <value>Ebost</value>
-  </data>
-	<data name="Address" xml:space="preserve">
-    <value>Cyfeiriad</value>
-  </data>
-	<data name="Phone number" xml:space="preserve">
-    <value>Rhif ffôn</value>
-  </data>
-
-	<!-- Added translations for change links -->
-	<data name="Change" xml:space="preserve">
-    <value>Newid</value>
-  </data>
-	<data name="Change microchip number" xml:space="preserve">
-    <value>Newid rhif microsglodyn</value>
-  </data>
-	<data name="Change implant or scan date" xml:space="preserve">
-    <value>Newid dyddiad mewnblannu neu sganio</value>
-  </data>
 	<data name="Change pet's name" xml:space="preserve">
     <value>Newid enw'r anifail anwes</value>
   </data>
@@ -216,13 +124,7 @@
 	<data name="Change pet's significant features" xml:space="preserve">
     <value>Newid nodweddion arwyddocaol yr anifail anwes</value>
   </data>
-	<data name="Change name of pet owner" xml:space="preserve">
-    <value>Newid enw perchennog yr anifail anwes</value>
-  </data>
-	<data name="Change address" xml:space="preserve">
-    <value>Newid cyfeiriad</value>
-  </data>
-	<data name="Change phone number" xml:space="preserve">
-    <value>Newid rhif ffôn</value>
+	<data name="Change" xml:space="preserve">
+    <value>Newid</value>
   </data>
 </root>

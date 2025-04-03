@@ -10,7 +10,7 @@ namespace Defra.PTS.Web.UI.ViewComponents;
 [ExcludeFromCodeCoverage]
 public class PetKeeperDetailsCard : ViewComponent
 {
-    public IViewComponentResult Invoke(string viewName)
+    public IViewComponentResult Invoke(string viewName = null)
     {
         var dto = TempData.GetTravelDocument();
 
@@ -38,6 +38,6 @@ public class PetKeeperDetailsCard : ViewComponent
             AddressUrl = dto.PetKeeperAddressManual.IsCompleted ? WebAppConstants.Pages.TravelDocument.PetKeeperAddressManual : WebAppConstants.Pages.TravelDocument.PetKeeperPostcode
         };
 
-        return View(viewName, model);
+        return View(viewName ?? "Default", model);
     }
 }

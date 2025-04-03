@@ -3,20 +3,27 @@
 @using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 @using Defra.PTS.Web.Domain.Enums;
 @using Defra.PTS.Web.Application.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+    var changeText = currentCulture == "cy" ? "Newid" : "Change";
+}
 
 <div id="document-owner-card" class="govuk-summary-card">
     <div class="govuk-summary-card__title-wrapper">
-        <h2 class="govuk-summary-card__title">Pet owner details</h2>
+        <h2 class="govuk-summary-card__title">@Localizer["Pet owner details"]</h2>
     </div>
     <div class="govuk-summary-card__content">
         <dl class="govuk-summary-list">
 
             <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">Name</dt>
+                <dt class="govuk-summary-list__key">@Localizer["Name"]</dt>
                 <dd class="govuk-summary-list__value">@Model.Name</dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="@Model.NameUrl">
-                        Change<span class="govuk-visually-hidden"> name of pet owner</span>
+                        @changeText<span class="govuk-visually-hidden"> @Localizer["Change name of pet owner"]</span>
                     </a>
                 </dd>
             </div>
@@ -24,7 +31,7 @@
             @if (!string.IsNullOrWhiteSpace(Model.Email))
             {
                 <div class="govuk-summary-list__row">
-                    <dt class="govuk-summary-list__key">Email</dt>
+                    <dt class="govuk-summary-list__key">@Localizer["Email"]</dt>
                     <dd class="govuk-summary-list__value">@Model.Email</dd>
                     <dd class="govuk-summary-list__actions"></dd>
                 </div>
@@ -32,34 +39,36 @@
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Address
+                    @Localizer["Address"]
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @Model.Address.AddressLineOne @Model.Address.AddressLineTwo<br class="pet-br-print" />
                     @Model.Address.TownOrCity<br class="pet-br-print" />
                     @if (Model.Address.County != null && Model.Address.County != "")
                     {
-                        @Model.Address.County<br class="pet-br-print" />
+                        @Model.Address.County
+
+                        <br class="pet-br-print" />
                     }
                     @Model.Address.Postcode
                     @Html.ValidationMessage("Postcode", string.Empty, new { @class = "govuk-error-message" })
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="@Model.AddressUrl">
-                        Change<span class="govuk-visually-hidden"> address</span>
+                        @changeText<span class="govuk-visually-hidden"> @Localizer["Change address"]</span>
                     </a>
                 </dd>
 
             </div>
             <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">Phone number</dt>
+                <dt class="govuk-summary-list__key">@Localizer["Phone number"]</dt>
                 <dd class="govuk-summary-list__value">
                     @Model.Phone
                     @Html.ValidationMessage("Phone", string.Empty, new { @class = "govuk-error-message" })
                 </dd>
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="@Model.PhoneUrl">
-                        Change<span class="govuk-visually-hidden"> phone number</span>
+                        @changeText<span class="govuk-visually-hidden"> @Localizer["Change phone number"]</span>
                     </a>
                 </dd>
             </div>
