@@ -8,7 +8,7 @@ namespace Defra.PTS.Web.UI.ViewComponents;
 [ExcludeFromCodeCoverage]
 public class MicrochipInformationCard : ViewComponent
 {
-    public IViewComponentResult Invoke(string viewName)
+    public IViewComponentResult Invoke(string viewName = null)
     {
         var dto = TempData.GetTravelDocument();
 
@@ -21,6 +21,6 @@ public class MicrochipInformationCard : ViewComponent
             MicrochipImplantLocation = "Under the skin"
         };
 
-        return View(viewName, model);
+        return View(viewName ?? "Default", model);
     }
 }

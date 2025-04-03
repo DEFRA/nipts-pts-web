@@ -3,16 +3,23 @@
 @using Defra.PTS.Web.Domain.Enums;
 @using Defra.PTS.Web.Application.Extensions;
 @using Defra.PTS.Web.UI.Constants;
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+
+@{
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
+    var changeText = currentCulture == "cy" ? "Newid" : "Change";
+}
 
 <div id="document-pet-card" class="govuk-summary-card">
     <div class="govuk-summary-card__title-wrapper">
-        <h2 class="govuk-summary-card__title">Pet details</h2>
+        <h2 class="govuk-summary-card__title">@Localizer["Pet details"]</h2>
     </div>
     <div class="govuk-summary-card__content">
         <dl class="govuk-summary-list">
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Name
+                    @Localizer["Name"]
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @Model.Name
@@ -20,22 +27,37 @@
 
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.PetName">
-                        Change<span class="govuk-visually-hidden"> pet's name</span>
+                        @changeText<span class="govuk-visually-hidden"> @Localizer["Change pet's name"]</span>
                     </a>
                 </dd>
 
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Species
+                    @Localizer["Species"]
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.Species
+                    @if (Model.Species == "Dog")
+                    {
+                        @Localizer["Dog"]
+                    }
+                    else if (Model.Species == "Cat")
+                    {
+                        @Localizer["Cat"]
+                    }
+                    else if (Model.Species == "Ferret")
+                    {
+                        @Localizer["Ferret"]
+                    }
+                    else
+                    {
+                        @Model.Species
+                    }
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.PetSpecies">
-                        Change<span class="govuk-visually-hidden"> pet's species</span>
+                        @changeText<span class="govuk-visually-hidden"> @Localizer["Change pet's species"]</span>
                     </a>
                 </dd>
 
@@ -43,7 +65,7 @@
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Breed
+                    @Localizer["Breed"]
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @Model.Breed
@@ -53,31 +75,46 @@
                 {
                     <dd class="govuk-summary-list__actions">
                         <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.PetBreed">
-                            Change<span class="govuk-visually-hidden"> pet's breed</span>
+                            @changeText<span class="govuk-visually-hidden"> @Localizer["Change pet's breed"]</span>
                         </a>
                     </dd>
+                }
+                else
+                {
+                    <dd class="govuk-summary-list__actions"></dd>
                 }
 
             </div>
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Sex
+                    @Localizer["Sex"]
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.Gender
+                    @if (Model.Gender == "Female")
+                    {
+                        @Localizer["Female"]
+                    }
+                    else if (Model.Gender == "Male")
+                    {
+                        @Localizer["Male"]
+                    }
+                    else
+                    {
+                        @Model.Gender
+                    }
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.PetGender">
-                        Change<span class="govuk-visually-hidden"> pet's sex</span>
+                        @changeText<span class="govuk-visually-hidden"> @Localizer["Change pet's sex"]</span>
                     </a>
                 </dd>
 
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Date of birth
+                    @Localizer["Date of birth"]
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @Model.BirthDate
@@ -85,14 +122,14 @@
 
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.PetAge">
-                        Change<span class="govuk-visually-hidden"> pet's date of birth</span>
+                        @changeText<span class="govuk-visually-hidden"> @Localizer["Change pet's date of birth"]</span>
                     </a>
                 </dd>
 
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Colour
+                    @Localizer["Colour"]
                 </dt>
                 <dd class="govuk-summary-list__value">
                     @Model.Colour
@@ -100,22 +137,33 @@
 
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.PetColour">
-                        Change<span class="govuk-visually-hidden"> pet's colour</span>
+                        @changeText<span class="govuk-visually-hidden"> @Localizer["Change pet's colour"]</span>
                     </a>
                 </dd>
 
             </div>
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
-                    Significant features
+                    @Localizer["Significant features"]
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.Feature
+                    @if (Model.Feature.ToLower() == "no")
+                    {
+                        @Localizer["No"]
+                    }
+                    else if (Model.Feature.ToLower() == "none")
+                    {
+                        @Localizer["None"]
+                    }
+                    else
+                    {
+                        @Model.Feature
+                    }
                 </dd>
 
                 <dd class="govuk-summary-list__actions">
                     <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.PetFeature">
-                        Change<span class="govuk-visually-hidden"> pet's significant features</span>
+                        @changeText<span class="govuk-visually-hidden"> @Localizer["Change pet's significant features"]</span>
                     </a>
                 </dd>
 
