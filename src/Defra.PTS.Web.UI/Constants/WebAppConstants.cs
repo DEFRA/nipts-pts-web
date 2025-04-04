@@ -79,6 +79,7 @@ public static class WebAppConstants
         public const string Header = "~/Views/Shared/_HeaderPartial.cshtml";
         public const string BetaPanel = "~/Views/Shared/_BetaPanelPartial.cshtml";
         public const string Navigation = "~/Views/Shared/_NavigationPartial.cshtml";
+        public const string LanguageSelect = "~/Views/Shared/_LanguageSelect.cshtml";
         public const string Footer = "~/Views/Shared/_FooterPartial.cshtml";
         public const string NeedHelp = "~/Views/Shared/_NeedHelp.cshtml";
         public const string BackLink = "~/Views/Shared/_BackLink.cshtml";
