@@ -54,6 +54,11 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         }
 
         SaveFormData(model);
+
+        if (!newSpecies && model.PetSpecies == Domain.Enums.PetSpecies.Ferret)
+        {
+            return CYARedirect(nameof(PetBreed));
+        }
    
         if (model.PetSpecies == Domain.Enums.PetSpecies.Ferret)
         {
@@ -65,6 +70,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         {
             return CYARedirect(nameof(PetBreed));
         }
+
         return RedirectToAction(nameof(PetBreed));
     }
 }
