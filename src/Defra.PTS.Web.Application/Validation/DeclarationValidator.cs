@@ -4,18 +4,24 @@ using Defra.PTS.Web.Application.Helpers;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Localization;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Defra.PTS.Web.Application.Validation;
 public class DeclarationValidator : AbstractValidator<DeclarationViewModel>
 {
     private readonly IMediator _mediator;
+
     public DeclarationValidator(IMediator mediator)
     {
         ArgumentNullException.ThrowIfNull(mediator);
         _mediator = mediator;
 
-        RuleFor(x => x.AgreedToDeclaration).Must(x => x).WithMessage("Agree to the declaration");
+        RuleFor(x => x.AgreedToDeclaration)
+    .Must(x => x)
+    .WithMessage(System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName == "cy"
+        ? "Cytuno â'r datganiad"
+        : "Agree to the declaration");
 
         RuleFor(x => x.Phone)
             .NotEmpty()
@@ -48,7 +54,6 @@ public class DeclarationValidator : AbstractValidator<DeclarationViewModel>
         {
             RuleFor(x => x.Postcode).Must(BeValidUKPostcode).WithMessage("Enter your postcode in England, Scotland or Wales");
         });
-
     }
 
     [ExcludeFromCodeCoverage]
@@ -57,5 +62,4 @@ public class DeclarationValidator : AbstractValidator<DeclarationViewModel>
         var result = _mediator.Send(new ValidateGreatBritianAddressRequest(postcode)).Result;
         return result;
     }
-
 }

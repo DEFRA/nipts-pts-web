@@ -138,6 +138,9 @@
   <data name="Issuing authority" xml:space="preserve">
     <value>Awdurdod dyroddi</value>
   </data>
+  <data name="Animal and Plant Health Agency" xml:space="preserve">
+    <value>Asiantaeth Iechyd Anifeiliaid a Phlanhigion</value>
+  </data>
   <data name="Addlestone" xml:space="preserve">
     <value>Addlestone</value>
   </data>
