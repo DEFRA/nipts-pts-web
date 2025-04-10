@@ -574,7 +574,7 @@
     <comment>Cat Breed</comment>
   </data>
   <data name="Select or enter the breed of your pet" xml:space="preserve">
-    <value>Dewiswch frid neu rhowch frid eich anifail anwes</value>
+    <value>Dewiswch neu roi frîd eich anifail anwes</value>
   </data>
   <data name="Day" xml:space="preserve">
     <value>Dydd</value>
