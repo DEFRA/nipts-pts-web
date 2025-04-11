@@ -133,7 +133,7 @@
     <value>Er enghraifft, Labrador, Milgi, Cockapoo, Labradoodle.</value>
   </data>
   <data name="Select or enter the breed of your pet" xml:space="preserve">
-    <value>Dewiswch frid neu rhowch frid eich anifail anwes</value>
+    <value>Dewiswch neu roi frîd eich anifail anwes</value>
   </data>
   <data name="Select your pet's breed" xml:space="preserve">
     <value>Dewiswch frid eich anifail anwes</value>
@@ -143,5 +143,11 @@
   </data>
   <data name="What breed is your dog?" xml:space="preserve">
     <value>Pa frid yw’ch ci chi?</value>
+  </data>
+  <data name="Type your dog’s breed or select from the suggested options" xml:space="preserve">
+    <value>Teipiwch frîd eich ci neu ddewis o blith yr opsiynau a awgrymir</value>
+  </data>
+  <data name="Type your cat’s breed or select from the suggested options" xml:space="preserve">
+    <value>Teipiwch frîd eich cath neu ddewis o blith yr opsiynau a awgrymir</value>
   </data>
 </root>
