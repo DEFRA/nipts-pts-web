@@ -172,10 +172,10 @@
     <value>Rhowch frid gan ddefnyddio 150 o gymeriadau neu lai</value>
   </data>
   <data name="Select or enter the breed of your pet" xml:space="preserve">
-    <value>Dewiswch frid neu rhowch frid eich anifail anwes</value>
+    <value>Dewiswch neu roi frîd eich anifail anwes</value>
   </data>
   <data name="Enter a date in the correct format, for example 11 4 2021" xml:space="preserve">
-    <value>Rhowch ddyddiad yn y fformat cywir, er enghraifft 11 4 2021</value>
+    <value>Rhowch y dyddiad pan gafodd eich anifail anwes y microsglodyn neu’r dyddiad y cafodd ei sganio ddiwethaf. Er enghraifft, 11 4 2021</value>
   </data>
   <data name="Enter a date that is after the pet’s date of birth" xml:space="preserve">
     <value>Rhowch ddyddiad sydd ar ôl dyddiad geni'r anifail anwes</value>
