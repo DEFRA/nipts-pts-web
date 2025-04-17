@@ -135,7 +135,7 @@
   <data name="Download your application" xml:space="preserve">
     <value>Lawrlwytho’ch cais</value>
   </data>
-	<data name="Download your document" xml:space="preserve">
+  <data name="Download your document" xml:space="preserve">
     <value>Lawrlwytho’ch dogfen</value>
   </data>
   <data name="Email" xml:space="preserve">
@@ -159,7 +159,7 @@
   <data name="Print your application" xml:space="preserve">
     <value>Argraffu’ch cais</value>
   </data>
-    <data name="Print your document" xml:space="preserve">
+  <data name="Print your document" xml:space="preserve">
     <value>Argraffu’ch dogfen</value>
   </data>
   <data name="Privacy notice" xml:space="preserve">
@@ -577,7 +577,7 @@
     <value>Dewiswch neu roi frîd eich anifail anwes</value>
   </data>
   <data name="Day" xml:space="preserve">
-    <value>Dydd</value>
+    <value>Diwrnod</value>
   </data>
   <data name="Month" xml:space="preserve">
     <value>Mis</value>
