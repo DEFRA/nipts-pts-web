@@ -1,20 +1,22 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+@{
     var showBanner = this.Context.Request.Cookies["seen_cookie_message"] == null;
 }
 
 @if (showBanner)
 {
-    
-    <div id="govuk-cookie-banner" class="govuk-cookie-banner" data-nosnippet="" role="region" aria-label="Cookies on Taking a pet from Great Britain to Northern Ireland">
+
+    <div id="govuk-cookie-banner" class="govuk-cookie-banner" data-nosnippet="" role="region" aria-label="@Localizer["Cookies on Taking a pet from Great Britain to Northern Ireland"]">
         <div class="govuk-cookie-banner__message govuk-width-container">
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-two-thirds">
                     <h2 class="govuk-cookie-banner__heading govuk-heading-m">
-                        Cookies on Taking a pet from Great Britain to Northern Ireland
+                        @Localizer["Cookies on Taking a pet from Great Britain to Northern Ireland"]
                     </h2>
                     <div class="govuk-cookie-banner__content">
-                        <p class="govuk-body">We use some essential cookies to make this service work.</p>
-                        <p class="govuk-body">We'd also like to use additional cookies so we can understand how you use the service and make improvements.</p>
+                        <p class="govuk-body">@Localizer["We use some essential cookies to make this service work."]</p>
+                        <p class="govuk-body">@Localizer["We'd also like to use additional cookies so we can understand how you use the service and make improvements."]</p>
                     </div>
                 </div>
             </div>
@@ -26,52 +28,52 @@
                     <input type="hidden" name="GaCookieAcceptYesNo" value="" id="cookieChoice" />
 
                     <button type="button" class="govuk-button" data-module="govuk-button" data-govuk-button-init="" onclick="handleCookieChoice('accept')">
-                        Accept additional cookies
+                        @Localizer["Accept additional cookies"]
                     </button>
                     <button type="button" class="govuk-button" data-module="govuk-button" data-govuk-button-init="" onclick="handleCookieChoice('reject')">
-                        Reject additional cookies
+                        @Localizer["Reject additional cookies"]
                     </button>
                 }
 
-                <a class="govuk-link" href="@WebAppConstants.Pages.Content.Cookies">View cookies</a>
+                <a class="govuk-link" href="@WebAppConstants.Pages.Content.Cookies">@Localizer["View cookies"]</a>
             </div>
         </div>
     </div>
 }
 
 
-<div id="govuk-cookie-banner-accepted" class="govuk-cookie-banner" style="display:none;" data-nosnippet="" role="region" aria-label="Cookies on Taking a pet from Great Britain to Northern Ireland">
+<div id="govuk-cookie-banner-accepted" class="govuk-cookie-banner" style="display:none;" data-nosnippet="" role="region" aria-label="@Localizer["Cookies on Taking a pet from Great Britain to Northern Ireland"]">
     <div class="govuk-cookie-banner__message govuk-width-container">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-cookie-banner__content">
-                    <p class="govuk-body">You've accepted additional cookies. You can <a class="govuk-link" href="@WebAppConstants.Pages.Content.Cookies">change your cookie settings</a> at any time.</p>
+                    <p class="govuk-body">@Localizer["You've accepted additional cookies. You can change your cookie settings"] <a class="govuk-link" href="@WebAppConstants.Pages.Content.Cookies">@Localizer["at any time."]</a></p>
                 </div>
             </div>
         </div>
 
         <div class="govuk-button-group">
             <button type="button" class="govuk-button" data-module="govuk-button" onclick="hideBanner('govuk-cookie-banner-accepted')">
-                Hide cookie message
+                @Localizer["Hide cookie message"]
             </button>
         </div>
     </div>
 </div>
 
 
-<div id="govuk-cookie-banner-rejected" class="govuk-cookie-banner" style="display:none;" data-nosnippet="" role="region" aria-label="Cookies on Taking a pet from Great Britain to Northern Ireland">
+<div id="govuk-cookie-banner-rejected" class="govuk-cookie-banner" style="display:none;" data-nosnippet="" role="region" aria-label="@Localizer["Cookies on Taking a pet from Great Britain to Northern Ireland"]">
     <div class="govuk-cookie-banner__message govuk-width-container">
         <div class="govuk-grid-row">
             <div class="govuk-grid-column-two-thirds">
                 <div class="govuk-cookie-banner__content">
-                    <p class="govuk-body">You've rejected additional cookies. You can <a class="govuk-link" href="@WebAppConstants.Pages.Content.Cookies">change your cookie settings</a> at any time.</p>
+                    <p class="govuk-body">@Localizer["You've rejected additional cookies. You can change your cookie settings"] <a class="govuk-link" href="@WebAppConstants.Pages.Content.Cookies">@Localizer["at any time."]</a></p>
                 </div>
             </div>
         </div>
 
         <div class="govuk-button-group">
             <button type="button" class="govuk-button" data-module="govuk-button" onclick="hideBanner('govuk-cookie-banner-rejected')">
-                Hide cookie message
+                @Localizer["Hide cookie message"]
             </button>
         </div>
     </div>
@@ -79,22 +81,22 @@
 
 <script>
     function handleCookieChoice(choice) {
-        
+
         event.preventDefault();
 
         document.getElementById('cookieChoice').value = choice;
 
-        
+
         document.getElementById('govuk-cookie-banner').style.display = 'none';
 
-        
+
         if (choice === 'accept') {
             document.getElementById('govuk-cookie-banner-accepted').style.display = 'block';
         } else if (choice === 'reject') {
             document.getElementById('govuk-cookie-banner-rejected').style.display = 'block';
         }
 
-        
+
         const form = document.getElementById('cookie-form');
         const formData = new FormData(form);
 
@@ -122,11 +124,11 @@
         }
     }
 
-    
+
     document.addEventListener('DOMContentLoaded', function () {
         const form = document.getElementById('cookie-form');
         form.addEventListener('submit', function (e) {
             e.preventDefault();
         });
     });
-</script>
+</script>  
