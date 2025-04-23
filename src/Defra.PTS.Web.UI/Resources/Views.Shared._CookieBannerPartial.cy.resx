@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="Cookies on Taking a pet from Great Britain to Northern Ireland" xml:space="preserve"> <value>Cwcis ar Fynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon</value> </data>
+	<data name="We use some essential cookies to make this service work." xml:space="preserve"> <value>Rydym yn defnyddio rhai cwcis hanfodol i wneud i'r gwasanaeth hwn weithio.</value> </data>
+	<data name="We'd also like to use additional cookies so we can understand how you use the service and make improvements." xml:space="preserve"> <value>Hoffem hefyd ddefnyddio cwcis ychwanegol fel y gallwn ddeall sut rydych yn defnyddio'r gwasanaeth a gwneud gwelliannau.</value> </data>
+	<data name="Accept additional cookies" xml:space="preserve"> <value>Derbyn cwcis ychwanegol</value> </data>
+	<data name="Reject additional cookies" xml:space="preserve"> <value>Gwrthod cwcis ychwanegol</value> </data>
+	<data name="View cookies" xml:space="preserve"> <value>Gweld cwcis</value> </data>
+	<data name="You've accepted additional cookies. You can change your cookie settings" xml:space="preserve"> <value>Rydych wedi derbyn cwcis ychwanegol. Gallwch newid eich gosodiadau cwcis</value> </data>
+	<data name="You've rejected additional cookies. You can change your cookie settings" xml:space="preserve"> <value>Rydych wedi gwrthod cwcis ychwanegol. Gallwch newid eich gosodiadau cwcis</value> </data>
+	<data name="at any time." xml:space="preserve"> <value>ar unrhyw adeg.</value> </data>
+	<data name="Hide cookie message" xml:space="preserve"> <value>Cuddio neges cwcis</value> </data>
+</root>
