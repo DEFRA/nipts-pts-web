@@ -187,7 +187,7 @@ extends:
        -AzureAdB2C:SignedOutCallbackPath "https://$(v2idmUrl)/$(ptsB2cUrl)/signout"
        -AzureAdB2C:Nonce "defaultNonce"
        -KeyVaultUri "https://$(environment)trd$(nc-function-infrastructure-lower)$(nc-resource-keyvault-lower)1001.vault.azure.net/"
-       -PTS:MagicWordEnabled "true"
+       -PTS:MagicWordEnabled "false"
        -Puppeteer:BrowserURL "http://10.205.132.133:3000/"    
        -GoogleTagManager:ContainerId "GTM-5X3ZGT32"
        -GoogleTagManager:MeasurementId "G-Y41TMV2K08"
