@@ -45,7 +45,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             ViewBag.BreedList = breeds;
 
             //we need to check if the user is using Welsh - if they are, we change the order 
-            if (Thread.CurrentThread.CurrentCulture.EnglishName == "Welsh" || Thread.CurrentThread.CurrentCulture.EnglishName == "Welsh (United Kingdom)")
+            if (Thread.CurrentThread.CurrentCulture.EnglishName.Contains("Welsh"))
             {
                 ViewBag.BreedList = breeds
                  .OrderBy(i => i.Value != "0" && i.Value != "99")
