@@ -42,6 +42,8 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         {
             var breeds = await GetBreedsAsSelectListItems(formData.PetBreed.PetSpecies);
 
+            ViewBag.BreedList = breeds;
+
             //we need to check if the user is using Welsh - if they are, we change the order 
             if (Thread.CurrentThread.CurrentCulture.EnglishName == "Welsh")
             {
@@ -49,11 +51,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                  .OrderBy(i => i.Value != "0" && i.Value != "99")
                  .ThenBy(i => i.Text, StringComparer.OrdinalIgnoreCase)
                  .ToList();
-            }
-
-            else
-            {
-                ViewBag.BreedList = breeds;
             }
 
             if (formData.PetBreed.BreedId > 0 && formData.PetBreed.BreedName != null)
