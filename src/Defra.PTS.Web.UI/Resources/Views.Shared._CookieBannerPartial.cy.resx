@@ -58,14 +58,17 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-	<data name="Cookies on Taking a pet from Great Britain to Northern Ireland" xml:space="preserve"> <value>Cwcis ar Fynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon</value> </data>
+	<data name="Cookies on Taking a pet from Great Britain to Northern Ireland" xml:space="preserve"> <value>Cwcis ar fynd ag anifail anwes o Brydain Fawr i Ogledd Iwerddon</value> </data>
 	<data name="We use some essential cookies to make this service work." xml:space="preserve"> <value>Rydym yn defnyddio rhai cwcis hanfodol i wneud i’r gwasanaeth hwn weithio.</value> </data>
 	<data name="We'd also like to use additional cookies so we can understand how you use the service and make improvements." xml:space="preserve"> <value>Hoffem hefyd osod cwcis ychwanegol er mwyn i ni allu cofio eich gosodiadau, deall sut mae pobl yn defnyddio’r gwasanaeth a gwella’r gwasanaeth.</value> </data>
 	<data name="Accept additional cookies" xml:space="preserve"> <value>Derbyn cwcis ychwanegol</value> </data>
 	<data name="Reject additional cookies" xml:space="preserve"> <value>Gwrthod cwcis ychwanegol</value> </data>
 	<data name="View cookies" xml:space="preserve"> <value>Gweld cwcis</value> </data>
-	<data name="You've accepted additional cookies. You can change your cookie settings" xml:space="preserve"> <value>Rydych chi wedi derbyn cwcis ychwanegol. Gallwch chi newid eich gosodiadau cwcis</value> </data>
-	<data name="You've rejected additional cookies. You can change your cookie settings" xml:space="preserve"> <value>Rydych chi wedi gwrthod cwcis ychwanegol. Gallwch chi newid eich gosodiadau cwcis</value> </data>
-	<data name="at any time." xml:space="preserve"> <value> unrhyw bryd.</value> </data>
+	<data name="You've accepted additional cookies. You can change " xml:space="preserve"> <value>Rydych chi wedi derbyn cwcis ychwanegol. Gallwch chi </value> </data>
+	<data name="You've rejected additional cookies. You can change " xml:space="preserve"> <value>Rydych chi wedi gwrthod cwcis ychwanegol. Gallwch chi </value> </data>
+	
+	<data name="change your cookie settings" xml:space="preserve"> <value>newid eich gosodiadau cwcis</value> </data>
+	
+	<data name=" at any time." xml:space="preserve"> <value> unrhyw bryd.</value> </data>
 	<data name="Hide cookie message" xml:space="preserve"> <value>Cuddio’r neges cwcis</value> </data>
 </root>
