@@ -232,7 +232,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
 
         [Test]
-        public async Task PetBreed_Returns_ViewResult_With_Correctly_Ordered_BreedList_When_User_Is_Welsh()
+        public void PetBreed_Returns_ViewResult_With_Correctly_Ordered_BreedList_When_User_Is_Welsh()
         {
             // Arrange
             Thread.CurrentThread.CurrentCulture = new CultureInfo("cy-GB"); // Set culture to Welsh
