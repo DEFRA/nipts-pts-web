@@ -198,7 +198,7 @@
     <comment>Dog Breed</comment>
   </data>
   <data name="Toy Poodle" xml:space="preserve">
-    <value>Pwdl Tegan</value>
+    <value>Pwdl (Pwdl Tegan)</value>
     <comment>Dog Breed</comment>
   </data>
   <data name="Italian Greyhound" xml:space="preserve">
@@ -222,7 +222,7 @@
     <comment>Dog Breed</comment>
   </data>
   <data name="Basset Hound" xml:space="preserve">
-    <value>Ci Baset</value>
+    <value>Ci Basset</value>
     <comment>Dog Breed</comment>
   </data>
   <data name="Beagle" xml:space="preserve">
@@ -283,6 +283,10 @@
   </data>
   <data name="Boxer" xml:space="preserve">
     <value>Bocser</value>
+    <comment>Dog Breed</comment>
+  </data>
+  <data name="Chihuahua" xml:space="preserve">
+    <value>Chihuahuah</value>
     <comment>Dog Breed</comment>
   </data>
   <data name="Doberman Pinscher" xml:space="preserve">
@@ -358,7 +362,7 @@
     <comment>Dog Breed</comment>
   </data>
   <data name="French Bulldog" xml:space="preserve">
-    <value>Ci tarw Ffrengig</value>
+    <value>Ci tarw Frengig</value>
     <comment>Dog Breed</comment>
   </data>
   <data name="Lhasa Apso" xml:space="preserve">
@@ -386,7 +390,7 @@
     <comment>Dog Breed</comment>
   </data>
   <data name="German Shepherd" xml:space="preserve">
-    <value>Bleiddgi’r Almaen</value>
+    <value>Bleiddgi'r Almaen</value>
     <comment>Dog Breed</comment>
   </data>
   <data name="Old English Sheepdog" xml:space="preserve">
