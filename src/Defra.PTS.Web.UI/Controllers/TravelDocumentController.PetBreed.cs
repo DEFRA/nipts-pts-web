@@ -48,10 +48,11 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             if (Thread.CurrentThread.CurrentCulture.EnglishName.Contains("Welsh"))
             {
                 ViewBag.BreedList = breeds
-                 .OrderBy(i => i.Value != "0" && i.Value != "99")
-                 .ThenBy(i => i.Text, StringComparer.OrdinalIgnoreCase)
-                 .ToList();
+                .OrderBy(i => i.Value != "0" && i.Value != "99" && i.Value != "100")
+                .ThenBy(i => i.Text, StringComparer.CurrentCultureIgnoreCase)
+                .ToList();
             }
+
 
             if (formData.PetBreed.BreedId > 0 && formData.PetBreed.BreedName != null)
             {
