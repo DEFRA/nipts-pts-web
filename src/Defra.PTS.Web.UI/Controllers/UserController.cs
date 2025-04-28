@@ -52,9 +52,10 @@ public class UserController : BaseController
             var userInfo = GetCurrentUserInfo();
             if (userInfo != null && !string.IsNullOrEmpty(userInfo.EmailAddress))
             {
+                _logger.LogInformation("Initiating OSignOutAsync for {EmailAddress}", userInfo.EmailAddress);
                 var request = new UpdateUserRequest(userInfo.EmailAddress);
                 _ = await _mediator.Send(request);
-                MemoryCache.Default[Pages.User.AccessTokenKey] = null;
+                //MemoryCache.Default.Dispose();
             }
         }
         catch (Exception ex)

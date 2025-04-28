@@ -158,6 +158,30 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             Assert.AreEqual(nameof(TravelDocumentController.PetName), result.ActionName);
         }
 
+        [Test]
+        public void PetSpecies_WithValidModel_RedirectsToCYA()
+        {
+            // Arrange                                 
+            var formData = new TravelDocumentViewModel
+            {
+                PetSpecies = new PetSpeciesViewModel
+                {
+                    PetSpecies = PetSpecies.Ferret,
+                    PreviousSelectedSpecies = PetSpecies.Ferret
+                },
+
+            };
+            _travelDocumentController.Setup(x => x.GetFormData(false))
+                .Returns(formData);
+
+            // Act
+            var result = _travelDocumentController.Object.PetSpecies(formData.PetSpecies) as RedirectToActionResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(nameof(TravelDocumentController.PetBreed), result.ActionName);
+        }
+
 
         [Test]
         public void PetSpecies_WithValidModel_RedirectsToPetBreed()

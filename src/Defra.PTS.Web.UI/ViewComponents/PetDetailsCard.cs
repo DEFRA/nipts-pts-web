@@ -9,9 +9,9 @@ namespace Defra.PTS.Web.UI.ViewComponents;
 [ExcludeFromCodeCoverage]
 public class PetDetailsCard : ViewComponent
 {
-    public IViewComponentResult Invoke(string viewName)
+    public IViewComponentResult Invoke(string viewName = null)
     {
-        var dto = TempData.GetTravelDocument();        
+        var dto = TempData.GetTravelDocument();
 
         var model = new PetDetailsCvm
         {
@@ -25,6 +25,6 @@ public class PetDetailsCard : ViewComponent
             BirthDate = dto.PetAge.BirthDate.Value.ToUKDateString()
         };
 
-        return View(viewName, model);
+        return View(viewName ?? "Default", model);
     }
 }

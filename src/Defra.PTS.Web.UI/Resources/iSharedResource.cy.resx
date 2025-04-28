@@ -135,7 +135,7 @@
   <data name="Download your application" xml:space="preserve">
     <value>Lawrlwytho’ch cais</value>
   </data>
-	<data name="Download your document" xml:space="preserve">
+  <data name="Download your document" xml:space="preserve">
     <value>Lawrlwytho’ch dogfen</value>
   </data>
   <data name="Email" xml:space="preserve">
@@ -159,8 +159,8 @@
   <data name="Print your application" xml:space="preserve">
     <value>Argraffu’ch cais</value>
   </data>
-    <data name="Print your document" xml:space="preserve">
-    <value>Argraffwch eich dogfen</value>
+  <data name="Print your document" xml:space="preserve">
+    <value>Argraffu’ch dogfen</value>
   </data>
   <data name="Privacy notice" xml:space="preserve">
     <value>Hysbysiad preifatrwydd</value>
@@ -198,7 +198,7 @@
     <comment>Dog Breed</comment>
   </data>
   <data name="Toy Poodle" xml:space="preserve">
-    <value>Pwdl Tegan</value>
+    <value>Pwdl (Pwdl Tegan)</value>
     <comment>Dog Breed</comment>
   </data>
   <data name="Italian Greyhound" xml:space="preserve">
@@ -222,7 +222,7 @@
     <comment>Dog Breed</comment>
   </data>
   <data name="Basset Hound" xml:space="preserve">
-    <value>Ci Baset</value>
+    <value>Ci Basset</value>
     <comment>Dog Breed</comment>
   </data>
   <data name="Beagle" xml:space="preserve">
@@ -283,6 +283,10 @@
   </data>
   <data name="Boxer" xml:space="preserve">
     <value>Bocser</value>
+    <comment>Dog Breed</comment>
+  </data>
+  <data name="Chihuahua" xml:space="preserve">
+    <value>Chihuahuah</value>
     <comment>Dog Breed</comment>
   </data>
   <data name="Doberman Pinscher" xml:space="preserve">
@@ -358,7 +362,7 @@
     <comment>Dog Breed</comment>
   </data>
   <data name="French Bulldog" xml:space="preserve">
-    <value>Ci tarw Ffrengig</value>
+    <value>Ci tarw Frengig</value>
     <comment>Dog Breed</comment>
   </data>
   <data name="Lhasa Apso" xml:space="preserve">
@@ -386,7 +390,7 @@
     <comment>Dog Breed</comment>
   </data>
   <data name="German Shepherd" xml:space="preserve">
-    <value>Bleiddgi’r Almaen</value>
+    <value>Bleiddgi'r Almaen</value>
     <comment>Dog Breed</comment>
   </data>
   <data name="Old English Sheepdog" xml:space="preserve">
@@ -574,10 +578,10 @@
     <comment>Cat Breed</comment>
   </data>
   <data name="Select or enter the breed of your pet" xml:space="preserve">
-    <value>Dewiswch frid neu rhowch frid eich anifail anwes</value>
+    <value>Dewiswch neu roi frîd eich anifail anwes</value>
   </data>
   <data name="Day" xml:space="preserve">
-    <value>Dydd</value>
+    <value>Diwrnod</value>
   </data>
   <data name="Month" xml:space="preserve">
     <value>Mis</value>

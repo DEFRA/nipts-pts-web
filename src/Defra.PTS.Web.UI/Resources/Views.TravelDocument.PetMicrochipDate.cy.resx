@@ -120,6 +120,9 @@
   <data name="Check your pet's microchip certificate or vaccination record for the microchip or scan date." xml:space="preserve">
     <value>I igael rhif y microsglodyn neu ddyddiad y sgan, gwiriwch dystysgrif microsglodyn neu gofnod brechiadau eich anifail anwes.</value>
   </data>
+  <data name="Check your pet’s microchip certificate or vaccination record for the microchip or scan date. If you do not know the date of insertion or last scan, enter an estimated date." xml:space="preserve">
+    <value>Gwiriwch dystysgrif microsglodyn neu gofnod brechu eich anifail anwes i gael dyddiad y microsglodyn neu’r dyddiad sganio. Os nad ydych chi’n gwybod dyddiad mewnosod y microsglodyn neu’r dyddiad y cafodd ei sganio ddiwethaf, rhowch amcan o’r dyddiad.</value>
+  </data>
   <data name="For example, 27 3 2023" xml:space="preserve">
     <value>Er enghraifft, 27 3 2023</value>
   </data>

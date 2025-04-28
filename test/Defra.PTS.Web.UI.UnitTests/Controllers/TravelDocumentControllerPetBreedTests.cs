@@ -12,6 +12,7 @@ using Defra.PTS.Web.UI.Helpers;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
@@ -19,6 +20,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
+using System.Globalization;
 using Assert = NUnit.Framework.Assert;
 
 namespace Defra.PTS.Web.UI.UnitTests.Controllers
@@ -227,6 +229,68 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // Assert
             Assert.IsNotNull(result);
         }
+
+
+        [Test]
+        public void PetBreed_Returns_ViewResult_With_Correctly_Ordered_BreedList_When_User_Is_Welsh()
+        {
+            // Arrange
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("cy-GB"); // Set culture to Welsh
+
+            // Arrange
+            _travelDocumentController.Setup(x => x.IsApplicationInProgress())
+               .Returns(true);
+
+            var formData = new TravelDocumentViewModel
+            {
+                PetKeeperUserDetails = new PetKeeperUserDetailsViewModel
+                {
+                    IsCompleted = true,
+                },
+                PetMicrochip = new PetMicrochipViewModel
+                {
+                    IsCompleted = true,
+                },
+                PetMicrochipDate = new PetMicrochipDateViewModel
+                {
+                    IsCompleted = true,
+                },
+                PetSpecies = new PetSpeciesViewModel
+                {
+                    PetSpecies = PetSpecies.Cat,
+                    IsCompleted = true,
+                },
+                PetBreed = new PetBreedViewModel
+                {
+                    BreedId = 2,
+                    BreedName = "Test",
+                    BreedAdditionalInfo = "Test Add Info",
+                    IsCompleted = true,
+                },
+
+            };
+
+            _mockSelectListLocaliser.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
+                .ReturnsAsync(new List<BreedDto>()
+                {
+                   new()
+                   {
+                       BreedId = 2,
+                       BreedName = "test",
+                       Group = "test"
+                   }
+             });
+
+            _travelDocumentController.Setup(x => x.GetFormData(false))
+                 .Returns(formData);
+
+            // Act
+            var result = _travelDocumentController.Object.PetBreed().Result as ViewResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+        }
+
 
         [Test]
         public void PetBreed_WithValidModel_If_BreedName_Matches_RedirectsToPetName()

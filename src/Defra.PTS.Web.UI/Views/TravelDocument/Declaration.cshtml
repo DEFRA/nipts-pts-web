@@ -10,6 +10,7 @@
 @{
     this.SetMetaTitle(Model.FormTitle);
     var errorOrder = new string[] { "Postcode", "Phone", "AgreedToAccuracy", "AgreedToPrivacyPolicy", "AgreedToDeclaration" };
+    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 }
 
 <div class="govuk-grid-row">
@@ -41,10 +42,6 @@
                 @await Component.InvokeAsync(nameof(PetDetailsCard))
                 @await Component.InvokeAsync(nameof(PetKeeperDetailsCard))
 
-                @{
-                    var currentCulture = System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-                }
-
                 <h2 class="govuk-heading-l">@Localizer["Declaration"]</h2>
                 <h3 class="govuk-body">@Localizer["I declare that:"]</h3>
                 <ul class="govuk-list govuk-list--bullet">
@@ -58,13 +55,13 @@
                     }
                     @if (currentCulture == "cy")
                     {
-                        <li>Rwyf wedi darllen telerau ac amodau'r <a class="govuk-link" href="@WebAppConstants.Pages.Content.TermsAndConditions">Cynllun Teithio Anifeiliaid Anwes</a>, ac rwy’n eu derbyn</li>
+                        <li>Rwyf wedi darllen telerau ac amodau'r <a class="govuk-link" href="@WebAppConstants.Pages.Content.TermsAndConditions">Cynllun Teithio Anifeiliaid Anwes</a>, ac rwy'n eu derbyn</li>
                     }
                     <li>@Localizer["I have read the "]<a class="govuk-link" target="_blank" rel="noopener noreferrer" href="@WebAppConstants.ExternalLinks.PrivacyNotice"> @Localizer["privacy notice"] <span class="govuk-!-display-none-print">@Localizer["(opens in a new tab)"]</span></a></li>
                 </ul>
 
                 <div id="formroot-declaration" class="govuk-form-group govuk-!-static-margin-bottom-9 @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
-                    @Html.ValidationMessageFor(x => x.AgreedToDeclaration, string.Empty, new { @id = "declaration-error-message", @class = "govuk-error-message"})
+                    @Html.ValidationMessageFor(x => x.AgreedToDeclaration, string.Empty, new { @id = "declaration-error-message", @class = "govuk-error-message" })
                     <div class="govuk-checkboxes" data-module="govuk-checkboxes">
                         <div class="govuk-checkboxes__item">
                             @Html.CheckBoxFor(m => m.AgreedToDeclaration, new { @class = "govuk-checkboxes__input", id = "AgreedToDeclaration", aria_labelledby = "DeclarationLabel" })
@@ -79,7 +76,7 @@
 
             <div class="govuk-button-group">
                 <button class="govuk-button" data-module="govuk-button" type="submit" onClick='return submitForm()' id="submitButton">
-                    Send application
+                    @Localizer["Send application"]
                 </button>
             </div>
         }
@@ -92,7 +89,7 @@
         let submitting = false;
         $(document).ready(function () {
             submitting = false;
-            $('#submitButton').prop('disabled', false);        
+            $('#submitButton').prop('disabled', false);
         })
 
         function submitForm() {
@@ -105,7 +102,5 @@
 
             return false;
         }
-
     </script>
 }
-
