@@ -1,9 +1,11 @@
 ﻿@model CookiesModel
 @using Defra.PTS.Web.UI.Extensions;
 @inject IConfiguration config
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    var pageTitle = "Cookies";
+    var pageTitle = Localizer["Cookies"].Value;
     this.SetMetaTitle(pageTitle);
     var ga = config["GoogleTagManager:MeasurementId"].Remove(0, 2);
 }
@@ -27,12 +29,12 @@
                                 <div class="govuk-notification-banner govuk-notification-banner--success" role="alert" aria-labelledby="govuk-notification-banner-title" data-module="govuk-notification-banner" data-govuk-notification-banner-init="">
                                     <div class="govuk-notification-banner__header">
                                         <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-                                            Success
+                                            @Localizer["Success"]
                                         </h2>
                                     </div>
                                     <div class="govuk-notification-banner__content">
                                         <p class="govuk-notification-banner__heading">
-                                            You’ve set your cookie preferences.
+                                            @Localizer["You’ve set your cookie preferences."]
                                         </p>
                                     </div>
                                 </div>
@@ -45,36 +47,36 @@
                     <div class="govuk-grid-row">
                         <div class="govuk-grid-column-two-thirds">
                             <p class="govuk-body">
-                                This service uses cookies – cookies are small files saved on your phone, tablet or computer when you visit a website. We use 2 types of cookies on this site:
+                                @Localizer["This service uses cookies – cookies are small files saved on your phone, tablet or computer when you visit a website. We use 2 types of cookies on this site:"]
                             </p>
 
                             <ul class="govuk-list govuk-list--bullet">
-                                <li>essential cookies – these are strictly necessary</li>
-                                <li>optional cookies – these are used to measure your use of the service</li>
+                                <li>@Localizer["essential cookies – these are strictly necessary"]</li>
+                                <li>@Localizer["optional cookies – these are used to measure your use of the service"]</li>
                             </ul>
 
-                            <p>You can learn more about cookies and how to manage them on the <a href="https://ico.org.uk/for-the-public/online/cookies" rel="noreferrer noopener" target="_blank">website for the Information Commissioner’s Office (opens in a new tab)</a>.</p>
+                            <p>@Localizer["You can learn more about cookies and how to manage them on the"] <a href="https://ico.org.uk/for-the-public/online/cookies" rel="noreferrer noopener" target="_blank">@Localizer["website for the Information Commissioner’s Office (opens in a new tab)"]</a>.</p>
 
-                            <h2 class="govuk-heading-m">Essential cookies (strictly necessary)</h2>
+                            <h2 class="govuk-heading-m">@Localizer["Essential cookies (strictly necessary)"]</h2>
 
-                            <p>We need to collect these cookies in order for the service to work.</p>
+                            <p>@Localizer["We need to collect these cookies in order for the service to work."]</p>
 
-                            <h3 class="govuk-heading-s">Introductory cookie message</h3>
+                            <h3 class="govuk-heading-s">@Localizer["Introductory cookie message"]</h3>
 
-                            <p>You may see a pop-up welcome message when you first visit. A cookie is stored so that your computer knows you’ve seen it and knows not to show it again.</p>
+                            <p>@Localizer["You may see a pop-up welcome message when you first visit. A cookie is stored so that your computer knows you’ve seen it and knows not to show it again."]</p>
 
-                            <h3 class="govuk-heading-s">Essential cookies we use</h3>
+                            <h3 class="govuk-heading-s">@Localizer["Essential cookies we use"]</h3>
 
                             <table class="govuk-table govuk-!-margin-bottom-7">
                                 <thead class="govuk-table__head">
                                     <tr class="govuk-table__row">
                                         <th class="govuk-table__header govuk-!-width-one-third" scope="col">
-                                            Name
+                                            @Localizer["Name"]
                                         </th>
                                         <th class="govuk-table__header govuk-!-width-one-half" scope="col">
-                                            Purpose
+                                            @Localizer["Purpose"]
                                         </th>
-                                        <th class="govuk-table__header" scope="col">Expires</th>
+                                        <th class="govuk-table__header" scope="col">@Localizer["Expires"]</th>
                                     </tr>
                                 </thead>
                                 <tbody class="govuk-table__body">
@@ -83,33 +85,33 @@
                                             seen_cookie_message
                                         </td>
                                         <td class="govuk-table__cell">
-                                            Saves a message to let us know that you’ve seen our cookie message
+                                            @Localizer["Saves a message to let us know that you’ve seen our cookie message"]
                                         </td>
-                                        <td class="govuk-table__cell">12 months</td>
+                                        <td class="govuk-table__cell">@Localizer["12 months"]</td>
                                     </tr>
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell">cookie_policy</td>
                                         <td class="govuk-table__cell">
-                                            Saves a message to let us know that you’ve accepted or rejected cookies
+                                            @Localizer["Saves a message to let us know that you’ve accepted or rejected cookies"]
                                         </td>
-                                        <td class="govuk-table__cell">12 months</td>
+                                        <td class="govuk-table__cell">@Localizer["12 months"]</td>
                                     </tr>
                                 </tbody>
                             </table>
 
 
-                            <h3 class="govuk-heading-s">Other essential cookies</h3>
+                            <h3 class="govuk-heading-s">@Localizer["Other essential cookies"]</h3>
 
                             <table class="govuk-table govuk-!-margin-bottom-7">
                                 <thead class="govuk-table__head">
                                     <tr class="govuk-table__row">
                                         <th class="govuk-table__header govuk-!-width-one-third" scope="col">
-                                            Name
+                                            @Localizer["Name"]
                                         </th>
                                         <th class="govuk-table__header govuk-!-width-one-half" scope="col">
-                                            Purpose
+                                            @Localizer["Purpose"]
                                         </th>
-                                        <th class="govuk-table__header" scope="col">Expires</th>
+                                        <th class="govuk-table__header" scope="col">@Localizer["Expires"]</th>
                                     </tr>
                                 </thead>
                                 <tbody class="govuk-table__body">
@@ -117,114 +119,114 @@
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell">.AspNetCore.Antiforgery</td>
                                         <td class="govuk-table__cell">
-                                            Prevents forgery attacks from other websites – this helps to keep your information secure
+                                            @Localizer["Prevents forgery attacks from other websites – this helps to keep your information secure"]
                                         </td>
-                                        <td class="govuk-table__cell">When you close the browser</td>
+                                        <td class="govuk-table__cell">@Localizer["When you close the browser"]</td>
                                     </tr>
 
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell">.AspNetCore.Culture</td>
                                         <td class="govuk-table__cell">
-                                            Stores the language of the service
+                                            @Localizer["Stores the language of the service"]
                                         </td>
-                                        <td class="govuk-table__cell">1 year</td>
+                                        <td class="govuk-table__cell">@Localizer["1 year"]</td>
                                     </tr>
 
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell">.AspNetCore.Session</td>
                                         <td class="govuk-table__cell">
-                                            Stores data you’ve provided during the session
+                                            @Localizer["Stores data you’ve provided during the session"]
                                         </td>
-                                        <td class="govuk-table__cell">1 hour</td>
+                                        <td class="govuk-table__cell">@Localizer["1 hour"]</td>
                                     </tr>
 
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell">.AspNetCore.Session</td>
                                         <td class="govuk-table__cell">
-                                            Stores data you’ve provided during the session
+                                            @Localizer["Stores data you’ve provided during the session"]
                                         </td>
-                                        <td class="govuk-table__cell">1 hour</td>
+                                        <td class="govuk-table__cell">@Localizer["1 hour"]</td>
                                     </tr>
 
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell">PTS</td>
                                         <td class="govuk-table__cell">
-                                            Stores data you’ve provided during the session
+                                            @Localizer["Stores data you’ve provided during the session"]
                                         </td>
-                                        <td class="govuk-table__cell">1 hour</td>
+                                        <td class="govuk-table__cell">@Localizer["1 hour"]</td>
                                     </tr>
 
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell">PTSC1</td>
                                         <td class="govuk-table__cell">
-                                            Stores data you’ve provided during the session
+                                            @Localizer["Stores data you’ve provided during the session"]
                                         </td>
-                                        <td class="govuk-table__cell">1 hour</td>
+                                        <td class="govuk-table__cell">@Localizer["1 hour"]</td>
                                     </tr>
 
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell">PTSC2</td>
                                         <td class="govuk-table__cell">
-                                            Stores data you’ve provided during the session
+                                            @Localizer["Stores data you’ve provided during the session"]
                                         </td>
-                                        <td class="govuk-table__cell">1 hour</td>
+                                        <td class="govuk-table__cell">@Localizer["1 hour"]</td>
                                     </tr>
 
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell">PTSC3</td>
                                         <td class="govuk-table__cell">
-                                            Stores data you’ve provided during the session
+                                            @Localizer["Stores data you’ve provided during the session"]
                                         </td>
-                                        <td class="govuk-table__cell">1 hour</td>
+                                        <td class="govuk-table__cell">@Localizer["1 hour"]</td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <h2 class="govuk-heading-m">Optional cookies</h2>
+                            <h2 class="govuk-heading-m">@Localizer["Optional cookies"]</h2>
 
-                            <p>We use Google Analytics software to understand how people use this service. We do this to help make sure the site is meeting the needs of its users and to help us make improvements.</p>
+                            <p>@Localizer["We use Google Analytics software to understand how people use this service. We do this to help make sure the site is meeting the needs of its users and to help us make improvements."]</p>
 
-                            <p>We do not collect or store your personal information (for example your name or address) so this information cannot be used to identify who you are.</p>
+                            <p>@Localizer["We do not collect or store your personal information (for example your name or address) so this information cannot be used to identify who you are."]</p>
 
-                            <p>We do not allow Google to use or share our analytics data.</p>
+                            <p>@Localizer["We do not allow Google to use or share our analytics data."]</p>
 
-                            <p>Google Analytics stores information about:</p>
+                            <p>@Localizer["Google Analytics stores information about:"]</p>
 
                             <ul class="govuk-list govuk-list--bullet">
-                                <li>the pages you visit</li>
-                                <li>how long you spend on each page</li>
-                                <li>how you arrived at the site</li>
-                                <li>what you click on while you visit the site</li>
-                                <li>the device and browser you use</li>
+                                <li>@Localizer["the pages you visit"]</li>
+                                <li>@Localizer["how long you spend on each page"]</li>
+                                <li>@Localizer["how you arrived at the site"]</li>
+                                <li>@Localizer["what you click on while you visit the site"]</li>
+                                <li>@Localizer["the device and browser you use"]</li>
                             </ul>
 
-                            <h3 class="govuk-heading-s">Google Analytics cookies we use</h3>
+                            <h3 class="govuk-heading-s">@Localizer["Google Analytics cookies we use"]</h3>
 
                             <table class="govuk-table govuk-!-margin-bottom-7">
                                 <thead class="govuk-table__head">
                                     <tr class="govuk-table__row">
                                         <th class="govuk-table__header govuk-!-width-one-third" scope="col">
-                                            Name
+                                            @Localizer["Name"]
                                         </th>
                                         <th class="govuk-table__header govuk-!-width-one-half" scope="col">
-                                            Purpose
+                                            @Localizer["Purpose"]
                                         </th>
-                                        <th class="govuk-table__header" scope="col">Expires</th>
+                                        <th class="govuk-table__header" scope="col">@Localizer["Expires"]</th>
                                     </tr>
                                 </thead>
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell">_ga</td>
                                         <td class="govuk-table__cell">
-                                            Helps us to count how many people use the service by tracking if you’ve visited before
+                                            @Localizer["Helps us to count how many people use the service by tracking if you’ve visited before"]
                                         </td>
-                                        <td class="govuk-table__cell">In 2 years</td>
+                                        <td class="govuk-table__cell">@Localizer["In 2 years"]</td>
                                     </tr>
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell">_ga_@ga</td>
                                         <td class="govuk-table__cell">
-                                            Helps us to count how many people use the service by tracking if you’ve visited before
+                                            @Localizer["Helps us to count how many people use the service by tracking if you’ve visited before"]
                                         </td>
-                                        <td class="govuk-table__cell">In 2 years</td>
+                                        <td class="govuk-table__cell">@Localizer["In 2 years"]</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -234,26 +236,26 @@
                             <div class="govuk-form-group">
                                 <fieldset class="govuk-fieldset">
                                     <legend class="govuk-fieldset__legend govuk-fieldset__legend--m">
-                                        Do you want to accept Google Analytics cookies?
+                                        @Localizer["Do you want to accept Google Analytics cookies?"]
                                     </legend>
                                     <div class="govuk-radios" data-module="govuk-radios" data-govuk-radios-init="">
                                         <div class="govuk-radios__item">
                                             @Html.RadioButtonFor(m => m.GaCookieAcceptYesNo, "accept", new { @class = "govuk-radios__input", id = "yes" })
                                             <label class="govuk-label govuk-radios__label" for="yes">
-                                                Yes
+                                                @Localizer["Yes"]
                                             </label>
                                         </div>
                                         <div class="govuk-radios__item">
                                             @Html.RadioButtonFor(m => m.GaCookieAcceptYesNo, "reject", new { @class = "govuk-radios__input", id = "no" })
                                             <label class="govuk-label govuk-radios__label" for="no">
-                                                No
+                                                @Localizer["No"]
                                             </label>
                                         </div>
                                     </div>
                                 </fieldset>
                             </div>
                             <button type="submit" class="govuk-button" data-module="govuk-button" data-govuk-button-init="">
-                                Save cookies settings
+                                @Localizer["Save cookies settings"]
                             </button>
 
                         </div>
