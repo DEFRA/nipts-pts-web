@@ -75,7 +75,7 @@
 	<data name="Purpose" xml:space="preserve"> <value>Pwrpas</value> </data>
 	<data name="Expires" xml:space="preserve"> <value>Yn dod i ben</value> </data>
 	<data name="Saves a message to let us know that you’ve seen our cookie message" xml:space="preserve"> <value>Yn cadw neges i roi gwybod i ni eich bod wedi gweld ein neges </value> </data>
-	<data name="Saves a message to let us know that you’ve accepted or rejected cookies	" xml:space="preserve"> <value>Yn cadw neges i roi gwybod i ni eich bod wedi derbyn neu wrthod cwcis </value> </data>
+	<data name="Saves a message to let us know that you’ve accepted or rejected cookies" xml:space="preserve"> <value>Yn cadw neges i roi gwybod i ni eich bod wedi derbyn neu wrthod cwcis </value> </data>
 	<data name="12 months" xml:space="preserve"> <value>12 Mis</value> </data>
 	<data name="Other essential cookies" xml:space="preserve"> <value>Cwcis hanfodol eraill </value> </data>
 	<data name="When you close the browser" xml:space="preserve"> <value>Pan fyddwch chi’n cau'r porwr</value> </data>
