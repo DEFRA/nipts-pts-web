@@ -185,10 +185,6 @@
     <value>Brid cymysg neu anhysbys</value>
     <comment>Dog Breed</comment>
   </data>
-  <data name="Chihuahua" xml:space="preserve">
-    <value>Chihuahua</value>
-    <comment>Dog Breed</comment>
-  </data>
   <data name="Pekingese" xml:space="preserve">
     <value>Pecinî</value>
     <comment>Dog Breed</comment>
