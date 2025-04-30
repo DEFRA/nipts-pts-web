@@ -106,6 +106,21 @@ public class TempDataExtensionsTests
     }
 
     [Fact]
+    public void TempData_ClearFormSubmissionQueue_ReturnsNull()
+    {
+        // Arrange
+        var tempData = TempData();
+        var id = Guid.NewGuid();
+        // Act
+        tempData.AddToFormSubmissionQueue(id);
+        tempData.ClearFormSubmissionQueue();
+        var result = tempData.GetFormSubmissionQueue();
+
+        // Assert
+        result.Should().BeNullOrEmpty();
+    }
+
+    [Fact]
     public void TempData_AddToFormSubmissionQueue_ReturnsObject()
     {
         // Arrange
