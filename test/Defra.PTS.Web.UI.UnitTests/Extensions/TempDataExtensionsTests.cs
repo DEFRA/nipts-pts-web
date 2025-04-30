@@ -13,6 +13,9 @@ namespace Defra.PTS.Web.UI.UnitTests.Extensions;
 public class TempDataExtensionsTests
 {
     private readonly ITempDataDictionary _tempData;
+    private readonly string ApplicationReference = "ApplicationReference";
+    private readonly string TestReference = "TestReference";
+
     public TempDataExtensionsTests()
     {
         var mockTempData = new Mock<ITempDataDictionary>();
@@ -231,11 +234,11 @@ public class TempDataExtensionsTests
         var tempData = TempData();
 
         // Act
-        tempData.SetApplicationReference("TestReference");
+        tempData.SetApplicationReference(TestReference);
 
         // Assert
-        var result = tempData.Peek("ApplicationReference");
-        Assert.Equal("TestReference", result);
+        var result = tempData.Peek(ApplicationReference);
+        Assert.Equal(TestReference, result);
     }
 
     [Fact]
@@ -243,13 +246,13 @@ public class TempDataExtensionsTests
     {
         // Arrange
         var tempData = TempData();
-        tempData.Add("ApplicationReference", "TestReference");
+        tempData.Add(ApplicationReference, TestReference);
 
         // Act
         var result = tempData.GetApplicationReference();
 
         // Assert
-        Assert.Equal("TestReference", result);
+        Assert.Equal(TestReference, result);
     }
 
     [Fact]
@@ -270,11 +273,11 @@ public class TempDataExtensionsTests
     {
         // Arrange
         var tempData = TempData();
-        tempData.Add("ApplicationReference", "TestReference");
+        tempData.Add(ApplicationReference, "TestReference");
 
         // Act
         tempData.RemoveApplicationReference();
-        var result = tempData.Peek("ApplicationReference");
+        var result = tempData.Peek(ApplicationReference);
 
         // Assert
         Assert.Null(result);
