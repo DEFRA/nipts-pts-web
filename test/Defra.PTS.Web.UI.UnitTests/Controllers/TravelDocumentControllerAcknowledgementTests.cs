@@ -65,6 +65,12 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _travelDocumentController.Setup(x => x.IsApplicationInProgress())
                 .Returns(false);
 
+            _travelDocumentController.Setup(x => x.GetFormSubmissionQueue()).Returns(new List<Guid> 
+            {
+                Guid.NewGuid(), 
+                Guid.NewGuid()
+            });
+
             // Act
             var result = _travelDocumentController.Object.Acknowledgement() as RedirectToActionResult;
 
@@ -143,10 +149,14 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // Arrange
             _travelDocumentController.Setup(x => x.IsApplicationInProgress())
                .Returns(true);
+
+            _travelDocumentController.Setup(x => x.GetFormSubmissionQueue()).Returns(new List<Guid>
+            {
+                Guid.NewGuid(),
+                Guid.NewGuid()
+            });
+
             var mock = new Mock<BaseController>();
-
-            
-
 
             var formData = new TravelDocumentViewModel
             {

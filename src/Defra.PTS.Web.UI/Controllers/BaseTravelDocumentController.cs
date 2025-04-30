@@ -272,7 +272,7 @@ public class BaseTravelDocumentController : BaseController
         return TempData.GetApplicationReference();
     }
 
-    public List<Guid> GetFormSubmissionQueue()
+    public virtual List<Guid> GetFormSubmissionQueue()
     {
         return TempData.GetFormSubmissionQueue();
     }
