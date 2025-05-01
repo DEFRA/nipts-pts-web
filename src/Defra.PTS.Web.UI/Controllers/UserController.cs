@@ -72,6 +72,8 @@ public class UserController : BaseController
         HttpContext.User = null;
 
         TempData.RemoveTravelDocument();
+        TempData.ClearFormSubmissionQueue();
+        TempData.RemoveApplicationReference();
         return Redirect(adB2cSection.SignedOutCallbackPath);
     }
 

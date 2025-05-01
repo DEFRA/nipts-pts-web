@@ -102,6 +102,13 @@ public static class TempDataExtensions
         tempData.Set(TempDataKey.FormSubmissionQueue, model);
     }
 
+    public static void ClearFormSubmissionQueue(this ITempDataDictionary tempData)
+    {
+        var model = tempData.GetFormSubmissionQueue();
+        model.Clear();
+        tempData.Set(TempDataKey.FormSubmissionQueue, model);
+    }
+
     public static bool IsInFormSubmissionQueue(this ITempDataDictionary tempData, Guid id)
     {
         var model = tempData.GetFormSubmissionQueue();
@@ -119,6 +126,10 @@ public static class TempDataExtensions
     {
         var o = tempData.Peek(TempDataKey.ApplicationReference);
         return o == null ? null : (string)o;
+    }
+    public static void RemoveApplicationReference(this ITempDataDictionary tempData)
+    {
+        tempData.Remove(TempDataKey.ApplicationReference);
     }
 
 }
