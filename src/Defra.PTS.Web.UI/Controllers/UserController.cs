@@ -91,7 +91,7 @@ public class UserController : BaseController
                 HttpOnly = true,
                 Secure = true
             };
-            HttpContext.Response.Cookies.Append("ManagementLinkClicked", "false", options);
+            HttpContext.Session.SetString("ManagementLinkClicked", "false");
         }
         catch (Exception ex)
         {
@@ -108,11 +108,11 @@ public class UserController : BaseController
     {
         CookieOptions options = new()
         {
-            SameSite = SameSiteMode.Strict,
+            SameSite = SameSiteMode.Strict,            
             HttpOnly = true,
             Secure = true
         };
-        HttpContext.Response.Cookies.Append("ManagementLinkClicked", "true", options);
+        HttpContext.Session.SetString("ManagementLinkClicked", "true");
         string managementUrl = _configuration["AppSettings:ManagementUrl"];
         return Redirect(managementUrl);
     }

@@ -27,6 +27,7 @@ using Moq;
 using NUnit.Framework;
 using System.Net;
 using System.Security.Claims;
+using Xunit;
 using Xunit.Sdk;
 using Assert = NUnit.Framework.Assert;
 
@@ -68,22 +69,43 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         public void If_MagicWordEnabled_True_RedirectTo_Index()
         {
             // Arrange
-
-            var mockHttpContext = new Mock<Microsoft.AspNetCore.Http.IHttpContextAccessor>();
+            var mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
+            var mockHttpContext = new Mock<HttpContext>();
             var mockRequest = new Mock<Microsoft.AspNetCore.Http.HttpRequest>();
             var mockResponse = new Mock<Microsoft.AspNetCore.Http.HttpResponse>();
             var mockCookies = new Mock<Microsoft.AspNetCore.Http.IRequestCookieCollection>();
+            var mockSession = new Mock<ISession>();
 
-            mockHttpContext.Setup(x => x.HttpContext.Request).Returns(mockRequest.Object);
-            mockHttpContext.Setup(x => x.HttpContext.Response).Returns(mockResponse.Object);
+
+            // Setup the session mock to return false for TryGetValue and the desired value for the key
+            var sessionValues = new Dictionary<string, byte[]>
+            {
+                { "ManagementLinkClicked", System.Text.Encoding.UTF8.GetBytes("false") }
+            };
+
+            mockSession.Setup(x => x.TryGetValue("ManagementLinkClicked", out It.Ref<byte[]>.IsAny))
+            .Returns((string key, out byte[] value) =>
+            {
+                var result = sessionValues.TryGetValue(key, out value);
+                return result;
+            });
+
+            mockSession.Setup(x => x.Set("ManagementLinkClicked", It.IsAny<byte[]>()))
+            .Callback<string, byte[]>((key, value) => sessionValues[key] = value);
+
+
+            mockHttpContext.Setup(x => x.Session).Returns(mockSession.Object);
+            mockHttpContext.Setup(x => x.Request).Returns(mockRequest.Object);
+            mockHttpContext.Setup(x => x.Response).Returns(mockResponse.Object);
             mockRequest.Setup(x => x.Cookies).Returns(mockCookies.Object);
-            mockCookies.Setup(x => x.TryGetValue("ManagementLinkClicked", out It.Ref<string>.IsAny)).Returns(true);
-            mockCookies.Setup(x => x["ManagementLinkClicked"]).Returns("true");
 
-            _travelDocumentController.ControllerContext.HttpContext = mockHttpContext.Object.HttpContext;
+            mockHttpContextAccessor.Setup(x => x.HttpContext).Returns(mockHttpContext.Object);
+
+ 
+            _travelDocumentController.ControllerContext.HttpContext = mockHttpContext.Object;
 
             // Arrange
-            var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
+            var tempData = new TempDataDictionary(mockHttpContext.Object, Mock.Of<ITempDataProvider>());
             var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = false };
             tempData.SetHasUserUsedMagicWord(magicWordViewModel);
             _travelDocumentController.TempData = tempData;
@@ -94,6 +116,59 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // Assert
             Assert.IsNotNull(result);
             Assert.AreEqual(nameof(TravelDocumentController.Index), result.ActionName);
+        }
+
+        [Test]
+        public void If_ManagementLinkClicked_True_RedirectTo_CheckIdm2SignOut()
+        {
+            // Arrange
+            var mockHttpContextAccessor = new Mock<IHttpContextAccessor>();
+            var mockHttpContext = new Mock<HttpContext>();
+            var mockRequest = new Mock<Microsoft.AspNetCore.Http.HttpRequest>();
+            var mockResponse = new Mock<Microsoft.AspNetCore.Http.HttpResponse>();
+            var mockCookies = new Mock<Microsoft.AspNetCore.Http.IRequestCookieCollection>();
+            var mockSession = new Mock<ISession>();
+
+
+            // Setup the session mock to return true for TryGetValue and the desired value for the key
+            var sessionValues = new Dictionary<string, byte[]>
+            {
+                { "ManagementLinkClicked", System.Text.Encoding.UTF8.GetBytes("true") }
+            };
+
+            mockSession.Setup(x => x.TryGetValue("ManagementLinkClicked", out It.Ref<byte[]>.IsAny))
+            .Returns((string key, out byte[] value) =>
+            {
+                var result = sessionValues.TryGetValue(key, out value);
+                return result;
+            });
+
+            mockSession.Setup(x => x.Set("ManagementLinkClicked", It.IsAny<byte[]>()))
+            .Callback<string, byte[]>((key, value) => sessionValues[key] = value);
+
+
+            mockHttpContext.Setup(x => x.Session).Returns(mockSession.Object);
+            mockHttpContext.Setup(x => x.Request).Returns(mockRequest.Object);
+            mockHttpContext.Setup(x => x.Response).Returns(mockResponse.Object);
+            mockRequest.Setup(x => x.Cookies).Returns(mockCookies.Object);
+
+            mockHttpContextAccessor.Setup(x => x.HttpContext).Returns(mockHttpContext.Object);
+
+
+            _travelDocumentController.ControllerContext.HttpContext = mockHttpContext.Object;
+
+            // Arrange
+            var tempData = new TempDataDictionary(mockHttpContext.Object, Mock.Of<ITempDataProvider>());
+            var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = false };
+            tempData.SetHasUserUsedMagicWord(magicWordViewModel);
+            _travelDocumentController.TempData = tempData;
+
+            // Act
+            var result = _travelDocumentController.Index().Result as RedirectToActionResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual("CheckIdm2SignOut", result.ActionName);
         }
 
 
