@@ -66,12 +66,13 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             if (HttpContext != null && HttpContext.Session != null)
             {
                 HttpContext.Session.SetString("SessionActive", "yes");
-            }        
+            }
 
-            if (HttpContext.Request.Cookies.TryGetValue("ManagementLinkClicked", out string managementLinkClicked) && managementLinkClicked == "true")
+            if (HttpContext.Session.TryGetValue("ManagementLinkClicked", out byte[] managementLinkClicked) && System.Text.Encoding.UTF8.GetString(managementLinkClicked) == "true")
             {
                 return RedirectToAction("CheckIdm2SignOut", "User");
             }
+
 
             if (HttpContext.Request.Cookies.TryGetValue(".AspNetCore.Culture", out string language) && language == "c=cy|uic=cy")
             {
