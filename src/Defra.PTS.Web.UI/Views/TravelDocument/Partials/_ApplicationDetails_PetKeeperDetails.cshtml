@@ -5,7 +5,7 @@
 
 <div id="document-owner-card" class="govuk-summary-card">
     <div class="govuk-summary-card__title-wrapper">
-        @if (Model.Status == @AppConstants.ApplicationStatus.APPROVED)
+        @if (Model.Status == @AppConstants.ApplicationStatus.APPROVED || Model.Status == "Authorised")
         {
             <h2 class="govuk-summary-card__title">@Localizer["Pet owner details (place of issuance)"]</h2>
         }
