@@ -68,7 +68,7 @@ public class PetAgeValidator : AbstractValidator<PetAgeViewModel>
 
         When(x => x.BirthDate.HasValue, () =>
         {
-            var message = localizer["Enter a date that is less than 34 years ago"].Value;
+            var message = localizer["The date you entered is too far in the past, check your pet's date of birth is correct"].Value;
             When(x => !MeetsDateLimits(x.BirthDate, out message), () =>
             {
                 RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
@@ -126,7 +126,7 @@ public class PetAgeValidator : AbstractValidator<PetAgeViewModel>
         // 1 day after allowed dob
         var fromDate = DateTime.Now.Date.AddYears(-AppConstants.Values.PetMaxAgeInYears).AddDays(1);
 
-        errorMessage = "Enter a date that is less than 34 years ago";
+        errorMessage = "The date you entered is too far in the past, check your pet's date of birth is correct";
 
         var dob = date.Value.Date;
         return dob >= fromDate;
