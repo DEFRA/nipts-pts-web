@@ -127,4 +127,396 @@
 	<data name="Change" xml:space="preserve">
     <value>Newid</value>
   </data>
+	<data name="Mixed breed or unknown" xml:space="preserve">
+    <value>Brid cymysg neu anhysbys</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Pekingese" xml:space="preserve">
+    <value>Pecinî</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Pomeranian" xml:space="preserve">
+    <value>Pomeraniad</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Toy Poodle" xml:space="preserve">
+    <value>Pwdl (Pwdl Tegan)</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Italian Greyhound" xml:space="preserve">
+    <value>Milgi Eidalaidd</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Shih Tzu" xml:space="preserve">
+    <value>Shih Tzu</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Papillon" xml:space="preserve">
+    <value>Papillon</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Cavalier King Charles Spaniel" xml:space="preserve">
+    <value>Sbaengi Siarl</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Afghan Hound" xml:space="preserve">
+    <value>Ci Affgan</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Basset Hound" xml:space="preserve">
+    <value>Ci Basset</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Beagle" xml:space="preserve">
+    <value>Corhelgi</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Bloodhound" xml:space="preserve">
+    <value>Gwaetgi</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Borzoi" xml:space="preserve">
+    <value>Borzoi</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Dachshund" xml:space="preserve">
+    <value>Dachshund</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Greyhound" xml:space="preserve">
+    <value>Milgi</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Whippet" xml:space="preserve">
+    <value>Corfilgi</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Cocker Spaniel" xml:space="preserve">
+    <value>Llamgi</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="English Setter" xml:space="preserve">
+    <value>Cyfeirgi Seisnig</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="German Shorthaired Pointer" xml:space="preserve">
+    <value>Daeargi Almaenig blew cwta</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Golden Retriever" xml:space="preserve">
+    <value>Adargi melyn</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Irish Setter" xml:space="preserve">
+    <value>Cyfeirgi Gwyddelig</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Labrador Retriever" xml:space="preserve">
+    <value>Adargi Labrador</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Vizsla" xml:space="preserve">
+    <value>Vizsla</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Weimaraner" xml:space="preserve">
+    <value>Weimaraner</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Boxer" xml:space="preserve">
+    <value>Bocser</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Chihuahua" xml:space="preserve">
+    <value>Chihuahuah</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Doberman Pinscher" xml:space="preserve">
+    <value>Dobermann Pinscher</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Great Dane" xml:space="preserve">
+    <value>Ci mawr Denmarc</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Mastiff" xml:space="preserve">
+    <value>Mastiff</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Rottweiler" xml:space="preserve">
+    <value>Rottweiler</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Siberian Husky" xml:space="preserve">
+    <value>Hysgi Siberia</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Saint Bernard" xml:space="preserve">
+    <value>Ci Sant Bernard</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Alaskan Malamute" xml:space="preserve">
+    <value>Ci Esgimo Alasca</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Airedale Terrier" xml:space="preserve">
+    <value>Daeargi Airedale</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Bull Terrier" xml:space="preserve">
+    <value>Daeargi tarw</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Cairn Terrier" xml:space="preserve">
+    <value>Daeargi byrgoes</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Fox Terrier" xml:space="preserve">
+    <value>Ci codi llwynog</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Irish Terrier" xml:space="preserve">
+    <value>Daeargi Gwyddelig</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Jack Russell Terrier" xml:space="preserve">
+    <value>Daeargi Jack Russell</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Scottish Terrier" xml:space="preserve">
+    <value>Daeargi Albanaidd</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="West Highland White Terrier" xml:space="preserve">
+    <value>Daeargi gwyn yr Ucheldiroedd</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Bulldog" xml:space="preserve">
+    <value>Ci tarw</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Chow Chow" xml:space="preserve">
+    <value>Chow</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Dalmatian" xml:space="preserve">
+    <value>Ci Dalmataidd</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="French Bulldog" xml:space="preserve">
+    <value>Ci tarw Frengig</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Lhasa Apso" xml:space="preserve">
+    <value>Lhasa Apso</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Poodle (Standard and Miniature)" xml:space="preserve">
+    <value>Pwdl (Tal a Bychan)</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Shar Pei" xml:space="preserve">
+    <value>Shar Pei</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Australian Shepherd" xml:space="preserve">
+    <value>Ci defaid Awstralia</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Border Collie" xml:space="preserve">
+    <value>Ci defaid y goror</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Collie" xml:space="preserve">
+    <value>Ci defaid</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="German Shepherd" xml:space="preserve">
+    <value>Bleiddgi'r Almaen</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Old English Sheepdog" xml:space="preserve">
+    <value>Hen gi defaid Seisnig</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Shetland Sheepdog" xml:space="preserve">
+    <value>Ci defaid Shetland</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Belgian Malinois" xml:space="preserve">
+    <value>Malinois Gwlad Belg</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Corgi (Pembroke and Cardigan)" xml:space="preserve">
+    <value>Corgi (Penfro ac Aberteifi)</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Basenji" xml:space="preserve">
+    <value>Basenji</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Belgian Tervuren" xml:space="preserve">
+    <value>Tervuren Gwlad Belg</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Bernese Mountain Dog" xml:space="preserve">
+    <value>Mynyddgi Bern</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Bichon Frise" xml:space="preserve">
+    <value>Bichon Frise</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Boston Terrier" xml:space="preserve">
+    <value>Daeargi Boston</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Newfoundland" xml:space="preserve">
+    <value>Ci’r Tir Newydd</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Samoyed" xml:space="preserve">
+    <value>Samoyed</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Portuguese Water Dog" xml:space="preserve">
+    <value>Ci dŵr Portiwgal</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Pug" xml:space="preserve">
+    <value>Ci smwt</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Cockapoo" xml:space="preserve">
+    <value>Cockapoo</value>
+    <comment>Dog Breed</comment>
+  </data>
+	<data name="Domestic Shorthair" xml:space="preserve">
+    <value>Cath ddomestig blew cwta</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Domestic Longhair" xml:space="preserve">
+    <value>Cath ddomestig blew hir</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Domestic Mediumhair" xml:space="preserve">
+    <value>Cath ddomestig blew canolig</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Persian" xml:space="preserve">
+    <value>Cath Bersia</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Exotic Shorthair" xml:space="preserve">
+    <value>Cath estron blew cwta</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Siamese" xml:space="preserve">
+    <value>Cath Siám</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Oriental Shorthair" xml:space="preserve">
+    <value>Cath ddwyreiniol blew cwta</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Oriental Longhair" xml:space="preserve">
+    <value>Cath ddwyreiniol blew hir</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Maine Coon" xml:space="preserve">
+    <value>Cath Maine</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="British Shorthair" xml:space="preserve">
+    <value>Cath Brydeinig blew cwta</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="American Shorthair" xml:space="preserve">
+    <value>Cath Americanaidd blew cwta</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Norwegian Forest Cat" xml:space="preserve">
+    <value>Cath fforestydd Norwy</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Bengal" xml:space="preserve">
+    <value>Cath Bengal</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Ocicat" xml:space="preserve">
+    <value>Ocicat</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Savannah" xml:space="preserve">
+    <value>Cath safana</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Russian Blue" xml:space="preserve">
+    <value>Cath las Rwsia</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Sphynx" xml:space="preserve">
+    <value>Sffincs</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Scottish Fold" xml:space="preserve">
+    <value>Cath clustiau plyg o’r Alban</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Devon Rex" xml:space="preserve">
+    <value>Rex Dyfnaint</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Cornish Rex" xml:space="preserve">
+    <value>Rex Cernyw</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Ragdoll" xml:space="preserve">
+    <value>Ragdoll</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Birman" xml:space="preserve">
+    <value>Birman</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Himalayan" xml:space="preserve">
+    <value>Cath Himalaiaidd</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Scottish Fold Longhair" xml:space="preserve">
+    <value>Cath clustiau plyg blew hir o’r Alban</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Siberian" xml:space="preserve">
+    <value>Cath Siberia</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Abyssinian" xml:space="preserve">
+    <value>Cath Abysinia</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Burmese" xml:space="preserve">
+    <value>Cath Byrma</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Chartreux" xml:space="preserve">
+    <value>Cath Chartreux</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Tonkinese" xml:space="preserve">
+    <value>Cath Toncin</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Turkish Angora" xml:space="preserve">
+    <value>Cath Angora Twrci</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Turkish Van" xml:space="preserve">
+    <value>Cath Fan Twrci</value>
+    <comment>Cat Breed</comment>
+  </data>
+	<data name="Manx" xml:space="preserve">
+    <value>Cath gwta</value>
+    <comment>Cat Breed</comment>
+  </data>
 </root>

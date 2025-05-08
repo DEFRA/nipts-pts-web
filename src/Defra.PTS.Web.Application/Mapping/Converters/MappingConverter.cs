@@ -113,7 +113,8 @@ public static class MappingConverter
             AddressLine2 = src.OwnerAddressLineTwo,
             AddressLine3 = src.OwnerCounty,
             Postcode = src.OwnerPostcode,
-            TownOrCity = src.OwnerTownOrCity
+            TownOrCity = src.OwnerTownOrCity, 
+            Status = src.Status
         };
     }
 
