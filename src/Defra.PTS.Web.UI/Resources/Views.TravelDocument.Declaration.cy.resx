@@ -175,6 +175,9 @@
 	<data name="Pet owner details" xml:space="preserve">
     <value>Manylion perchennog yr anifail anwes</value>
   </data>
+	<data name="Pet owner details (place of issuance)" xml:space="preserve">
+    <value>Manylion perchennog yr anifail anwes (man cyhoeddi)</value>
+  </data>
 	<data name="Email" xml:space="preserve">
     <value>Ebost</value>
   </data>
