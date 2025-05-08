@@ -183,8 +183,11 @@
   <data name="Enter a date that is in the past" xml:space="preserve">
     <value>Rhowch ddyddiad sydd yn y gorffennol</value>
   </data>
-  <data name="Enter a date that is less than 34 years ago" xml:space="preserve">
+	<data name="Enter a date that is less than 34 years ago" xml:space="preserve">
     <value>Nodwch ddyddiad sy’n llai na 34 mlynedd yn ôl</value>
+  </data>
+  <data name="The date you entered is too far in the past, check your pet's date of birth is correct" xml:space="preserve">
+    <value>Mae'r dyddiad a roesoch yn rhy bell yn y gorffennol, gwiriwch fod dyddiad geni eich anifail anwes yn gywir</value>
   </data>
   <data name="Enter your pet's name" xml:space="preserve">
     <value>Rhowch enw eich anifail anwes</value>
