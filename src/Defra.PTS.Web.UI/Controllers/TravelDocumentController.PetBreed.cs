@@ -56,8 +56,9 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
             if (formData.PetBreed.BreedId > 0 && formData.PetBreed.BreedName != null)
             {
-                var breed = breeds.Find(x => x.Text == formData.PetBreed.BreedName);
-                if(breed == null)
+                var breed = breeds.Find(x => x.Text == _localizer[formData.PetBreed.BreedName]);
+
+                if (breed == null)
                 {
                     formData.PetBreed.BreedId = 0;
                 }
