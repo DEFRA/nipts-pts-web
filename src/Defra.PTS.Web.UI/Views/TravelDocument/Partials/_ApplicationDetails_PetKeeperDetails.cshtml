@@ -1,10 +1,19 @@
 ﻿@model Defra.PTS.Web.Application.DTOs.Services.PetKeeperDetailsDto;
 @using Microsoft.AspNetCore.Mvc.Localization
+@using Defra.PTS.Web.Application.Constants;
 @inject IViewLocalizer Localizer
 
 <div id="document-owner-card" class="govuk-summary-card">
     <div class="govuk-summary-card__title-wrapper">
-        <h2 class="govuk-summary-card__title">@Localizer["Pet owner details (place of issuance)"]</h2>
+        @if (Model.Status == @AppConstants.ApplicationStatus.APPROVED)
+        {
+            <h2 class="govuk-summary-card__title">@Localizer["Pet owner details (place of issuance)"]</h2>
+        }
+
+        else
+        {
+            <h2 class="govuk-summary-card__title">@Localizer["Pet owner details"]</h2>
+        }
     </div>
     <div class="govuk-summary-card__content">
         <dl class="govuk-summary-list">
@@ -22,7 +31,7 @@
                 <dt class="govuk-summary-list__key">
                     @Localizer["Address"]
                 </dt>
-                 @if (!Model.IsGeneratingPdf)  // Assuming you have a flag for PDF generation
+                 @if (!Model.IsGeneratingPdf)
                 {
                     <dd class="govuk-summary-list__value">
                     @if (!string.IsNullOrWhiteSpace(Model.AddressLine1))
