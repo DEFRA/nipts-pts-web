@@ -25,6 +25,13 @@ public class SelectListLocaliser(IMediator mediator, IStringLocalizer<ISharedRes
         return list;
     }
 
+    public async Task<List<BreedDto>> GetBreedListWithoutLocalisation(PetSpecies petType)
+    {
+        var response = await _mediator.Send(new GetBreedsQueryRequest(petType));
+
+        return response.Breeds.ToList();
+    }
+
     public async Task<List<ColourDto>> GetPetColoursList(PetSpecies petType)
     {
         var response = await _mediator.Send(new GetColoursQueryRequest(petType));
