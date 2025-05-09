@@ -36,11 +36,6 @@ html, body {
     margin-bottom: 1rem;
 }
 
-.govuk-table {
-    min-width: 640px;
-    margin-bottom: 0;
-}
-
 .pet-long-text {
     max-width: 150px;
     overflow: hidden;
