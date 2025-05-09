@@ -8,15 +8,13 @@
 
 @if (Model != null && Model.Any())
 {
-    <div class="scroll-container" id="scrollContainer">
+    <div class="scroll-container govuk-grid-column-three-quarters" id="scrollContainer">
         <table class="govuk-table govuk-!-margin-bottom-0">
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header">@Localizer["Pet name"]</th>
-                    <th scope="col" class="govuk-table__header">@Localizer["Species"]</th>
-                    <th scope="col" class="govuk-table__header">@Localizer["Pet owner"]</th>
-                    <th scope="col" class="govuk-table__header"><span class="govuk-visually-hidden">@Localizer["Status"]</span></th>
-                    <th scope="col" class="govuk-table__header"><span class="govuk-visually-hidden">@Localizer["View"]</span></th>
+                    <th scope="col" class="govuk-table__header govuk-!-width-one-half">@Localizer["Pet name"]</th>
+                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter"><span class="govuk-visually-hidden">@Localizer["Status"]</span></th>
+                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter"><span class="govuk-visually-hidden">@Localizer["View"]</span></th>
                 </tr>
             </thead>
             <tbody class="govuk-table__body">
@@ -33,12 +31,6 @@
                             </span>
                         </th>
 
-                        <td class="govuk-table__cell">@application.Species</td>
-                        <td class="govuk-table__cell">
-                            <span class="pet-long-text">
-                                @application.OwnerName
-                            </span>
-                        </td>
                         <td class="govuk-table__cell">
                             <strong class="govuk-tag @statusCssClass">
                                 @(application.Status == @AppConstants.ApplicationStatus.APPROVED
