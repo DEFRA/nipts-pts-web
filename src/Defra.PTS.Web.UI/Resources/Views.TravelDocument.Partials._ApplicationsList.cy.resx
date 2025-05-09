@@ -120,8 +120,20 @@
   <data name="Apply for a document" xml:space="preserve">
     <value>Gwneud cais am ddogfen</value>
   </data>
+	<data name="Status" xml:space="preserve">
+    <value>Statws</value>
+  </data>
   <data name="Approved" xml:space="preserve">
     <value>Wedi’u cymeradwyo</value>
+  </data>
+	<data name="Pending" xml:space="preserve">
+    <value>Yn aros</value>
+  </data>
+	<data name="Cancelled" xml:space="preserve">
+    <value>Wedi’u canslo</value>
+  </data>
+  <data name="Unsuccessful " xml:space="preserve">
+    <value>Yn aflwyddiannus</value>
   </data>
   <data name="Awaiting verification" xml:space="preserve">
     <value>Yn aros i gael eu dilysu</value>
