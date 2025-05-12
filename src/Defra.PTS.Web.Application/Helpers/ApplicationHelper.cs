@@ -56,4 +56,14 @@ public static class ApplicationHelper
         var pdfAction = pdfType == PdfType.Certificate ? "DownloadCertificatePdf" : "DownloadApplicationDetailsPdf";
         return $"/TravelDocument/{pdfAction}/{id}/{referenceNumber}";
     }
+
+    public static string FormatPetTravelDocumentNumber(string documentNumber)
+    {
+        if (string.IsNullOrEmpty(documentNumber) || documentNumber.Length < 11)
+        {
+            return documentNumber;
+        }
+
+        return $"{documentNumber[..5]} {documentNumber.Substring(5, 3)} {documentNumber[8..]}";
+    }
 }
