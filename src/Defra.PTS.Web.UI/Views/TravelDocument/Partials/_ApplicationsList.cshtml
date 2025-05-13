@@ -8,8 +8,7 @@
 
 @if (Model != null && Model.Any())
 {
-    <div class="scroll-container govuk-grid-column-three-quarters" id="scrollContainer">
-        <table class="govuk-table govuk-!-margin-bottom-0">
+        <table class="govuk-table">
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
                     <th scope="col" class="govuk-table__header govuk-!-width-one-half">@Localizer["Pet name"]</th>
@@ -26,9 +25,7 @@
 
                     <tr class="govuk-table__row">
                         <th scope="row" class="govuk-table__header">
-                            <span class="pet-long-text">
                                 @application.PetName
-                            </span>
                         </th>
 
                         <td class="govuk-table__cell">
@@ -53,7 +50,6 @@
 
             </tbody>
         </table>
-    </div>
 }
 
 <script>
