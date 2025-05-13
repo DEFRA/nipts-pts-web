@@ -377,7 +377,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 PetBreed = new PetBreedViewModel
                 {
 
-                    BreedId = 0,
+                    BreedId = 40,
                     BreedName = "Test",
                     BreedAdditionalInfo = "Test Add Info",
                     PetSpecies = PetSpecies.Dog,
@@ -387,16 +387,28 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             };
 
+            _mockSelectListLocaliser.Setup(x => x.GetBreedListWithoutLocalisation(It.IsAny<PetSpecies>()))
+               .ReturnsAsync(new List<BreedDto>()
+               {
+                   new()
+                   {
+                       BreedId = 40,
+                       BreedName = "test",
+                       Group = "test"
+                   }
+            });
+
             _mockSelectListLocaliser.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
                .ReturnsAsync(new List<BreedDto>()
                {
                    new()
                    {
-                       BreedId = 1,
+                       BreedId = 40,
                        BreedName = "test",
                        Group = "test"
                    }
             });
+
 
             _travelDocumentController.Setup(x => x.GetFormData(false))
                 .Returns(formData);
