@@ -9251,8 +9251,3 @@ ul.language-toggle li:first-child {
 .hide-scrollbar {
     overflow-x: hidden !important; /* Hide the horizontal scrollbar */
 }
-
-.word-break {
-    word-break: break-word;
-    white-space: normal;
-}
