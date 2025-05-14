@@ -34,7 +34,6 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         private readonly Mock<IOptions<PtsSettings>> _mockPtsSettings = new();
         private readonly Mock<ISelectListLocaliser> _mockSelectListLocaliser = new();
         private Mock<TravelDocumentController> _travelDocumentController;
-        private Mock<TravelDocumentViewModel> _travelDocumentViewModel;
         private readonly IStringLocalizer<ISharedResource> _localizer;
         public TravelDocumentControllerPetBreedTests()
         {
@@ -54,12 +53,13 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 CallBase = true
             };
             _travelDocumentController.Object.TempData = tempData;
-            _travelDocumentViewModel = new Mock<TravelDocumentViewModel>();
 
             var mockHttpContext = new Mock<HttpContext>();
             mockHttpContext.Setup(_ => _.Request.Headers.Referer).Returns("aaa");
-            _travelDocumentController.Object.ControllerContext = new ControllerContext();
-            _travelDocumentController.Object.ControllerContext.HttpContext = mockHttpContext.Object;
+            _travelDocumentController.Object.ControllerContext = new ControllerContext
+            {
+                HttpContext = mockHttpContext.Object
+            };
         }
 
         [Test]
@@ -153,15 +153,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
 
             _mockSelectListLocaliser.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
-               .ReturnsAsync(new List<BreedDto>()
-               {
+               .ReturnsAsync(
+               [
                    new()
                    {
                        BreedId = 2,
                        BreedName = "Test2",
                        Group = "test"
                    }
-            });
+            ]);
 
             _travelDocumentController.Setup(x => x.GetFormData(false))
                  .Returns(formData);
@@ -210,15 +210,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
 
             _mockSelectListLocaliser.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
-                .ReturnsAsync(new List<BreedDto>()
-                {
+                .ReturnsAsync(
+                [
                    new()
                    {
                        BreedId = 2,
                        BreedName = "test",
                        Group = "test"
                    }
-             });
+             ]);
 
             _travelDocumentController.Setup(x => x.GetFormData(false))
                  .Returns(formData);
@@ -271,15 +271,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
 
             _mockSelectListLocaliser.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
-                .ReturnsAsync(new List<BreedDto>()
-                {
+                .ReturnsAsync(
+                [
                    new()
                    {
                        BreedId = 2,
                        BreedName = "test",
                        Group = "test"
                    }
-             });
+             ]);
 
             _travelDocumentController.Setup(x => x.GetFormData(false))
                  .Returns(formData);
@@ -329,15 +329,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
 
             _mockSelectListLocaliser.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
-               .ReturnsAsync(new List<BreedDto>()
-               {
+               .ReturnsAsync(
+               [
                    new()
                    {
                        BreedId = 1,
                        BreedName = "test",
                        Group = "test"
                    }
-            });
+            ]);
 
             _travelDocumentController.Setup(x => x.GetFormData(false))
                 .Returns(formData);
@@ -388,26 +388,26 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
 
             _mockSelectListLocaliser.Setup(x => x.GetBreedListWithoutLocalisation(It.IsAny<PetSpecies>()))
-               .ReturnsAsync(new List<BreedDto>()
-               {
+               .ReturnsAsync(
+               [
                    new()
                    {
                        BreedId = 40,
                        BreedName = "test",
                        Group = "test"
                    }
-            });
+            ]);
 
             _mockSelectListLocaliser.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
-               .ReturnsAsync(new List<BreedDto>()
-               {
+               .ReturnsAsync(
+               [
                    new()
                    {
                        BreedId = 40,
                        BreedName = "test",
                        Group = "test"
                    }
-            });
+            ]);
 
 
             _travelDocumentController.Setup(x => x.GetFormData(false))
@@ -458,15 +458,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
 
             _mockSelectListLocaliser.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
-               .ReturnsAsync(new List<BreedDto>()
-               {
+               .ReturnsAsync(
+               [
                    new()
                    {
                        BreedId = 10,
                        BreedName = "test",
                        Group = "test"
                    }
-            });
+            ]);
 
             _travelDocumentController.Setup(x => x.GetFormData(false))
                 .Returns(formData);
@@ -516,15 +516,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
 
             _mockSelectListLocaliser.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
-                .ReturnsAsync(new List<BreedDto>()
-                {
+                .ReturnsAsync(
+                [
                    new()
                    {
                        BreedId = 1,
                        BreedName = "test",
                        Group = "test"
                    }
-             });
+             ]);
 
             _travelDocumentController.Setup(x => x.GetFormData(false))
                 .Returns(formData);
@@ -575,15 +575,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
 
             _mockSelectListLocaliser.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
-               .ReturnsAsync(new List<BreedDto>()
-               {
+               .ReturnsAsync(
+               [
                    new()
                    {
                        BreedId = 300,
                        BreedName = "Test",
                        Group = "test"
                    }
-            });
+            ]);
 
             _travelDocumentController.Setup(x => x.GetFormData(false))
                 .Returns(formData);
@@ -634,15 +634,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
 
             _mockSelectListLocaliser.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
-               .ReturnsAsync(new List<BreedDto>()
-               {
+               .ReturnsAsync(
+               [
                    new()
                    {
                        BreedId = 300,
                        BreedName = "test",
                        Group = "test"
                    }
-            });
+            ]);
 
             _travelDocumentController.Setup(x => x.GetFormData(false))
                 .Returns(formData);
