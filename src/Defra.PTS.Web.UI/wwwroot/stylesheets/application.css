@@ -9254,4 +9254,5 @@ ul.language-toggle li:first-child {
 
 .word-break {
     word-break: break-word;
+    white-space: normal;
 }
