@@ -55,7 +55,6 @@ public class UserController : BaseController
                 _logger.LogInformation("Initiating OSignOutAsync for {EmailAddress}", userInfo.EmailAddress);
                 var request = new UpdateUserRequest(userInfo.EmailAddress);
                 _ = await _mediator.Send(request);
-                //MemoryCache.Default.Dispose();
             }
         }
         catch (Exception ex)
