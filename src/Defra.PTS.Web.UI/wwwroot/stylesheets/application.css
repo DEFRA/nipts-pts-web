@@ -9252,6 +9252,6 @@ ul.language-toggle li:first-child {
     overflow-x: hidden !important; /* Hide the horizontal scrollbar */
 }
 
-.table-column-word-break {
+.word-break {
     word-break: break-word;
 }
