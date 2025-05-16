@@ -640,4 +640,10 @@
     <value>Cath gwta</value>
     <comment>Cat Breed</comment>
   </data>
+  <data name="No" xml:space="preserve">
+    <value>Nac oes</value>
+  </data>
+  <data name="Yes" xml:space="preserve">
+    <value>Oes</value>
+  </data>
 </root>
