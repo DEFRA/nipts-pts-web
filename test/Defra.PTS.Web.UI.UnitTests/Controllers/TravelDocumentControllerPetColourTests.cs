@@ -16,6 +16,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Moq;
 using NUnit.Framework;
+using System.Globalization;
 using Assert = NUnit.Framework.Assert;
 
 namespace Defra.PTS.Web.UI.UnitTests.Controllers
@@ -115,6 +116,50 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var selectedPetColour = new PetColourViewModel
             {
                 PetColour = 1,                
+                OtherColourID = 2,
+                PetSpecies = PetSpecies.Dog,
+            };
+            var formData = new TravelDocumentViewModel
+            {
+                PetSpecies = new PetSpeciesViewModel
+                {
+                    PetSpecies = PetSpecies.Dog
+                },
+                PetColour = selectedPetColour,
+            };
+
+            _sut.Setup(x => x.GetFormData(false))
+                .Returns(formData);
+            _sut.Setup(x => x.GetCYACheck()).Returns(false);
+            _mockSelectListLocaliser.Setup(x => x.GetPetColoursList(It.IsAny<PetSpecies>()))
+               .ReturnsAsync(petColoursList);
+
+            _sut.Setup(x => x.SaveFormData(It.IsAny<PetColourViewModel>()))
+                .Verifiable();
+
+
+            var result = await _sut.Object.PetColour(selectedPetColour);
+
+            var redirectResult = result as RedirectToActionResult;
+
+            Assert.IsNotNull(redirectResult);
+            Assert.AreEqual("PetFeature", redirectResult.ActionName);
+        }
+
+        [Test]
+        public async Task CreatePetColour_Welsh()
+        {
+            // Arrange
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("cy-GB"); // Set culture to Welsh
+
+            var petColoursList = new List<ColourDto>
+            {
+                new ColourDto { Id = "1", Name = "Brown" },
+                new ColourDto { Id = "2", Name = "Other" }
+            };
+            var selectedPetColour = new PetColourViewModel
+            {
+                PetColour = 1,
                 OtherColourID = 2,
                 PetSpecies = PetSpecies.Dog,
             };

@@ -9,5 +9,7 @@ namespace Defra.PTS.Web.UI.Helpers
         public Task<List<BreedDto>> GetBreedList(PetSpecies petType);
         Task<List<BreedDto>> GetBreedListWithoutLocalisation(PetSpecies petType);
         public Task<List<ColourDto>> GetPetColoursList(PetSpecies petType);
+
+        Task<List<ColourDto>> GetPetColoursListWithoutLocalisation(PetSpecies petType);
     }
 }
