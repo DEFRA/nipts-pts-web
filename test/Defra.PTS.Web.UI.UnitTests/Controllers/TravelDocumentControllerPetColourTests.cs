@@ -177,6 +177,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _sut.Setup(x => x.GetCYACheck()).Returns(false);
             _mockSelectListLocaliser.Setup(x => x.GetPetColoursList(It.IsAny<PetSpecies>()))
                .ReturnsAsync(petColoursList);
+            _mockSelectListLocaliser.Setup(x => x.GetPetColoursListWithoutLocalisation(It.IsAny<PetSpecies>()))
+                .ReturnsAsync(petColoursList);
 
             _sut.Setup(x => x.SaveFormData(It.IsAny<PetColourViewModel>()))
                 .Verifiable();
