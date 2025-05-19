@@ -196,6 +196,21 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                     model.BreedAdditionalInfo = model.BreedName;
                 }
             }
+
+            if (Thread.CurrentThread.CurrentCulture.EnglishName.Contains("Welsh"))
+            {
+                //we need to store them in the database as English values
+                var localisedBreeds = await GetBreedsAsSelectListItems(model.PetSpecies);
+                breeds = await GetBreedsAsSelectListItemsWithoutLocalisation(model.PetSpecies);
+
+                var localisedBreed = localisedBreeds.Find(x => Convert.ToInt32(x.Value.ToString()) == model.BreedId);
+                var unlocalisedBreed = breeds.Find(x => Convert.ToInt32(x.Value.ToString()) == model.BreedId);
+
+                if (model.BreedName == localisedBreed.Text)
+                {
+                    model.BreedName = unlocalisedBreed.Text;
+                }
+            }
         }
         else
         {
