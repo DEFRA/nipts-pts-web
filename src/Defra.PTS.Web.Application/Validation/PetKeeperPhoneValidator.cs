@@ -24,7 +24,7 @@ public class PetKeeperPhoneValidator : AbstractValidator<PetKeeperPhoneViewModel
              {
                  try
                  {
-                     var region = phone.StartsWith("+") ? null : "GB";
+                     var region = phone.StartsWith('+') ? null : "GB";
                      var parsedNumber = phoneNumberUtil.Parse(phone, region);
                      return phoneNumberUtil.IsValidNumber(parsedNumber);
                  }
