@@ -19,12 +19,14 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
             _localizer = new StringLocalizer<ISharedResource>(factory);
         }
-        [Fact]
-        public async Task NotHaveErrorPhoneNumber()
+
+        [Theory]
+        [MemberData(nameof(PetKeeperPhoneSuccessTestData))]
+        public async Task NotHaveErrorPhoneNumber(string phone)
         {
             var model = new PetKeeperPhoneViewModel()
             {
-                Phone = "07398141999"
+                Phone = phone
             };
 
             var validator = new PetKeeperPhoneValidator(_localizer);
@@ -35,7 +37,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
         }
 
         [Theory]
-        [MemberData(nameof(PetKeeperPhoneTestData))]
+        [MemberData(nameof(PetKeeperPhoneErrorTestData))]
         public async Task HaveErrorIfPhoneNumberInvalid(string phone)
         {
             var model = new PetKeeperPhoneViewModel()
@@ -50,11 +52,24 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
             result.ShouldHaveValidationErrorFor(x => x.Phone);
         }
 
-        public static TheoryData<string> PetKeeperPhoneTestData => new TheoryData<string>
+        public static TheoryData<string> PetKeeperPhoneErrorTestData => new TheoryData<string>
         {
             string.Empty,
             new string('a', 51),
             "0739 62345g",
+            "014156667777",
+            "0919440973985",
+        };
+
+        public static TheoryData<string> PetKeeperPhoneSuccessTestData => new TheoryData<string>
+        {
+            "07398141999",
+            "+447398141999",
+            "+14156667777",
+            "+919440973985",
+            "00919440973985",
+            "00447398141999",
+            "0014156667777"
         };
     }
 }
