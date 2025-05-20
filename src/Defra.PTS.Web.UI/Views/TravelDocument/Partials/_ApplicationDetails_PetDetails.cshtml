@@ -24,7 +24,7 @@
                     @Localizer["Species"]
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.Species
+                    @Localizer[@Model.Species]
                 </dd>
 
             </div>
@@ -34,7 +34,14 @@
                     @Localizer["Breed"]
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Localizer[(Model.HasBreed ? Model.Breed : "-")]
+                    @if (Model.HasBreed)
+                    {
+                        @Localizer[@Model.Breed]
+                    }
+                    else
+                    {
+                        @("-")
+                    }
                 </dd>
 
             </div>
@@ -45,7 +52,7 @@
                     @Localizer["Sex"]
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.Gender
+                    @Localizer[@Model.Gender]
                 </dd>
 
             </div>
@@ -63,7 +70,7 @@
                     @Localizer["Colour"]
                 </dt>
                 <dd class="govuk-summary-list__value">
-                    @Model.Colour
+                    @Localizer[@Model.Colour]
                 </dd>
 
             </div>
@@ -74,7 +81,7 @@
                         @Localizer["Significant features"]
                     </dt>
                     <dd class="govuk-summary-list__value">
-                        @Model.Feature
+                        @Localizer[@Model.Feature]
                     </dd>
 
                 </div>
