@@ -183,7 +183,7 @@
   <data name="Enter a date that is in the past" xml:space="preserve">
     <value>Rhowch ddyddiad sydd yn y gorffennol</value>
   </data>
-	<data name="Enter a date that is less than 34 years ago" xml:space="preserve">
+  <data name="Enter a date that is less than 34 years ago" xml:space="preserve">
     <value>Nodwch ddyddiad sy’n llai na 34 mlynedd yn ôl</value>
   </data>
   <data name="The date you entered is too far in the past, check your pet's date of birth is correct" xml:space="preserve">
@@ -267,5 +267,8 @@
   </data>
   <data name="Enter a date that is before the pet’s microchip date" xml:space="preserve">
     <value>Rhowch ddyddiad sydd cyn rhif microsglodyn yr anifail anwes</value>
+  </data>
+  <data name="Enter your phone number, like 01632 960 001, 07700 900 982 or +49 30 12345678" xml:space="preserve">
+    <value>Rhowch rif ffôn, fel 01632 960 001, 07700 900 982 neu +49 30 12345678</value>
   </data>
 </root>
