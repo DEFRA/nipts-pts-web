@@ -66,4 +66,31 @@ public class ApplicationHelperTests
         // Assert
         Assert.Contains(expected, response);
     }
+
+    [Fact]
+    public void FormatPetTravelDocumentNumber_Empty()
+    {
+        // Arrange
+        var referenceNumber = "";
+
+        // Act
+        var response = ApplicationHelper.FormatPetTravelDocumentNumber(referenceNumber);
+
+        // Assert
+        Assert.Contains(referenceNumber, response);
+    }
+
+    [Fact]
+    public void FormatPetTravelDocumentNumber_Populated()
+    {
+        // Arrange
+        var referenceNumber = "GB82654499B";
+        var formattedNumber = "GB826 544 99B";
+
+        // Act
+        var response = ApplicationHelper.FormatPetTravelDocumentNumber(referenceNumber);
+
+        // Assert
+        Assert.Contains(formattedNumber, response);
+    }
 }

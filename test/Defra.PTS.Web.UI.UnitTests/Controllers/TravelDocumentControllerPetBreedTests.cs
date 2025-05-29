@@ -598,6 +598,78 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         }
 
         [Test]
+        public void PetBreed_WithValidModel_BreedIdEquatlTo300_If_BreedName_Matches_RedirectsToPetName_Welsh()
+        {
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("cy-GB"); // Set culture to Welsh
+
+            // Arrange                                 
+            var formData = new TravelDocumentViewModel
+            {
+                PetKeeperUserDetails = new PetKeeperUserDetailsViewModel
+                {
+                    IsCompleted = true,
+                },
+                PetMicrochip = new PetMicrochipViewModel
+                {
+                    IsCompleted = true,
+                },
+                PetMicrochipDate = new PetMicrochipDateViewModel
+                {
+                    IsCompleted = true,
+                },
+                PetSpecies = new PetSpeciesViewModel
+                {
+                    PetSpecies = PetSpecies.Dog,
+                    IsCompleted = true,
+                },
+                PetBreed = new PetBreedViewModel
+                {
+
+                    BreedId = 300,
+                    BreedName = "Test",
+                    BreedAdditionalInfo = "Test Add Info",
+                    PetSpecies = PetSpecies.Dog,
+                    IsCompleted = true,
+                },
+
+
+            };
+
+            _mockSelectListLocaliser.Setup(x => x.GetBreedList(It.IsAny<PetSpecies>()))
+               .ReturnsAsync(
+               [
+                   new()
+                   {
+                       BreedId = 300,
+                       BreedName = "Test",
+                       Group = "test"
+                   }
+            ]);
+
+            _mockSelectListLocaliser.Setup(x => x.GetBreedListWithoutLocalisation(It.IsAny<PetSpecies>()))
+               .ReturnsAsync(
+               [
+                   new()
+                   {
+                       BreedId = 300,
+                       BreedName = "Test",
+                       Group = "test"
+                   }
+            ]);
+
+            _travelDocumentController.Setup(x => x.GetFormData(false))
+                .Returns(formData);
+
+            // Act
+            var result = _travelDocumentController.Object.PetBreed(formData.PetBreed).Result as RedirectToActionResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(nameof(TravelDocumentController.PetName), result.ActionName);
+
+        }
+
+        [Test]
         public void PetBreed_WithValidModel__BreedIdEquatlTo300_If_BreedName_Does_Not_Matches_RedirectsToPetName()
         {
             // Arrange                                 
