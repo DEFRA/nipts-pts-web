@@ -646,6 +646,17 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                    }
             ]);
 
+            _mockSelectListLocaliser.Setup(x => x.GetBreedListWithoutLocalisation(It.IsAny<PetSpecies>()))
+               .ReturnsAsync(
+               [
+                   new()
+                   {
+                       BreedId = 300,
+                       BreedName = "Test",
+                       Group = "test"
+                   }
+            ]);
+
             _travelDocumentController.Setup(x => x.GetFormData(false))
                 .Returns(formData);
 
