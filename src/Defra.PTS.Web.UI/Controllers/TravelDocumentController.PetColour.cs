@@ -42,18 +42,18 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     public async Task<IActionResult> PetColour(PetColourViewModel model)
     {
         SetBackUrl(WebAppConstants.Pages.TravelDocument.PetAge);
-        var colours = await GetColoursList(model.PetSpecies);
-
-        if (Thread.CurrentThread.CurrentCulture.EnglishName.Contains("Welsh"))
-        {
-            //we need to store them in the database as English values
-            colours = await GetColoursListWithoutLocalisation(model.PetSpecies);
-        }
+        var colours = await GetColoursList(model.PetSpecies);  
 
         if (!ModelState.IsValid)
         {
             ViewBag.Colours = colours;
             return View(model);
+        }
+
+        if (Thread.CurrentThread.CurrentCulture.EnglishName.Contains("Welsh"))
+        {
+            //we need to store them in the database as English values
+            colours = await GetColoursListWithoutLocalisation(model.PetSpecies);
         }
 
         model.TrimUnwantedData();
