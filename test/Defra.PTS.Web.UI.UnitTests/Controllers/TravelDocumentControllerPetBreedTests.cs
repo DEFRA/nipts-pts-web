@@ -625,7 +625,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                 PetBreed = new PetBreedViewModel
                 {
 
-                    BreedId = 300,
+                    BreedId = 100,
                     BreedName = "Test",
                     BreedAdditionalInfo = "Test Add Info",
                     PetSpecies = PetSpecies.Dog,
@@ -640,7 +640,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                [
                    new()
                    {
-                       BreedId = 300,
+                       BreedId = 100,
                        BreedName = "Test",
                        Group = "test"
                    }
@@ -651,7 +651,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                [
                    new()
                    {
-                       BreedId = 300,
+                       BreedId = 100,
                        BreedName = "Test",
                        Group = "test"
                    }
