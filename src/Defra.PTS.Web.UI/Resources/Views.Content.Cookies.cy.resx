@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="Cookies" xml:space="preserve"> <value>Cwcis</value> </data>
+	<data name="Success" xml:space="preserve"> <value>Llwyddiant</value> </data>
+	<data name="You’ve set your cookie preferences." xml:space="preserve"> <value>Rydych chi wedi gosod eich dewisiadau cwci</value> </data>
+	<data name="This service uses cookies – cookies are small files saved on your phone, tablet or computer when you visit a website. We use 2 types of cookies on this site:" xml:space="preserve"> <value>Mae’r gwasanaeth hwn yn defnyddio cwcis – mae cwcis yn ffeiliau bach sy’n cael eu cadw ar eich ffôn, eich tabled neu eich cyfrifiadur pan fyddwch chi’n ymweld â gwefan. Rydyn ni’n defnyddio 2 fath o gwcis ar y safle hwn:</value> </data>
+	<data name="essential cookies – these are strictly necessary" xml:space="preserve"> <value>cwcis hanfodol – mae’r rhain yn gwbl angenrheidiol </value> </data>
+	<data name="optional cookies – these are used to measure your use of the service" xml:space="preserve"> <value>cwcis dewisol – defnyddir y rhain i fesur eich defnydd o’r gwasanaeth </value> </data>
+	<data name="You can learn more about cookies and how to manage them on the" xml:space="preserve"> <value>Gallwch ddysgu mwy am gwcis a sut i'w rheoli ar</value> </data>
+	<data name="website for the Information Commissioner’s Office (opens in a new tab)." xml:space="preserve"> <value>wefan Swyddfa'r Comisiynydd Gwybodaeth (yn agor mewn tab newydd)</value> </data>
+	<data name="Essential cookies (strictly necessary)" xml:space="preserve"> <value>Cwcis hanfodol (yn angenrheidiol yn unig) </value> </data>
+	<data name="We need to collect these cookies in order for the service to work." xml:space="preserve"> <value>Mae angen i ni gasglu’r cwcis hyn er mwyn i’r gwasanaeth weithio. </value> </data>
+	<data name="Introductory cookie message" xml:space="preserve"> <value>Neges ragarweiniol am gwcis</value> </data>
+	<data name="You may see a pop-up welcome message when you first visit. A cookie is stored so that your computer knows you’ve seen it and knows not to show it again." xml:space="preserve"> <value>Efallai y gwelwch neges groeso yn ymddangos pan fyddwch yn ymweld â’r wefan am y tro cyntaf. Mae cwci yn cael ei storio fel bod eich cyfrifiadur yn gwybod eich bod wedi gweld y neges ac i beidio â’i dangos eto. </value> </data>
+	<data name="Essential cookies we use" xml:space="preserve"> <value>Cwcis hanfodol rydym yn eu defnyddio </value> </data>
+	<data name="Name" xml:space="preserve"> <value>Enw</value> </data>
+	<data name="Purpose" xml:space="preserve"> <value>Pwrpas</value> </data>
+	<data name="Expires" xml:space="preserve"> <value>Yn dod i ben</value> </data>
+	<data name="Saves a message to let us know that you’ve seen our cookie message" xml:space="preserve"> <value>Yn cadw neges i roi gwybod i ni eich bod wedi gweld ein neges </value> </data>
+	<data name="Saves a message to let us know that you’ve accepted or rejected cookies" xml:space="preserve"> <value>Yn cadw neges i roi gwybod i ni eich bod wedi derbyn neu wrthod cwcis </value> </data>
+	<data name="12 months" xml:space="preserve"> <value>12 Mis</value> </data>
+	<data name="Other essential cookies" xml:space="preserve"> <value>Cwcis hanfodol eraill </value> </data>
+	<data name="When you close the browser" xml:space="preserve"> <value>Pan fyddwch chi’n cau'r porwr</value> </data>
+	<data name="1 year" xml:space="preserve"> <value>Blwyddyn</value> </data>
+	<data name="1 hour" xml:space="preserve"> <value>1 awr</value> </data>
+	<data name="Prevents forgery attacks from other websites – this helps to keep your information secure" xml:space="preserve"> <value>Atal ymosodiadau ffugio gan wefannau eraill – mae hyn yn helpu i gadw eich gwybodaeth yn ddiogel </value> </data>
+	<data name="Stores the language of the service" xml:space="preserve"> <value>Storio iaith y gwasanaeth </value> </data>
+	<data name="Stores data you’ve provided during the session" xml:space="preserve"> <value>Storio’r data rydych chi wedi’i ddarparu yn ystod y sesiwn</value> </data>
+	<data name="Optional cookies" xml:space="preserve"> <value>Cwcis dewisol</value> </data>
+	<data name="We use Google Analytics software to understand how people use this service. We do this to help make sure the site is meeting the needs of its users and to help us make improvements." xml:space="preserve"> <value>Rydym yn defnyddio meddalwedd Google Analytics i ddeall sut mae pobl yn defnyddio’r gwasanaeth hwn. Rydym yn gwneud hyn er mwyn gwneud yn siŵr bod y wefan yn diwallu anghenion y bobl sy'n ei defnyddio a’n helpu i wella’r wefan. </value> </data>
+	<data name="We do not collect or store your personal information (for example your name or address) so this information cannot be used to identify who you are." xml:space="preserve"> <value>Nid ydym yn casglu nac yn storio eich gwybodaeth bersonol (er enghraifft eich enw neu’ch cyfeiriad) felly ni ellir defnyddio’r wybodaeth hon i adnabod pwy ydych chi. </value> </data>
+	<data name="We do not allow Google to use or share our analytics data." xml:space="preserve"> <value>Nid ydym yn caniatáu i Google rannu ein data dadansoddi. </value> </data>
+	<data name="Google Analytics stores information about:" xml:space="preserve"> <value>Mae Google Analytics yn storio gwybodaeth am: </value> </data>
+	<data name="the pages you visit" xml:space="preserve"> <value>y tudalennau rydych chi’n ymweld â nhw </value> </data>
+	<data name="how long you spend on each page" xml:space="preserve"> <value>faint o amser rydych chi’n ei dreulio ar bob tudalen </value> </data>
+	<data name="how you arrived at the site" xml:space="preserve"> <value>sut y gwnaethoch chi gyrraedd y safle </value> </data>
+	<data name="what you click on while you visit the site" xml:space="preserve"> <value>beth ydych chi’n clicio arno wrth ymweld â'r safle </value> </data>
+	<data name="the device and browser you use" xml:space="preserve"> <value>y ddyfais a'r porwr rydych chi'n eu defnyddio </value> </data>
+	<data name="Google Analytics cookies we use" xml:space="preserve"> <value>Cwcis dadansoddeg Google rydym yn eu defnyddio </value> </data>
+	<data name="In 2 years" xml:space="preserve"> <value>2 flynedd </value> </data>
+	<data name="Helps us to count how many people use the service by tracking if you’ve visited before" xml:space="preserve"> <value>Maent yn ein helpu ni i gyfrif faint o bobl sy’n defnyddio’r gwasanaeth drwy olrhain a ydych chi wedi ymweld o’r blaen </value> </data>
+	<data name="Do you want to accept Google Analytics cookies?" xml:space="preserve"> <value>Ydych chi am dderbyn cwcis Google Analytics? </value> </data>
+	<data name="Yes" xml:space="preserve"> <value>Oes</value> </data>
+	<data name="No" xml:space="preserve"> <value>Nac oes</value> </data>
+	<data name="Save cookies settings" xml:space="preserve"> <value>Cadw’r gosodiadau cwcis</value> </data>
+</root>

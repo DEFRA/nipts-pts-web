@@ -67,6 +67,47 @@ namespace Defra.PTS.Web.UI.UnitTests.Helpers
         }
 
         [Fact]
+        public async Task GetBreedListTests_WithoutLocalisation()
+        {
+            // Arrange
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("cy-GB"); // Set culture to Welsh
+
+            var species = PetSpecies.Dog;
+            _mockMediator.Setup(x => x.Send(It.IsAny<GetBreedsQueryRequest>(), CancellationToken.None))
+                .ReturnsAsync(new Application.DTOs.Features.GetBreedsQueryResponse
+                {
+                    Breeds = new List<BreedDto>()
+                    {
+                    new BreedDto() { BreedId = 1, BreedName = "Chihuahua" },
+                    new BreedDto() { BreedId = 2, BreedName = "Pomeranian" },
+                    new BreedDto() { BreedId = 3, BreedName = "Toy Poodle" },
+                    new BreedDto() { BreedId = 4, BreedName = "Italian Greyhound" },
+                    new BreedDto() { BreedId = 5, BreedName = "Whippet" },
+                    }
+                });
+
+            var breed = new List<BreedDto>()
+            {
+                new BreedDto() { BreedId = 1, BreedName = "Chihuahua" },
+                new BreedDto() { BreedId = 2, BreedName = "Pomeranian" },
+                new BreedDto() { BreedId = 3, BreedName = "Toy Poodle" },
+                new BreedDto() { BreedId = 4, BreedName = "Italian Greyhound" },
+                new BreedDto() { BreedId = 5, BreedName = "Whippet" },
+
+            };
+
+            // Act
+            var result = await _selectListLocaliser.GetBreedListWithoutLocalisation(species);
+
+            // Assert
+
+            result.Should().Equal(breed, (b1, b2) => b1.BreedId == b2.BreedId);
+            result.Should().Equal(breed, (b1, b2) => b1.BreedName == b2.BreedName);
+        }
+
+
+
+        [Fact]
         public async Task GetColourListTests()
         {
             // Arrange
@@ -89,6 +130,37 @@ namespace Defra.PTS.Web.UI.UnitTests.Helpers
 
             // Act
             var result = await _selectListLocaliser.GetPetColoursList(species);
+
+            // Assert
+            result.Should().Equal(colours, (c1, c2) => c1.Id == c2.Id);
+            result.Should().Equal(colours, (c1, c2) => c1.Name == c2.Name);
+        }
+
+        [Fact]
+        public async Task GetColourListTests_WithoutLocalisation()
+        {
+            // Arrange
+            Thread.CurrentThread.CurrentCulture = new CultureInfo("cy-GB"); // Set culture to Welsh
+
+            var species = PetSpecies.Dog;
+            _mockMediator.Setup(x => x.Send(It.IsAny<GetColoursQueryRequest>(), CancellationToken.None))
+                .ReturnsAsync(new Application.DTOs.Features.GetColoursQueryResponse
+                {
+                    Colours = new List<ColourDto>()
+                    {
+                    new ColourDto() { Id = "1", Name = "Black" },
+                    new ColourDto() { Id = "2", Name = "Grey" },
+                    }
+                });
+
+            var colours = new List<ColourDto>()
+            {
+                new ColourDto() { Id = "1", Name = "Black" },
+                new ColourDto() { Id = "2", Name = "Grey" },
+            };
+
+            // Act
+            var result = await _selectListLocaliser.GetPetColoursListWithoutLocalisation(species);
 
             // Assert
             result.Should().Equal(colours, (c1, c2) => c1.Id == c2.Id);

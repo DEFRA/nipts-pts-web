@@ -55,7 +55,6 @@ public class UserController : BaseController
                 _logger.LogInformation("Initiating OSignOutAsync for {EmailAddress}", userInfo.EmailAddress);
                 var request = new UpdateUserRequest(userInfo.EmailAddress);
                 _ = await _mediator.Send(request);
-                //MemoryCache.Default.Dispose();
             }
         }
         catch (Exception ex)
@@ -72,6 +71,8 @@ public class UserController : BaseController
         HttpContext.User = null;
 
         TempData.RemoveTravelDocument();
+        TempData.ClearFormSubmissionQueue();
+        TempData.RemoveApplicationReference();
         return Redirect(adB2cSection.SignedOutCallbackPath);
     }
 
@@ -83,13 +84,7 @@ public class UserController : BaseController
         try
         {            
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).GetAwaiter().GetResult();
-            CookieOptions options = new()
-            {
-                SameSite = SameSiteMode.Strict,
-                HttpOnly = true,
-                Secure = true
-            };
-            HttpContext.Response.Cookies.Append("ManagementLinkClicked", "false", options);
+            HttpContext.Session.SetString("ManagementLinkClicked", "false");
         }
         catch (Exception ex)
         {
@@ -104,13 +99,7 @@ public class UserController : BaseController
     [HttpGet]
     public IActionResult RedirectToExternal()
     {
-        CookieOptions options = new()
-        {
-            SameSite = SameSiteMode.Strict,
-            HttpOnly = true,
-            Secure = true
-        };
-        HttpContext.Response.Cookies.Append("ManagementLinkClicked", "true", options);
+        HttpContext.Session.SetString("ManagementLinkClicked", "true");
         string managementUrl = _configuration["AppSettings:ManagementUrl"];
         return Redirect(managementUrl);
     }

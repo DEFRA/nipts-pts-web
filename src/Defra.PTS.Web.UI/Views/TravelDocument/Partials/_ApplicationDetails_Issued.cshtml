@@ -17,7 +17,7 @@
                             @Localizer["Pet travel document number"]
                         </dt>
                         <dd class="govuk-summary-list__value">
-                            @Model.DocumentReferenceNumber
+                            @ApplicationHelper.FormatPetTravelDocumentNumber(Model.DocumentReferenceNumber)
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row">

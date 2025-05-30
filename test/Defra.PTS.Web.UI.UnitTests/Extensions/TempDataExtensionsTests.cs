@@ -13,6 +13,9 @@ namespace Defra.PTS.Web.UI.UnitTests.Extensions;
 public class TempDataExtensionsTests
 {
     private readonly ITempDataDictionary _tempData;
+    private readonly string ApplicationReference = "ApplicationReference";
+    private readonly string TestReference = "TestReference";
+
     public TempDataExtensionsTests()
     {
         var mockTempData = new Mock<ITempDataDictionary>();
@@ -103,6 +106,21 @@ public class TempDataExtensionsTests
 
         // Assert
         result.Should().NotBeNull();
+    }
+
+    [Fact]
+    public void TempData_ClearFormSubmissionQueue_ReturnsNull()
+    {
+        // Arrange
+        var tempData = TempData();
+        var id = Guid.NewGuid();
+        // Act
+        tempData.AddToFormSubmissionQueue(id);
+        tempData.ClearFormSubmissionQueue();
+        var result = tempData.GetFormSubmissionQueue();
+
+        // Assert
+        result.Should().BeNullOrEmpty();
     }
 
     [Fact]
@@ -208,6 +226,63 @@ public class TempDataExtensionsTests
         // Assert
         result.Should().BeNull();
     }
+
+    [Fact]
+    public void TempData_SetApplicationReference_AddsApplicationReference()
+    {
+        // Arrange
+        var tempData = TempData();
+
+        // Act
+        tempData.SetApplicationReference(TestReference);
+
+        // Assert
+        var result = tempData.Peek(ApplicationReference);
+        Assert.Equal(TestReference, result);
+    }
+
+    [Fact]
+    public void TempData_GetApplicationReference_ReturnsApplicationReference()
+    {
+        // Arrange
+        var tempData = TempData();
+        tempData.Add(ApplicationReference, TestReference);
+
+        // Act
+        var result = tempData.GetApplicationReference();
+
+        // Assert
+        Assert.Equal(TestReference, result);
+    }
+
+    [Fact]
+    public void TempData_GetApplicationReference_ReturnsNullIfNotSet()
+    {
+        // Arrange
+        var tempData = TempData();
+
+        // Act
+        var result = tempData.GetApplicationReference();
+
+        // Assert
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void TempData_RemoveApplicationReference_RemovesApplicationReference()
+    {
+        // Arrange
+        var tempData = TempData();
+        tempData.Add(ApplicationReference, "TestReference");
+
+        // Act
+        tempData.RemoveApplicationReference();
+        var result = tempData.Peek(ApplicationReference);
+
+        // Assert
+        Assert.Null(result);
+    }
+
 
     [Fact]
     public void TempData_Get()

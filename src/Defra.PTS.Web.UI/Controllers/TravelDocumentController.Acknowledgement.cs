@@ -1,6 +1,7 @@
 ﻿using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using Defra.PTS.Web.UI.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Defra.PTS.Web.UI.Controllers;
 
@@ -10,6 +11,13 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     public IActionResult Acknowledgement()
     {
         var applicationReference =  GetApplicationReference();
+
+        var formSubmissionQueue = GetFormSubmissionQueue();
+
+        if(string.IsNullOrEmpty(applicationReference) && formSubmissionQueue.IsNullOrEmpty())
+        {
+            return RedirectToAction("Index", "TravelDocument");
+        }
         
         if (!IsApplicationInProgress() && string.IsNullOrEmpty(applicationReference))
         {

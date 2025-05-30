@@ -54,7 +54,7 @@
                             <div class="govuk-radios__conditional govuk-radios__conditional--hidden" id="conditional-feature">
                                 <div class="govuk-form-group @(ViewData.ModelState.HasError("FeatureDescription") ? "govuk-form-group--error" : null)">
                                     <div class="govuk-form-group">
-                                        <label class="govuk-label" for="FeatureDescription">
+                                        <label class="govuk-label govuk-label--s" for="FeatureDescription">
                                             @Localizer["Briefly describe your pet's significant feature"]
                                         </label>
                                         @Html.ValidationMessageFor(x => x.FeatureDescription, string.Empty, new { @class = "govuk-error-message" })

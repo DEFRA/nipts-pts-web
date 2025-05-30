@@ -13,6 +13,7 @@ using Microsoft.Azure.KeyVault;
 using Microsoft.Extensions.Localization;
 
 using System.Drawing.Drawing2D;
+using System.Globalization;
 
 namespace Defra.PTS.Web.UI.Controllers;
 
@@ -56,8 +57,9 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
             if (formData.PetBreed.BreedId > 0 && formData.PetBreed.BreedName != null)
             {
-                var breed = breeds.Find(x => x.Text == formData.PetBreed.BreedName);
-                if(breed == null)
+                var breed = breeds.Find(x => x.Text == _localizer[formData.PetBreed.BreedName]);
+
+                if (breed == null)
                 {
                     formData.PetBreed.BreedId = 0;
                 }
@@ -149,6 +151,21 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         return orderedColours.ToSelectListItems();
     }
 
+    private async Task<List<SelectListItem>> GetBreedsAsSelectListItemsWithoutLocalisation(PetSpecies petType)
+    {
+        var list = await _selectListLocaliser.GetBreedListWithoutLocalisation(petType);
+
+        // Order by Name
+        var orderedColours = list
+            //Mixed Breed or unknown to always be at top of list
+            .OrderBy(x => x.BreedName.StartsWith("Mixed breed") ? 0 : 1)
+            // If free text or BreedName null then don't sort
+            .ThenBy(x => x.BreedName ?? string.Empty)
+            .ToList();
+
+        return orderedColours.ToSelectListItems();
+    }
+
     private async Task AssignBreed(PetBreedViewModel model)
     {
         List<SelectListItem> breeds = null;
@@ -179,9 +196,30 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                     model.BreedAdditionalInfo = model.BreedName;
                 }
             }
+
+            if (Thread.CurrentThread.CurrentCulture.EnglishName.Contains("Welsh"))
+            {
+                //we need to store them in the database as English values
+                var localisedBreeds = await GetBreedsAsSelectListItems(model.PetSpecies);
+                breeds = await GetBreedsAsSelectListItemsWithoutLocalisation(model.PetSpecies);
+
+                var localisedBreed = localisedBreeds.Find(x => Convert.ToInt32(x.Value.ToString()) == model.BreedId);
+                var unlocalisedBreed = breeds.Find(x => Convert.ToInt32(x.Value.ToString()) == model.BreedId);
+
+                if (model.BreedName == localisedBreed.Text)
+                {
+                    model.BreedName = unlocalisedBreed.Text;
+                }
+            }
         }
         else
         {
+            if (Thread.CurrentThread.CurrentCulture.EnglishName.Contains("Welsh"))
+            {
+                //we need to store them in the database as English values
+                breeds = await GetBreedsAsSelectListItemsWithoutLocalisation(model.PetSpecies);
+            }
+
             var breed = breeds.Find(x => x.Value == model.BreedId.ToString());
             model.BreedId = Int32.Parse(breed.Value);
             model.BreedName = breed.Text;

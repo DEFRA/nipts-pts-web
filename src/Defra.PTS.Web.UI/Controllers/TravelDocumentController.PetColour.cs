@@ -44,6 +44,12 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         SetBackUrl(WebAppConstants.Pages.TravelDocument.PetAge);
         var colours = await GetColoursList(model.PetSpecies);
 
+        if (Thread.CurrentThread.CurrentCulture.EnglishName.Contains("Welsh"))
+        {
+            //we need to store them in the database as English values
+            colours = await GetColoursListWithoutLocalisation(model.PetSpecies);
+        }
+
         if (!ModelState.IsValid)
         {
             ViewBag.Colours = colours;
@@ -63,6 +69,25 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         var petColours = await _selectListLocaliser.GetPetColoursList(petSpecies);
 
         var otherColour = petColours?.Find(x => x.Name.Equals(_localizer[AppConstants.Values.OtherColourName].Value, StringComparison.InvariantCultureIgnoreCase));
+        if (otherColour != null)
+        {
+            otherColour.DisplayOrder = int.MaxValue;
+        }
+
+        // Order by DisplayOrder, then by Name
+        var orderedColours = petColours
+            .OrderBy(x => x.DisplayOrder)
+            .ThenBy(x => x.Name)
+            .ToList();
+
+        return orderedColours;
+    }
+
+    private async Task<List<ColourDto>> GetColoursListWithoutLocalisation(PetSpecies petSpecies)
+    {
+        var petColours = await _selectListLocaliser.GetPetColoursListWithoutLocalisation(petSpecies);
+
+        var otherColour = petColours?.Find(x => x.Name.Equals(AppConstants.Values.OtherColourName, StringComparison.InvariantCultureIgnoreCase));
         if (otherColour != null)
         {
             otherColour.DisplayOrder = int.MaxValue;

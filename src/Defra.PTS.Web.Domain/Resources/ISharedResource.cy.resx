@@ -120,9 +120,6 @@
   <data name="Enter a full postcode in the correct format, for example TF7 5AY or TF75AY" xml:space="preserve">
     <value>Rhowch god post llawn yn y fformat cywir, er enghraifft TF7 5AY neu TF75AY</value>
   </data>
-  <data name="Enter a phone number, like 01632 960 001 or 07700 900 982" xml:space="preserve">
-    <value>Rhowch rif ffôn, fel 01632 960 001 neu 07700 900 982</value>
-  </data>
   <data name="Enter your postcode" xml:space="preserve">
     <value>Rhowch god post</value>
   </data>
@@ -185,6 +182,9 @@
   </data>
   <data name="Enter a date that is less than 34 years ago" xml:space="preserve">
     <value>Nodwch ddyddiad sy’n llai na 34 mlynedd yn ôl</value>
+  </data>
+  <data name="The date you entered is too far in the past, check your pet's date of birth is correct" xml:space="preserve">
+    <value>Mae'r dyddiad a roesoch yn rhy bell yn y gorffennol, gwiriwch fod dyddiad geni eich anifail anwes yn gywir</value>
   </data>
   <data name="Enter your pet's name" xml:space="preserve">
     <value>Rhowch enw eich anifail anwes</value>
@@ -264,5 +264,8 @@
   </data>
   <data name="Enter a date that is before the pet’s microchip date" xml:space="preserve">
     <value>Rhowch ddyddiad sydd cyn rhif microsglodyn yr anifail anwes</value>
+  </data>
+  <data name="Enter your phone number, like 01632 960 001, 07700 900 982 or +49 30 12345678" xml:space="preserve">
+    <value>Rhowch rif ffôn, fel 01632 960 001, 07700 900 982 neu +49 30 12345678</value>
   </data>
 </root>

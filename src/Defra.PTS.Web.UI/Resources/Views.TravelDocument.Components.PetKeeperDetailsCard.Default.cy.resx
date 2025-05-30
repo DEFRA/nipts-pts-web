@@ -61,6 +61,9 @@
 	<data name="Pet owner details" xml:space="preserve">
     <value>Manylion perchennog yr anifail anwes</value>
   </data>
+	<data name="Pet owner details (place of issuance)" xml:space="preserve">
+    <value>Manylion perchennog yr anifail anwes (man cyhoeddi)</value>
+  </data>
 	<data name="Name" xml:space="preserve">
     <value>Enw</value>
   </data>

@@ -271,6 +271,12 @@ public class BaseTravelDocumentController : BaseController
     {
         return TempData.GetApplicationReference();
     }
+
+    public virtual List<Guid> GetFormSubmissionQueue()
+    {
+        return TempData.GetFormSubmissionQueue();
+    }
+
     #endregion ApplicationReference
     public void SetCYACheck(string value)
     {

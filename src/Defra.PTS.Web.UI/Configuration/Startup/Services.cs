@@ -204,7 +204,7 @@ public class SessionTimeoutMiddleware(RequestDelegate next)
 
             if (context.Session.GetString("SessionActive") == null)
             {
-                context.Response.Redirect("/Home/ApplicationTimeout");
+                context.Response.Redirect("/Signed-out");
                 return;
             }
         }

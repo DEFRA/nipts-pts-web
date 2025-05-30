@@ -43,6 +43,8 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
         if (model.Microchipped == YesNoOptions.No)
         {
+            model.IsCompleted = false;
+            SaveFormData(model);
             return RedirectToAction(nameof(PetMicrochipNotAvailable));
         }
 
