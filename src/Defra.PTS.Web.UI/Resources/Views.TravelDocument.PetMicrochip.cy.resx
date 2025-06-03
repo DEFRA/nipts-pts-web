@@ -129,4 +129,20 @@
   <data name="Must be 15 digits long" xml:space="preserve">
     <value>Rhaid iddo fod yn 15 digid o ran ei hyd</value>
   </data>
+  <data name="Enter your pet’s microchip number" xml:space="preserve">
+    <value>Rhowch rif microsglodyn eich anifail anwes</value>
+  </data>
+	<data name="Yes" xml:space="preserve">
+    <value>Oes</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>Nac oes</value>
+  </data>
+  <data name="Continue" xml:space="preserve">
+    <value>Parhau</value>
+  </data>
+  <data name="Back" xml:space="preserve">
+    <value>Yn ôl</value>
+  </data>
 </root>
+
