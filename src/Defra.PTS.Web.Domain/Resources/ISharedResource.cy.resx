@@ -268,4 +268,10 @@
   <data name="Enter your phone number, like 01632 960 001, 07700 900 982 or +49 30 12345678" xml:space="preserve">
     <value>Rhowch rif ffôn, fel 01632 960 001, 07700 900 982 neu +49 30 12345678</value>
   </data>
+  <data name="Select if your pet is microchipped" xml:space="preserve">
+    <value>Dwedwch a oes gan eich anifail anwes ficrosglodyn</value>
+  </data>
+  <data name="Your pet’s microchip number must be 15-digits long" xml:space="preserve">
+    <value>Rhaid i rif microsglodyn eich anifail anwes fod yn 15 digid o hyd</value>
+  </data>
 </root>
