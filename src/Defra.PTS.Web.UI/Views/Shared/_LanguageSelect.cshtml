@@ -6,6 +6,7 @@
 @{
     var currentLanguage = Thread.CurrentThread.CurrentCulture.ToString();
     var currentUrl = Context.Request.Path.Value;
+    var baseUrl = string.IsNullOrEmpty(currentUrl) ? "/" : currentUrl;
 }
 
 <feature name="Nipts-AP-Welsh-Translation">
@@ -18,7 +19,7 @@
                 }
                 else
                 {
-                    <a href="@(currentUrl)?en" hreflang="en" lang="en" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:English" id="localeEn">
+                    <a href="@baseUrl?en" hreflang="en" lang="en" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:English" id="localeEn">
                         <span class="govuk-visually-hidden">Change the language to English</span>
                         <span aria-hidden="true">English</span>
                     </a>
@@ -31,7 +32,7 @@
                 }
                 else
                 {
-                    <a href="@(currentUrl)?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg" id="localeCy">
+                    <a href="@baseUrl?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg" id="localeCy">
                         <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
                         <span aria-hidden="true">Cymraeg</span>
                     </a>
