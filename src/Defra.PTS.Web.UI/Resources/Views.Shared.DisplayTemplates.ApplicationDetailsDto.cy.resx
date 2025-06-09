@@ -123,8 +123,14 @@
   <data name="Date" xml:space="preserve">
     <value>Dyddiad</value>
   </data>
+  <data name="FOR OFFICIAL" xml:space="preserve">
+    <value>AT DDEFNYDD</value>
+  </data>
   <data name="Reference number" xml:space="preserve">
     <value>Rhif cyfeirnod</value>
+  </data>
+  <data name="USE ONLY" xml:space="preserve">
+    <value>SWYDDOGOL YN UNIG</value>
   </data>
   <data name="Your application summary" xml:space="preserve">
     <value>Crynodeb o’ch cais</value>
