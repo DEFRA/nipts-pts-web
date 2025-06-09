@@ -47,6 +47,45 @@ html, body {
     display: none;
 }
 
+/* Fix grey screen issue */
+html, body {
+    background-color: #ffffff !important;
+}
+
+.govuk-template {
+    background-color: #f3f2f1 !important;
+}
+
+.govuk-template__body {
+    background-color: #ffffff !important;
+}
+
+/* Prevent layout shift during language switch */
+.hmrc-language-select {
+    min-height: 40px !important;
+    background-color: transparent !important;
+}
+
+.hmrc-language-select__list {
+    background-color: transparent !important;
+    min-height: 30px !important;
+}
+
+/* Disable transitions that cause the grey flash */
+* {
+    transition: none !important;
+}
+
+/* Force consistent spacing */
+.govuk-width-container {
+    background-color: transparent !important;
+}
+
+.govuk-main-wrapper {
+    background-color: transparent !important;
+}
+
+
 /* Update your pts.css file with these print styles */
 @media print {
     /* Hide elements not needed in print view */
