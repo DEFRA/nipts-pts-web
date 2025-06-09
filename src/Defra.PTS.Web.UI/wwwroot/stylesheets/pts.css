@@ -47,7 +47,7 @@ html, body {
     display: none;
 }
 
-/* Fix grey screen issue */
+
 html, body {
     background-color: #ffffff !important;
 }
@@ -60,7 +60,7 @@ html, body {
     background-color: #ffffff !important;
 }
 
-/* Prevent layout shift during language switch */
+
 .hmrc-language-select {
     min-height: 40px !important;
     background-color: transparent !important;
@@ -71,12 +71,12 @@ html, body {
     min-height: 30px !important;
 }
 
-/* Disable transitions that cause the grey flash */
+
 * {
     transition: none !important;
 }
 
-/* Force consistent spacing */
+
 .govuk-width-container {
     background-color: transparent !important;
 }
