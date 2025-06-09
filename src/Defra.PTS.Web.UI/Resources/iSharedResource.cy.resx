@@ -708,4 +708,7 @@
   <data name="Need help using this service? " xml:space="preserve">
     <value>Angen help gyda'r gwasanaeth yma?</value>
   </data>
+  <data name="Privacy notice (opens in new tab)" xml:space="preserve">
+    <value>Hysbysiad preifatrwydd (yn agor mewn tab newydd)</value>
+  </data>
 </root>
