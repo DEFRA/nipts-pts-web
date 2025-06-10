@@ -8,6 +8,7 @@
 
 @if (Model != null && Model.Any())
 {
+    <div class="table-responsive-wrapper">
         <table class="govuk-table">
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
@@ -24,18 +25,18 @@
                     var detailsUrl = application.StatusBasedDetailsUrl();
 
                     <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header">
-                                @application.PetName
+                        <th scope="row" class="govuk-table__header" data-label="@Localizer["Pet name"]">
+                            @application.PetName
                         </th>
 
-                        <td class="govuk-table__cell">
-                        <strong class="govuk-tag @statusCssClass">
+                        <td class="govuk-table__cell" data-label="@Localizer["Status"]">
+                            <strong class="govuk-tag @statusCssClass">
                                 @(application.Status == @AppConstants.ApplicationStatus.APPROVED
                                     ? @Localizer["Approved"]
                                     : @Localizer["Pending"])
                             </strong>
                         </td>
-                        <td class="govuk-table__cell govuk-table__cell--numeric">
+                        <td class="govuk-table_cell govuk-table_cell--numeric" data-label="@Localizer["Actions"]">
                             <ul class="govuk-summary-list__actions-list">
 
                                 <li class="govuk-summary-list__actions-list-item">
@@ -50,11 +51,12 @@
 
             </tbody>
         </table>
+    </div>
 }
 
 <script>
     function handleTableScroll() {
-        var container = document.getElementById('scrollContainer');
+        var container = document.querySelector('.table-responsive-wrapper');
         if (!container) return;
 
         if (window.innerWidth >= 768) {
@@ -63,24 +65,24 @@
         } else {
             container.classList.remove('hide-scrollbar');
             container.style.overflowX = 'auto';
-            // For Safari/iOS 
+
             container.style.webkitTransform = 'translateZ(0)';
         }
     }
 
-    
+
     handleTableScroll();
 
-    // Resize
+
     let timeout;
     window.addEventListener('resize', function () {
         clearTimeout(timeout);
         timeout = setTimeout(handleTableScroll, 250);
     });
 
-    // Touch event handling for  mobile scrolling
+
     if ('ontouchstart' in window) {
-        const scrollContainer = document.getElementById('scrollContainer');
+        const scrollContainer = document.querySelector('.table-responsive-wrapper');
         if (scrollContainer) {
             scrollContainer.addEventListener('touchstart', function () {
                 this.style.webkitOverflowScrolling = 'touch';
