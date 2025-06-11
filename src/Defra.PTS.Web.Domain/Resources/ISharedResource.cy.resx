@@ -235,7 +235,7 @@
     <comment>PetMicrochip</comment>
   </data>
   <data name="Enter a 15-digit number, using only numbers" xml:space="preserve">
-    <value>Rhowch rif 15 digid, gan ddefnyddio rhifau yn unig</value>
+    <value>Rhaid i rif microsglodyn eich anifail anwes fod yn 15 digid o hyd.</value>
   </data>
   <data name="Enter your pet's microchip number" xml:space="preserve">
     <value>Rhowch rif microsglodyn eich anifail anwes</value>
@@ -288,5 +288,8 @@
   </data>
   <data name="Select if your pet has any significant features" xml:space="preserve">
     <value>Dewiswch a oes gan eich anifail anwes unrhyw nodweddion arwyddocaol</value>
+  </data>
+  <data name="Enter your full postcode in the correct format, for example TF7 5AY or TF75AY" xml:space="preserve">
+    <value>Rhowch god post llawn yn y fformat cywir, er enghraifft TF7 5AY neu TF75AY</value>
   </data>
 </root>

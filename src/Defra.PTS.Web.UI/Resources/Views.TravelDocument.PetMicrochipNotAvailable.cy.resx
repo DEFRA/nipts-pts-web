@@ -123,11 +123,11 @@
   <data name="What did you think of this service?" xml:space="preserve">
     <value>Rhowch eich barn</value>
   </data>
-	<data name="(takes 30 seconds)" xml:space="preserve">
+  <data name="(takes 30 seconds)" xml:space="preserve">
     <value>(mae'n cymryd 30 eiliad)</value>
   </data>
   <data name="Enter a 15-digit number, using only numbers" xml:space="preserve">
-    <value>Rhowch rif 15 digid, gan ddefnyddio rhifau yn unig</value>
+    <value>Rhaid i rif microsglodyn eich anifail anwes fod yn 15 digid o hyd.</value>
   </data>
   <data name="Get your pet microchipped before applying" xml:space="preserve">
     <value>Trefnwch osod microsglodyn ar eich anifail anwes cyn gwneud cais</value>
