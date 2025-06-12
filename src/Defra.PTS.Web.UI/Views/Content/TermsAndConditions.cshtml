@@ -1,7 +1,11 @@
 ﻿@using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Localization;
+@inject IViewLocalizer Localizer
+@inject IStringLocalizer<ISharedResource> sharedlocalizer
 
 @{
-    var pageTitle = "Northern Ireland Pet Travel Scheme terms and conditions";
+    var pageTitle = Localizer["Northern Ireland Pet Travel Scheme terms and conditions"].Value;
     this.SetMetaTitle(pageTitle);
 }
 
@@ -12,7 +16,7 @@
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-two-thirds">
                     <h1 class="govuk-heading-xl">
-                        @pageTitle
+                        @Localizer["Northern Ireland Pet Travel Scheme terms and conditions"]
                     </h1>
                 </div>
             </div>
@@ -20,155 +24,155 @@
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-two-thirds">
 
-                    <p> These terms and conditions provide guidance for pet owners or authorised persons using the Northern Ireland Pet Travel Scheme (the “Scheme”). The Scheme is part of the <a href="https://www.gov.uk/government/publications/the-windsor-framework" target="_blank">Windsor Framework (opens in a new tab)</a>. The Windsor Framework is a new set of trade rules between Northern Ireland and the rest of the UK created after Brexit.</p>
+                    <p>@Localizer["These terms and conditions provide guidance for pet owners or authorised persons using the Northern Ireland Pet Travel Scheme (the Scheme). The Scheme is part of the"] <a href="https://www.gov.uk/government/publications/the-windsor-framework" target="_blank">@Localizer["Windsor Framework (opens in a new tab)"]</a>@Localizer[". The Windsor Framework is a new set of trade rules between Northern Ireland and the rest of the UK created after Brexit."]</p>
 
-                    <p>The Scheme is for non-commercial pet movements only – cats, dogs (including assistance dogs) and ferrets.</p>
-
-                    <p>
-                        Any movement that involves a change in ownership in Northern Ireland, such as a rescue organisation rehoming an animal or a breeder selling a litter, or any movement of 6 or more pets (not for the purpose of attending a show or sporting event) is classified as a commercial movement.
-                    </p>
-
-                    <p><a href="https://www.daera-ni.gov.uk/articles/other-animal-species-movements-great-britain-northern-ireland#toc-1">Read more about commercial movements</a>.</p>
-
-                    <h2 class="govuk-heading-m">Who are we</h2>
-                    <p class="govuk-body">
-                        The Animal and Plant Health Agency (APHA) is the competent authority responsible for verifying the information you provide when you apply for a lifelong pet travel document (PTD) and issuing the PTD for the Scheme.
-                    </p>
-
-                    <h2 class="govuk-heading-m">Travelling under the Scheme</h2>
-                    <p class="govuk-body">
-                        If you wish to travel under the Scheme, you must apply for a lifelong PTD if you are travelling with your pet(s) to Northern Ireland from England, Scotland or Wales.
-                    </p>
-
-                    <p class="govuk-body">
-                        If you are a Northern Ireland resident and you are travelling from Northern Ireland to Great Britain and then directly back to Northern Ireland, you do not need to apply for a PTD. However, your pet must be microchipped to travel.
-                    </p>
-
-                    <p class="govuk-body">
-                        A ‘pet’ is a dog (including a guide dog or assistance dog), cat or ferret.
-                    </p>
+                    <p>@Localizer["The Scheme is for non-commercial pet movements only – cats, dogs (including assistance dogs) and ferrets."]</p>
 
                     <p>
-                        Each pet must have its own PTD and be microchipped with a 15-digit chip (which is the UK standard). The microchip must meet ISO Standards 11784, apply HDX or FDX-B technology and be capable of being read by a reading device compatible with ISO standard 11785.
+                        @Localizer["Any movement that involves a change in ownership in Northern Ireland, such as a rescue organisation rehoming an animal or a breeder selling a litter, or any movement of 6 or more pets (not for the purpose of attending a show or sporting event) is classified as a commercial movement."]
                     </p>
 
-                    <p>You may only travel with 5 pets or fewer under the Scheme.</p>
+                    <p><a href="https://www.daera-ni.gov.uk/articles/other-animal-species-movements-great-britain-northern-ireland#toc-1">@Localizer["Read more about commercial movements"]</a>.</p>
+
+                    <h2 class="govuk-heading-m">@Localizer["Who are we"]</h2>
+                    <p class="govuk-body">
+                        @Localizer["The Animal and Plant Health Agency (APHA) is the competent authority responsible for verifying the information you provide when you apply for a lifelong pet travel document (PTD) and issuing the PTD for the Scheme."]
+                    </p>
+
+                    <h2 class="govuk-heading-m">@Localizer["Travelling under the Scheme"]</h2>
+                    <p class="govuk-body">
+                        @Localizer["If you wish to travel under the Scheme, you must apply for a lifelong PTD if you are travelling with your pet(s) to Northern Ireland from England, Scotland or Wales."]
+                    </p>
+
+                    <p class="govuk-body">
+                        @Localizer["If you are a Northern Ireland resident and you are travelling from Northern Ireland to Great Britain and then directly back to Northern Ireland, you do not need to apply for a PTD. However, your pet must be microchipped to travel."]
+                    </p>
+
+                    <p class="govuk-body">
+                        @Localizer["A 'pet' is a dog (including a guide dog or assistance dog), cat or ferret."]
+                    </p>
 
                     <p>
-                        If you have 6 pets or more, to travel under the Scheme you must have written evidence with you that you are travelling to Northern Ireland or Great Britain to attend or return from a pet show. If attending a show, the pets must be at least 6 months old and each pet will need its own PTD and to be microchipped.
+                        @Localizer["Each pet must have its own PTD and be microchipped with a 15-digit chip (which is the UK standard). The microchip must meet ISO Standards 11784, apply HDX or FDX-B technology and be capable of being read by a reading device compatible with ISO standard 11785."]
                     </p>
 
-                    <p>The PTD does not allow you to travel to an EU country with your pet (including the Republic of Ireland).</p>
+                    <p>@Localizer["You may only travel with 5 pets or fewer under the Scheme."]</p>
 
-                    <p>When you apply for the Scheme, you will be required to sign a declaration to confirm that you will not be travelling with your pet to the EU.</p>
-
-                    <p>If applying online, you digitally sign this declaration by ticking a box just before you submit your application for a PTD. If you apply by phone, you must sign the declaration on the paper PTD when it arrives in the post and before you travel.</p>
-
-                    <p>If someone else is traveling with your pet, they need to carry the PTD and also confirmation in writing from the pet owner that they are an ‘authorised person’. The authorised person must sign a declaration to confirm that they are not travelling on to an EU country (including the Republic of Ireland).</p>
-
-                    <h2 class="govuk-heading-m">Pet travel document (PTD)</h2>
-                    <p class="govuk-body">
-                        Applying for a PTD is free.
+                    <p>
+                        @Localizer["If you have 6 pets or more, to travel under the Scheme you must have written evidence with you that you are travelling to Northern Ireland or Great Britain to attend or return from a pet show. If attending a show, the pets must be at least 6 months old and each pet will need its own PTD and to be microchipped."]
                     </p>
-                    <p>To travel under the Scheme, your pet must be microchipped and the microchip number must be on the PTD.</p>
+
+                    <p>@Localizer["The PTD does not allow you to travel to an EU country with your pet (including the Republic of Ireland)."]</p>
+
+                    <p>@Localizer["When you apply for the Scheme, you will be required to sign a declaration to confirm that you will not be travelling with your pet to the EU."]</p>
+
+                    <p>@Localizer["If applying online, you digitally sign this declaration by ticking a box just before you submit your application for a PTD. If you apply by phone, you must sign the declaration on the paper PTD when it arrives in the post and before you travel."]</p>
+
+                    <p>@Localizer["If someone else is traveling with your pet, they need to carry the PTD and also confirmation in writing from the pet owner that they are an 'authorised person'. The authorised person must sign a declaration to confirm that they are not travelling on to an EU country (including the Republic of Ireland)."]</p>
+
+                    <h2 class="govuk-heading-m">@Localizer["Pet travel document (PTD)"]</h2>
+                    <p class="govuk-body">
+                        @Localizer["Applying for a PTD is free."]
+                    </p>
+                    <p>@Localizer["To travel under the Scheme, your pet must be microchipped and the microchip number must be on the PTD."]</p>
 
                     <p class="govuk-body">
-                        To apply, you must:
+                        @Localizer["To apply, you must:"]
                     </p>
                     <ul class="govuk-list govuk-list--bullet">
 
                         <li>
-                            live in England, Scotland or Wales
+                            @Localizer["live in England, Scotland or Wales"]
                         </li>
 
                         <li>
-                            have your pet microchipped
+                            @Localizer["have your pet microchipped"]
                         </li>
 
                         <li>
-                            be the pet owner
+                            @Localizer["be the pet owner"]
                         </li>
 
                         <li>
-                            be aged 16 or over
+                            @Localizer["be aged 16 or over"]
                         </li>
                     </ul>
 
-                    <p>If you apply online, you will get a digital PTD. You can print this out if you want to. You can show the digital PTD or a print-out at the GB ferry port or on arrival at the NI airport.</p>
+                    <p>@Localizer["If you apply online, you will get a digital PTD. You can print this out if you want to. You can show the digital PTD or a print-out at the GB ferry port or on arrival at the NI airport."]</p>
 
-                    <p>If you apply by phone, you will get a paper PTD posted to you.</p>
+                    <p>@Localizer["If you apply by phone, you will get a paper PTD posted to you."]</p>
 
-                    <p>The PTD is valid for the lifetime of the pet but must be kept up to date. If your details change (for example, a change of address), you should apply for a new pet travel document and the previous PTD will be cancelled.</p>
+                    <p>@Localizer["The PTD is valid for the lifetime of the pet but must be kept up to date. If your details change (for example, a change of address), you should apply for a new pet travel document and the previous PTD will be cancelled."]</p>
 
-                    <h2 class="govuk-heading-m">Issues and liability</h2>
+                    <h2 class="govuk-heading-m">@Localizer["Issues and liability"]</h2>
                     <p class="govuk-body">
-                        APHA aims to process your application within 5 working days, but APHA cannot be held liable if you do not receive a digital or paper PTD by the date you intend to travel. This includes delays in granting a PTD, or for delayed delivery or mis-delivery of any documents.
+                        @Localizer["APHA aims to process your application within 5 working days, but APHA cannot be held liable if you do not receive a digital or paper PTD by the date you intend to travel. This includes delays in granting a PTD, or for delayed delivery or mis-delivery of any documents."]
                     </p>
 
-                    <p>APHA also cannot be held liable if they cannot approve your application for a PTD (for example, the microchip number cannot be found).</p>
+                    <p>@Localizer["APHA also cannot be held liable if they cannot approve your application for a PTD (for example, the microchip number cannot be found)."]</p>
 
-                    <p>APHA reserves the right to refuse an application. It can also cancel a PTD (for example, following the death of a pet or if you have to change any details, like your address).</p>
-
-                    <p>
-                        If there is a problem with your PTD, staff at the port or airport will be able to help resolve the issue in most cases. If this is not possible or there are any other compliance issues, you may be asked to report to Northern Ireland’s Department of Agriculture, Environment and Rural Affairs (DAERA)'s Sanitary and Phytosanitary (SPS) inspection facility when you arrive in Northern Ireland. This is for further checks, which may include checking the microchip in your pet.
-                    </p>
+                    <p>@Localizer["APHA reserves the right to refuse an application. It can also cancel a PTD (for example, following the death of a pet or if you have to change any details, like your address)."]</p>
 
                     <p>
-                        You may also be advised not to travel to Northern Ireland if you do not meet the requirements of the Scheme. We might advise this because if you do decide to travel, once you arrive in Northern Ireland, DAERA might not be able to approve your onward journey from the port or airport for compliance reasons. You may be refused entry and asked to return to England, Scotland or Wales straightaway, and this will be at your own expense.
+                        @Localizer["If there is a problem with your PTD, staff at the port or airport will be able to help resolve the issue in most cases. If this is not possible or there are any other compliance issues, you may be asked to report to Northern Ireland's Department of Agriculture, Environment and Rural Affairs (DAERA)'s Sanitary and Phytosanitary (SPS) inspection facility when you arrive in Northern Ireland. This is for further checks, which may include checking the microchip in your pet."]
                     </p>
 
                     <p>
-                        If you are asked to report to the SPS facility in Northern Ireland and you do not turn up, APHA reserves the right to suspend an individual from the Scheme for up to 12 months. This also applies if an authorised person travelling with your pet is referred to the SPS inspection facilities in Northern Ireland and does not turn up. If you need to travel with your pet while suspended, you must apply for a full animal health certificate.
-                    </p>
-
-                    <p>APHA has the right to withdraw access to the service.</p>
-
-
-                    <h2 class="govuk-heading-m">Appeals</h2>
-                    <p class="govuk-body">
-                        You can appeal if a PTD has not been approved, if a PTD has been cancelled or if you have been suspended from the Scheme.
+                        @Localizer["You may also be advised not to travel to Northern Ireland if you do not meet the requirements of the Scheme. We might advise this because if you do decide to travel, once you arrive in Northern Ireland, DAERA might not be able to approve your onward journey from the port or airport for compliance reasons. You may be refused entry and asked to return to England, Scotland or Wales straightaway, and this will be at your own expense."]
                     </p>
 
                     <p>
-                        You can contact APHA to appeal a decision.
+                        @Localizer["If you are asked to report to the SPS facility in Northern Ireland and you do not turn up, APHA reserves the right to suspend an individual from the Scheme for up to 12 months. This also applies if an authorised person travelling with your pet is referred to the SPS inspection facilities in Northern Ireland and does not turn up. If you need to travel with your pet while suspended, you must apply for a full animal health certificate."]
                     </p>
 
-                    <h2 class="govuk-heading-m">Your data</h2>
+                    <p>@Localizer["APHA has the right to withdraw access to the service."]</p>
+
+
+                    <h2 class="govuk-heading-m">@Localizer["Appeals"]</h2>
                     <p class="govuk-body">
-                        You can find out about how your data is used at <a href="https://www.gov.uk/government/publications/animal-and-plant-heath-agency-privacy-notices/pet-travel-scheme-privacy-notice" target="_blank">Pet travel scheme privacy notice - GOV.UK (opens in a new tab)</a>.
+                        @Localizer["You can appeal if a PTD has not been approved, if a PTD has been cancelled or if you have been suspended from the Scheme."]
                     </p>
 
-                    <h2 class="govuk-heading-m">More information</h2>
-                    <p class="govuk-body">
-                        You can read more about the Scheme at <a href="https://www.gov.uk/taking-your-pet-abroad/travelling-to-an-eu-country-or-northern-ireland" target="_blank">Taking your pet dog, cat or ferret abroad: Travelling to an EU country or Northern Ireland - GOV.UK (opens in a new tab)</a>.
+                    <p>
+                        @Localizer["You can contact APHA to appeal a decision."]
                     </p>
 
-                    <h2 class="govuk-heading-m">Contact APHA</h2>
+                    <h2 class="govuk-heading-m">@Localizer["Your data"]</h2>
                     <p class="govuk-body">
-                        Contact APHA with any queries, including to let them know if any of your details (or your pet’s details) change:
+                        @Localizer["You can find out about how your data is used at"] <a href="https://www.gov.uk/government/publications/animal-and-plant-heath-agency-privacy-notices/pet-travel-scheme-privacy-notice" target="_blank">@Localizer["Pet travel scheme privacy notice - GOV.UK (opens in a new tab)"]</a>.
+                    </p>
+
+                    <h2 class="govuk-heading-m">@Localizer["More information"]</h2>
+                    <p class="govuk-body">
+                        @Localizer["You can read more about the Scheme at"] <a href="https://www.gov.uk/taking-your-pet-abroad/travelling-to-an-eu-country-or-northern-ireland" target="_blank">@Localizer["Taking your pet dog, cat or ferret abroad: Travelling to an EU country or Northern Ireland - GOV.UK (opens in a new tab)"]</a>.
+                    </p>
+
+                    <h2 class="govuk-heading-m">@Localizer["Contact APHA"]</h2>
+                    <p class="govuk-body">
+                        @Localizer["Contact APHA with any queries, including to let them know if any of your details (or your pet's details) change:"]
                     </p>
                     <ul class="govuk-list govuk-list--bullet">
 
                         <li>
-                            Telephone: 03000 200 301
+                            @Localizer["Telephone: 03000 200 301"]
                         </li>
 
                         <li>
-                            Email: <a href="mailto:NIPetTravel@apha.gov.uk">NIPetTravel@apha.gov.uk</a>
+                            @Localizer["Email:"] <a href="mailto:NIPetTravel@apha.gov.uk">NIPetTravel@apha.gov.uk</a>
                         </li>
 
                     </ul>
 
-                    <p><a href="https://www.gov.uk/call-charges" target="_blank">Find out about call charges (open in new tab)</a>.</p>
+                    <p><a href="https://www.gov.uk/call-charges" target="_blank">@Localizer["Find out about call charges (open in new tab)"]</a>.</p>
 
-                    <h2 class="govuk-heading-m">Changes to these terms and conditions</h2>
+                    <h2 class="govuk-heading-m">@Localizer["Changes to these terms and conditions"]</h2>
 
-                    <p>Please check these terms and conditions regularly. They can be updated at any time without notice.</p>
+                    <p>@Localizer["Please check these terms and conditions regularly. They can be updated at any time without notice."]</p>
 
-                    <p>You will agree to any changes if you continue to use the service after the terms and conditions have been updated.</p>
+                    <p>@Localizer["You will agree to any changes if you continue to use the service after the terms and conditions have been updated."]</p>
 
                     <div class="govuk-inset-text">
-                        This notice was last updated on 12 March 2025.
+                        @Localizer["This notice was last updated on 12 March 2025."]
                     </div>
 
                 </div>
