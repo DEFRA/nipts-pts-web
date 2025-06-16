@@ -33,6 +33,12 @@
                                  alt="Signature on behalf of the competent authority, the Animal and Plant Health Agency" 
                                  class="signature-image" /></div>
                             <p class="govuk-body">
+                                @if (!string.IsNullOrEmpty(Model.DocumentSignedBy))
+                                {
+                                    @Localizer[@Model.DocumentSignedBy]
+                                }
+                            </p>
+                            <p class="govuk-body">
                                 @if (!string.IsNullOrEmpty(Model.DocumentSignedByTitle))
                                 {
                                     @Localizer[@Model.DocumentSignedByTitle]
