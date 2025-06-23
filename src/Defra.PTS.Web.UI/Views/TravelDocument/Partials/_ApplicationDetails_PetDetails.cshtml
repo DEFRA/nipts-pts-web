@@ -29,22 +29,25 @@
 
             </div>
 
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    @Localizer["Breed"]
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @if (Model.HasBreed)
-                    {
-                        @Localizer[@Model.Breed]
-                    }
-                    else
-                    {
-                        @("-")
-                    }
-                </dd>
+            @if (Model.Species != "Ferret")
+            { 
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        @Localizer["Breed"]
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        @if (Model.HasBreed)
+                        {
+                            @Localizer[@Model.Breed]
+                        }
+                        else
+                        {
+                            @("-")
+                        }
+                    </dd>
 
-            </div>
+                </div>
+            }
 
 
             <div class="govuk-summary-list__row">
