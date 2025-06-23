@@ -49,20 +49,6 @@ public class DeclarationValidator : AbstractValidator<DeclarationViewModel>
             })
             .WithMessage("Enter your phone number, like 01632 960 001, 07700 900 982 or +49 30 12345678");
         });
-
-        When(x => x.IsManualAddress, () =>
-        {
-            When(x => ApplicationHelper.PostcodeStartsWithNonGBPrefix(x.Postcode), () =>
-            {
-                var validPostcode = false;
-                RuleFor(x => x.Postcode).Must(x => validPostcode).WithMessage("Enter your postcode in England, Scotland or Wales");
-            });
-        });
-
-        When(x => !x.IsManualAddress, () =>
-        {
-            RuleFor(x => x.Postcode).Must(BeValidUKPostcode).WithMessage("Enter your postcode in England, Scotland or Wales");
-        });
     }
 
     [ExcludeFromCodeCoverage]
