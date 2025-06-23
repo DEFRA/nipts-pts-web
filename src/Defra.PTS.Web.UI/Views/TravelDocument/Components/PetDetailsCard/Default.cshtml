@@ -62,29 +62,31 @@
                 </dd>
 
             </div>
-
-            <div class="govuk-summary-list__row">
-                <dt class="govuk-summary-list__key">
-                    @Localizer["Breed"]
-                </dt>
-                <dd class="govuk-summary-list__value">
-                    @Localizer[@Model.Breed]
-                </dd>
-
-                @if (Model.HasBreed)
-                {
-                    <dd class="govuk-summary-list__actions">
-                        <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.PetBreed">
-                            @changeText<span class="govuk-visually-hidden"> @Localizer["Change pet's breed"]</span>
-                        </a>
+            @if (Model.Species != PetSpecies.Ferret.ToString())
+            {
+                <div class="govuk-summary-list__row">
+                    <dt class="govuk-summary-list__key">
+                        @Localizer["Breed"]
+                    </dt>
+                    <dd class="govuk-summary-list__value">
+                        @Localizer[@Model.Breed]
                     </dd>
-                }
-                else
-                {
-                    <dd class="govuk-summary-list__actions"></dd>
-                }
 
-            </div>
+                    @if (Model.HasBreed)
+                    {
+                        <dd class="govuk-summary-list__actions">
+                            <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.PetBreed">
+                                @changeText<span class="govuk-visually-hidden"> @Localizer["Change pet's breed"]</span>
+                            </a>
+                        </dd>
+                    }
+                    else
+                    {
+                        <dd class="govuk-summary-list__actions"></dd>
+                    }
+
+                </div>
+            }
 
             <div class="govuk-summary-list__row">
                 <dt class="govuk-summary-list__key">
