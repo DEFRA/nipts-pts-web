@@ -72,6 +72,8 @@ public class PetDetailsDto
     public string Colour { get; set; }
 
     public string Feature { get; set; }
+
+    public bool IsGeneratingPdf { get; set; } = false;
 }
 
 public class PetKeeperDetailsDto

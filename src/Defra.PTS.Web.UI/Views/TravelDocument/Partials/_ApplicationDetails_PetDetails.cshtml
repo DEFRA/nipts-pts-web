@@ -1,4 +1,5 @@
 ﻿@model Defra.PTS.Web.Application.DTOs.Services.PetDetailsDto;
+@using Defra.PTS.Web.Domain.Enums
 @using Defra.PTS.Web.UI.Constants;
 @using Defra.PTS.Web.Application.Extensions;
 @using Microsoft.AspNetCore.Mvc.Localization
@@ -29,8 +30,8 @@
 
             </div>
 
-            @if (Model.Species != "Ferret")
-            { 
+            @if (Model.IsGeneratingPdf)
+            {
                 <div class="govuk-summary-list__row">
                     <dt class="govuk-summary-list__key">
                         @Localizer["Breed"]
@@ -47,6 +48,28 @@
                     </dd>
 
                 </div>
+            }
+            else
+            {
+                @if (Model.Species != PetSpecies.Ferret.ToString())
+                {
+                    <div class="govuk-summary-list__row">
+                        <dt class="govuk-summary-list__key">
+                            @Localizer["Breed"]
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            @if (Model.HasBreed)
+                            {
+                                @Localizer[@Model.Breed]
+                            }
+                            else
+                            {
+                                @("-")
+                            }
+                        </dd>
+
+                    </div>
+                }
             }
 
 
