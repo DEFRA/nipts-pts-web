@@ -5995,7 +5995,6 @@ p + .govuk-heading-s,
     color: #0b0c0c;
     display: block;
     padding-left: 45px;
-    font-weight: inherit;
 }
 @media print {
   .govuk-warning-text__text {
