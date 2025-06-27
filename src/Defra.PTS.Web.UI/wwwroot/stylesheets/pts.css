@@ -52,7 +52,7 @@ html, body {
 .govuk-main-wrapper {
     background-color: #ffffff !important;
     min-height: calc(100vh - 200px) !important;
-    padding-bottom: 60px !important;
+    padding-bottom: 40px !important;
 }
 
 .govuk-template {
