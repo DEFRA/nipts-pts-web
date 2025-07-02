@@ -2,11 +2,21 @@
 @using Defra.PTS.Web.Application.Extensions;
 @using Defra.PTS.Web.Application.Helpers;
 @using Defra.PTS.Web.UI.Constants;
-@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Defra.PTS.Web.Application.Constants;
+
 @inject IViewLocalizer Localizer    
 
 @{
     var pageTitle = Localizer["Your application summary"].Value;
+
+    var statusCssClass = Model.Status switch
+    {
+        AppConstants.ApplicationStatus.UNSUCCESSFUL or AppConstants.ApplicationStatus.REVOKED => "govuk-tag--red",
+        AppConstants.ApplicationStatus.APPROVED => "govuk-tag--green",
+        AppConstants.ApplicationStatus.AWAITINGVERIFICATION => "govuk-tag--blue",
+        _ => "govuk-tag--red",
+    };
 }
 
 <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_PreLoadAssets" />
@@ -45,6 +55,18 @@
                         </dt>
                         <dd class="govuk-summary-list__value">
                             @Model.ReferenceNumber
+                        </dd>
+                    </div>
+                    <div class="govuk-summary-list__row pet-declaration-status-row">
+                        <dt class="govuk-summary-list__key">
+                            @Localizer["Status"]
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            <strong class="govuk-tag @statusCssClass">
+                                @(Model.Status == @AppConstants.ApplicationStatus.APPROVED
+                                    ? @Localizer["Approved"]
+                                    : @Localizer["Pending"])
+                            </strong>
                         </dd>
                     </div>
                     <div class="govuk-summary-list__row">
@@ -141,6 +163,10 @@
     @@media print {
         .pet-declaration-qrcode {
             display: block;
+        }
+
+        .pet-declaration-status-row {
+            display: none !important;
         }
     }
 </style>
