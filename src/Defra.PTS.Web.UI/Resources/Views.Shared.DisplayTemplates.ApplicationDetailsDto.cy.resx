@@ -135,4 +135,16 @@
   <data name="Your application summary" xml:space="preserve">
     <value>Crynodeb o’ch cais</value>
   </data>
+  <data name="Status" xml:space="preserve">
+    <value>Statws</value>
+  </data>
+	<data name="Approved" xml:space="preserve">
+    <value>Wedi’u cymeradwyo</value>
+  </data>
+	<data name="Pending" xml:space="preserve">
+    <value>Yn aros</value>
+  </data>
+	<data name="Cancelled" xml:space="preserve">
+    <value>Wedi’u canslo</value>
+  </data>
 </root>
