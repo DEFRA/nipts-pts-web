@@ -265,8 +265,8 @@
   <data name="Enter a date that is before the pet’s microchip date" xml:space="preserve">
     <value>Rhowch ddyddiad sydd cyn rhif microsglodyn yr anifail anwes</value>
   </data>
-  <data name="Enter your phone number, like 01632 960 001, 07700 900 982 or +49 30 12345678" xml:space="preserve">
-    <value>Rhowch rif ffôn, fel 01632 960 001, 07700 900 982 neu +49 30 12345678</value>
+  <data name="Enter your phone number, like 01632 960 001 or 07700 900 982" xml:space="preserve">
+    <value>Rhowch rif ffôn, fel 01632 960 001 neu 07700 900 982</value>
   </data>
   <data name="Enter your pet’s date of birth in the correct format, for example, 11 04 2021" xml:space="preserve">
     <value>Rhowch ddyddiad geni eich anifail anwes yn y fformat cywir, er enghraifft, 11 04 2021</value>
