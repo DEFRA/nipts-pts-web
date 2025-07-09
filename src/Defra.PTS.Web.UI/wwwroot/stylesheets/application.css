@@ -5316,6 +5316,12 @@ p + .govuk-heading-s,
   }
 }
 
+@media print {
+    .issuer-values {
+        padding-left: 2em !important;
+    }
+}
+
 .govuk-summary-card {
   margin-bottom: 20px;
   border: 1px solid #b1b4b6;
@@ -5992,9 +5998,9 @@ p + .govuk-heading-s,
 }
 
 .govuk-warning-text__text {
-  color: #0b0c0c;
-  display: block;
-  padding-left: 45px;
+    color: #0b0c0c;
+    display: block;
+    padding-left: 45px;
 }
 @media print {
   .govuk-warning-text__text {

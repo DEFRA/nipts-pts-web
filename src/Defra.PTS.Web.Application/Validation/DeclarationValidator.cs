@@ -5,7 +5,6 @@ using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.Localization;
-using PhoneNumbers;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Defra.PTS.Web.Application.Validation;
@@ -18,8 +17,6 @@ public class DeclarationValidator : AbstractValidator<DeclarationViewModel>
         
         ArgumentNullException.ThrowIfNull(mediator);
         _mediator = mediator;
-
-        var phoneNumberUtil = PhoneNumberUtil.GetInstance();
 
         RuleFor(x => x.AgreedToDeclaration)
     .Must(x => x)
@@ -34,34 +31,15 @@ public class DeclarationValidator : AbstractValidator<DeclarationViewModel>
         When(x => !string.IsNullOrWhiteSpace(x.Phone), () =>
         {
             RuleFor(x => x.Phone)
-            .Must(phone =>
-            {
-                try
-                {
-                    var region = phone.StartsWith('+') ? null : "GB";
-                    var parsedNumber = phoneNumberUtil.Parse(phone, region);
-                    return phoneNumberUtil.IsValidNumber(parsedNumber);
-                }
-                catch (NumberParseException)
-                {
-                    return false;
-                }
-            })
-            .WithMessage("Enter your phone number, like 01632 960 001, 07700 900 982 or +49 30 12345678");
-        });
+            .MaximumLength(AppConstants.MaxLength.PetKeeperPhone)
+            .WithMessage("Enter your phone number, like 01632 960 001 or 07700 900 982");
 
-        When(x => x.IsManualAddress, () =>
-        {
-            When(x => ApplicationHelper.PostcodeStartsWithNonGBPrefix(x.Postcode), () =>
+            When(x => x.Phone.Length <= AppConstants.MaxLength.PetKeeperPhone, () =>
             {
-                var validPostcode = false;
-                RuleFor(x => x.Postcode).Must(x => validPostcode).WithMessage("Enter your postcode in England, Scotland or Wales");
+                RuleFor(x => x.Phone)
+                .Matches(AppConstants.RegularExpressions.UKPhone)
+                .WithMessage("Enter your phone number, like 01632 960 001 or 07700 900 982");
             });
-        });
-
-        When(x => !x.IsManualAddress, () =>
-        {
-            RuleFor(x => x.Postcode).Must(BeValidUKPostcode).WithMessage("Enter your postcode in England, Scotland or Wales");
         });
     }
 

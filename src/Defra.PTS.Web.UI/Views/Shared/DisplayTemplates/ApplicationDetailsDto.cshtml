@@ -2,11 +2,21 @@
 @using Defra.PTS.Web.Application.Extensions;
 @using Defra.PTS.Web.Application.Helpers;
 @using Defra.PTS.Web.UI.Constants;
-@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Defra.PTS.Web.Application.Constants;
+
 @inject IViewLocalizer Localizer    
 
 @{
     var pageTitle = Localizer["Your application summary"].Value;
+
+    var statusCssClass = Model.Status switch
+    {
+        AppConstants.ApplicationStatus.UNSUCCESSFUL or AppConstants.ApplicationStatus.REVOKED => "govuk-tag--red",
+        AppConstants.ApplicationStatus.APPROVED => "govuk-tag--green",
+        AppConstants.ApplicationStatus.AWAITINGVERIFICATION => "govuk-tag--blue",
+        _ => "govuk-tag--red",
+    };
 }
 
 <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_PreLoadAssets" />
@@ -47,6 +57,18 @@
                             @Model.ReferenceNumber
                         </dd>
                     </div>
+                    <div class="govuk-summary-list__row pet-declaration-status-row">
+                        <dt class="govuk-summary-list__key">
+                            @Localizer["Status"]
+                        </dt>
+                        <dd class="govuk-summary-list__value">
+                            <strong class="govuk-tag @statusCssClass">
+                                @(Model.Status == @AppConstants.ApplicationStatus.APPROVED
+                                    ? @Localizer["Approved"]
+                                    : @Localizer["Pending"])
+                            </strong>
+                        </dd>
+                    </div>
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
                             @Localizer["Date"]
@@ -63,8 +85,8 @@
         <div class="pet-declaration-qrcode">
             <img src="@ApplicationHelper.BuildQRCodeUrl(Model.ReferenceNumberAsQRCode)"
                  alt="Unique QR code for your pet travel application, which will be checked at the port or airport" />
-                 <div class="qrcode-text">FOR OFFICIAL</div>
-                 <div class="qrcode-text">USE ONLY</div>
+            <div class="qrcode-text">@Localizer["FOR OFFICIAL"]</div>
+            <div class="qrcode-text">@Localizer["USE ONLY"]</div>
         </div>
 
     </div>
@@ -141,6 +163,10 @@
     @@media print {
         .pet-declaration-qrcode {
             display: block;
+        }
+
+        .pet-declaration-status-row {
+            display: none !important;
         }
     }
 </style>

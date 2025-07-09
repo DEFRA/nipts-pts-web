@@ -118,21 +118,24 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Check how to get your pet microchipped (opens in new tab)" xml:space="preserve">
-    <value>Gwiriwch sut i drefnu gosod microsglodyn ar eich anifail anwes (yn agor mewn tab newydd)</value>
+    <value>Gwiriwch sut i drefnu gosod microsglodyn ar eich anifail anwes (yn agor mewn tab newydd).</value>
   </data>
   <data name="What did you think of this service?" xml:space="preserve">
     <value>Rhowch eich barn</value>
   </data>
-	<data name="(takes 30 seconds)" xml:space="preserve">
+  <data name="(takes 30 seconds)" xml:space="preserve">
     <value>(mae'n cymryd 30 eiliad)</value>
   </data>
   <data name="Enter a 15-digit number, using only numbers" xml:space="preserve">
-    <value>Rhowch rif 15 digid, gan ddefnyddio rhifau yn unig</value>
+    <value>Rhaid i rif microsglodyn eich anifail anwes fod yn 15 digid o hyd.</value>
   </data>
   <data name="Get your pet microchipped before applying" xml:space="preserve">
     <value>Trefnwch osod microsglodyn ar eich anifail anwes cyn gwneud cais</value>
   </data>
   <data name="Your pet dog, cat or ferret must be fitted with a microchip before you can apply for a lifelong pet travel document." xml:space="preserve">
+    <value>Mae'n rhaid i'ch ci, eich cath neu’ch ffured anwes fod â microsglodyn wedi’i osod a bod wedi'u cofrestru ar gronfa ddata yn y Deyrnas Unedig cyn eich bod yn cael gwneud cais am ddogfen deithio gydol oes i anifeiliaid anwes.</value>
+  </data>
+  <data name="Your pet dog, cat or ferret must be fitted with a microchip and registered on a UK database before you can apply for a lifelong pet travel document." xml:space="preserve">
     <value>Mae'n rhaid i'ch ci, eich cath neu’ch ffured anwes fod â microsglodyn wedi’i osod a bod wedi'u cofrestru ar gronfa ddata yn y Deyrnas Unedig cyn eich bod yn cael gwneud cais am ddogfen deithio gydol oes i anifeiliaid anwes.</value>
   </data>
 </root>

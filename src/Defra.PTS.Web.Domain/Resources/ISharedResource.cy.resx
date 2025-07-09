@@ -121,7 +121,7 @@
     <value>Rhowch god post llawn yn y fformat cywir, er enghraifft TF7 5AY neu TF75AY</value>
   </data>
   <data name="Enter your postcode" xml:space="preserve">
-    <value>Rhowch god post</value>
+    <value>Rhowch eich cod post</value>
   </data>
   <data name="Enter your postcode in England, Scotland or Wales" xml:space="preserve">
     <value>Rhowch god post yng Nghymru, Lloegr neu'r Alban</value>
@@ -147,11 +147,11 @@
   <data name="Select your address from the list" xml:space="preserve">
     <value>Dewiswch eich cyfeiriad o blith y rhestr</value>
   </data>
-  <data name="Enter a county using 100 characters or less" xml:space="preserve">
+  <data name="Enter your county using 100 characters or less" xml:space="preserve">
     <value>Rhowch sir gan ddefnyddio 100 o gymeriadau neu lai</value>
   </data>
   <data name="Enter your town or city" xml:space="preserve">
-    <value>Rhowch dref neu ddinas</value>
+    <value>Rhowch eich tref neu ddinas</value>
   </data>
   <data name="Enter your town or city using 250 characters or less" xml:space="preserve">
     <value>Rhowch dref neu ddinas gan ddefnyddio 250 o gymeriadau neu lai</value>
@@ -184,7 +184,7 @@
     <value>Nodwch ddyddiad sy’n llai na 34 mlynedd yn ôl</value>
   </data>
   <data name="The date you entered is too far in the past, check your pet's date of birth is correct" xml:space="preserve">
-    <value>Mae'r dyddiad a roesoch yn rhy bell yn y gorffennol, gwiriwch fod dyddiad geni eich anifail anwes yn gywir</value>
+    <value>Mae’r dyddiad rydych chi wedi’i roi yn rhy bell yn y gorffennol, gwnewch yn siŵr bod dyddiad geni eich anifail anwes yn gywir</value>
   </data>
   <data name="Enter your pet's name" xml:space="preserve">
     <value>Rhowch enw eich anifail anwes</value>
@@ -193,19 +193,19 @@
     <value>Rhowch enw anifail anwes gan ddefnyddio 300 o gymeriadau neu lai</value>
   </data>
   <data name="Describe the main colour of your cat" xml:space="preserve">
-    <value>Disgrifiwch brif liw eich cath</value>
+    <value>Disgrifiwch liw eich cath</value>
   </data>
   <data name="Describe the main colour of your cat, using 150 characters or less" xml:space="preserve">
     <value>Disgrifiwch brif liw eich cath, gan ddefnyddio 150 o gymeriadau neu lai</value>
   </data>
   <data name="Describe the main colour of your dog" xml:space="preserve">
-    <value>Disgrifiwch brif liw eich ci</value>
+    <value>Disgrifiwch liw eich ci</value>
   </data>
   <data name="Describe the main colour of your dog, using 150 characters or less" xml:space="preserve">
     <value>Disgrifiwch brif liw eich ci, gan ddefnyddio 150 o gymeriadau neu lai</value>
   </data>
   <data name="Describe the main colour of your ferret" xml:space="preserve">
-    <value>Disgrifiwch brif liw eich ffured</value>
+    <value>Disgrifiwch liw eich ffured</value>
   </data>
   <data name="Describe the main colour of your ferret, using 150 characters or less" xml:space="preserve">
     <value>Disgrifiwch brif liw eich ffured, gan ddefnyddio 150 o gymeriadau neu lai</value>
@@ -215,7 +215,7 @@
     <comment>PetMicrochip</comment>
   </data>
   <data name="Enter your pet’s 15-digit microchip number" xml:space="preserve">
-    <value>Rhowch rif microsglodyn 15 digid eich anifail anwes</value>
+    <value>Rhaid i rif microsglodyn eich anifail anwes fod yn 15 digid o hyd.</value>
     <comment>PetMicrochip</comment>
   </data>
   <data name="Enter your pet’s 15-digit microchip number – do not use spaces or special characters like hyphens or dashes" xml:space="preserve">
@@ -235,7 +235,7 @@
     <comment>PetMicrochip</comment>
   </data>
   <data name="Enter a 15-digit number, using only numbers" xml:space="preserve">
-    <value>Rhowch rif 15 digid, gan ddefnyddio rhifau yn unig</value>
+    <value>Rhaid i rif microsglodyn eich anifail anwes fod yn 15 digid o hyd.</value>
   </data>
   <data name="Enter your pet's microchip number" xml:space="preserve">
     <value>Rhowch rif microsglodyn eich anifail anwes</value>
@@ -265,7 +265,31 @@
   <data name="Enter a date that is before the pet’s microchip date" xml:space="preserve">
     <value>Rhowch ddyddiad sydd cyn rhif microsglodyn yr anifail anwes</value>
   </data>
-  <data name="Enter your phone number, like 01632 960 001, 07700 900 982 or +49 30 12345678" xml:space="preserve">
-    <value>Rhowch rif ffôn, fel 01632 960 001, 07700 900 982 neu +49 30 12345678</value>
+  <data name="Enter your phone number, like 01632 960 001 or 07700 900 982" xml:space="preserve">
+    <value>Rhowch rif ffôn, fel 01632 960 001 neu 07700 900 982</value>
+  </data>
+  <data name="Enter your pet’s date of birth in the correct format, for example, 11 04 2021" xml:space="preserve">
+    <value>Rhowch ddyddiad geni eich anifail anwes yn y fformat cywir, er enghraifft, 11 04 2021</value>
+  </data>
+  <data name="Select if you are taking a pet dog, cat or ferret" xml:space="preserve">
+    <value>Dwedwch a ydych chi'n mynd â chi anwes, cath anwes neu ffured anwes</value>
+  </data>
+  <data name="Select if your details are correct" xml:space="preserve">
+    <value>Dewiswch a ydych chi’n cytuno â’r datganiad</value>
+  </data>
+  <data name="Select if your pet is male or female" xml:space="preserve">
+    <value>Dwedwch a yw'ch anifail anwes yn wryw ynteu'n fenyw</value>
+  </data>
+  <data name="Select if your pet is microchipped" xml:space="preserve">
+    <value>Dwedwch a oes gan eich anifail anwes ficrosglodyn</value>
+  </data>
+  <data name="Your pet’s microchip number must be 15-digits long" xml:space="preserve">
+    <value>Rhaid i rif microsglodyn eich anifail anwes fod yn 15 digid o hyd</value>
+  </data>
+  <data name="Select if your pet has any significant features" xml:space="preserve">
+    <value>Dewiswch a oes gan eich anifail anwes unrhyw nodweddion arwyddocaol</value>
+  </data>
+  <data name="Enter your full postcode in the correct format, for example TF7 5AY or TF75AY" xml:space="preserve">
+    <value>Rhowch god post llawn yn y fformat cywir, er enghraifft TF7 5AY neu TF75AY</value>
   </data>
 </root>

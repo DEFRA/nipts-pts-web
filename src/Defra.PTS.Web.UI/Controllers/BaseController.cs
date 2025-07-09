@@ -2,7 +2,6 @@
 using Defra.PTS.Web.Domain.ViewModels;
 using Defra.PTS.Web.UI.Constants;
 using Defra.PTS.Web.UI.Extensions;
-using Flurl.Util;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using System.Globalization;
@@ -27,6 +26,37 @@ public abstract class BaseController : Controller
         }
 
         return Guid.Empty;
+    }
+
+    public override void OnActionExecuting(ActionExecutingContext context)
+    {        
+        if (Request.Query.ContainsKey("cy"))
+        {
+            HttpContext.Session.SetString("Language", "cy");
+            SetCulture("cy");
+        }
+        else if (Request.Query.ContainsKey("en"))
+        {
+            HttpContext.Session.SetString("Language", "en-GB");
+            SetCulture("en-GB");
+        }
+        else
+        {            
+            var savedLanguage = HttpContext.Session.GetString("Language");
+            if (!string.IsNullOrEmpty(savedLanguage))
+            {
+                SetCulture(savedLanguage);
+            }
+        }
+
+        base.OnActionExecuting(context);
+    }
+
+    private static void SetCulture(string culture)
+    {
+        var cultureInfo = new CultureInfo(culture);
+        Thread.CurrentThread.CurrentCulture = cultureInfo;
+        Thread.CurrentThread.CurrentUICulture = cultureInfo;
     }
 
     #region MagicWordFunctions

@@ -5,39 +5,39 @@
 
 @{
     var currentLanguage = Thread.CurrentThread.CurrentCulture.ToString();
+    var currentUrl = Context.Request.Path.Value;
+    var baseUrl = string.IsNullOrEmpty(currentUrl) ? "/" : currentUrl;
 }
 
 <feature name="Nipts-AP-Welsh-Translation">
-<nav class="hmrc-language-select" aria-label="Language switcher">
-    <ul class="hmrc-language-select__list">
-        <li class="hmrc-language-select__list-item">
+    <nav class="hmrc-language-select" aria-label="Language switcher">
+        <ul class="hmrc-language-select__list">
+            <li class="hmrc-language-select__list-item">
                 @if (currentLanguage == "en-GB")
                 {
-                    <span aria-hidden="true">English</span>
+                    <span aria-current="true">English</span>
                 }
-
                 else
                 {
-                    <a href="?en" hreflang="en" lang="en" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:English" id="localeEn">
+                    <a href="@baseUrl?en" hreflang="en" lang="en" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:English" id="localeEn">
                         <span class="govuk-visually-hidden">Change the language to English</span>
                         <span aria-hidden="true">English</span>
                     </a>
                 }
-        </li>
-        <li class="hmrc-language-select__list-item">
+            </li>
+            <li class="hmrc-language-select__list-item">
                 @if (currentLanguage == "cy")
                 {
-                    <span aria-hidden="true">Cymraeg</span>
+                    <span aria-current="true">Cymraeg</span>
                 }
-
                 else
                 {
-                    <a href="?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg" id="localeCy">
+                    <a href="@baseUrl?cy" hreflang="cy" lang="cy" rel="alternate" class="govuk-link" data-journey-click="link - click:lang-select:Cymraeg" id="localeCy">
                         <span class="govuk-visually-hidden">Newid yr iaith ir Gymraeg</span>
                         <span aria-hidden="true">Cymraeg</span>
                     </a>
                 }
-        </li>
-    </ul>
-</nav>
+            </li>
+        </ul>
+    </nav>
 </feature>

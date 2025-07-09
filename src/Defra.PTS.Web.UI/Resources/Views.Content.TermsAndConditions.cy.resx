@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="Northern Ireland Pet Travel Scheme terms and conditions" xml:space="preserve">
+    <value>Telerau ac amodau Cynllun Teithio Anifeiliaid Anwes Gogledd Iwerddon</value>
+  </data>
+	<data name="These terms and conditions provide guidance for pet owners or authorised persons using the Northern Ireland Pet Travel Scheme (the Scheme). The Scheme is part of the" xml:space="preserve">
+    <value>Mae'r telerau a'r amodau hyn yn rhoi canllawiau i berchnogion anifeiliaid anwes neu bersonau awdurdodedig sy'n defnyddio Cynllun Teithio Anifeiliaid Anwes Gogledd Iwerddon (y "Cynllun"). Mae'r Cynllun yn rhan o</value>
+  </data>
+	<data name="Windsor Framework (opens in a new tab)" xml:space="preserve">
+    <value>Fframwaith Windsor (yn agor mewn tab newydd)</value>
+  </data>
+	<data name=". The Windsor Framework is a new set of trade rules between Northern Ireland and the rest of the UK created after Brexit." xml:space="preserve">
+    <value>. Mae Fframwaith Windsor yn set newydd o reolau masnach rhwng Gogledd Iwerddon a gweddill y Deyrnas Unedig a grëwyd ar ôl Brexit.</value>
+  </data>
+	<data name="The Scheme is for non-commercial pet movements only – cats, dogs (including assistance dogs) and ferrets." xml:space="preserve">
+    <value>Mae'r Cynllun ar gael ar gyfer symudiadau anifeiliaid anwes anfasnachol yn unig – cathod, cŵn (gan gynnwys cŵn cymorth) a ffuredau.</value>
+  </data>
+	<data name="Any movement that involves a change in ownership in Northern Ireland, such as a rescue organisation rehoming an animal or a breeder selling a litter, or any movement of 6 or more pets (not for the purpose of attending a show or sporting event) is classified as a commercial movement." xml:space="preserve">
+    <value>Mae unrhyw symudiad sy'n golygu newid perchnogaeth yng Ngogledd Iwerddon, megis sefydliad achub sydd wrthi'n ailgartrefu anifail neu fridiwr sy'n gwerthu torllwyth, neu unrhyw symudiad sy'n cynnwys 6 neu ragor o anifeiliaid anwes (nid er mwyn mynd i sioe neu ddigwyddiad chwaraeon) yn cael ei ddosbarthu fel symudiad masnachol.</value>
+  </data>
+	<data name="Read more about commercial movements" xml:space="preserve">
+    <value>Darllenwch ragor am symudiadau masnachol</value>
+  </data>
+	<data name="Who are we" xml:space="preserve">
+    <value>Pwy ydyn ni</value>
+  </data>
+	<data name="The Animal and Plant Health Agency (APHA) is the competent authority responsible for verifying the information you provide when you apply for a lifelong pet travel document (PTD) and issuing the PTD for the Scheme." xml:space="preserve">
+    <value>Yr Asiantaeth Iechyd Anifeiliaid a Phlanhigion (APHA) yw'r awdurdod cymwys sy'n gyfrifol am wirio'r wybodaeth rydych chi'n ei darparu wrth wneud cais am ddogfen teithio gydol oes i anifeiliaid anwes (PTD) ac am roi'r PTD ar gyfer y Cynllun.</value>
+  </data>
+	<data name="Travelling under the Scheme" xml:space="preserve">
+    <value>Teithio o dan y Cynllun</value>
+  </data>
+	<data name="If you wish to travel under the Scheme, you must apply for a lifelong PTD if you are travelling with your pet(s) to Northern Ireland from England, Scotland or Wales." xml:space="preserve">
+    <value>Os ydych chi'n dymuno teithio o dan y Cynllun, rhaid ichi wneud cais am PTD gydol oes os ydych chi'n teithio gyda'ch anifail anwes i Ogledd Iwerddon o Gymru, Lloegr neu'r Alban.</value>
+  </data>
+	<data name="If you are a Northern Ireland resident and you are travelling from Northern Ireland to Great Britain and then directly back to Northern Ireland, you do not need to apply for a PTD. However, your pet must be microchipped to travel." xml:space="preserve">
+    <value>Os ydych chi'n byw yng Ngogledd Iwerddon ac yn teithio o Ogledd Iwerddon i Brydain Fawr ac yna'n dychwelyd yn uniongyrchol i Ogledd Iwerddon, does dim angen ichi wneud cais am PTD. Serch hynny, mae'n rhaid i'ch anifail fod â meicrosglodyn er mwyn cael teithio.</value>
+  </data>
+	<data name="A 'pet' is a dog (including a guide dog or assistance dog), cat or ferret." xml:space="preserve">
+    <value>'Anifail anwes' yw ci (gan gynnwys ci tywys neu gi cymorth), cath neu ffured.</value>
+  </data>
+	<data name="Each pet must have its own PTD and be microchipped with a 15-digit chip (which is the UK standard). The microchip must meet ISO Standards 11784, apply HDX or FDX-B technology and be capable of being read by a reading device compatible with ISO standard 11785." xml:space="preserve">
+    <value>Rhaid i bob anifail anwes gael ei PTD ei hun a bod wedi'i feicrosglodynnu. Rhaid i'r meicrosglodyn fod wedi'i gofrestru ar gronfa ddata yn y Deyrnas Unedig a rhaid iddo fod yn sglodyn 15 digid (sef safon y Deyrnas Unedig). Rhaid i'r meicrosglodyn fodloni safonau ISO 11784, defnyddio technoleg HDX neu FDX-B a gallu cael ei ddarllen gan ddyfais ddarllen sy'n gydnaws â safon ISO 11785.</value>
+  </data>
+	<data name="You may only travel with 5 pets or fewer under the Scheme." xml:space="preserve">
+    <value>Cewch deithio gyda 5 anifail anwes neu lai yn unig o dan y Cynllun.</value>
+  </data>
+	<data name="If you have 6 pets or more, to travel under the Scheme you must have written evidence with you that you are travelling to Northern Ireland or Great Britain to attend or return from a pet show. If attending a show, the pets must be at least 6 months old and each pet will need its own PTD and to be microchipped." xml:space="preserve">
+    <value>Os oes gennych chi 6 anifail anwes neu fwy, er mwyn teithio o dan y Cynllun mae'n rhaid bod gennych dystiolaeth ysgrifenedig gyda chi eich bod yn teithio i Ogledd Iwerddon neu Brydain Fawr er mwyn mynd i sioe anifeiliaid anwes neu i ddychwelyd oddi yno. Os ydych chi'n mynd i sioe, rhaid i'r anifeiliaid anwes fod yn 6 mis oed o leiaf a bydd angen PTD a meicrosglodyn ar bob anifail anwes.</value>
+  </data>
+	<data name="The PTD does not allow you to travel to an EU country with your pet (including the Republic of Ireland)." xml:space="preserve">
+    <value>Nid yw'r PTD yn caniatáu ichi deithio i wlad yn yr UE gyda'ch anifail anwes (gan gynnwys Gweriniaeth Iwerddon).</value>
+  </data>
+	<data name="When you apply for the Scheme, you will be required to sign a declaration to confirm that you will not be travelling with your pet to the EU." xml:space="preserve">
+    <value>Pan fyddwch chi'n gwneud cais i'r Cynllun, bydd gofyn ichi lofnodi datganiad i gadarnhau na fyddwch chi'n teithio gyda'ch anifail anwes i'r UE.</value>
+  </data>
+	<data name="If applying online, you digitally sign this declaration by ticking a box just before you submit your application for a PTD. If you apply by phone, you must sign the declaration on the paper PTD when it arrives in the post and before you travel." xml:space="preserve">
+    <value>Os byddwch chi'n gwneud cais ar-lein, fe fyddwch chi'n llofnodi'r datganiad yma yn ddigidol trwy dicio blwch ychydig cyn ichi gyflwyno'ch cais am PTD. Os byddwch chi'n gwneud cais dros y ffôn, rhaid ichi lofnodi'r datganiad ar y PTD papur pan fydd yn cyrraedd yn y post a chyn ichi deithio.</value>
+  </data>
+	<data name="If someone else is traveling with your pet, they need to carry the PTD and also confirmation in writing from the pet owner that they are an 'authorised person'. The authorised person must sign a declaration to confirm that they are not travelling on to an EU country (including the Republic of Ireland)." xml:space="preserve">
+    <value>Os mai rhywun arall sy'n teithio gyda'ch anifail anwes, mae angen iddyn nhw gario'r PTD a chadarnhad ysgrifenedig gan berchennog yr anifail anwes eu bod nhw'n 'berson awdurdodedig'. Rhaid i'r person awdurdodedig lofnodi datganiad i gadarnhau nad ydyn nhw'n teithio ymlaen i wlad yn yr UE (gan gynnwys Gweriniaeth Iwerddon).</value>
+  </data>
+	<data name="Pet travel document (PTD)" xml:space="preserve">
+    <value>Dogfen deithio i anifeiliaid anwes (PTD)</value>
+  </data>
+	<data name="Applying for a PTD is free." xml:space="preserve">
+    <value>Cewch wneud cais am PTD yn rhad ac am ddim.</value>
+  </data>
+	<data name="To travel under the Scheme, your pet must be microchipped and the microchip number must be on the PTD." xml:space="preserve">
+    <value>Er mwyn teithio o dan y Cynllun, rhaid i'ch anifail anwes fod wedi'i feicrosglodynnu a rhaid i rif y meicrosglodyn fod ar y PTD.</value>
+  </data>
+	<data name="To apply, you must:" xml:space="preserve">
+    <value>Er mwyn gwneud cais, mae'n rhaid ichi fod:</value>
+  </data>
+	<data name="live in England, Scotland or Wales" xml:space="preserve">
+    <value>yn byw yng Nghymru, Lloegr neu'r Alban</value>
+  </data>
+	<data name="have your pet microchipped" xml:space="preserve">
+    <value>wedi cael meicrosglodyn i'ch anifail anwes</value>
+  </data>
+	<data name="be the pet owner" xml:space="preserve">
+    <value>yn berchennog yr anifail anwes</value>
+  </data>
+	<data name="be aged 16 or over" xml:space="preserve">
+    <value>yn 16 oed neu'n hŷn</value>
+  </data>
+	<data name="If you apply online, you will get a digital PTD. You can print this out if you want to. You can show the digital PTD or a print-out at the GB ferry port or on arrival at the NI airport." xml:space="preserve">
+    <value>Os byddwch chi'n gwneud cais ar-lein, fe gewch chi PTD digidol. Gallwch ei argraffu os ydych chi'n dymuno. Gallwch ddangos y PTD digidol neu allbrint yn y porthladd fferis ym Mhrydain Fawr neu wrth gyrraedd y maes awyr yng Ngogledd Iwerddon.</value>
+  </data>
+	<data name="If you apply by phone, you will get a paper PTD posted to you." xml:space="preserve">
+    <value>Os byddwch chi'n gwneud cais dros y ffôn, fe fydd PTD papur yn cael ei bostio atoch.</value>
+  </data>
+	<data name="The PTD is valid for the lifetime of the pet but must be kept up to date. If your details change (for example, a change of address), you should apply for a new pet travel document and the previous PTD will be cancelled." xml:space="preserve">
+    <value>Mae'r PTD yn ddilys drwy oes yr anifail anwes ond rhaid ei gadw'n gyfredol. Os bydd eich manylion yn newid (er enghraifft, newid cyfeiriad), dylech wneud cais am ddogfen deithio newydd i anifeiliaid anwes a bydd y PTD blaenorol yn cael ei ganslo.</value>
+  </data>
+	<data name="Issues and liability" xml:space="preserve">
+    <value>Materion ac atebolrwydd</value>
+  </data>
+	<data name="APHA aims to process your application within 5 working days, but APHA cannot be held liable if you do not receive a digital or paper PTD by the date you intend to travel. This includes delays in granting a PTD, or for delayed delivery or mis-delivery of any documents." xml:space="preserve">
+    <value>Nod APHA yw prosesu'ch cais o fewn 5 diwrnod gwaith, ond does dim modd dal APHA yn atebol os na fyddwch chi'n cael PTD digidol neu bapur erbyn y dyddiad rydych chi'n bwriadu teithio. Mae hyn yn cynnwys oedi wrth ganiatáu PTD, neu oedi wrth anfon unrhyw ddogfennau neu anfon unrhyw ddogfennau i'r lle anghywir.</value>
+  </data>
+	<data name="APHA also cannot be held liable if they cannot approve your application for a PTD (for example, the microchip number cannot be found)." xml:space="preserve">
+    <value>Does dim modd dal APHA yn atebol hefyd os na allan nhw gymeradwyo'ch cais am PTD (er enghraifft, os nad oes modd dod o hyd i'r meicrosglodyn wedi'i gofrestru ar y gronfa ddata a gymeradwywyd yn y Deyrnas Unedig).</value>
+  </data>
+	<data name="APHA reserves the right to refuse an application. It can also cancel a PTD (for example, following the death of a pet or if you have to change any details, like your address)." xml:space="preserve">
+    <value>Mae APHA yn cadw'r hawl i wrthod cais. Maen nhw hefyd yn cael canslo PTD (er enghraifft, yn dilyn marwolaeth anifail anwes neu os oes rhaid ichi newid unrhyw fanylion, fel eich cyfeiriad).</value>
+  </data>
+	<data name="If there is a problem with your PTD, staff at the port or airport will be able to help resolve the issue in most cases. If this is not possible or there are any other compliance issues, you may be asked to report to Northern Ireland's Department of Agriculture, Environment and Rural Affairs (DAERA)'s Sanitary and Phytosanitary (SPS) inspection facility when you arrive in Northern Ireland. This is for further checks, which may include checking the microchip in your pet." xml:space="preserve">
+    <value>Os oes problem ynglŷn â'ch PTD, bydd staff yn y porthladd neu'r maes awyr yn gallu helpu i ddatrys y broblem gan amlaf. Os nad yw hyn yn bosibl neu os oes unrhyw faterion eraill ynglŷn â chydymffurfio, efallai y gofynnir ichi fynd i gyfleuster arolygu Adran Amaethyddiaeth, Amgylchedd a Materion Gwledig Gogledd Iwerddon (DAERA) pan fyddwch chi'n cyrraedd Gogledd Iwerddon, a hynny ar gyfer rhagor o wiriadau, a allai gynnwys gwirio'r meicrosglodyn yn eich anifail anwes.</value>
+  </data>
+	<data name="You may also be advised not to travel to Northern Ireland if you do not meet the requirements of the Scheme. We might advise this because if you do decide to travel, once you arrive in Northern Ireland, DAERA might not be able to approve your onward journey from the port or airport for compliance reasons. You may be refused entry and asked to return to England, Scotland or Wales straightaway, and this will be at your own expense." xml:space="preserve">
+    <value>Efallai y cewch eich cynghori i beidio â theithio i Ogledd Iwerddon os nad ydych chi'n bodloni gofynion y Cynllun. Fe allen ni ddweud hyn am ei bod yn bosibl, os penderfynwch chi deithio, ar ôl i chi gyrraedd Gogledd Iwerddon, na fydd DAERA yn gallu cymeradwyo'ch taith ymlaen o'r porthladd neu'r maes awyr am resymau cydymffurfio. Efallai y gwrthodir mynediad ichi a gofyn ichi ddychwelyd i Gymru, Lloegr neu'r Alban ar unwaith, a hynny ar eich traul chi'ch hun.</value>
+  </data>
+	<data name="If you are asked to report to the SPS facility in Northern Ireland and you do not turn up, APHA reserves the right to suspend an individual from the Scheme for up to 12 months. This also applies if an authorised person travelling with your pet is referred to the SPS inspection facilities in Northern Ireland and does not turn up. If you need to travel with your pet while suspended, you must apply for a full animal health certificate." xml:space="preserve">
+    <value>Os gofynnir ichi fynd i gyfleuster yr SPS yng Ngogledd Iwerddon ac na fyddwch chi'n dod yno, mae APHA yn cadw'r hawl i atal unigolyn o'r Cynllun am hyd at 12 mis. Mae hyn yn gymwys hefyd os bydd person awdurdodedig sy'n teithio gyda'ch anifail anwes yn cael ei gyfeirio at gyfleusterau archwilio'r SPS yng Ngogledd Iwerddon ac nad yw'n dod yno. Os oes angen ichi deithio gyda'ch anifail anwes tra byddwch chi wedi'ch atal, bydd rhaid ichi wneud cais am dystysgrif iechyd anifeiliaid lawn.</value>
+  </data>
+	<data name="APHA has the right to withdraw access to the service." xml:space="preserve">
+    <value>Mae gan APHA hawl i dynnu mynediad i'r gwasanaeth yn ôl.</value>
+  </data>
+	<data name="Appeals" xml:space="preserve">
+    <value>Apelau</value>
+  </data>
+	<data name="You can appeal if a PTD has not been approved, if a PTD has been cancelled or if you have been suspended from the Scheme." xml:space="preserve">
+    <value>Cewch apelio os nad oes PTD wedi'i gymeradwyo, os oes PTD wedi'i ganslo neu os ydych chi wedi cael eich gwahardd o'r Cynllun.</value>
+  </data>
+	<data name="You can contact APHA to appeal a decision." xml:space="preserve">
+    <value>Gallwch gysylltu ag APHA i apelio yn erbyn penderfyniad.</value>
+  </data>
+	<data name="Your data" xml:space="preserve">
+    <value>Eich data</value>
+  </data>
+	<data name="You can find out about how your data is used at" xml:space="preserve">
+    <value>Gallwch weld sut mae'ch data'n cael ei ddefnyddio yn</value>
+  </data>
+	<data name="Pet travel scheme privacy notice - GOV.UK (opens in a new tab)" xml:space="preserve">
+    <value>hysbysiad preifatrwydd y cynllun teithio anifeiliaid anwes - GOV.UK (yn agor mewn tab newydd)</value>
+  </data>
+	<data name="More information" xml:space="preserve">
+    <value>Rhagor o wybodaeth</value>
+  </data>
+	<data name="You can read more about the Scheme at" xml:space="preserve">
+    <value>Gallwch ddarllen rhagor am y Cynllun yn</value>
+  </data>
+	<data name="Taking your pet dog, cat or ferret abroad: Travelling to an EU country or Northern Ireland - GOV.UK (opens in a new tab)" xml:space="preserve">
+    <value>Mynd â'ch ci, eich cath neu'ch ffured anwes dros y môr: Teithio i wlad yn yr UE neu Ogledd Iwerddon - GOV.UK (yn agor mewn tab newydd)</value>
+  </data>
+	<data name="Contact APHA" xml:space="preserve">
+    <value>Cysylltu ag APHA</value>
+  </data>
+	<data name="Contact APHA with any queries, including to let them know if any of your details (or your pet's details) change:" xml:space="preserve">
+    <value>Cysylltwch ag APHA gydag unrhyw ymholiadau, gan gynnwys i roi gwybod iddyn nhw os bydd unrhyw un neu ragor o'ch manylion (neu fanylion eich anifail anwes) yn newid:</value>
+  </data>
+	<data name="Telephone: 03000 200 301" xml:space="preserve">
+    <value>Ffôn: 03000 200 301</value>
+  </data>
+	<data name="Email:" xml:space="preserve">
+    <value>Ebost:</value>
+  </data>
+	<data name="Find out about call charges (open in new tab)" xml:space="preserve">
+    <value>Rhagor o wybodaeth am daliadau am alwadau (yn agor mewn tab newydd)</value>
+  </data>
+	<data name="Changes to these terms and conditions" xml:space="preserve">
+    <value>Newidiadau yn y Telerau a'r Amodau hyn</value>
+  </data>
+	<data name="Please check these terms and conditions regularly. They can be updated at any time without notice." xml:space="preserve">
+    <value>Gwiriwch y telerau a'r amodau hyn yn gyson. Gellir eu diweddaru unrhyw bryd heb rybudd.</value>
+  </data>
+	<data name="You will agree to any changes if you continue to use the service after the terms and conditions have been updated." xml:space="preserve">
+    <value>Byddwch yn cytuno i unrhyw newidiadau os byddwch chi'n parhau i ddefnyddio'r gwasanaeth ar ôl i'r telerau a'r amodau gael eu diweddaru.</value>
+  </data>
+	<data name="This notice was last updated on 12 March 2025." xml:space="preserve">
+    <value>Y tro diwethaf i'r hysbysiad yma gael ei ddiweddaru oedd 12 Mawrth 2025.</value>
+  </data>
+</root>

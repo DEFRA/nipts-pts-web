@@ -1,4 +1,4 @@
-/* General Styles */
+
 .input-validation-error {
     border-color: #d4351c;
 }
@@ -8,13 +8,14 @@
     pointer-events: none;
 }
 
-govuk-tag {
+.govuk-tag {
     white-space: nowrap;
     max-width: 200px;
 }
 
 html, body {
     overflow-x: hidden;
+    background-color: #ffffff !important;
 }
 
 .sr-only {
@@ -47,26 +48,166 @@ html, body {
     display: none;
 }
 
-/* Update your pts.css file with these print styles */
+
+.govuk-main-wrapper {
+    background-color: #ffffff !important;
+    padding-bottom: 40px !important;
+}
+
+.govuk-template {
+    background-color: #f3f2f1 !important;
+}
+
+.govuk-template__body {
+    background-color: #ffffff !important;
+}
+
+
+.table-responsive-wrapper {
+    background-color: #ffffff !important;
+    margin-bottom: 20px;
+}
+
+
+.govuk-table {
+    border-collapse: collapse !important;
+    border-spacing: 0 !important;
+    width: 100% !important;
+}
+
+.govuk-table__row {
+    border-bottom: 1px solid #b1b4b6 !important;
+}
+
+.govuk-table__row:last-child {
+    border-bottom: 1px solid #b1b4b6 !important;
+}
+
+.govuk-table__cell,
+.govuk-table__header {
+    border-bottom: 1px solid #b1b4b6 !important;
+    vertical-align: top !important;
+    text-align: left !important;
+    padding: 10px 20px 10px 0 !important;
+}
+
+    .govuk-table__cell:last-child,
+    .govuk-table__header:last-child {
+        padding-right: 0 !important;
+    }
+
+.govuk-table__header {
+    font-weight: 700 !important;
+}
+
+
+@media (min-width: 40.0625em) {
+    .govuk-table {
+        table-layout: fixed !important;
+    }
+
+    .govuk-table__cell:first-child,
+    .govuk-table__header:first-child {
+        max-width: 200px !important;
+        word-wrap: break-word !important;
+        white-space: normal !important;
+    }
+
+    .govuk-table__cell:nth-child(2),
+    .govuk-table__header:nth-child(2) {
+        width: 120px !important;
+    }
+
+    .govuk-table__cell:last-child,
+    .govuk-table__header:last-child {
+        width: 100px !important;
+        text-align: right !important;
+    }
+
+    .table-responsive-wrapper {
+        overflow: visible !important;
+    }
+}
+
+
+@media (max-width: 40.0525em) {
+    .table-responsive-wrapper {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        width: 100% !important;
+    }
+
+    .govuk-table {
+        min-width: 400px !important;
+        width: auto !important;
+        table-layout: auto !important;
+    }
+
+    .govuk-table__cell,
+    .govuk-table__header {
+        white-space: nowrap !important;
+        padding: 8px 12px 8px 0 !important;
+        border-bottom: 1px solid #b1b4b6 !important;
+    }
+
+        .govuk-table__cell:last-child,
+        .govuk-table__header:last-child {
+            padding-right: 20px !important;
+        }
+
+    
+        .govuk-table__cell:first-child,
+        .govuk-table__header:first-child {
+            white-space: normal !important;
+            max-width: 150px !important;
+            word-wrap: break-word !important;
+            min-width: 120px !important;
+        }
+
+
+        .govuk-table__cell:nth-child(2),
+        .govuk-table__header:nth-child(2) {
+            min-width: 100px !important;
+        }
+
+
+        .govuk-table__cell:last-child,
+        .govuk-table__header:last-child {
+            min-width: 80px !important;
+            text-align: right !important;
+        }
+
+
+    .govuk-table__row {
+        border-bottom: 1px solid #b1b4b6 !important;
+    }
+}
+
+
+.hide-scrollbar {
+    overflow-x: hidden !important;
+}
+
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none !important;
+    }
+
+
 @media print {
-    /* Hide elements not needed in print view */
     .govuk-!-display-none-print {
         display: none !important;
     }
 
-    /* Base print styles */
     @page {
         margin: 2cm;
     }
 
-    /* Force background colors and borders in Firefox */
     * {
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
         color-adjust: exact !important;
     }
 
-    /* Enhanced box styling for better Firefox compatibility */
     .microchip-info-box,
     .pet-info-box,
     .owner-info-box,
@@ -81,7 +222,6 @@ html, body {
         z-index: 1 !important;
     }
 
-    /* Enhanced table styling */
     .govuk-table {
         border-collapse: collapse !important;
         width: 100% !important;
@@ -97,7 +237,6 @@ html, body {
             page-break-inside: avoid !important;
         }
 
-    /* Firefox-specific fixes */
     @-moz-document url-prefix() {
         .microchip-info-box,
         .pet-info-box,
