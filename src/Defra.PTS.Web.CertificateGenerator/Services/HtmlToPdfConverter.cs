@@ -102,5 +102,6 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
                 context.Margin);
         }
 
+        return null;
     }
 }
