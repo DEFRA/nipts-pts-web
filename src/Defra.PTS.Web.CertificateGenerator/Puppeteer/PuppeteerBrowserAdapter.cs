@@ -19,9 +19,15 @@ public class PuppeteerBrowserAdapter : ICustomBrowser
     private readonly IOptions<ConnectOptions> options;
     private readonly IConfiguration configuration;
     private readonly ILogger<PuppeteerBrowserAdapter> _logger;
+    private readonly ILogger<PuppeteerPageAdapter> _pageLogger;
 
 
-    public PuppeteerBrowserAdapter(Launcher launcher, IOptions<ConnectOptions> options, IConfiguration configuration, ILogger<PuppeteerBrowserAdapter> logger)
+    public PuppeteerBrowserAdapter(
+        Launcher launcher,
+        IOptions<ConnectOptions> options,
+        IConfiguration configuration,
+        ILogger<PuppeteerBrowserAdapter> logger,
+        ILogger<PuppeteerPageAdapter> pageLogger)
     {
         ArgumentNullException.ThrowIfNull(launcher);
         ArgumentNullException.ThrowIfNull(options);
@@ -29,6 +35,7 @@ public class PuppeteerBrowserAdapter : ICustomBrowser
         this.options = options;
         this.configuration = configuration;
         _logger = logger;
+        _pageLogger = pageLogger;
     }
 
     public async Task<IPage> NewPageAsync() // log here 
@@ -39,7 +46,7 @@ public class PuppeteerBrowserAdapter : ICustomBrowser
         try
         {
             var page = await browser.NewPageAsync(); // log
-            return new PuppeteerPageAdapter(browser, page);
+            return new PuppeteerPageAdapter(browser, page, _pageLogger);
         }
         catch (TargetClosedException ex)
         {
