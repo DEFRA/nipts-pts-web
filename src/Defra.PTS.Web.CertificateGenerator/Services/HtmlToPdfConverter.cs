@@ -39,7 +39,7 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
         catch (TargetClosedException ex)
         {
             _logger.LogError(ex, "TargetClosedException occurred in HtmlToPdfConverter.ConvertAsync, when trying to invoke _browser.NewPageAsync()");
-            throw;
+            throw new TargetClosedException("TargetClosedException occurred in HtmlToPdfConverter.ConvertAsync while invoking _browser.NewPageAsync()", ex);
         }
         catch (Exception ex)
         {
@@ -52,9 +52,18 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
             {
                 await page.DisposeAsync();
             }
+            else
+            {
+                _logger.LogError("Failed to create a new page in HtmlToPdfConverter.ConvertAsync. The page is null.");
+            }
         }
 
-        
+        if (page == null)
+        {
+            _logger.LogError("Failed to create a new page in HtmlToPdfConverter.ConvertAsync. The page is null.");
+            return null;
+        }
+
         try
         {
             await page.SetContentAsync(context.Content).ConfigureAwait(false);
@@ -62,6 +71,7 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
         catch (TargetClosedException ex)
         {
             _logger.LogError(ex, "TargetClosedException occurred in HtmlToPdfConverter.ConvertAsync, when trying to invoke page.SetContentAsync(). Content length: {Length}", context.Content?.Length ?? 0);
+            throw new TargetClosedException("TargetClosedException occurred in HtmlToPdfConverter.ConvertAsync while invoking page.SetContentAsync()", ex);
         }
         catch (Exception ex)
         {
@@ -96,6 +106,7 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
                 context.HeaderTemplate != null,
                 context.FooterTemplate != null,
                 context.Margin);
+            throw new TargetClosedException("TargetClosedException occurred in HtmlToPdfConverter.ConvertAsync while invoking page.PdfStreamAsync()", ex);
         }
         catch (Exception ex)
         {
@@ -105,6 +116,19 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
                 context.Margin);
             throw new InvalidOperationException("Error occurred in HtmlToPdfConverter.ConvertAsync while invoking page.PdfStreamAsync()", ex);
         }
-        return null;
+        finally
+        {
+            if (page != null)
+            {
+                await page.DisposeAsync();
+            }
+            else
+            {
+                _logger.LogError("Failed to create a new page in HtmlToPdfConverter.ConvertAsync. The page is null.");
+            }
+            await _browser.DisposeAsync();
+            _logger.LogInformation("HtmlToPdfConverter.ConvertAsync completed successfully and browser disposed.");
+        }
+
     }
 }
