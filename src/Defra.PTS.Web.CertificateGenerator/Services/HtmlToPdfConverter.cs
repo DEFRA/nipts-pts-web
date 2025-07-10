@@ -31,7 +31,7 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
         ArgumentNullException.ThrowIfNull(context);
 
         Puppeteer.IPage page = null;
-        
+
         try
         {
             page = await _browser.NewPageAsync();
@@ -39,10 +39,12 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
         catch (TargetClosedException ex)
         {
             _logger.LogError(ex, "TargetClosedException occurred in HtmlToPdfConverter.ConvertAsync, when trying to invoke _browser.NewPageAsync()");
+            throw;
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "General Exception occurred in HtmlToPdfConverter.ConvertAsync, when trying to invoke _browser.NewPageAsync()");
+            throw;
         }
         finally
         {
