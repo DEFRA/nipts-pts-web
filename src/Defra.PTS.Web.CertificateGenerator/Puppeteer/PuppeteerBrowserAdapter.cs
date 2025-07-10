@@ -52,14 +52,13 @@ public class PuppeteerBrowserAdapter : ICustomBrowser
         {
             _logger.LogError(ex, "TargetClosedException occurred in PuppeteerBrowserAdapter.NewPageAsync, options value: {Options}", opt);
             await browser.DisposeAsync();
-            throw;
+            throw new TargetClosedException($"TargetClosedException in PuppeteerBrowserAdapter.NewPageAsync with options: {opt}", ex);
         }
         catch (Exception ex)
         {
             _logger.LogError(ex, "An exception occurred in PuppeteerBrowserAdapter.NewPageAsync, invoking browser.DisposeAsync, options value: {Options}", opt);
             await browser.DisposeAsync();
-            throw;
-
+            throw new InvalidOperationException($"An exception occurred in PuppeteerBrowserAdapter.NewPageAsync with options: {opt}", ex);
         }
         
     }

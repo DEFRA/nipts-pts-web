@@ -44,7 +44,7 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
         catch (Exception ex)
         {
             _logger.LogError(ex, "General Exception occurred in HtmlToPdfConverter.ConvertAsync, when trying to invoke _browser.NewPageAsync()");
-            throw;
+            throw new InvalidOperationException("Error occurred in HtmlToPdfConverter.ConvertAsync while invoking _browser.NewPageAsync()", ex);
         }
         finally
         {
@@ -66,6 +66,7 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
         catch (Exception ex)
         {
             _logger.LogError(ex, "General Exception occurred in HtmlToPdfConverter.ConvertAsync when trying to invoke page.SetContentAsync. Content length: {Length}", context.Content?.Length ?? 0);
+            throw new InvalidOperationException("Error occurred in HtmlToPdfConverter.ConvertAsync while invoking page.SetContentAsync()", ex);
         }
 
         try
@@ -102,8 +103,8 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
                 context.HeaderTemplate != null,
                 context.FooterTemplate != null,
                 context.Margin);
+            throw new InvalidOperationException("Error occurred in HtmlToPdfConverter.ConvertAsync while invoking page.PdfStreamAsync()", ex);
         }
-
         return null;
     }
 }
