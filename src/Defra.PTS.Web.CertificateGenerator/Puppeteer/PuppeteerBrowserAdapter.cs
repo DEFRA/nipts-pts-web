@@ -1,5 +1,6 @@
 ﻿using Defra.PTS.Web.CertificateGenerator.Services;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using PuppeteerSharp;
 using System;
@@ -17,32 +18,43 @@ public class PuppeteerBrowserAdapter : ICustomBrowser
     private readonly Launcher launcher;
     private readonly IOptions<ConnectOptions> options;
     private readonly IConfiguration configuration;
+    private readonly ILogger<PuppeteerBrowserAdapter> _logger;
 
 
-    public PuppeteerBrowserAdapter(Launcher launcher, IOptions<ConnectOptions> options, IConfiguration configuration)
+    public PuppeteerBrowserAdapter(Launcher launcher, IOptions<ConnectOptions> options, IConfiguration configuration, ILogger<PuppeteerBrowserAdapter> logger)
     {
         ArgumentNullException.ThrowIfNull(launcher);
         ArgumentNullException.ThrowIfNull(options);
         this.launcher = launcher;
         this.options = options;
         this.configuration = configuration;
+        _logger = logger;
     }
 
-    public async Task<IPage> NewPageAsync()
+    public async Task<IPage> NewPageAsync() // log here 
     {
         var opt = options.Value;
         await GetContainerIp(opt);
         var browser = await launcher.ConnectAsync(opt);
         try
-        {          
-            var page = await browser.NewPageAsync();
+        {
+            var page = await browser.NewPageAsync(); // log
             return new PuppeteerPageAdapter(browser, page);
         }
-        catch
+        catch (TargetClosedException ex)
         {
+            _logger.LogError(ex, "TargetClosedException occurred in PuppeteerBrowserAdapter.NewPageAsync, options value: {Options}", opt);
             await browser.DisposeAsync();
             throw;
         }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An exception occurred in PuppeteerBrowserAdapter.NewPageAsync, invoking browser.DisposeAsync, options value: {Options}", opt);
+            await browser.DisposeAsync();
+            throw;
+
+        }
+        
     }
 
     private async Task GetContainerIp(ConnectOptions opt)
