@@ -38,14 +38,15 @@ public class PuppeteerBrowserAdapter : ICustomBrowser
         _pageLogger = pageLogger;
     }
 
-    public async Task<IPage> NewPageAsync() // log here 
+    public async Task<IPage> NewPageAsync()
     {
         var opt = options.Value;
         await GetContainerIp(opt);
         var browser = await launcher.ConnectAsync(opt);
         try
         {
-            var page = await browser.NewPageAsync(); // log
+            var page = await browser.NewPageAsync();
+            _logger.LogInformation("Attempting to invoke browser.NewPageAsync() in PuppeteerBrowserAdapter.NewPageAsync with options: {Options}", opt);
             return new PuppeteerPageAdapter(browser, page, _pageLogger);
         }
         catch (TargetClosedException ex)

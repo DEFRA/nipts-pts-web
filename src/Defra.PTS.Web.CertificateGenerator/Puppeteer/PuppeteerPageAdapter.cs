@@ -20,6 +20,7 @@ public class PuppeteerPageAdapter(PuppeteerSharp.IBrowser browser, PuppeteerShar
 
     public async ValueTask DisposeAsync()
     {
+        logger.LogInformation("Attempting to invoke PuppeteerPageAdapter.DisposeAsync()");
         try
         {
             if (Page != null)

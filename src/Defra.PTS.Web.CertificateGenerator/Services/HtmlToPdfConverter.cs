@@ -34,6 +34,7 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
 
         try
         {
+            _logger.LogInformation("Attempting to invoke _browser.NewPageAsync() in HtmlToPdfConverter.ConvertAsync");
             page = await _browser.NewPageAsync();
         }
         catch (TargetClosedException ex)
@@ -66,6 +67,7 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
 
         try
         {
+            _logger.LogInformation("Attempting to invoke page.SetContentAsync() in HtmlToPdfConverter.ConvertAsync with content length: {Length}", context.Content?.Length ?? 0);
             await page.SetContentAsync(context.Content).ConfigureAwait(false);
         }
         catch (TargetClosedException ex)
@@ -97,6 +99,8 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
                 },
                 Tagged = true
             };
+
+            _logger.LogInformation("Attempting to invoke page.PdfStreamAsync() in HtmlToPdfConverter.ConvertAsync with options: {Options}", pdfOptions);
 
             return await page.PdfStreamAsync(pdfOptions).ConfigureAwait(false);
         }
