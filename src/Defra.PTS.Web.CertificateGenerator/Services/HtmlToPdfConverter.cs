@@ -126,7 +126,6 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
             {
                 _logger.LogError("Failed to create a new page in HtmlToPdfConverter.ConvertAsync. The page is null.");
             }
-            await _browser.DisposeAsync();
             _logger.LogInformation("HtmlToPdfConverter.ConvertAsync completed successfully and browser disposed.");
         }
 
