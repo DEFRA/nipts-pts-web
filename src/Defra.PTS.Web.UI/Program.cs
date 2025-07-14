@@ -135,6 +135,7 @@ _ = app.UseStaticFiles(new StaticFileOptions
     ServeUnknownFileTypes = true,
 });
 
+_ = app.UseExceptionHandler("/Error/HandleError/500");
 _ = app.UseStatusCodePagesWithReExecute("/Error/HandleError/{0}");
 _ = app.UseRouting();
 _ = app.UseCors("AllowOrigins");
