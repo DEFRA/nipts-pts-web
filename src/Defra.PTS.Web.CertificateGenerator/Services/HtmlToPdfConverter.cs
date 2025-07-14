@@ -47,17 +47,6 @@ public class HtmlToPdfConverter : IHtmlToPdfConverter
             _logger.LogError(ex, "General Exception occurred in HtmlToPdfConverter.ConvertAsync, when trying to invoke _browser.NewPageAsync()");
             throw new InvalidOperationException("Error occurred in HtmlToPdfConverter.ConvertAsync while invoking _browser.NewPageAsync()", ex);
         }
-        finally
-        {
-            if (page != null)
-            {
-                await page.DisposeAsync();
-            }
-            else
-            {
-                _logger.LogError("Failed to create a new page in HtmlToPdfConverter.ConvertAsync. The page is null.");
-            }
-        }
 
         if (page == null)
         {
