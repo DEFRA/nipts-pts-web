@@ -170,12 +170,12 @@
         vertical-align: top !important;
     }*/
 
-    .pet-declaration-print #document-issued-card .govuk-summary-list__key {
+    /*.pet-declaration-print #document-issued-card .govuk-summary-list__key {
         width: 38% !important;
     }
     .pet-declaration-print #document-issued-card .govuk-summary-list__value {
         width: 62% !important;
-    }
+    }*/
 
     @@media print {
         .pet-declaration-qrcode {
@@ -184,6 +184,14 @@
 
         .pet-declaration-status-row {
             display: none !important;
+        }
+
+        .pet-declaration-print #document-issued-card .govuk-summary-list__key {
+        width: 38% !important;
+
+        }
+        .pet-declaration-print #document-issued-card .govuk-summary-list__value {
+            width: 62% !important;
         }
     }
 </style>
