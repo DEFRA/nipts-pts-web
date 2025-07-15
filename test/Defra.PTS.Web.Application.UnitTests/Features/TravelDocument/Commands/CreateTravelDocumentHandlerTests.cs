@@ -122,10 +122,10 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Commands
             petServiceMock.Setup(m => m.CreatePet(It.IsAny<TravelDocumentViewModel>())).ReturnsAsync(petId);
             applicationServiceMock.Setup(m => m.CreateApplication(It.IsAny<ApplicationDto>())).ThrowsAsync(new Exception(errorMessage));
 
-            var result = await handler.Handle(request, CancellationToken.None);
+            var result = await Assert.ThrowsAsync<Exception>(async () => await handler.Handle(request, CancellationToken.None));
 
-            Assert.Equal(result.IsSuccess, response.IsSuccess);
             Assert.NotNull(result);
+            Assert.Equal(errorMessage, result.Message);
         }
 
         [Fact]

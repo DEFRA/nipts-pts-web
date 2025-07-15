@@ -11,6 +11,7 @@ using Moq.Protected;
 using Newtonsoft.Json;
 using NUnit.Framework;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using Assert = NUnit.Framework.Assert;
 
@@ -20,7 +21,8 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
     public class PetServiceTests
     {
         private PetService _sut;
-        protected Mock<HttpMessageHandler> _mockHttpMessageHandler = new();       
+        protected Mock<HttpMessageHandler> _mockHttpMessageHandler = new();
+        private readonly Mock<ILogger<PetService>> _mockLogger = new();
 
         [Test]
         public async Task GetBreeds_Return_200()
@@ -43,7 +45,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new PetService(httpClient);
+            _sut = new PetService(_mockLogger.Object, httpClient);
 
             var actualResult = await _sut.GetBreeds(PetSpecies.Dog);
 
@@ -61,7 +63,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new PetService(httpClient);
+            _sut = new PetService(_mockLogger.Object, httpClient);
 
             Assert.ThrowsAsync<Exception>(async () => await _sut.GetBreeds(PetSpecies.Dog));
         }
@@ -87,7 +89,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new PetService(httpClient);
+            _sut = new PetService(_mockLogger.Object, httpClient);
 
             var actualResult = await _sut.GetColours(PetSpecies.Dog);
 
@@ -116,7 +118,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new PetService(httpClient);
+            _sut = new PetService(_mockLogger.Object, httpClient);
 
             var actualResult = await _sut.GetColours(PetSpecies.Dog);
 
@@ -135,7 +137,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new PetService(httpClient);
+            _sut = new PetService(_mockLogger.Object, httpClient);
 
             Assert.ThrowsAsync<Exception>(async () => await _sut.GetColours(PetSpecies.Dog));
         }
@@ -161,7 +163,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new PetService(httpClient);
+            _sut = new PetService(_mockLogger.Object, httpClient);
 
             var actualResult = await _sut.CreatePet(new TravelDocumentViewModel());
 
@@ -171,19 +173,62 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
         [Test]
         public void CreatePet_ThrowsException()
         {
-            _mockHttpMessageHandler.Protected().Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
-                .ThrowsAsync(new Exception("Error"));
+            // Arrange
+            var expectedMessage = "Error";
+
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ThrowsAsync(new Exception(expectedMessage));
 
             var httpClient = new HttpClient(_mockHttpMessageHandler.Object)
             {
                 BaseAddress = new Uri("https://localhost/")
             };
 
-            _sut = new PetService(httpClient);
+            _sut = new PetService(_mockLogger.Object, httpClient);
 
-            Assert.ThrowsAsync<Exception>(async () => await _sut.CreatePet(new TravelDocumentViewModel()));            
+            // Act & Assert
+            var ex = Assert.ThrowsAsync<Exception>(() => _sut.CreatePet(new TravelDocumentViewModel()));
+
+            Assert.NotNull(ex);
+            Assert.AreEqual(expectedMessage, ex.Message);
+        }
+
+        [Test]
+        public void CreatePet_ThrowsHttpRequestException()
+        {
+            // Arrange
+            var expectedMessage = "Unable to create pet, Status code: InternalServerError";
+
+            var expectedResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.InternalServerError                 
+            };
+
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(expectedResponse);
+
+            var httpClient = new HttpClient(_mockHttpMessageHandler.Object)
+            {
+                BaseAddress = new Uri("https://localhost/")
+            };
+
+            _sut = new PetService(_mockLogger.Object, httpClient);
+
+            // Act & Assert
+            var ex = Assert.ThrowsAsync<HttpRequestException>(() => _sut.CreatePet(new TravelDocumentViewModel()));
+
+            Assert.NotNull(ex);
+            Assert.AreEqual(expectedMessage, ex.Message);
         }
     }
-
-
 }

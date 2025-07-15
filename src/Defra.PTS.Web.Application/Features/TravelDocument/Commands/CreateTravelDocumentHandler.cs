@@ -16,7 +16,6 @@ public class CreateTravelDocumentHandler : IRequestHandler<CreateTravelDocumentR
     private readonly IPetService _petService;
     private readonly IUserService _userService;
     private readonly IDynamicService _dynamicService;
-    private readonly ILogger<CreateTravelDocumentHandler> _logger;
 
     public CreateTravelDocumentHandler(IApplicationService applicationService, IPetService petService, IUserService userService, IDynamicService dynamicService, ILogger<CreateTravelDocumentHandler> logger)
     {
@@ -30,7 +29,6 @@ public class CreateTravelDocumentHandler : IRequestHandler<CreateTravelDocumentR
         _petService = petService;
         _userService = userService;
         _dynamicService = dynamicService;
-        _logger = logger;
     }
 
     public async Task<CreateTravelDocumentResponse> Handle(CreateTravelDocumentRequest request, CancellationToken cancellationToken)
@@ -66,25 +64,14 @@ public class CreateTravelDocumentHandler : IRequestHandler<CreateTravelDocumentR
 
         Guid appId;
         CreateTravelDocumentResponse response;
-        try
+        var  applicationResponse = await _applicationService.CreateApplication(application);
+        appId = applicationResponse.Id;
+        response = new CreateTravelDocumentResponse
         {
-           var  applicationResponse = await _applicationService.CreateApplication(application);
-            appId = applicationResponse.Id;
-            response = new CreateTravelDocumentResponse
-            {
-                IsSuccess = true,
-                Reference = applicationResponse.ReferenceNumber,
-            };
-        }
-        catch (Exception e)
-        {
-            _logger.LogError(e, "Error occured: {0}", e.Message);
-            response = new CreateTravelDocumentResponse
-            {
-                IsSuccess = false
-            };
-            return response;
-        }
+            IsSuccess = true,
+            Reference = applicationResponse.ReferenceNumber,
+        };
+
 
         var applicationlanguage = Thread.CurrentThread.CurrentCulture.EnglishName == "Welsh" ? 489480001 : 489480000;
 
