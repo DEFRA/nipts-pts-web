@@ -12,15 +12,18 @@ public class ApplicationService : IApplicationService
 {
     private readonly HttpClient _httpClient;
     private readonly IMapper _mapper;
+    private readonly ILogger<ApplicationService> _logger;
 
 
-    public ApplicationService(HttpClient httpClient, IMapper mapper)
+    public ApplicationService(ILogger<ApplicationService> logger, HttpClient httpClient, IMapper mapper)
     {
+        ArgumentNullException.ThrowIfNull(logger);
         ArgumentNullException.ThrowIfNull(httpClient);
         ArgumentNullException.ThrowIfNull(mapper);
 
         _httpClient = httpClient;
         _mapper = mapper;
+        _logger = logger;
     }
 
     public async Task<ApplicationDto> CreateApplication(ApplicationDto application)
@@ -30,7 +33,9 @@ public class ApplicationService : IApplicationService
         var response = await _httpClient.PostAsJsonAsync(apiUrl, application);
         if (!response.IsSuccessStatusCode)
         {
-            throw new HttpRequestException($"Unable to create application, Status code: {response.StatusCode}");
+            string errorMessage = $"Unable to create application, Status code: {response.StatusCode}";
+            _logger.LogError(errorMessage);
+            throw new HttpRequestException(errorMessage);
         }
 
         var content = await response.Content.ReadAsStringAsync();
