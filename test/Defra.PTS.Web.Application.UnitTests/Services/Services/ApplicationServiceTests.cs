@@ -86,6 +86,39 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
         }
 
         [Test]
+        public void CreateApplication_ThrowsHttpRequestException()
+        {
+            // Arrange
+            var expectedMessage = "Unable to create application, Status code: InternalServerError";
+
+            var expectedResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.InternalServerError
+            };
+
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(expectedResponse);
+
+            var httpClient = new HttpClient(_mockHttpMessageHandler.Object)
+            {
+                BaseAddress = new Uri("https://localhost/")
+            };
+
+            _sut = new ApplicationService(httpClient, _mapper.Object);
+
+            // Act & Assert
+            var ex = Assert.ThrowsAsync<HttpRequestException>(() => _sut.CreateApplication(new ApplicationDto()));
+
+            Assert.NotNull(ex);
+            Assert.AreEqual(expectedMessage, ex.Message);
+        }
+
+        [Test]
         public async Task GetApplicationCertificate_Return_200()
         {
             IMapper mapper = GetMapper();
