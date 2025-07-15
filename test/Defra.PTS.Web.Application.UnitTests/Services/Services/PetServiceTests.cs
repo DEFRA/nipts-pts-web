@@ -171,8 +171,16 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
         [Test]
         public void CreatePet_ThrowsException()
         {
-            _mockHttpMessageHandler.Protected().Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
-                .ThrowsAsync(new Exception("Error"));
+            // Arrange
+            var expectedMessage = "Error";
+
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ThrowsAsync(new Exception(expectedMessage));
 
             var httpClient = new HttpClient(_mockHttpMessageHandler.Object)
             {
@@ -181,7 +189,11 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
 
             _sut = new PetService(httpClient);
 
-            Assert.ThrowsAsync<Exception>(async () => await _sut.CreatePet(new TravelDocumentViewModel()));            
+            // Act & Assert
+            var ex = Assert.ThrowsAsync<Exception>(() => _sut.CreatePet(new TravelDocumentViewModel()));
+
+            Assert.NotNull(ex);
+            Assert.AreEqual(expectedMessage, ex.Message);
         }
     }
 

@@ -56,11 +56,20 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
             Assert.AreEqual(expectedResult.Id, actualResult.Id);
         }
 
+
         [Test]
         public void CreateApplication_ThrowsException()
         {
-            _mockHttpMessageHandler.Protected().Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
-                .ThrowsAsync(new Exception("Error"));
+            // Arrange
+            var expectedMessage = "Error";
+
+            _mockHttpMessageHandler
+                .Protected()
+                .Setup<Task<HttpResponseMessage>>(
+                    "SendAsync",
+                    ItExpr.IsAny<HttpRequestMessage>(),
+                    ItExpr.IsAny<CancellationToken>())
+                .ThrowsAsync(new Exception(expectedMessage));
 
             var httpClient = new HttpClient(_mockHttpMessageHandler.Object)
             {
@@ -69,7 +78,11 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
 
             _sut = new ApplicationService(httpClient, _mapper.Object);
 
-            Assert.ThrowsAsync<Exception>(async () => await _sut.CreateApplication(new ApplicationDto()));
+            // Act & Assert
+            var ex = Assert.ThrowsAsync<Exception>(() => _sut.CreateApplication(new ApplicationDto()));
+
+            Assert.NotNull(ex);
+            Assert.AreEqual(expectedMessage, ex.Message);
         }
 
         [Test]
