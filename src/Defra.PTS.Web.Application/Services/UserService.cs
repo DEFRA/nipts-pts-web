@@ -47,7 +47,9 @@ public class UserService : IUserService
         HttpResponseMessage response = await _httpClient.PostAsJsonAsync(apiUrl, postData);
         if (!response.IsSuccessStatusCode)
         {
-            throw new HttpRequestException($"Unable to create user, Status code: {response.StatusCode}");
+            string errorMessage = $"Unable to create user, Status code: {response.StatusCode}";
+            _logger.LogError(errorMessage);
+            throw new HttpRequestException(errorMessage);
         }
 
         _logger.LogInformation("User added");
@@ -78,7 +80,9 @@ public class UserService : IUserService
 
         if (!response.IsSuccessStatusCode)
         {
-            throw new HttpRequestException($"Unable to create owner, Status code: {response.StatusCode}");
+           string errorMessage = $"Unable to create owner, Status code: {response.StatusCode}";
+           _logger.LogError(errorMessage);
+           throw new HttpRequestException();
         }
 
         _logger.LogInformation($"User added");
