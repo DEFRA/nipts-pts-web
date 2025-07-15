@@ -16,7 +16,6 @@ public class CreateTravelDocumentHandler : IRequestHandler<CreateTravelDocumentR
     private readonly IPetService _petService;
     private readonly IUserService _userService;
     private readonly IDynamicService _dynamicService;
-    private readonly ILogger<CreateTravelDocumentHandler> _logger;
 
     public CreateTravelDocumentHandler(IApplicationService applicationService, IPetService petService, IUserService userService, IDynamicService dynamicService, ILogger<CreateTravelDocumentHandler> logger)
     {
@@ -30,7 +29,6 @@ public class CreateTravelDocumentHandler : IRequestHandler<CreateTravelDocumentR
         _petService = petService;
         _userService = userService;
         _dynamicService = dynamicService;
-        _logger = logger;
     }
 
     public async Task<CreateTravelDocumentResponse> Handle(CreateTravelDocumentRequest request, CancellationToken cancellationToken)
@@ -76,9 +74,8 @@ public class CreateTravelDocumentHandler : IRequestHandler<CreateTravelDocumentR
                 Reference = applicationResponse.ReferenceNumber,
             };
         }
-        catch (Exception e)
+        catch (Exception)
         {
-            //_logger.LogError(e, "Error occured: {0}", e.Message);
             throw;
         }
 
