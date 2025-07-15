@@ -50,7 +50,11 @@ public class PetService : IPetService
         string apiUrl = _httpClient.BaseAddress + "createpet";
 
         HttpResponseMessage response = await _httpClient.PostAsJsonAsync(apiUrl, model);
-        response.EnsureSuccessStatusCode();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new HttpRequestException($"Unable to create pet, Status code: {response.StatusCode}");
+        }
 
         return await response.Content.ReadFromJsonAsync<Guid>();
     }

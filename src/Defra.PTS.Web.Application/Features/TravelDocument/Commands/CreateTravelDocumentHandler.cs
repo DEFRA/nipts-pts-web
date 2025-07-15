@@ -79,11 +79,7 @@ public class CreateTravelDocumentHandler : IRequestHandler<CreateTravelDocumentR
         catch (Exception e)
         {
             _logger.LogError(e, "Error occured: {0}", e.Message);
-            response = new CreateTravelDocumentResponse
-            {
-                IsSuccess = false
-            };
-            return response;
+            throw;
         }
 
         var applicationlanguage = Thread.CurrentThread.CurrentCulture.EnglishName == "Welsh" ? 489480001 : 489480000;

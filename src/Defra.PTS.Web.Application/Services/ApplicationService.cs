@@ -28,7 +28,10 @@ public class ApplicationService : IApplicationService
         var apiUrl = _httpClient.BaseAddress + "application";
 
         var response = await _httpClient.PostAsJsonAsync(apiUrl, application);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new HttpRequestException($"Unable to create application, Status code: {response.StatusCode}");
+        }
 
         var content = await response.Content.ReadAsStringAsync();
         var result = JsonConvert.DeserializeObject<ApplicationDto>(content);

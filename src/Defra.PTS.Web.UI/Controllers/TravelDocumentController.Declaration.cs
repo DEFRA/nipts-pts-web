@@ -89,6 +89,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             RemoveFromFormSubmissionQueue(formData.RequestId);
 
             _logger.LogError(ex, "Exception Message: {Message}", ex.Message);
+            throw;
         }
 
         SetCYACheck("No");
