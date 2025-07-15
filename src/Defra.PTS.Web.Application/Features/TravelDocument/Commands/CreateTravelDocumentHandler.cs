@@ -64,20 +64,14 @@ public class CreateTravelDocumentHandler : IRequestHandler<CreateTravelDocumentR
 
         Guid appId;
         CreateTravelDocumentResponse response;
-        try
+        var  applicationResponse = await _applicationService.CreateApplication(application);
+        appId = applicationResponse.Id;
+        response = new CreateTravelDocumentResponse
         {
-           var  applicationResponse = await _applicationService.CreateApplication(application);
-            appId = applicationResponse.Id;
-            response = new CreateTravelDocumentResponse
-            {
-                IsSuccess = true,
-                Reference = applicationResponse.ReferenceNumber,
-            };
-        }
-        catch (Exception)
-        {
-            throw;
-        }
+            IsSuccess = true,
+            Reference = applicationResponse.ReferenceNumber,
+        };
+
 
         var applicationlanguage = Thread.CurrentThread.CurrentCulture.EnglishName == "Welsh" ? 489480001 : 489480000;
 

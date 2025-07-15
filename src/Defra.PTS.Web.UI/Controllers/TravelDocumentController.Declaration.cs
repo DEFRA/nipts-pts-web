@@ -85,11 +85,10 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             SetCYACheck("No");
             return RedirectToAction(nameof(Acknowledgement));
         }
-        catch (Exception ex)
+        catch (Exception)
         {
             SetApplicationIsSubmitted(isSubmitted: false);
             RemoveFromFormSubmissionQueue(formData.RequestId);
-            _logger.LogError(ex, "Exception Message: {0}", ex.Message);
             throw;
         }
 
