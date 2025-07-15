@@ -47,9 +47,7 @@ public class UserService : IUserService
         HttpResponseMessage response = await _httpClient.PostAsJsonAsync(apiUrl, postData);
         if (!response.IsSuccessStatusCode)
         {
-            string errorMessage = $"Unable to create user, Status code: {response.StatusCode}";
-            _logger.LogError(errorMessage);
-            throw new HttpRequestException(errorMessage);
+            throw new HttpRequestException($"Unable to create user, Status code: {response.StatusCode}");
         }
 
         _logger.LogInformation("User added");
@@ -80,9 +78,7 @@ public class UserService : IUserService
 
         if (!response.IsSuccessStatusCode)
         {
-           string errorMessage = $"Unable to create owner, Status code: {response.StatusCode}";
-           _logger.LogError(errorMessage);
-           throw new HttpRequestException(errorMessage);
+           throw new HttpRequestException($"Unable to create owner, Status code: {response.StatusCode}");
         }
 
         _logger.LogInformation($"User added");
@@ -101,9 +97,7 @@ public class UserService : IUserService
         HttpResponseMessage response = await _httpClient.PostAsJsonAsync(apiUrl, postData);
         if (!response.IsSuccessStatusCode)
         {
-            string errorMessage = $"Unable to address, Status code: {response.StatusCode}";
-            _logger.LogError(errorMessage);
-            throw new HttpRequestException(errorMessage);
+            throw new HttpRequestException($"Unable to address, Status code: {response.StatusCode}");
         }
 
         _logger.LogInformation("Address added");
@@ -126,9 +120,7 @@ public class UserService : IUserService
 
         if (!response.IsSuccessStatusCode)
         {
-            string errorMessage = $"Unable to update user, Status code: {response.StatusCode}";
-            _logger.LogError(errorMessage);
-            throw new HttpRequestException(errorMessage);
+            throw new HttpRequestException($"Unable to update user, Status code: {response.StatusCode}");
         }
 
         _logger.LogInformation("User update");
