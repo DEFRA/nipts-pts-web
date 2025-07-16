@@ -31,9 +31,14 @@
 
                         <td class="govuk-table__cell" data-label="@Localizer["Status"]">
                             <strong class="govuk-tag @statusCssClass">
-                                @(application.Status == @AppConstants.ApplicationStatus.APPROVED
-                                    ? @Localizer["Approved"]
-                                    : @Localizer["Pending"])
+                            @(
+                                application.Status switch
+                                {
+                                    AppConstants.ApplicationStatus.APPROVED => Localizer["Approved"],
+                                    AppConstants.ApplicationStatus.SUSPENDED => Localizer["Suspended"],
+                                    _ => Localizer["Pending"]
+                                }
+                            )
                             </strong>
                         </td>
                         <td class="govuk-table_cell govuk-table_cell--numeric" data-label="@Localizer["Actions"]">

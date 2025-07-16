@@ -40,13 +40,14 @@
 
 <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_Issued" model=Model.CertificateIssued />
 
-<div class="govuk-grid-row">
-    <div class="govuk-grid-column-three-quarters">
-
-        <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_IssuingAuthority" model=Model.CertificateIssuingAuthority />
-
+@if (Model.Status != "Suspended")
+{
+    <div class="govuk-grid-row">
+        <div class="govuk-grid-column-three-quarters">
+            <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_IssuingAuthority" model=Model.CertificateIssuingAuthority />
+        </div>
     </div>
-</div>
+}
 
 <div class="govuk-grid-row pet-declaration-row">
     <div class="govuk-grid-column-three-quarters">
@@ -62,5 +63,13 @@
 
 <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_Declaration" model=Model.Declaration />
 
-<partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_ActionLinks" model=Model.ActionLinks />
+@if (Model.Status != "Suspended")
+{
+        <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_ActionLinks" model=Model.ActionLinks />
+}
+
+else
+{
+        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-display-none-print">
+}
 

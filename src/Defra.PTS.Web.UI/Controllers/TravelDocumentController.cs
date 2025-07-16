@@ -99,6 +99,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                 {
                     AppConstants.ApplicationStatus.APPROVED,
                     AppConstants.ApplicationStatus.AWAITINGVERIFICATION,
+                    AppConstants.ApplicationStatus.SUSPENDED
                 };
 
                 var userId = CurrentUserId();

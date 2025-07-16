@@ -18,6 +18,7 @@ public static class ApplicationHelper
             "AWAITING VERIFICATION" => AppConstants.ApplicationStatus.AWAITINGVERIFICATION,
             "REJECTED" or "UNSUCCESSFUL" => AppConstants.ApplicationStatus.UNSUCCESSFUL,
             "REVOKED" => AppConstants.ApplicationStatus.REVOKED,
+            "SUSPENDED" => AppConstants.ApplicationStatus.SUSPENDED,
             _ => status,
         };
     }

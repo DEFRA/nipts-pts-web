@@ -27,7 +27,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                 return RedirectToAction("HandleError", "Error", new { code = 404 });
             }
 
-            if (!response.ApplicationCertificate.IsApproved)
+            if (!response.ApplicationCertificate.IsApproved && !response.ApplicationCertificate.IsSuspended)
             {
                 return RedirectToAction(nameof(ApplicationDetails), new { id });
             }
