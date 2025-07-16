@@ -92,9 +92,22 @@
         font-size: 11px;
     }
 
+    #document-issued-card .govuk-summary-list {
+        display: table !important;
+        width: 100% !important;
+    }
+
     @@media print {
         .pet-declaration-qrcode {
             display: block;
+        }
+
+        #document-issued-card .govuk-summary-list__key {
+            width: 38% !important;
+        }
+        
+        #document-issued-card .govuk-summary-list__value {
+            width: 62% !important;
         }
     }
 </style>
