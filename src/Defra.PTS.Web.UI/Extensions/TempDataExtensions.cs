@@ -144,7 +144,7 @@ public static class TempDataExtensions
     public static bool GetIsUserSuspended(this ITempDataDictionary tempData)
     {
         var o = tempData.Peek(TempDataKey.IsUserSuspended);
-        return (bool)o;
+        return o is bool value && value;
     }
 
     public static void RemoveIsUserSuspended(this ITempDataDictionary tempData)
