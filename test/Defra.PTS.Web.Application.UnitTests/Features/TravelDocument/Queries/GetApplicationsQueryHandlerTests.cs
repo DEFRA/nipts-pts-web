@@ -22,10 +22,11 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Queries
             var statuses = new List<string> { ApplicationStatus.AWAITINGVERIFICATION, ApplicationStatus.APPROVED }; // Assuming some statuses
             var applications = new List<ApplicationSummaryDto>
         {
-            new ApplicationSummaryDto {  ApplicationId = Guid.NewGuid(), Status = ApplicationStatus.AWAITINGVERIFICATION },
+            new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = ApplicationStatus.AWAITINGVERIFICATION },
             new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = ApplicationStatus.APPROVED },
             new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = ApplicationStatus.REVOKED },
             new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = ApplicationStatus.UNSUCCESSFUL },
+            new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = ApplicationStatus.SUSPENDED },
             new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = null}
         }; // Assuming some applications
 
@@ -45,7 +46,8 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Queries
             Assert.Equal(2, result.Applications.Count);
             Assert.Contains(result.Applications, x => x.Status == ApplicationStatus.AWAITINGVERIFICATION);
             Assert.Contains(result.Applications, x => x.Status == ApplicationStatus.APPROVED);
-            // Add more assertions here based on your expectations for the result
+            Assert.Contains(result.Applications, x => x.Status == ApplicationStatus.SUSPENDED);
+
         }
 
         [Fact]
