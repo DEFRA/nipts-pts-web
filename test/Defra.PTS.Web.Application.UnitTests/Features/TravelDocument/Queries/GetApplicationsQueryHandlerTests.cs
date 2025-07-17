@@ -18,17 +18,17 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Queries
         public async Task Handle_ReturnsGetApplicationsQueryResponseWithFilteredApplications()
         {
             // Arrange
-            var userId = Guid.NewGuid(); // Assuming some user id
-            var statuses = new List<string> { ApplicationStatus.AWAITINGVERIFICATION, ApplicationStatus.APPROVED }; // Assuming some statuses
+            var userId = Guid.NewGuid();
+            var statuses = new List<string> { ApplicationStatus.AWAITINGVERIFICATION, ApplicationStatus.APPROVED, ApplicationStatus.SUSPENDED };
             var applications = new List<ApplicationSummaryDto>
-        {
-            new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = ApplicationStatus.AWAITINGVERIFICATION },
-            new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = ApplicationStatus.APPROVED },
-            new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = ApplicationStatus.REVOKED },
-            new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = ApplicationStatus.UNSUCCESSFUL },
-            new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = ApplicationStatus.SUSPENDED },
-            new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = null}
-        }; // Assuming some applications
+            {
+                new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = ApplicationStatus.AWAITINGVERIFICATION },
+                new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = ApplicationStatus.APPROVED },
+                new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = ApplicationStatus.REVOKED },
+                new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = ApplicationStatus.UNSUCCESSFUL },
+                new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = ApplicationStatus.SUSPENDED },
+                new ApplicationSummaryDto { ApplicationId = Guid.NewGuid(), Status = null}
+            }; 
 
             var applicationServiceMock = new Mock<IApplicationService>();
             applicationServiceMock.Setup(x => x.GetUserApplications(userId)).ReturnsAsync(applications);
@@ -43,7 +43,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Features.TravelDocument.Queries
             Assert.NotNull(result);
             Assert.Equal(userId, result.UserId);
             Assert.NotNull(result.Applications);
-            Assert.Equal(2, result.Applications.Count);
+            Assert.Equal(3, result.Applications.Count);
             Assert.Contains(result.Applications, x => x.Status == ApplicationStatus.AWAITINGVERIFICATION);
             Assert.Contains(result.Applications, x => x.Status == ApplicationStatus.APPROVED);
             Assert.Contains(result.Applications, x => x.Status == ApplicationStatus.SUSPENDED);
