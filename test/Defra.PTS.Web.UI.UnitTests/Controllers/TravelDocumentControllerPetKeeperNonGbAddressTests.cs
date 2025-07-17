@@ -92,6 +92,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
             var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = true };
             tempData.SetHasUserUsedMagicWord(magicWordViewModel);
+            tempData.SetIsUserSuspended(false);
             _travelDocumentController.Object.TempData = tempData;
 
             _mockMediator.Setup(x => x.Send(It.IsAny<AddAddressRequest>(), CancellationToken.None))
