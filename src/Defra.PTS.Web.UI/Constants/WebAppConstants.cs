@@ -133,6 +133,11 @@ public static class WebAppConstants
         /// </summary>
         public const string ApplicationReference = "ApplicationReference";
 
+        /// <summary>
+        /// A key name used to store if the user has been suspended
+        /// </summary>
+        public const string IsUserSuspended = "IsUserSuspended";
+
     }
     public static class FormAutofill
     {

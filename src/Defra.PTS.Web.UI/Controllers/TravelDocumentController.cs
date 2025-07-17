@@ -99,10 +99,14 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                 {
                     AppConstants.ApplicationStatus.APPROVED,
                     AppConstants.ApplicationStatus.AWAITINGVERIFICATION,
+                    AppConstants.ApplicationStatus.SUSPENDED
                 };
 
                 var userId = CurrentUserId();
                 var response = await _mediator.Send(new GetApplicationsQueryRequest(userId, statuses));
+
+                SaveIsUserSuspendedFormData(response.Applications.Any(x => x.Status == "Suspended"));
+
                 return View(response.Applications);
             }
         }

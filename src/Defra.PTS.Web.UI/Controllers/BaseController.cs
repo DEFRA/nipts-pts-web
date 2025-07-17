@@ -71,6 +71,21 @@ public abstract class BaseController : Controller
         return TempData.GetHasUserUsedMagicWord(createIfNull);
     }
 
+    protected void RemoveIsUserSuspendedFormData()
+    {
+        TempData.RemoveIsUserSuspended();
+    }
+
+    protected void SaveIsUserSuspendedFormData(bool isUserSuspended)
+    {
+        TempData.SetIsUserSuspended(isUserSuspended);
+    }
+
+    protected bool GetIsUserSuspendedFormData()
+    {
+        return TempData.GetIsUserSuspended();
+    }
+
     protected void RemoveMagicWordFormData()
     {
         TempData.RemoveHasUserUsedMagicWord();

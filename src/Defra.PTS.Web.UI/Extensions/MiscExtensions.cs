@@ -15,6 +15,7 @@ public static class MiscExtensions
             AppConstants.ApplicationStatus.UNSUCCESSFUL or AppConstants.ApplicationStatus.REVOKED => "govuk-tag--red",
             AppConstants.ApplicationStatus.APPROVED => "govuk-tag--green",
             AppConstants.ApplicationStatus.AWAITINGVERIFICATION => "govuk-tag--blue",
+            AppConstants.ApplicationStatus.SUSPENDED => "govuk-tag--yellow",
             _ => "govuk-tag--red",
         };
 
@@ -26,6 +27,7 @@ public static class MiscExtensions
         string cssClass = application.Status switch
         {
             AppConstants.ApplicationStatus.APPROVED => $"{WebAppConstants.Pages.TravelDocument.ApplicationCertificate}/{application.ApplicationId}",
+            AppConstants.ApplicationStatus.SUSPENDED => $"{WebAppConstants.Pages.TravelDocument.ApplicationCertificate}/{application.ApplicationId}",
             _ => $"{WebAppConstants.Pages.TravelDocument.ApplicationDetails}/{application.ApplicationId}",
         };
 

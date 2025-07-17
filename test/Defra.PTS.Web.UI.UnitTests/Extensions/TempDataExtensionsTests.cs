@@ -15,6 +15,7 @@ public class TempDataExtensionsTests
     private readonly ITempDataDictionary _tempData;
     private readonly string ApplicationReference = "ApplicationReference";
     private readonly string TestReference = "TestReference";
+    private readonly string IsUserSuspended = "IsUserSuspended";
 
     public TempDataExtensionsTests()
     {
@@ -278,6 +279,48 @@ public class TempDataExtensionsTests
         // Act
         tempData.RemoveApplicationReference();
         var result = tempData.Peek(ApplicationReference);
+
+        // Assert
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void TempData_SetIsUserSuspended_AddsSuspendedStatus()
+    {
+        // Arrange
+        var tempData = TempData();
+
+        // Act
+        tempData.SetIsUserSuspended(true);
+
+        // Assert
+        var result = tempData.Peek(IsUserSuspended);
+        Assert.True((bool)result);
+    }
+
+    [Fact]
+    public void TempData_GetIsUserSuspended_ReturnsFalseIfNotSet()
+    {
+        // Arrange
+        var tempData = TempData();
+
+        // Act
+        var result = tempData.GetIsUserSuspended();
+
+        // Assert
+        Assert.False(result);
+    }
+
+    [Fact]
+    public void TempData_RemoveIsUserSuspended_RemovesIsUserSuspended()
+    {
+        // Arrange
+        var tempData = TempData();
+        tempData.Add(IsUserSuspended, false);
+
+        // Act
+        tempData.RemoveIsUserSuspended();
+        var result = tempData.Peek(IsUserSuspended);
 
         // Assert
         Assert.Null(result);

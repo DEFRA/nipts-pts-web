@@ -15,6 +15,7 @@ public static class MappingConverter
         {
             DocumentIssueDate = src.DocumentIssueDate,
             DocumentReferenceNumber = src.DocumentReferenceNumber,
+            Status = src.Status
         };
     }
 
