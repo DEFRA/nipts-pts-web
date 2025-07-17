@@ -86,6 +86,24 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         }
 
         [Test]
+        public void PetKeeperNonGbAddressAsync_Returns_RedirectToAction_When_User_IsSuspended()
+        {
+            // Arrange
+            var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
+            var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = true };
+            tempData.SetHasUserUsedMagicWord(magicWordViewModel);
+            tempData.SetIsUserSuspended(true);
+            _travelDocumentController.Object.TempData = tempData;
+
+            // Act
+            var result = _travelDocumentController.Object.PetKeeperNonGbAddressAsync().Result as RedirectToActionResult;
+
+            // Assert
+            Assert.IsNotNull(result);
+            Assert.AreEqual(nameof(TravelDocumentController.Index), result.ActionName);
+        }
+
+        [Test]
         public void PetKeeperNonGbAddressAsync_Returns_RedirectToAction_When_Page_PreConditions()
         {
             // Arrange
