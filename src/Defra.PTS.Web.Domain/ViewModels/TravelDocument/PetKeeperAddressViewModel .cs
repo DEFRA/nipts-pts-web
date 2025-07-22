@@ -5,7 +5,7 @@ namespace Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 
 public class PetKeeperAddressViewModel : TravelDocumentFormPage, IPostcodeModel
 {
-    public string FormTitle => $"What is your address?";
+    public static string FormTitle => $"What is your address?";
 
     public string Address { get; set; }
 

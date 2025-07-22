@@ -2,7 +2,7 @@
 
 public class PetKeeperNameViewModel : TravelDocumentFormPage
 {
-    public string FormTitle => $"What is your full name?";
+    public static string FormTitle => $"What is your full name?";
 
     public string Name { get; set; }
 

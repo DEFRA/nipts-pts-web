@@ -5,10 +5,10 @@ namespace Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 
 public class PetKeeperUserDetailsViewModel : TravelDocumentFormPage, IPostcodeModel
 {
-    public string PetKeeperUserDetailsFormTitle => $"Are your details correct?";
-    public  string PetKeeperNonGbAddressFormTitle => $"Change your details";
-    public string PetKeeperNonGbAddressFormMessageHeader => $"Important";
-    public string PetKeeperNonGbAddressFormMessageBody => $"Enter an address in England, Scotland or Wales.";
+    public static string PetKeeperUserDetailsFormTitle => $"Are your details correct?";
+    public static string PetKeeperNonGbAddressFormTitle => $"Change your details";
+    public static string PetKeeperNonGbAddressFormMessageHeader => $"Important";
+    public static string PetKeeperNonGbAddressFormMessageBody => $"Enter an address in England, Scotland or Wales.";
 
     public YesNoOptions UserDetailsAreCorrect { get; set; }
 
