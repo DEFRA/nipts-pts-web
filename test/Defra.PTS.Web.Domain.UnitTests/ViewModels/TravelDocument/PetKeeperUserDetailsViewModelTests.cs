@@ -77,11 +77,8 @@ namespace Defra.PTS.Web.Domain.UnitTests.ViewModels.TravelDocument
         [Fact]
         public void Have_PetKeeperUserDetails_CorrectTitle()
         {
-            // Arrange
-            var model = CreateModel();
-
             // Act
-            var result = model.PetKeeperUserDetailsFormTitle;
+            var result = PetKeeperUserDetailsViewModel.PetKeeperUserDetailsFormTitle;
 
             // Assert
             result.Should().Be($"Are your details correct?");
@@ -90,11 +87,8 @@ namespace Defra.PTS.Web.Domain.UnitTests.ViewModels.TravelDocument
         [Fact]
         public void Have_PetKeeperNonGbAddress_CorrectTitle()
         {
-            // Arrange
-            var model = CreateModel();
-
             // Act
-            var result = model.PetKeeperNonGbAddressFormTitle;
+            var result = PetKeeperUserDetailsViewModel.PetKeeperNonGbAddressFormTitle;
 
             // Assert
             result.Should().Be($"Change your details");
@@ -103,11 +97,8 @@ namespace Defra.PTS.Web.Domain.UnitTests.ViewModels.TravelDocument
         [Fact]
         public void Have_PetKeeperNonGbAddressForm_MessageHeader()
         {
-            // Arrange
-            var model = CreateModel();
-
             // Act
-            var result = model.PetKeeperNonGbAddressFormMessageHeader;
+            var result = PetKeeperUserDetailsViewModel.PetKeeperNonGbAddressFormMessageHeader;
 
             // Assert
             result.Should().Be($"Important");
@@ -116,11 +107,8 @@ namespace Defra.PTS.Web.Domain.UnitTests.ViewModels.TravelDocument
         [Fact]
         public void Have_PetKeeperNonGbAddressForm_MessageBody()
         {
-            // Arrange
-            var model = CreateModel();
-
             // Act
-            var result = model.PetKeeperNonGbAddressFormMessageBody;
+            var result = PetKeeperUserDetailsViewModel.PetKeeperNonGbAddressFormMessageBody;
 
             // Assert
             result.Should().Be($"Enter an address in England, Scotland or Wales.");

@@ -11,8 +11,8 @@
 @inject IStringLocalizer<ISharedResource> sharedlocalizer
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = localizer[Model.PetKeeperNonGbAddressFormTitle].Value, LabelFor = "Yes" };
-    this.SetMetaTitle(localizer[Model.PetKeeperNonGbAddressFormTitle].Value);
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = localizer[PetKeeperUserDetailsViewModel.PetKeeperNonGbAddressFormTitle].Value, LabelFor = "Yes" };
+    this.SetMetaTitle(localizer[PetKeeperUserDetailsViewModel.PetKeeperNonGbAddressFormTitle].Value);
 }
 
 <div class="govuk-grid-row">
@@ -42,12 +42,12 @@
                          data-module="govuk-notification-banner">
                         <div class="govuk-notification-banner__header">
                             <h2 class="govuk-notification-banner__title" id="govuk-notification-banner-title">
-                                @localizer[@Model.PetKeeperNonGbAddressFormMessageHeader]
+                                @localizer[@PetKeeperUserDetailsViewModel.PetKeeperNonGbAddressFormMessageHeader]
                             </h2>
                         </div>
                         <div class="govuk-notification-banner__content">
                             <p class="govuk-notification-banner__heading">
-                                @localizer[@Model.PetKeeperNonGbAddressFormMessageBody]
+                                @localizer[@PetKeeperUserDetailsViewModel.PetKeeperNonGbAddressFormMessageBody]
                             </p>
                         </div>
                     </section>
