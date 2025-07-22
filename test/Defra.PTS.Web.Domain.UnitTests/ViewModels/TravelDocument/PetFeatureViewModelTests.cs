@@ -62,11 +62,8 @@ public class PetFeatureViewModelTests
     [Fact]
     public void HaveCorrectTitle()
     {
-        // Arrange
-        var model = CreateModel();
-
         // Act
-        var result = model.FormTitle;
+        var result = PetFeatureViewModel.FormTitle;
 
         // Assert
         result.Should().Be($"Does your pet have any significant features?");
