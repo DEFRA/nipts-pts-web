@@ -4,7 +4,7 @@ namespace Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 
 public class PetMicrochipViewModel : TravelDocumentFormPage
 {
-    public string FormTitle => $"Is your pet microchipped?";
+    public static string FormTitle => $"Is your pet microchipped?";
 
     public YesNoOptions Microchipped { get; set; }
 

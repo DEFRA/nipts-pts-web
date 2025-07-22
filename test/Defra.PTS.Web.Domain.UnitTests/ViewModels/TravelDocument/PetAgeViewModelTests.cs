@@ -65,11 +65,8 @@ public class PetAgeViewModelTests
     [Fact]
     public void HaveCorrectTitle()
     {
-        // Arrange
-        var model = CreateModel();
-
         // Act
-        var result = model.FormTitle;
+        var result = PetAgeViewModel.FormTitle;
 
         // Assert
         result.Should().Be("What is your pet's date of birth?");

@@ -9,7 +9,7 @@
 @inject IStringLocalizer<ISharedResource> sharedlocalizer
 
 @{
-    this.SetMetaTitle(Localizer[Model.FormTitle].Value);
+    this.SetMetaTitle(Localizer[AcknowledgementViewModel.FormTitle].Value);
 }
 
 <div class="govuk-grid-row">
@@ -17,7 +17,7 @@
         <br />
         <div class="govuk-panel govuk-panel--confirmation govuk-!-static-margin-bottom-7">
             <h1 id="documents" class="govuk-panel__title">
-                @Localizer[@Model.FormTitle]
+                @Localizer[@AcknowledgementViewModel.FormTitle]
             </h1>
             <div class="govuk-panel__body">
                 @Localizer["Your reference number"]

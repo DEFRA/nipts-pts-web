@@ -9,8 +9,8 @@
 @inject IViewLocalizer Localizer
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = Localizer[Model.FormTitle].Value, LabelFor = "Day" };
-    this.SetMetaTitle(Model.FormTitle);
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = Localizer[PetMicrochipDateViewModel.FormTitle].Value, LabelFor = "Day" };
+    this.SetMetaTitle(PetMicrochipDateViewModel.FormTitle);
 }
 
 <div class="govuk-grid-row">

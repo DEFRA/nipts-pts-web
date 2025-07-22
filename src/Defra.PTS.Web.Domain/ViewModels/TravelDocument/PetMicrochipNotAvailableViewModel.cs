@@ -4,7 +4,7 @@ namespace Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 
 public class PetMicrochipNotAvailableViewModel : TravelDocumentFormPage
 {
-    public string FormTitle => $"Get your pet microchipped before applying";
+    public static string FormTitle => $"Get your pet microchipped before applying";
 
     public override Enums.TravelDocumentFormPageType PageType => Enums.TravelDocumentFormPageType.PetMicrochipNotAvailable;
 

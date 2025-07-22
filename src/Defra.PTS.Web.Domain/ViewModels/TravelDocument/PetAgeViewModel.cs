@@ -4,7 +4,7 @@ namespace Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 
 public class PetAgeViewModel : TravelDocumentFormPage
 {
-    public string FormTitle => $"What is your pet's date of birth?";
+    public static string FormTitle => $"What is your pet's date of birth?";
     
     public string Day { get; set; }
 

@@ -11,7 +11,7 @@
 @inject IStringLocalizer<ISharedResource> sharedlocalizer
 
 @{
-    this.SetMetaTitle(Localizer[Model.FormTitle].Value);
+    this.SetMetaTitle(Localizer[PetNameViewModel.FormTitle].Value);
 }
 
 <div class="govuk-grid-row">
@@ -28,7 +28,7 @@
                 
                  <h1 class="govuk-heading-xl govuk-!-margin-bottom-4">
                         <label class="govuk-label govuk-label--xl" for="PetName">
-                        @Localizer[Model.FormTitle]
+                        @Localizer[PetNameViewModel.FormTitle]
                     </label>
                 </h1>
 

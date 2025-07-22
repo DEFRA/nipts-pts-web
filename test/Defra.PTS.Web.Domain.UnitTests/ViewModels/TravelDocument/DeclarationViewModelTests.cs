@@ -64,11 +64,8 @@ public class DeclarationViewModelShould
     [Fact]
     public void HaveCorrectTitle()
     {
-        // Arrange
-        var model = CreateModel();
-
         // Act
-        var result = model.FormTitle;
+        var result = DeclarationViewModel.FormTitle;
 
         // Assert
         result.Should().Be("Check your answers and sign the declaration");

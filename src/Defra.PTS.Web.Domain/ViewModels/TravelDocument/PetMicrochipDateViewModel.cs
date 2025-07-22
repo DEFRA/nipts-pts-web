@@ -3,7 +3,7 @@
 #pragma warning disable CS8632
 public class PetMicrochipDateViewModel : TravelDocumentFormPage
 {
-    public string FormTitle => $"When was your pet microchipped or last scanned?";
+    public static string FormTitle => $"When was your pet microchipped or last scanned?";
 
     public string? Day { get; set; }
 

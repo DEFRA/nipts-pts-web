@@ -61,11 +61,8 @@ public class PetSpeciesViewModelTestss
     [Fact]
     public void HaveCorrectTitle()
     {
-        // Arrange
-        var model = CreateModel();
-
         // Act
-        var result = model.FormTitle;
+        var result = PetSpeciesViewModel.FormTitle;
 
         // Assert
         result.Should().Be($"Is your pet a dog, cat or ferret?");

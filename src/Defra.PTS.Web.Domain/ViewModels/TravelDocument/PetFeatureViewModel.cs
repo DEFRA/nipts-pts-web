@@ -4,7 +4,7 @@ namespace Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 
 public class PetFeatureViewModel : TravelDocumentFormPage
 {
-    public string FormTitle => $"Does your pet have any significant features?";
+    public static string FormTitle => $"Does your pet have any significant features?";
 
     public YesNoOptions HasUniqueFeature { get; set; }
 
