@@ -34,11 +34,8 @@ namespace Defra.PTS.Web.Domain.UnitTests.ViewModels.TravelDocument
         [Fact]
         public void HaveCorrectTitle()
         {
-            // Arrange
-            var model = CreateModel();
-
             // Act
-            var result = model.FormTitle;
+            var result = PetMicrochipNotAvailableViewModel.FormTitle;
 
             // Assert
             result.Should().Be($"Get your pet microchipped before applying");

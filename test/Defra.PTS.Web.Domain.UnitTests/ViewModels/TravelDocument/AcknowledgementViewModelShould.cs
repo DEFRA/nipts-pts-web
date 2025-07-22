@@ -62,11 +62,8 @@ public class AcknowledgementViewModelShould
     [Fact]
     public void HaveCorrectTitle()
     {
-        // Arrange
-        var model = CreateModel();
-
         // Act
-        var result = model.FormTitle;
+        var result = AcknowledgementViewModel.FormTitle;
 
         // Assert
         result.Should().Be("Application submitted");

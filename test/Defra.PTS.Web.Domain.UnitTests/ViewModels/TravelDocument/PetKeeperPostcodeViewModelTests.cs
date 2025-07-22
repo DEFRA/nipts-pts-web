@@ -67,11 +67,8 @@ namespace Defra.PTS.Web.Domain.UnitTests.ViewModels.TravelDocument
         [Fact]
         public void Have_PetKeeperPostCodeDetails_CorrectTitle()
         {
-            // Arrange
-            var model = CreateModel();
-
             // Act
-            var result = model.FormTitle;
+            var result = PetKeeperPostcodeViewModel.FormTitle;
 
             // Assert
             result.Should().Be($"What is your postcode?");
