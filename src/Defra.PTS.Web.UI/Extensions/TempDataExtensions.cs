@@ -135,10 +135,7 @@ public static class TempDataExtensions
 
     public static void SetIsUserSuspended(this ITempDataDictionary tempData, bool isUserSuspended)
     {
-        if (!tempData.ContainsKey(TempDataKey.IsUserSuspended))
-        {
-            tempData.Add(TempDataKey.IsUserSuspended, isUserSuspended);
-        }
+        tempData[TempDataKey.IsUserSuspended] = isUserSuspended;
     }
 
     public static bool GetIsUserSuspended(this ITempDataDictionary tempData)
