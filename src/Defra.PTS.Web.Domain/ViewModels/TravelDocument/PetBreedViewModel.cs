@@ -5,7 +5,7 @@ namespace Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 
 public class PetBreedViewModel : TravelDocumentFormPage
 {
-    public static string FormTitle => $"What breed is your {PetTypeNameLowered}?";
+    public string FormTitle => $"What breed is your {PetTypeNameLowered}?";
 
     public PetSpecies PetSpecies { get; set; }
 

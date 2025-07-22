@@ -5,7 +5,7 @@ namespace Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 
 public class PetColourViewModel : TravelDocumentFormPage
 {
-    public static string FormTitle => $"What is the main colour of your {PetTypeNameLowered}?";
+    public string FormTitle => $"What is the main colour of your {PetTypeNameLowered}?";
 
     public PetSpecies PetSpecies { get; set; }
 
