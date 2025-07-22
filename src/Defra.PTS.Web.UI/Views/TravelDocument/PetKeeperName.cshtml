@@ -11,7 +11,7 @@
 
 
 @{
-    this.SetMetaTitle(Localizer[Model.FormTitle].Value);
+    this.SetMetaTitle(Localizer[PetKeeperNameViewModel.FormTitle].Value);
 }
 
 <div class="govuk-grid-row">
@@ -27,11 +27,11 @@
             <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
 
                 <h1 class="govuk-heading-xl govuk-!-margin-bottom-4" for="Name">
-                        @Localizer[Model.FormTitle]
+                        @Localizer[PetKeeperNameViewModel.FormTitle]
                 </h1>
 
                 @Html.ValidationMessageFor(x => x.Name, string.Empty, new { @class = "govuk-error-message" })
-                @Html.TextBoxFor(x => x.Name, new { @class = "govuk-input", @spellcheck = "false", @autocomplete = "name", aria_label = @Localizer[Model.FormTitle].Value })
+                @Html.TextBoxFor(x => x.Name, new { @class = "govuk-input", @spellcheck = "false", @autocomplete = "name", aria_label = @Localizer[PetKeeperNameViewModel.FormTitle].Value })
             </div>
 
             <div class="govuk-button-group">

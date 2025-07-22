@@ -8,7 +8,7 @@
 @inject IViewLocalizer Localizer
 
 @{
-    this.SetMetaTitle(Model.FormTitle);
+    this.SetMetaTitle(DeclarationViewModel.FormTitle);
     var errorOrder = new string[] { "Postcode", "Phone", "AgreedToAccuracy", "AgreedToPrivacyPolicy", "AgreedToDeclaration" };
     var currentCulture = System.Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
 }
@@ -35,7 +35,7 @@
             <div class="govuk-form-group">
 
                 <h1 class="govuk-heading-xl">
-                    @Localizer[@Model.FormTitle]
+                    @Localizer[@DeclarationViewModel.FormTitle]
                 </h1>
 
                 @await Component.InvokeAsync(nameof(MicrochipInformationCard))

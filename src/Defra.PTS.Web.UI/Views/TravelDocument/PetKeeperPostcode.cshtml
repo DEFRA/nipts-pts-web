@@ -9,7 +9,7 @@
 @inject IViewLocalizer Localizer
 
 @{
-    this.SetMetaTitle(Model.FormTitle);
+    this.SetMetaTitle(PetKeeperPostcodeViewModel.FormTitle);
 }
 
 <div class="govuk-grid-row">
@@ -26,7 +26,7 @@
             <div class="govuk-form-group @(ViewData.ModelState.IsValid ? "" : "govuk-form-group--error")">
 
                 <h1 id="documents" class="govuk-heading-xl govuk-!-margin-bottom-4" for="Postcode">
-                    @Localizer[Model.FormTitle]
+                    @Localizer[PetKeeperPostcodeViewModel.FormTitle]
                 </h1>
 
                 <div id="postcode-hint" class="govuk-hint">
@@ -35,7 +35,7 @@
 
                 <div class="govuk-form-group">
                     @Html.ValidationMessageFor(x => x.Postcode, string.Empty, new { @class = "govuk-error-message" })
-                    @Html.TextBoxFor(x => x.Postcode, new { @class = "govuk-input govuk-input--width-10", @spellcheck = "false", @autocomplete = "postal-code", @aria_describedby = "postcode-hint", aria_label = @Localizer[Model.FormTitle].Value })
+                    @Html.TextBoxFor(x => x.Postcode, new { @class = "govuk-input govuk-input--width-10", @spellcheck = "false", @autocomplete = "postal-code", @aria_describedby = "postcode-hint", aria_label = @Localizer[PetKeeperPostcodeViewModel.FormTitle].Value })
                 </div>
             </div>
 

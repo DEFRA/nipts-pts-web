@@ -8,14 +8,14 @@
 @inject IViewLocalizer Localizer
 
 @{
-    this.SetMetaTitle(Localizer[Model.FormTitle].Value);
+    this.SetMetaTitle(Localizer[PetMicrochipNotAvailableViewModel.FormTitle].Value);
 }
 
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
 
         <h1 class="govuk-heading-xl">
-            @Localizer[Model.FormTitle]
+            @Localizer[PetMicrochipNotAvailableViewModel.FormTitle]
         </h1>
 
         <p class="govuk-body">@Localizer[@"Your pet dog, cat or ferret must be fitted with a microchip before you can apply for a lifelong pet travel document."]</p>
