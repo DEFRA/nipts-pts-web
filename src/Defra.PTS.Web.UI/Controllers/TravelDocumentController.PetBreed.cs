@@ -168,67 +168,96 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
     private async Task AssignBreed(PetBreedViewModel model)
     {
-        List<SelectListItem> breeds = null;
-        breeds = await GetBreedsAsSelectListItems(model.PetSpecies);
+        List<SelectListItem> breeds = await GetBreedsAsSelectListItems(model.PetSpecies);
 
-        if (model.BreedId == 0 || model.BreedId == 99 || model.BreedId == 100)
+        if (IsSpecialBreed(model.BreedId))
         {
-            var normalisedBreed = model.BreedName?.Trim();
-            var intendedBreed = breeds.Find(x => x.Text.Equals(normalisedBreed?.ToLower(), StringComparison.CurrentCultureIgnoreCase));
-
-            if (intendedBreed != null)
-            {
-                model.BreedId = Convert.ToInt32(intendedBreed.Value.ToString());
-                model.BreedName = intendedBreed.Text;
-                model.BreedAdditionalInfo = null;
-            }
-
-            else
-            {
-                if (model.PetSpecies == Domain.Enums.PetSpecies.Dog)
-                {
-                    model.BreedId = 99;
-                    model.BreedAdditionalInfo = model.BreedName;
-                }
-                else if (model.PetSpecies == Domain.Enums.PetSpecies.Cat)
-                {
-                    model.BreedId = 100;
-                    model.BreedAdditionalInfo = model.BreedName;
-                }
-            }
-
-            if (Thread.CurrentThread.CurrentCulture.EnglishName.Contains("Welsh"))
-            {
-                //we need to store them in the database as English values
-                var localisedBreeds = await GetBreedsAsSelectListItems(model.PetSpecies);
-                breeds = await GetBreedsAsSelectListItemsWithoutLocalisation(model.PetSpecies);
-
-                var localisedBreed = localisedBreeds.Find(x => Convert.ToInt32(x.Value.ToString()) == model.BreedId);
-                var unlocalisedBreed = breeds.Find(x => Convert.ToInt32(x.Value.ToString()) == model.BreedId);
-
-                if (model.BreedName == localisedBreed.Text)
-                {
-                    model.BreedName = unlocalisedBreed.Text;
-                }
-            }
+            await HandleSpecialBreed(model, breeds);
         }
         else
         {
-            if (Thread.CurrentThread.CurrentCulture.EnglishName.Contains("Welsh"))
-            {
-                //we need to store them in the database as English values
-                breeds = await GetBreedsAsSelectListItemsWithoutLocalisation(model.PetSpecies);
-            }
-
-            var breed = breeds.Find(x => x.Value == model.BreedId.ToString());
-            model.BreedId = Int32.Parse(breed.Value);
-            model.BreedName = breed.Text;
-            model.BreedAdditionalInfo = null;
+            await HandleRegularBreed(model, breeds);
         }
 
         if (model.BreedName == null)
         {
             ModelState.AddModelError(nameof(model.BreedName), _localizer["Select or enter the breed of your pet"]);
+        }
+    }
+
+    private static bool IsSpecialBreed(int breedId)
+    {
+        return breedId == 0 || breedId == 99 || breedId == 100;
+    }
+
+    private async Task HandleSpecialBreed(PetBreedViewModel model, List<SelectListItem> breeds)
+    {
+        var normalisedBreed = model.BreedName?.Trim();
+        var intendedBreed = breeds.Find(x => x.Text.Equals(normalisedBreed?.ToLower(), StringComparison.CurrentCultureIgnoreCase));
+
+        if (intendedBreed != null)
+        {
+            AssignBreedDetails(model, intendedBreed);
+        }
+        else
+        {
+            AssignDefaultBreed(model);
+        }
+
+        if (IsWelshCulture())
+        {
+            await UpdateBreedNameForWelshCulture(model);
+        }
+    }
+
+    private async Task HandleRegularBreed(PetBreedViewModel model, List<SelectListItem> breeds)
+    {
+        if (IsWelshCulture())
+        {
+            breeds = await GetBreedsAsSelectListItemsWithoutLocalisation(model.PetSpecies);
+        }
+
+        var breed = breeds.Find(x => x.Value == model.BreedId.ToString());
+        AssignBreedDetails(model, breed);
+    }
+
+    private static void AssignBreedDetails(PetBreedViewModel model, SelectListItem breed)
+    {
+        model.BreedId = int.Parse(breed.Value);
+        model.BreedName = breed.Text;
+        model.BreedAdditionalInfo = null;
+    }
+
+    private static void AssignDefaultBreed(PetBreedViewModel model)
+    {
+        if (model.PetSpecies == Domain.Enums.PetSpecies.Dog)
+        {
+            model.BreedId = 99;
+        }
+        else if (model.PetSpecies == Domain.Enums.PetSpecies.Cat)
+        {
+            model.BreedId = 100;
+        }
+
+        model.BreedAdditionalInfo = model.BreedName;
+    }
+
+    private static bool IsWelshCulture()
+    {
+        return Thread.CurrentThread.CurrentCulture.EnglishName.Contains("Welsh");
+    }
+
+    private async Task UpdateBreedNameForWelshCulture(PetBreedViewModel model)
+    {
+        var localisedBreeds = await GetBreedsAsSelectListItems(model.PetSpecies);
+        var unlocalisedBreeds = await GetBreedsAsSelectListItemsWithoutLocalisation(model.PetSpecies);
+
+        var localisedBreed = localisedBreeds.Find(x => int.Parse(x.Value) == model.BreedId);
+        var unlocalisedBreed = unlocalisedBreeds.Find(x => int.Parse(x.Value) == model.BreedId);
+
+        if (model.BreedName == localisedBreed.Text)
+        {
+            model.BreedName = unlocalisedBreed.Text;
         }
     }
 
