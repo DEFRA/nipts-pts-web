@@ -185,7 +185,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         }
     }
 
-    private bool IsSpecialBreed(int breedId)
+    private static bool IsSpecialBreed(int breedId)
     {
         return breedId == 0 || breedId == 99 || breedId == 100;
     }
@@ -221,14 +221,14 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         AssignBreedDetails(model, breed);
     }
 
-    private void AssignBreedDetails(PetBreedViewModel model, SelectListItem breed)
+    private static void AssignBreedDetails(PetBreedViewModel model, SelectListItem breed)
     {
         model.BreedId = int.Parse(breed.Value);
         model.BreedName = breed.Text;
         model.BreedAdditionalInfo = null;
     }
 
-    private void AssignDefaultBreed(PetBreedViewModel model)
+    private static void AssignDefaultBreed(PetBreedViewModel model)
     {
         if (model.PetSpecies == Domain.Enums.PetSpecies.Dog)
         {
@@ -242,7 +242,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         model.BreedAdditionalInfo = model.BreedName;
     }
 
-    private bool IsWelshCulture()
+    private static bool IsWelshCulture()
     {
         return Thread.CurrentThread.CurrentCulture.EnglishName.Contains("Welsh");
     }
