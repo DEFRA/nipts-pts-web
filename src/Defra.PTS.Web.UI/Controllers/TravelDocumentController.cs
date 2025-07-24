@@ -113,7 +113,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                 SaveIsUserSuspendedFormData(response.Applications.Any(x => x.Status == "Suspended"));
 
                 // Pass a flag to the view indicating whether invalid documents exist
-                ViewBag.HasInvalidDocuments = invalidResponse.Applications.Any();
+                ViewBag.HasInvalidDocuments = invalidResponse.Applications.Count > 0;
 
                 return View(response.Applications);
             }
