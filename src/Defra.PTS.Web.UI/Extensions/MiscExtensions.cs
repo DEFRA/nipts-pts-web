@@ -12,7 +12,8 @@ public static class MiscExtensions
     {
         string cssClass = application.Status switch
         {
-            AppConstants.ApplicationStatus.UNSUCCESSFUL or AppConstants.ApplicationStatus.REVOKED => "govuk-tag--red",
+            AppConstants.ApplicationStatus.REVOKED => "govuk-tag--red",
+            AppConstants.ApplicationStatus.UNSUCCESSFUL => "govuk-tag--orange",
             AppConstants.ApplicationStatus.APPROVED => "govuk-tag--green",
             AppConstants.ApplicationStatus.AWAITINGVERIFICATION => "govuk-tag--blue",
             AppConstants.ApplicationStatus.SUSPENDED => "govuk-tag--yellow",

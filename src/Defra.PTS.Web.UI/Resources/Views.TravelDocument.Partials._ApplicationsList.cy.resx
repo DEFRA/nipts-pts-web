@@ -132,7 +132,7 @@
 	<data name="Cancelled" xml:space="preserve">
     <value>Wedi’u canslo</value>
   </data>
-	<data name="Unsuccessful " xml:space="preserve">
+	<data name="Unsuccessful" xml:space="preserve">
     <value>Yn aflwyddiannus</value>
   </data>
 	<data name="Awaiting verification" xml:space="preserve">

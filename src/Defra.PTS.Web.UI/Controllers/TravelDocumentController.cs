@@ -116,6 +116,62 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         }
     }
 
+    [ExcludeFromCodeCoverage]
+    [HttpGet]
+    public async Task<IActionResult> InvalidDocuments()
+    {
+        try
+        {
+            if (HttpContext != null && HttpContext.Session != null)
+            {
+                HttpContext.Session.SetString("SessionActive", "yes");
+            }
+
+            if (HttpContext.Session.TryGetValue("ManagementLinkClicked", out byte[] managementLinkClicked) && System.Text.Encoding.UTF8.GetString(managementLinkClicked) == "true")
+            {
+                return RedirectToAction("CheckIdm2SignOut", "User");
+            }
+
+
+            if (HttpContext.Request.Cookies.TryGetValue(".AspNetCore.Culture", out string language) && language == "c=cy|uic=cy")
+            {
+                Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("cy");
+            }
+
+            var magicWordData = GetMagicWordFormData(true);
+
+            if (_ptsSettings.MagicWordEnabled && magicWordData != null && !magicWordData.HasUserPassedPasswordCheck)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            else
+            {
+                SaveMagicWordFormData(new MagicWordViewModel { HasUserPassedPasswordCheck = true });
+
+                SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);
+
+                await AddOrUpdateUser();
+                await InitializeUserDetails();
+
+                var statuses = new List<string>()
+                {
+                    AppConstants.ApplicationStatus.REVOKED,
+                    AppConstants.ApplicationStatus.UNSUCCESSFUL
+                };
+
+                var userId = CurrentUserId();
+                var response = await _mediator.Send(new GetApplicationsQueryRequest(userId, statuses));
+
+                return View(response.Applications);
+            }
+        }
+        catch (Exception ex)
+        {
+            return HandleException(ex);
+        }
+    }
+
     [HttpPost]
     [ValidateAntiForgeryToken]
     public IActionResult ApplicationDetailRecord(string id, string status)
