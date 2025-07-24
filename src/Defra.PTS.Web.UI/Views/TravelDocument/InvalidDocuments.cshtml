@@ -1,0 +1,31 @@
+@model IEnumerable<Defra.PTS.Web.Application.DTOs.Services.ApplicationSummaryDto>
+@inject Microsoft.Extensions.Configuration.IConfiguration Configuration
+@using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+@using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Localization;
+@inject IViewLocalizer Localizer
+@inject IStringLocalizer<ISharedResource> sharedlocalizer
+
+@{
+    var pageTitle = sharedlocalizer["Invalid Documents"];
+    this.SetMetaTitle(pageTitle);
+    ViewData.SetKeyValue("MainCssClass", "govuk-!-margin-top-6");
+}
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+        <h1 id="documents" class="govuk-heading-xl govuk-!-margin-bottom-4">
+            @pageTitle
+        </h1>
+    </div>
+</div>
+
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-three-quarters">
+
+        <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationsList" model=@Model />
+
+    </div>
+</div>

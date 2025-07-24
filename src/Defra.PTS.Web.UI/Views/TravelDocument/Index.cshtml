@@ -12,6 +12,9 @@
     var pageTitle = sharedlocalizer["Lifelong pet travel documents"];
     this.SetMetaTitle(pageTitle);
     ViewData.SetKeyValue("MainCssClass", "govuk-!-margin-top-6");
+
+    var hasInvalidDocuments = ViewBag.HasInvalidDocuments as bool? ?? false;
+
 }
 
 <div class="govuk-grid-row">
@@ -47,6 +50,12 @@
         }
 
         <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationsList" model=@Model />
+
+        @if (hasInvalidDocuments) {
+            <p class="govuk-body">
+                <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.InvalidDocuments">View invalid documents</a>
+            </p>
+        }
 
     </div>
 </div>

@@ -19,7 +19,7 @@ public class MiscExtensionsTests
 
     [Theory]
     [InlineData(AppConstants.ApplicationStatus.APPROVED, "govuk-tag--green")]
-    [InlineData(AppConstants.ApplicationStatus.UNSUCCESSFUL, "govuk-tag--red")]
+    [InlineData(AppConstants.ApplicationStatus.UNSUCCESSFUL, "govuk-tag--orange")]
     [InlineData(AppConstants.ApplicationStatus.AWAITINGVERIFICATION, "govuk-tag--blue")]
     [InlineData(AppConstants.ApplicationStatus.REVOKED, "govuk-tag--red")]
     [InlineData(AppConstants.ApplicationStatus.SUSPENDED, "govuk-tag--yellow")]

@@ -23,6 +23,8 @@ public static class WebAppConstants
         {
             public const string Index = "/TravelDocument";
 
+            public const string InvalidDocuments = "/TravelDocument/InvalidDocuments";
+
             public const string PetKeeperUserDetails = "/TravelDocument/PetKeeperUserDetails";
             public const string PetKeeperNonGbAddress = "/TravelDocument/PetKeeperNonGbAddress";
             public const string PetKeeperName = "/TravelDocument/PetKeeperName";
