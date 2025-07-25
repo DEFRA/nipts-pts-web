@@ -120,6 +120,9 @@
   <data name="Apply for a document" xml:space="preserve">
     <value>Gwneud cais am ddogfen</value>
   </data>
+  <data name="View invalid documents" xml:space="preserve">
+    <value>Gweld dogfennau annilys</value>
+  </data>
   <data name="The lifelong pet travel document is only for people living in England, Scotland and Wales travelling to Northern Ireland with their dog, cat or ferret." xml:space="preserve">
     <value>Mae'r ddogfen deithio gydol oes i anifail anwes wedi’i bwriadu ar gyfer pobl sy'n byw yng Nghymru, Lloegr a'r Alban sy'n teithio i Ogledd Iwerddon gyda'u ci, eu cath neu eu ffured yn unig.</value>
   </data>
