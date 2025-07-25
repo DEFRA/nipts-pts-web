@@ -4,6 +4,7 @@ using Defra.PTS.Web.Application.Features.TravelDocument.Queries;
 using Defra.PTS.Web.Application.Helpers;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.UI.Constants;
+using Defra.PTS.Web.Application.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics.CodeAnalysis;
@@ -18,8 +19,17 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     {      
         try
         {
-            SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);
+            
             var response = await _mediator.Send(new GetApplicationCertificateQueryRequest(id));
+
+            var isInvalidStatus = response.ApplicationCertificate.Status == AppConstants.ApplicationStatus.REVOKED ||
+                                    response.ApplicationCertificate.Status == AppConstants.ApplicationStatus.UNSUCCESSFUL;
+
+            var backUrl = isInvalidStatus
+                ? WebAppConstants.Pages.TravelDocument.InvalidDocuments
+                : WebAppConstants.Pages.TravelDocument.Index;
+
+            SetBackUrl(backUrl);
 
             var userId = CurrentUserId();
             if (!response.ApplicationCertificate.UserId.Equals(userId))
