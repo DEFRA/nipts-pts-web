@@ -43,7 +43,7 @@ public class MiscExtensionsTests
     [InlineData(AppConstants.ApplicationStatus.APPROVED, WebAppConstants.Pages.TravelDocument.ApplicationCertificate)]
     [InlineData(AppConstants.ApplicationStatus.UNSUCCESSFUL, WebAppConstants.Pages.TravelDocument.ApplicationDetails)]
     [InlineData(AppConstants.ApplicationStatus.AWAITINGVERIFICATION, WebAppConstants.Pages.TravelDocument.ApplicationDetails)]
-    [InlineData(AppConstants.ApplicationStatus.REVOKED, WebAppConstants.Pages.TravelDocument.ApplicationDetails)]
+    [InlineData(AppConstants.ApplicationStatus.REVOKED, WebAppConstants.Pages.TravelDocument.ApplicationCertificate)]
     [InlineData(AppConstants.ApplicationStatus.SUSPENDED, WebAppConstants.Pages.TravelDocument.ApplicationCertificate)]
     [InlineData("Other", WebAppConstants.Pages.TravelDocument.ApplicationDetails)]
     public void StatusBasedDetailsUrlReturnsCorrectUrl(string status, string expectedUrl)

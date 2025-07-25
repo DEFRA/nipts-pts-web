@@ -19,6 +19,8 @@ public class ApplicationDetailsDto
 
     public bool IsSuspended => !string.IsNullOrWhiteSpace(Status) && Status.Equals("Suspended");
 
+    public bool IsRevoked => !string.IsNullOrWhiteSpace(Status) && Status.Equals("Revoked");
+
     public ActionLinksDto ActionLinks { get; set; } = new();
 }
 

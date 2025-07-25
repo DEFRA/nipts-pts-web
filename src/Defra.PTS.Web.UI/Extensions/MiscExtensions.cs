@@ -23,12 +23,14 @@ public static class MiscExtensions
         return cssClass;
     }
 
-    public static string StatusBasedDetailsUrl(this ApplicationSummaryDto application)
+    public static string StatusBasedDetailsUrl(this ApplicationSummaryDto application)// to change, to include cancelled and unsuccessful
     {
         string cssClass = application.Status switch
         {
             AppConstants.ApplicationStatus.APPROVED => $"{WebAppConstants.Pages.TravelDocument.ApplicationCertificate}/{application.ApplicationId}",
             AppConstants.ApplicationStatus.SUSPENDED => $"{WebAppConstants.Pages.TravelDocument.ApplicationCertificate}/{application.ApplicationId}",
+            AppConstants.ApplicationStatus.REVOKED => $"{WebAppConstants.Pages.TravelDocument.ApplicationCertificate}/{application.ApplicationId}",
+            AppConstants.ApplicationStatus.UNSUCCESSFUL => $"{WebAppConstants.Pages.TravelDocument.ApplicationDetails}/{application.ApplicationId}",
             _ => $"{WebAppConstants.Pages.TravelDocument.ApplicationDetails}/{application.ApplicationId}",
         };
 
