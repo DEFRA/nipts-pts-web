@@ -31,9 +31,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             {
                 return RedirectToAction(nameof(ApplicationDetails), new { id });
             }
-            {
-                return RedirectToAction(nameof(ApplicationDetails), new { id });
-            }
             return View(response.ApplicationCertificate);
         }
         catch (Exception ex)
