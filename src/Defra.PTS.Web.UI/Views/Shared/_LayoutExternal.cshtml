@@ -1,0 +1,87 @@
+﻿@using Defra.PTS.Web.UI.Constants;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Localization;
+@inject IStringLocalizer<ISharedResource> sharedlocalizer
+@inject IConfiguration config
+
+
+@{
+    var GTMLink = string.Format("https://www.googletagmanager.com/ns.html?id={0}", config["GoogleTagManager:ContainerId"]);
+}
+
+<!DOCTYPE html>
+<html lang="en" class="govuk-template">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewData[WebAppConstants.ViewKeys.Title] - @WebAppConstants.ServiceName</title>
+   
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
+    <meta name="format-detection" content="telephone=no">
+
+    <meta name="theme-color" content="#0b0c0c">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" sizes="48x48" href="/assets/images/favicon.ico">
+    <link rel="icon" sizes="any" href="/assets/images/favicon.svg" type="image/svg+xml">
+    <link rel="mask-icon" href="/assets/images/govuk-icon-mask.svg" color="#0b0c0c">
+    <link rel="apple-touch-icon" href="/assets/images/govuk-icon-180.png">
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <link rel="stylesheet" href="~/stylesheets/hmrc-frontend-6.33.0.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="~/stylesheets/govuk-frontend.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="~/stylesheets/application.css" type="text/css" media="all">
+    <link rel="stylesheet" href="~/stylesheets/accessible-autocomplete.min.css" type="text/css" media="all">
+    <link rel="stylesheet" href="~/stylesheets/pts.css" type="text/css" media="all">
+
+    <!-- Google Tag Manager -->
+    <script>
+        (function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', '@config["GoogleTagManager:ContainerId"]');</script>
+    <!-- End Google Tag Manager -->
+</head>
+
+<body class="govuk-template__body @ViewData.GetKeyValue("BodyExtraCssClass")">
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe title="googleTagManager" src="@GTMLink" height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
+
+    <script>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
+   <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
+
+    <partial name=@WebAppConstants.PartialViews.Header />
+
+    <div class="govuk-width-container ">
+
+        <partial name=@WebAppConstants.PartialViews.BetaPanel />
+        <partial name=@WebAppConstants.PartialViews.LanguageSelect />
+
+        <partial name=@WebAppConstants.PartialViews.BackLink />
+
+        <main class="govuk-main-wrapper pet-main @ViewData["MainCssClass"]" id="main-content" role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+        <partial name=@WebAppConstants.PartialViews.Footer />
+
+    <script type="module" src="~/javascripts/hmrc-frontend-6.33.0.min.js"></script>
+    <script type="module" src="~/javascripts/govuk-frontend.min.js"></script>
+    <script type="module">
+        import { initAll } from '/javascripts/govuk-frontend.min.js'
+        initAll()
+    </script>
+    <script src="~/javascripts/jquery.min.js"></script>
+    <script src="~/javascripts/accessible-autocomplete.min.js"></script>
+    <script src="~/javascripts/pts.js"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
