@@ -202,11 +202,6 @@ public class SessionTimeoutMiddleware(RequestDelegate next)
                 return;
             }
 
-            if (context.Session.GetString("SessionActive") == null)
-            {
-                context.Response.Redirect("/Signed-out");
-                return;
-            }
         }
         // If session is active, continue to the next middleware in the pipeline
         await next(context);
