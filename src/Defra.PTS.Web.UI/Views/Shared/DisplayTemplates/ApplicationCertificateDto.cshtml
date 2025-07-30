@@ -5,6 +5,8 @@
 
 @{
     var pageTitle = Localizer["Lifelong pet travel document and declaration"].Value;
+
+    var isInvalidStatus = Model.Status == "Suspended" || Model.Status == "Revoked" || Model.Status == "Cancelled";
 }
 
 <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_PreLoadAssets" />
@@ -40,7 +42,7 @@
 
 <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_Issued" model=Model.CertificateIssued />
 
-@if (Model.Status != "Suspended" && Model.Status != "Revoked" && Model.Status != "Cancelled" )
+@if (!isInvalidStatus)
 {
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-three-quarters">
@@ -63,7 +65,7 @@
 
 <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_Declaration" model=Model.Declaration />
 
-@if (Model.Status != "Suspended" && Model.Status != "Revoked" && Model.Status != "Cancelled")
+@if (!isInvalidStatus)
 {
         <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_ActionLinks" model=Model.ActionLinks />
 }
