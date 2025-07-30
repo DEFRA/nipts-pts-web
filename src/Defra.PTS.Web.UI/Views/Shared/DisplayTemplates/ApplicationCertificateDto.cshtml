@@ -40,7 +40,7 @@
 
 <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_Issued" model=Model.CertificateIssued />
 
-@if (Model.Status != "Suspended" || Model.Status != "Revoked" || Model.Status != "Cancelled" )
+@if (Model.Status != "Suspended" && Model.Status != "Revoked" && Model.Status != "Cancelled" )
 {
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-three-quarters">
