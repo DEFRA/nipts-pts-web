@@ -63,7 +63,7 @@
 
 <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_Declaration" model=Model.Declaration />
 
-@if (Model.Status != "Suspended")
+@if (Model.Status != "Suspended" && Model.Status != "Revoked" && Model.Status != "Cancelled")
 {
         <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_ActionLinks" model=Model.ActionLinks />
 }
