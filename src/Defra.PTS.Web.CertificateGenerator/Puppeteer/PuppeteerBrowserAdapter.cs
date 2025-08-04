@@ -19,7 +19,7 @@ public class PuppeteerBrowserAdapter : ICustomBrowser
     private readonly IOptions<ConnectOptions> options;
     private readonly IConfiguration configuration;
     private readonly ILogger<PuppeteerBrowserAdapter> _logger;
-    private readonly ILogger<PuppeteerPageAdapter> _pageLogger;
+    private readonly ILogger<PuppeteerPageAdapter> _log;
 
 
     public PuppeteerBrowserAdapter(
@@ -27,7 +27,7 @@ public class PuppeteerBrowserAdapter : ICustomBrowser
         IOptions<ConnectOptions> options,
         IConfiguration configuration,
         ILogger<PuppeteerBrowserAdapter> logger,
-        ILogger<PuppeteerPageAdapter> pageLogger)
+        ILogger<PuppeteerPageAdapter> log)
     {
         ArgumentNullException.ThrowIfNull(launcher);
         ArgumentNullException.ThrowIfNull(options);
@@ -35,7 +35,7 @@ public class PuppeteerBrowserAdapter : ICustomBrowser
         this.options = options;
         this.configuration = configuration;
         _logger = logger;
-        _pageLogger = pageLogger;
+        _log = log;
     }
 
     public async Task<IPage> NewPageAsync()
@@ -47,7 +47,7 @@ public class PuppeteerBrowserAdapter : ICustomBrowser
         {
             var page = await browser.NewPageAsync();
             _logger.LogInformation("Attempting to invoke browser.NewPageAsync() in PuppeteerBrowserAdapter.NewPageAsync with options: {Options}", opt);
-            return new PuppeteerPageAdapter(browser, page, _pageLogger);
+            return new PuppeteerPageAdapter(browser, page, _log);
         }
         catch (TargetClosedException ex)
         {
