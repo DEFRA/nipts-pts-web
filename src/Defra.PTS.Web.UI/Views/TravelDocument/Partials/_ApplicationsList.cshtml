@@ -105,30 +105,6 @@
 </style>
 
 <script>
-    function handleTableScroll() {
-        var container = document.querySelector('.table-responsive-wrapper');
-        if (!container) return;
-
-        if (window.innerWidth >= 768) {
-            container.classList.add('hide-scrollbar');
-            container.style.overflowX = 'hidden';
-        } else {
-            container.classList.remove('hide-scrollbar');
-            container.style.overflowX = 'auto';
-
-            container.style.webkitTransform = 'translateZ(0)';
-        }
-    }
-
-
-    handleTableScroll();
-
-
-    let timeout;
-    window.addEventListener('resize', function () {
-        clearTimeout(timeout);
-        timeout = setTimeout(handleTableScroll, 250);
-    });
 
 
     if ('ontouchstart' in window) {
