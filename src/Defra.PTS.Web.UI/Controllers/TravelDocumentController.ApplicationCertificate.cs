@@ -58,19 +58,21 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             var userId = CurrentUserId();
 
             _logger.LogInformation("DownloadCertificatePdf called with id: {Id}, referenceNumber: {ReferenceNumber}, userId: {UserId}", id, referenceNumber, userId);
-
+            _logger.LogInformation("attempting to invoke _mediator.Send with GenerateCertificatePdfRequest, id: {Id}, referenceNumber: {ReferenceNumber}, userId: {UserId}", id, referenceNumber, userId);
             var response = await _mediator.Send(new GenerateCertificatePdfRequest(id, userId));
             if (response == null)
             {
-                _logger.LogWarning("PDF generation failed for id: {Id}, referenceNumber: {ReferenceNumber}, userId: {UserId}", id, referenceNumber, userId);
+                _logger.LogWarning("Response from _mediator.send was null, PDF generation failed for id: {Id}, referenceNumber: {ReferenceNumber}, userId: {UserId}", id, referenceNumber, userId);
                 return new NotFoundObjectResult("Unable to download the PDF");
             }
 
+            _logger.LogInformation("attempting to invoke ApplicationHelper.BuildPdfDownloadFilename {referenceNumber}", referenceNumber);
             var fileName = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber);
             var fileTitle = "Pet-Travel-Document-" + referenceNumber + ".pdf";
 
             _logger.LogInformation("PDF generated successfully for id: {Id}, referenceNumber: {ReferenceNumber}, fileName: {FileName}", id, referenceNumber, fileName);
 
+            _logger.LogInformation("Attempting to invoke SetFileTitle for download: {FileTitle}", fileTitle);
             return await SetFileTitle(response, fileName, fileTitle);
         }
         catch (Exception ex)
