@@ -66,7 +66,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                 return new NotFoundObjectResult("Unable to download the PDF");
             }
 
-            _logger.LogInformation("attempting to invoke ApplicationHelper.BuildPdfDownloadFilename {referenceNumber}", referenceNumber);
+            _logger.LogInformation("attempting to invoke ApplicationHelper.BuildPdfDownloadFilename {ReferenceNumber}", referenceNumber);
             var fileName = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber);
             var fileTitle = "Pet-Travel-Document-" + referenceNumber + ".pdf";
 
