@@ -145,7 +145,14 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             var userId = CurrentUserId();
             var response = await _mediator.Send(new GetApplicationsQueryRequest(userId, statuses));
 
-            return View(response.Applications);
+            var sortedApplications = response.Applications // Sort by DateOfApplication or DocumentIssueDate, whichever is the latter
+                .OrderByDescending(x => 
+                    new[] { x.DateOfApplication, x.DocumentIssueDate }
+                        .Max(d => d ?? DateTime.MinValue)
+                )
+                .ToList();
+
+            return View(sortedApplications);
         }
         catch (Exception ex)
         {
