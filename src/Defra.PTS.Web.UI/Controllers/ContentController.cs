@@ -24,21 +24,20 @@ public class ContentController : BaseController
         _googleTagManager = googleTagManager;
     }
 
-    public IActionResult Help()
+    public IActionResult Help() => RenderHistoryContent();
+
+
+    public IActionResult AccessibilityStatement() => RenderHistoryContent();
+
+
+    private IActionResult RenderHistoryContent()
     {
-        //Help page
+        // shared logic
         SetBackUrl(WebAppConstants.HistoryBack);
 
         return View();
     }
 
-    public IActionResult AccessibilityStatement()
-    {
-        //Accessibility Statement Page
-        SetBackUrl(WebAppConstants.HistoryBack);
-
-        return View();
-    }
 
     [HttpGet]
     public IActionResult Cookies(bool saved = false)
