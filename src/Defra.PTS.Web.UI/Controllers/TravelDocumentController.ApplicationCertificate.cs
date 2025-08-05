@@ -68,7 +68,7 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             var fileName = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber);
             var fileTitle = "Pet-Travel-Document-" + referenceNumber + ".pdf";
 
-            _logger.LogInformation("PDF generated successfully for id: {Id}, referenceNumber: {ReferenceNumber}, fileName: {FileName}. Attempting to invoke SetFileTitle for download: {FileTitle}", fileTitle, id, referenceNumber, fileName);
+            _logger.LogInformation("PDF generated successfully for id: {Id}, referenceNumber: {ReferenceNumber}, fileName: {FileName}. Attempting to invoke SetFileTitle for download: {FileTitle}", id, referenceNumber, fileName, fileTitle);
             return await SetFileTitle(response, fileName, fileTitle);
         }
         catch (Exception ex)
