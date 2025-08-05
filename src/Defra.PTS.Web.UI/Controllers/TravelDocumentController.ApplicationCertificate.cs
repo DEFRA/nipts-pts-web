@@ -57,19 +57,25 @@ public partial class TravelDocumentController : BaseTravelDocumentController
         {
             var userId = CurrentUserId();
 
+            _logger.LogInformation("DownloadCertificatePdf called with id: {Id}, referenceNumber: {ReferenceNumber}, userId: {UserId}", id, referenceNumber, userId);
+
             var response = await _mediator.Send(new GenerateCertificatePdfRequest(id, userId));
             if (response == null)
             {
+                _logger.LogWarning("PDF generation failed for id: {Id}, referenceNumber: {ReferenceNumber}, userId: {UserId}", id, referenceNumber, userId);
                 return new NotFoundObjectResult("Unable to download the PDF");
             }
 
             var fileName = ApplicationHelper.BuildPdfDownloadFilename(referenceNumber);
             var fileTitle = "Pet-Travel-Document-" + referenceNumber + ".pdf";
 
+            _logger.LogInformation("PDF generated successfully for id: {Id}, referenceNumber: {ReferenceNumber}, fileName: {FileName}", id, referenceNumber, fileName);
+
             return await SetFileTitle(response, fileName, fileTitle);
         }
         catch (Exception ex)
         {
+            _logger.LogError(ex, "Exception in DownloadCertificatePdf for id: {Id}, referenceNumber: {ReferenceNumber}, userId: {UserId}", id, referenceNumber, CurrentUserId());
             return HandleException(ex);
         }
     }
