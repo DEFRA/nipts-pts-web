@@ -54,6 +54,10 @@ html, body {
     padding-bottom: 40px !important;
 }
 
+.govuk-template {
+    background-color: #f3f2f1 !important;
+}
+
 .govuk-template__body {
     background-color: #ffffff !important;
 }
@@ -192,6 +196,10 @@ html, body {
 @media print {
     .govuk-!-display-none-print {
         display: none !important;
+    }
+
+    .govuk-template {
+        background-color: white !important;
     }
 
     @page {
