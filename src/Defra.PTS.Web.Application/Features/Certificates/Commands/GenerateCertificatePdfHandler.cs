@@ -35,8 +35,12 @@ public class GenerateCertificatePdfHandler : IRequestHandler<GenerateCertificate
                 ApplicationCertificate = await _applicationService.GetApplicationCertificate(request.ApplicationId),
             };
 
-            if (!response.ApplicationCertificate.UserId.Equals(request.UserId))
+            var responseUserId = response.ApplicationCertificate?.UserId;
+            var requestUserId = request.UserId;
+
+            if (!responseUserId.Equals(requestUserId))
             {
+                _logger.LogError("GenerateCertificatePdfHandler: User ID mismatch. Request UserId: {RequestUserId}, Response UserId: {ResponseUserId}, returning null", requestUserId, responseUserId);
                 return null;
             }
 
