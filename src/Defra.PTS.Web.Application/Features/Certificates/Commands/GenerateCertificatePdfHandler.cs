@@ -52,15 +52,15 @@ public class GenerateCertificatePdfHandler : IRequestHandler<GenerateCertificate
             };
 
             var certificateResult = await _certificateGenerator
-                .GenerateAsync(model, CancellationToken.None)
+                .GenerateAsync(model, CancellationToken.None) // something going on here
                 .ConfigureAwait(false);
 
             return certificateResult;
         }
         catch (Exception ex)
-        {
+        {// hapening here
             _logger.LogError(ex, "GenerateCertificatePdfHandler: Unable to generate application PDF for ID {0}", request?.ApplicationId);
-            return null;
+            return null; // returning null here
         }
                     
     }
