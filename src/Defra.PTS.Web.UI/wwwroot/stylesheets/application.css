@@ -8485,7 +8485,6 @@ time {
   width: auto;
 }
 .pet-declaration-print .pet-declaration-row-qrcode .govuk-grid-column-three-quarters {
-  display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: stretch;
@@ -8516,7 +8515,6 @@ time {
 }
 .pet-declaration-print #document-issued-card {
   flex-basis: auto;
-  min-width: 380px;
   align-self: stretch;
 }
 
