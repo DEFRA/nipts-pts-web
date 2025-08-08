@@ -2,7 +2,7 @@
 
 public class PetKeeperPhoneViewModel : TravelDocumentFormPage
 {
-    public string FormTitle => $"What is your phone number?";
+    public static string FormTitle => $"What is your phone number?";
 
     public string Phone { get; set; }    
 

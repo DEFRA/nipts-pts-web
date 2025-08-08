@@ -185,29 +185,22 @@ public class SessionTimeoutMiddleware(RequestDelegate next)
 
     public async Task InvokeAsync(HttpContext context)
     {
-        if (context.Session.IsAvailable)
-        {
-            // Check if the request is for a static file or for the timeout page to avoid redirection loops
-            if (context.Request.Path.StartsWithSegments("/Home/ApplicationTimeout") ||
-                context.Request.Path.Value == "/" ||
-                context.Request.Path.Value == "/TravelDocument" ||
-                context.Request.Path.Value == "/signin-oidc" ||
-                context.Request.Path.Value == "//health" ||
-                context.Request.Path.StartsWithSegments("/css") ||
-                context.Request.Path.StartsWithSegments("/js") ||
-                context.Request.Path.StartsWithSegments("/images"))
-            {
-                GetCultureRequest(context);
-                await next(context);
-                return;
-            }
 
-            if (context.Session.GetString("SessionActive") == null)
-            {
-                context.Response.Redirect("/Signed-out");
-                return;
-            }
+        // Check if the request is for a static file or for the timeout page to avoid redirection loops
+        if (context.Session.IsAvailable && (context.Request.Path.StartsWithSegments("/Home/ApplicationTimeout") ||
+            context.Request.Path.Value == "/" ||
+            context.Request.Path.Value == "/TravelDocument" ||
+            context.Request.Path.Value == "/signin-oidc" ||
+            context.Request.Path.Value == "//health" ||
+            context.Request.Path.StartsWithSegments("/css") ||
+            context.Request.Path.StartsWithSegments("/js") ||
+            context.Request.Path.StartsWithSegments("/images")))
+        {
+            GetCultureRequest(context);
+            await next(context);
+            return;
         }
+
         // If session is active, continue to the next middleware in the pipeline
         await next(context);
     }

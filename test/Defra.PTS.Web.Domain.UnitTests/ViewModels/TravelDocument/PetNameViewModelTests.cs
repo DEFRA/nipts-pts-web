@@ -61,11 +61,8 @@ public class PetNameViewModelTests
     [Fact]
     public void HaveCorrectTitle()
     {
-        // Arrange
-        var model = CreateModel();
-
         // Act
-        var result = model.FormTitle;
+        var result = PetNameViewModel.FormTitle;
 
         // Assert
         result.Should().Be($"What is your pet's name?");

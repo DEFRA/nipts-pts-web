@@ -1,5 +1,6 @@
 ﻿using Defra.PTS.Web.CertificateGenerator.Services;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using PuppeteerSharp;
 using System;
@@ -17,15 +18,24 @@ public class PuppeteerBrowserAdapter : ICustomBrowser
     private readonly Launcher launcher;
     private readonly IOptions<ConnectOptions> options;
     private readonly IConfiguration configuration;
+    private readonly ILogger<PuppeteerBrowserAdapter> _logger;
+    private readonly ILogger<PuppeteerPageAdapter> _log;
 
 
-    public PuppeteerBrowserAdapter(Launcher launcher, IOptions<ConnectOptions> options, IConfiguration configuration)
+    public PuppeteerBrowserAdapter(
+        Launcher launcher,
+        IOptions<ConnectOptions> options,
+        IConfiguration configuration,
+        ILogger<PuppeteerBrowserAdapter> logger,
+        ILogger<PuppeteerPageAdapter> log)
     {
         ArgumentNullException.ThrowIfNull(launcher);
         ArgumentNullException.ThrowIfNull(options);
         this.launcher = launcher;
         this.options = options;
         this.configuration = configuration;
+        _logger = logger;
+        _log = log;
     }
 
     public async Task<IPage> NewPageAsync()
@@ -34,15 +44,24 @@ public class PuppeteerBrowserAdapter : ICustomBrowser
         await GetContainerIp(opt);
         var browser = await launcher.ConnectAsync(opt);
         try
-        {          
-            var page = await browser.NewPageAsync();
-            return new PuppeteerPageAdapter(browser, page);
-        }
-        catch
         {
-            await browser.DisposeAsync();
-            throw;
+            var page = await browser.NewPageAsync();
+            _logger.LogInformation("Attempting to invoke browser.NewPageAsync() in PuppeteerBrowserAdapter.NewPageAsync with options: {Options}", opt);
+            return new PuppeteerPageAdapter(browser, page, _log);
         }
+        catch (TargetClosedException ex)
+        {
+            _logger.LogError(ex, "TargetClosedException occurred in PuppeteerBrowserAdapter.NewPageAsync, options value: {Options}", opt);
+            await browser.DisposeAsync();
+            throw new TargetClosedException($"TargetClosedException in PuppeteerBrowserAdapter.NewPageAsync with options: {opt}", ex);
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "An exception occurred in PuppeteerBrowserAdapter.NewPageAsync, invoking browser.DisposeAsync, options value: {Options}", opt);
+            await browser.DisposeAsync();
+            throw new InvalidOperationException($"An exception occurred in PuppeteerBrowserAdapter.NewPageAsync with options: {opt}", ex);
+        }
+        
     }
 
     private async Task GetContainerIp(ConnectOptions opt)

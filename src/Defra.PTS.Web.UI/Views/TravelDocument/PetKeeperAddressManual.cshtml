@@ -13,8 +13,8 @@
 @inject IStringLocalizer<ISharedResource> sharedlocalizer
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = (Localizer[Model.FormTitle].Value), LabelFor = "AddressLineOne" };
-    this.SetMetaTitle(Localizer[Model.FormTitle].Value);
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = (Localizer[PetKeeperAddressManualViewModel.FormTitle].Value), LabelFor = "AddressLineOne" };
+    this.SetMetaTitle(Localizer[PetKeeperAddressManualViewModel.FormTitle].Value);
     var errorOrder = new string[] { "AddressLineOne", "AddressLineTwo", "TownOrCity", "County", "Postcode" };
 }
 

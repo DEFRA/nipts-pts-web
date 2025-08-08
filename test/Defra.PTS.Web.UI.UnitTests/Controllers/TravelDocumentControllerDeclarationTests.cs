@@ -302,6 +302,79 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             Assert.AreEqual(nameof(TravelDocumentController.Acknowledgement), result.ActionName);
         }
 
+        [Test]
+        public void Declaration_Post_Throws_Error_WhenFormIsNotSubmittedModelStateIsvalidWithoutValidationError()
+        {
+            // Arrange
+            var expectedMessage = "Error Unexpected";
+
+            _mockMediator.Setup(x => x.Send(It.IsAny<CreateTravelDocumentRequest>(), CancellationToken.None))
+                .ThrowsAsync(new Exception(expectedMessage));
+                 
+            var tempDatamodel = new TravelDocumentViewModel
+            {
+                RequestId = Guid.NewGuid(),
+                IsApplicationInProgress = true,
+                PetKeeperUserDetails = new PetKeeperUserDetailsViewModel() { IsCompleted = true },
+                PetMicrochip = new PetMicrochipViewModel() { IsCompleted = true },
+                PetMicrochipDate = new PetMicrochipDateViewModel() { IsCompleted = true },
+                PetSpecies = new PetSpeciesViewModel() { IsCompleted = true },
+                PetName = new PetNameViewModel() { IsCompleted = true },
+                PetGender = new PetGenderViewModel() { IsCompleted = true },
+                PetAge = new PetAgeViewModel() { IsCompleted = true },
+                PetColour = new PetColourViewModel() { IsCompleted = true },
+                PetFeature = new PetFeatureViewModel() { IsCompleted = true },
+                IsSubmitted = false,
+            };
+
+            var validationResult = new ValidationResult();
+            _mockValidationService.Setup(a => a.ValidateTravelDocument(It.IsAny<TravelDocumentViewModel>())).Returns(validationResult);
+
+            //Set up Temp Data
+            var tempData = TempData();
+            tempData.SetTravelDocument(tempDatamodel);
+            Guid submissionId = Guid.NewGuid();
+            tempData.AddToFormSubmissionQueue(submissionId);
+            _travelDocumentController.TempData = tempData;
+
+            //Set up Http Context of Moq User
+            var mockIdentity = new Mock<ClaimsIdentity>();
+            var identities = new List<ClaimsIdentity>();
+
+            // Create claims
+            var claims = new List<Claim>
+            {
+                new("contactId", "123"),
+                new("uniqueReference", "abc"),
+                new("firstName", "John"),
+                new("lastName", "Doe"),
+                new(ClaimTypes.Email, "john.doe@example.com"),
+                new(ClaimTypes.Role, "Admin")
+            };
+            identities.Add(mockIdentity.Object);
+
+            // Setup ClaimsIdentity
+            mockIdentity.SetupGet(i => i.Claims).Returns(claims);
+            ClaimsPrincipal user = new(new ClaimsIdentity(claims));
+
+            var httpContext = new DefaultHttpContext();
+            httpContext.Request.Scheme = "http";
+            httpContext.Request.Host = new HostString("example.com");
+            httpContext.User = user;
+
+            _travelDocumentController.ControllerContext.HttpContext = httpContext;
+
+
+            var model = new DeclarationViewModel();
+
+
+            // Act
+            var ex = Assert.ThrowsAsync<Exception>(async () => await _travelDocumentController.Declaration(model));
+
+            Assert.NotNull(ex);
+            Assert.AreEqual(expectedMessage, ex.Message);         
+        }
+
         private static ITempDataDictionary TempData()
         {
             var tempDataProvider = Mock.Of<ITempDataProvider>();

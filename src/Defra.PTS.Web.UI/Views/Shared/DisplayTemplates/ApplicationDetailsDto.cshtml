@@ -12,10 +12,22 @@
 
     var statusCssClass = Model.Status switch
     {
-        AppConstants.ApplicationStatus.UNSUCCESSFUL or AppConstants.ApplicationStatus.REVOKED => "govuk-tag--red",
+        AppConstants.ApplicationStatus.REVOKED => "govuk-tag--red",
+        AppConstants.ApplicationStatus.UNSUCCESSFUL => "govuk-tag--orange",
         AppConstants.ApplicationStatus.APPROVED => "govuk-tag--green",
         AppConstants.ApplicationStatus.AWAITINGVERIFICATION => "govuk-tag--blue",
         _ => "govuk-tag--red",
+    };
+
+    var isInvalid = Model.Status == AppConstants.ApplicationStatus.REVOKED ||
+                    Model.Status == AppConstants.ApplicationStatus.UNSUCCESSFUL;
+
+    var StatusReadableName = Model.Status switch
+    {
+        AppConstants.ApplicationStatus.REVOKED => @Localizer["Cancelled"],
+        AppConstants.ApplicationStatus.UNSUCCESSFUL => @Localizer["Unsuccessful"],
+        AppConstants.ApplicationStatus.APPROVED => @Localizer["Approved"],
+        _ => @Localizer["Pending"],
     };
 }
 
@@ -63,9 +75,7 @@
                         </dt>
                         <dd class="govuk-summary-list__value">
                             <strong class="govuk-tag @statusCssClass">
-                                @(Model.Status == @AppConstants.ApplicationStatus.APPROVED
-                                    ? @Localizer["Approved"]
-                                    : @Localizer["Pending"])
+                                @(StatusReadableName)
                             </strong>
                         </dd>
                     </div>
@@ -106,7 +116,10 @@
 
 <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_Declaration" model=Model.Declaration />
 
-<partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_ActionLinks" model=Model.ActionLinks />
+@if (!isInvalid)
+{
+    <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_ActionLinks" model=Model.ActionLinks />
+}
 
 <style>
     .pet-declaration-row-qrcode {
@@ -160,6 +173,12 @@
         font-size: 11px;
     }
 
+    #document-issued-card .govuk-summary-list {
+        display: table !important;
+        width: 100% !important;
+    }
+
+
     @@media print {
         .pet-declaration-qrcode {
             display: block;
@@ -167,6 +186,14 @@
 
         .pet-declaration-status-row {
             display: none !important;
+        }
+
+        .pet-declaration-print #document-issued-card .govuk-summary-list__key {
+        width: 38% !important;
+
+        }
+        .pet-declaration-print #document-issued-card .govuk-summary-list__value {
+            width: 62% !important;
         }
     }
 </style>

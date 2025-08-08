@@ -69,11 +69,8 @@ namespace Defra.PTS.Web.Domain.UnitTests.ViewModels.TravelDocument
         [Fact]
         public void HaveCorrectTitle()
         {
-            // Arrange
-            var model = CreateModel();
-
             // Act
-            var result = model.FormTitle;
+            var result = PetMicrochipDateViewModel.FormTitle;
 
             // Assert
             result.Should().Be($"When was your pet microchipped or last scanned?");

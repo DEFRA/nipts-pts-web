@@ -12,9 +12,9 @@
         <table class="govuk-table">
             <thead class="govuk-table__head">
                 <tr class="govuk-table__row">
-                    <th scope="col" class="govuk-table__header govuk-!-width-one-half">@Localizer["Pet name"]</th>
-                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter">@Localizer["Status"]</th>
-                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter"><span class="govuk-visually-hidden">@Localizer["View"]</span></th>
+                    <th scope="col" class="govuk-table__header govuk-!-width-one-half pet-name-column">@Localizer["Pet name"]</th>
+                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter status-column">@Localizer["Status"]</th>
+                    <th scope="col" class="govuk-table__header govuk-!-width-one-quarter actions-column"><span class="govuk-visually-hidden">@Localizer["View"]</span></th>
                 </tr>
             </thead>
             <tbody class="govuk-table__body">
@@ -25,18 +25,25 @@
                     var detailsUrl = application.StatusBasedDetailsUrl();
 
                     <tr class="govuk-table__row">
-                        <th scope="row" class="govuk-table__header" data-label="@Localizer["Pet name"]">
+                        <th scope="row" class="govuk-table__header pet-name-column" data-label="@Localizer["Pet name"]">
                             @application.PetName
                         </th>
 
-                        <td class="govuk-table__cell" data-label="@Localizer["Status"]">
+                        <td class="govuk-table__cell status-column" data-label="@Localizer["Status"]">
                             <strong class="govuk-tag @statusCssClass">
-                                @(application.Status == @AppConstants.ApplicationStatus.APPROVED
-                                    ? @Localizer["Approved"]
-                                    : @Localizer["Pending"])
+                            @(
+                                application.Status switch
+                                {
+                                    AppConstants.ApplicationStatus.APPROVED => Localizer["Approved"],
+                                    AppConstants.ApplicationStatus.SUSPENDED => Localizer["Suspended"],
+                                    AppConstants.ApplicationStatus.REVOKED => Localizer["Cancelled"],
+                                    AppConstants.ApplicationStatus.UNSUCCESSFUL => Localizer["Unsuccessful"],
+                                    _ => Localizer["Pending"]
+                                }
+                            )
                             </strong>
                         </td>
-                        <td class="govuk-table_cell govuk-table_cell--numeric" data-label="@Localizer["Actions"]">
+                        <td class="govuk-table_cell govuk-table_cell--numeric actions-column" data-label="@Localizer["Actions"]">
                             <ul class="govuk-summary-list__actions-list">
 
                                 <li class="govuk-summary-list__actions-list-item">
@@ -54,31 +61,50 @@
     </div>
 }
 
+<style>
+.table-responsive-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+ 
+.table-responsive-wrapper .govuk-table {
+    table-layout: fixed;
+    width: 100%;
+    min-width: 700px;
+}
+ 
+.table-responsive-wrapper .govuk-table__header,
+.table-responsive-wrapper .govuk-table__cell {
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+ 
+/* Explicit column widths */
+.table-responsive-wrapper .govuk-table__header:nth-child(1),
+.table-responsive-wrapper .govuk-table__cell[data-label="@Localizer["Pet name"]"] {
+    width: 40%;
+}
+.table-responsive-wrapper .govuk-table__header:nth-child(2),
+.table-responsive-wrapper .govuk-table__cell[data-label="@Localizer["Status"]"] {
+    width: 32%;
+}
+.table-responsive-wrapper .govuk-table__header:nth-child(3),
+.table-responsive-wrapper .govuk-table__cell[data-label="@Localizer["Actions"]"] {
+    width: 28%;
+}
+ 
+/* Tag: single line, no wrap, no bleed */
+.govuk-tag {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: inline-block;
+    max-width: 100%;
+    vertical-align: middle;
+}
+</style>
+
 <script>
-    function handleTableScroll() {
-        var container = document.querySelector('.table-responsive-wrapper');
-        if (!container) return;
-
-        if (window.innerWidth >= 768) {
-            container.classList.add('hide-scrollbar');
-            container.style.overflowX = 'hidden';
-        } else {
-            container.classList.remove('hide-scrollbar');
-            container.style.overflowX = 'auto';
-
-            container.style.webkitTransform = 'translateZ(0)';
-        }
-    }
-
-
-    handleTableScroll();
-
-
-    let timeout;
-    window.addEventListener('resize', function () {
-        clearTimeout(timeout);
-        timeout = setTimeout(handleTableScroll, 250);
-    });
 
 
     if ('ontouchstart' in window) {

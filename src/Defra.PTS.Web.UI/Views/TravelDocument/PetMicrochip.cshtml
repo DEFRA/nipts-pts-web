@@ -12,8 +12,8 @@
 @inject IViewLocalizer Localizer
 
 @{
-    var fieldsetLegend = new FieldsetLegendViewModel { Label = @Localizer[Model.FormTitle].Value, LabelFor = "Yes" };
-    this.SetMetaTitle(@Localizer[Model.FormTitle].Value);
+    var fieldsetLegend = new FieldsetLegendViewModel { Label = @Localizer[PetMicrochipViewModel.FormTitle].Value, LabelFor = "Yes" };
+    this.SetMetaTitle(@Localizer[PetMicrochipViewModel.FormTitle].Value);
 }
 
 <div class="govuk-grid-row">

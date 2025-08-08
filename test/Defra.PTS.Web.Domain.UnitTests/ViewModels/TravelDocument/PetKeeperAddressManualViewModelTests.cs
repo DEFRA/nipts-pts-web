@@ -65,11 +65,8 @@ public class PetKeeperAddressManualViewModelTests
     [Fact]
     public void HaveCorrectTitle()
     {
-        // Arrange
-        var model = CreateModel();
-
         // Act
-        var result = model.FormTitle;
+        var result = PetKeeperAddressManualViewModel.FormTitle;
 
         // Assert
         result.Should().Be($"What is your address?");

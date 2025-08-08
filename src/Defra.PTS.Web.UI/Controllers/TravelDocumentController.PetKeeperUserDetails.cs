@@ -22,6 +22,11 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             return RedirectToAction(nameof(Index));
         }
 
+        if (GetIsUserSuspendedFormData())
+        {
+            return RedirectToAction(nameof(Index));
+        }
+
         var formData = GetFormData(createIfNull: true);
 
         SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);        

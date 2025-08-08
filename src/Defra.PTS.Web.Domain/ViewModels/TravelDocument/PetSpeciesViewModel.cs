@@ -4,7 +4,7 @@ namespace Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 
 public class PetSpeciesViewModel : TravelDocumentFormPage
 {
-    public string FormTitle => $"Is your pet a dog, cat or ferret?";
+    public static string FormTitle => $"Is your pet a dog, cat or ferret?";
 
     public PetSpecies PetSpecies { get; set; }
     public PetSpecies PreviousSelectedSpecies { get; set; }

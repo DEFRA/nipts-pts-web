@@ -100,7 +100,10 @@
         @if(!onPasswordPage)
         {
             <partial name=@WebAppConstants.PartialViews.BetaPanel />
-            <partial name=@WebAppConstants.PartialViews.Navigation />
+             @if (authenticated)
+             {
+                <partial name=@WebAppConstants.PartialViews.Navigation />
+             }
             <partial name=@WebAppConstants.PartialViews.LanguageSelect />
         }        
 

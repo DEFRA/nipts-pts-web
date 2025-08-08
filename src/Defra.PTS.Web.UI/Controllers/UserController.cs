@@ -73,6 +73,7 @@ public class UserController : BaseController
         TempData.RemoveTravelDocument();
         TempData.ClearFormSubmissionQueue();
         TempData.RemoveApplicationReference();
+        TempData.RemoveIsUserSuspended();
         return Redirect(adB2cSection.SignedOutCallbackPath);
     }
 

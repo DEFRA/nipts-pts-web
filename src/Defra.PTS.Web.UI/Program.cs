@@ -87,9 +87,9 @@ builder.Services.AddCors(o => o.AddPolicy("AllowOrigins", builder =>
            .AllowAnyHeader();
 }));
 
-//_ = builder.Services.AddKeyVault(builder.Configuration);
+
 builder.Services.AddAntiforgery();
-//var secretClient = builder.Services.AddKeyVault();
+
 var useAuth = builder.Configuration.GetValue<bool>("AppSettings:UseAuth");
 if (useAuth)
     builder.Services.AddAuthentications(builder.Configuration);
@@ -135,6 +135,7 @@ _ = app.UseStaticFiles(new StaticFileOptions
     ServeUnknownFileTypes = true,
 });
 
+_ = app.UseExceptionHandler("/Error/HandleError/500");
 _ = app.UseStatusCodePagesWithReExecute("/Error/HandleError/{0}");
 _ = app.UseRouting();
 _ = app.UseCors("AllowOrigins");

@@ -12,6 +12,9 @@
     var pageTitle = sharedlocalizer["Lifelong pet travel documents"];
     this.SetMetaTitle(pageTitle);
     ViewData.SetKeyValue("MainCssClass", "govuk-!-margin-top-6");
+
+    var hasInvalidDocuments = ViewBag.HasInvalidDocuments as bool? ?? false;
+
 }
 
 <div class="govuk-grid-row">
@@ -26,13 +29,33 @@
 <div class="govuk-grid-row">
     <div class="govuk-grid-column-three-quarters">
 
-        <form class="form" action="@WebAppConstants.Pages.TravelDocument.PetKeeperUserDetails" method="get">
-            <button class="govuk-button" data-module="govuk-button">
-               @Localizer["Apply for a document"]
-            </button>
-        </form>
+        @if (Model.Any(x => x.Status == "Suspended"))
+        {
+            <div class="govuk-warning-text">
+                <span class="govuk-warning-text__icon" aria-hidden="true">!</span>
+                <strong class="govuk-warning-text__text">
+                    <span class="govuk-visually-hidden">Warning</span>
+                    You have been suspended from this scheme and cannot use your pet travel documents or apply for new ones until your suspension is lifted. Check your email for more information, including how to appeal.
+                </strong>
+            </div>
+        }
+
+        else
+        {
+            <form class="form" action="@WebAppConstants.Pages.TravelDocument.PetKeeperUserDetails" method="get">
+                <button class="govuk-button" data-module="govuk-button">
+                    @Localizer["Apply for a document"]
+                </button>
+            </form>
+        }
 
         <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationsList" model=@Model />
+
+        @if (hasInvalidDocuments) {
+            <p class="govuk-body">
+                <a class="govuk-link" href="@WebAppConstants.Pages.TravelDocument.InvalidDocuments">@Localizer["View invalid documents"]</a>
+            </p>
+        }
 
     </div>
 </div>

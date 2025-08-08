@@ -4,7 +4,7 @@ namespace Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 
 public class AcknowledgementViewModel : TravelDocumentFormPage
 {
-    public string FormTitle => $"Application submitted";
+    public static string FormTitle => $"Application submitted";
 
     public string Reference { get; set; }
 

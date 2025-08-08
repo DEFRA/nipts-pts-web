@@ -17,14 +17,13 @@
             </h2>
             <div class="govuk-error-summary__body">
                 <ul class="govuk-list govuk-error-summary__list">
-                    @foreach (var error in errorsFlattened)
+                    @foreach (var error in errorsFlattened
+                                    .Where(error => !string.IsNullOrEmpty(error.field) && 
+                                    !string.IsNullOrEmpty(error.error?.Trim())))
                     {
-                        if (!string.IsNullOrEmpty(error.field) && !string.IsNullOrEmpty(error.error.Trim()))
-                        {
-                            <li>
-                                <a href="#@error.field">@error.error</a>
-                            </li>
-                        }
+                        <li>
+                            <a href="#@error.field">@error.error</a>
+                        </li>
                     }
                 </ul>
             </div>

@@ -36,6 +36,7 @@ public static class AppConstants
         public const string REVOKED = "Revoked";
         public const string APPROVED = "Approved";
         public const string AWAITINGVERIFICATION = "Awaiting Verification";
+        public const string SUSPENDED = "Suspended";
     }
 
     public static class Values

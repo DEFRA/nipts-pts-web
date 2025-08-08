@@ -23,6 +23,8 @@ public static class WebAppConstants
         {
             public const string Index = "/TravelDocument";
 
+            public const string InvalidDocuments = "/TravelDocument/InvalidDocuments";
+
             public const string PetKeeperUserDetails = "/TravelDocument/PetKeeperUserDetails";
             public const string PetKeeperNonGbAddress = "/TravelDocument/PetKeeperNonGbAddress";
             public const string PetKeeperName = "/TravelDocument/PetKeeperName";
@@ -132,6 +134,11 @@ public static class WebAppConstants
         /// A key name used to store application reference
         /// </summary>
         public const string ApplicationReference = "ApplicationReference";
+
+        /// <summary>
+        /// A key name used to store if the user has been suspended
+        /// </summary>
+        public const string IsUserSuspended = "IsUserSuspended";
 
     }
     public static class FormAutofill

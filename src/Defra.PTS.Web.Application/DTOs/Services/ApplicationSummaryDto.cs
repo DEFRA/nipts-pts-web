@@ -24,4 +24,8 @@ public class ApplicationSummaryDto
     public string OwnerName { get; set; }
 
     public string Status { get; set; }
+
+    public DateTime? DateOfApplication { get; set; }
+
+    public DateTime? DocumentIssueDate { get; set; }
 }

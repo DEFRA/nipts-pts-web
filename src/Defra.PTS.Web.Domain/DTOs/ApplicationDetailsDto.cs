@@ -17,6 +17,10 @@ public class ApplicationDetailsDto
 
     public bool IsApproved => !string.IsNullOrWhiteSpace(Status) && Status.Equals("Approved");
 
+    public bool IsSuspended => !string.IsNullOrWhiteSpace(Status) && Status.Equals("Suspended");
+
+    public bool IsRevoked => !string.IsNullOrWhiteSpace(Status) && Status.Equals("Revoked");
+
     public ActionLinksDto ActionLinks { get; set; } = new();
 }
 
@@ -31,6 +35,7 @@ public class CertificateIssuedDto
     public string DocumentReferenceNumber { get; set; }
     public DateTime? DocumentIssueDate { get; set; }
     public string DocumentReferenceNumberAsQRCode { get; set; }
+    public string Status { get; set; }
 }
 
 public class CertificateIssuingAuthorityDto

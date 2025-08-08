@@ -11,13 +11,16 @@ namespace Defra.PTS.Web.Application.Services;
 
 public class PetService : IPetService
 {    
-    private readonly HttpClient _httpClient;        
+    private readonly HttpClient _httpClient;
+    private readonly ILogger<PetService> _logger;
 
-    public PetService(HttpClient httpClient)
+    public PetService(ILogger<PetService> logger, HttpClient httpClient)
     {
-        ArgumentNullException.ThrowIfNull(httpClient);     
+        ArgumentNullException.ThrowIfNull(httpClient);
+        ArgumentNullException.ThrowIfNull(logger);
 
-        _httpClient = httpClient;        
+        _httpClient = httpClient;
+        _logger = logger;
     }
 
     public async Task<List<BreedDto>> GetBreeds(PetSpecies PetType)
@@ -50,7 +53,13 @@ public class PetService : IPetService
         string apiUrl = _httpClient.BaseAddress + "createpet";
 
         HttpResponseMessage response = await _httpClient.PostAsJsonAsync(apiUrl, model);
-        response.EnsureSuccessStatusCode();
+
+        if (!response.IsSuccessStatusCode)
+        {
+            string errorMessage = $"Unable to create pet, Status code: {response.StatusCode}";
+            _logger.LogError(errorMessage);
+            throw new HttpRequestException(errorMessage);
+        }
 
         return await response.Content.ReadFromJsonAsync<Guid>();
     }

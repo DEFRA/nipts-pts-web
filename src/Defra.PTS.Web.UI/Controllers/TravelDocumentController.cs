@@ -73,7 +73,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                 return RedirectToAction("CheckIdm2SignOut", "User");
             }
 
-
             if (HttpContext.Request.Cookies.TryGetValue(".AspNetCore.Culture", out string language) && language == "c=cy|uic=cy")
             {
                 Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("cy");
@@ -85,7 +84,6 @@ public partial class TravelDocumentController : BaseTravelDocumentController
             {
                 return RedirectToAction("Index", "Home");
             }
-
             else
             {
                 SaveMagicWordFormData(new MagicWordViewModel { HasUserPassedPasswordCheck = true });
@@ -95,16 +93,66 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                 await AddOrUpdateUser();
                 await InitializeUserDetails();
 
-                var statuses = new List<string>()
+                var validStatuses = new List<string>
                 {
                     AppConstants.ApplicationStatus.APPROVED,
                     AppConstants.ApplicationStatus.AWAITINGVERIFICATION,
+                    AppConstants.ApplicationStatus.SUSPENDED
+                };
+
+                var invalidStatuses = new List<string>
+                {
+                    AppConstants.ApplicationStatus.REVOKED,
+                    AppConstants.ApplicationStatus.UNSUCCESSFUL
                 };
 
                 var userId = CurrentUserId();
-                var response = await _mediator.Send(new GetApplicationsQueryRequest(userId, statuses));
+                var response = await _mediator.Send(new GetApplicationsQueryRequest(userId, validStatuses));
+                var invalidResponse = await _mediator.Send(new GetApplicationsQueryRequest(userId, invalidStatuses));
+
+                SaveIsUserSuspendedFormData(response.Applications.Any(x => x.Status == "Suspended"));
+
+                // Pass a flag to the view indicating whether invalid documents exist
+                ViewBag.HasInvalidDocuments = invalidResponse.Applications.Count > 0;
+
                 return View(response.Applications);
             }
+        }
+        catch (Exception ex)
+        {
+            return HandleException(ex);
+        }
+    }
+
+    [ExcludeFromCodeCoverage]
+    [HttpGet]
+    public async Task<IActionResult> InvalidDocuments()
+    {
+   
+        try 
+        {
+            SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);
+
+            await AddOrUpdateUser();
+            await InitializeUserDetails();
+
+            var statuses = new List<string>()
+            {
+                AppConstants.ApplicationStatus.REVOKED,
+                AppConstants.ApplicationStatus.UNSUCCESSFUL
+            };
+
+            var userId = CurrentUserId();
+            var response = await _mediator.Send(new GetApplicationsQueryRequest(userId, statuses));
+
+            var sortedApplications = response.Applications // Sort by DateOfApplication or DocumentIssueDate, whichever is the latter
+                .OrderByDescending(x => 
+                    new[] { x.DateOfApplication, x.DocumentIssueDate }
+                        .Max(d => d ?? DateTime.MinValue)
+                )
+                .ToList();
+
+            return View(sortedApplications);
         }
         catch (Exception ex)
         {

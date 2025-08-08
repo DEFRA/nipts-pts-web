@@ -1,9 +1,22 @@
 ﻿@model Defra.PTS.Web.Application.DTOs.Services.CertificateIssuedDto;
 @using Defra.PTS.Web.UI.Constants;
+@using Defra.PTS.Web.Application.Constants;
 @using Defra.PTS.Web.Application.Extensions;
 @using Defra.PTS.Web.Application.Helpers;
 @using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
+
+@{
+    var statusCssClass = Model.Status switch
+    {
+        "Cancelled" => "govuk-tag--red",
+        AppConstants.ApplicationStatus.SUSPENDED => "govuk-tag--yellow",
+        AppConstants.ApplicationStatus.UNSUCCESSFUL => "govuk-tag--orange",
+        AppConstants.ApplicationStatus.APPROVED => "govuk-tag--green",
+        AppConstants.ApplicationStatus.AWAITINGVERIFICATION => "govuk-tag--blue",
+        _ => "govuk-tag--red",
+    };
+}
 <div class="govuk-grid-row pet-declaration-row pet-declaration-row-qrcode">
     <div class="govuk-grid-column-three-quarters">
         <div id="document-issued-card" class="govuk-summary-card">
@@ -20,6 +33,23 @@
                             @ApplicationHelper.FormatPetTravelDocumentNumber(Model.DocumentReferenceNumber)
                         </dd>
                     </div>
+                    @if (Model.Status == "Suspended" || Model.Status == "Revoked" || Model.Status == "Cancelled")
+                    {
+                        <div class="govuk-summary-list__row">
+                            <dt class="govuk-summary-list__key">
+                                @Localizer["Status"]
+                            </dt>
+                            <dd class="govuk-summary-list__value">
+                                <strong class="govuk-tag @statusCssClass">
+                                    @if (Model.Status == "Suspended") {
+                                        @Localizer["Suspended"]
+                                    } else {
+                                        @Localizer["Cancelled"]
+                                     }
+                                </strong>
+                            </dd>
+                        </div>
+                    }
                     <div class="govuk-summary-list__row">
                         <dt class="govuk-summary-list__key">
                             @Localizer["Date"]
@@ -92,9 +122,22 @@
         font-size: 11px;
     }
 
+    #document-issued-card .govuk-summary-list {
+        display: table !important;
+        width: 100% !important;
+    }
+
     @@media print {
         .pet-declaration-qrcode {
             display: block;
+        }
+
+        #document-issued-card .govuk-summary-list__key {
+            width: 38% !important;
+        }
+        
+        #document-issued-card .govuk-summary-list__value {
+            width: 62% !important;
         }
     }
 </style>

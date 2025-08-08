@@ -127,9 +127,28 @@ public static class TempDataExtensions
         var o = tempData.Peek(TempDataKey.ApplicationReference);
         return o == null ? null : (string)o;
     }
+
     public static void RemoveApplicationReference(this ITempDataDictionary tempData)
     {
         tempData.Remove(TempDataKey.ApplicationReference);
     }
+
+    public static void SetIsUserSuspended(this ITempDataDictionary tempData, bool isUserSuspended)
+    {
+        tempData[TempDataKey.IsUserSuspended] = isUserSuspended;
+    }
+
+    public static bool GetIsUserSuspended(this ITempDataDictionary tempData)
+    {
+        var o = tempData.Peek(TempDataKey.IsUserSuspended);
+        return o is bool value && value;
+    }
+
+    public static void RemoveIsUserSuspended(this ITempDataDictionary tempData)
+    {
+        tempData.Remove(TempDataKey.IsUserSuspended);
+    }
+
+
 
 }

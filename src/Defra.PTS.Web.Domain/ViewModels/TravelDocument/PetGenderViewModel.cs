@@ -4,7 +4,7 @@ namespace Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 
 public class PetGenderViewModel : TravelDocumentFormPage
 {
-    public string FormTitle => $"What sex is your pet?";
+    public static string FormTitle => $"What sex is your pet?";
 
     public PetGender Gender { get; set; }
 

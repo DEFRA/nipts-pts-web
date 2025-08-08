@@ -12,20 +12,25 @@ public static class MiscExtensions
     {
         string cssClass = application.Status switch
         {
-            AppConstants.ApplicationStatus.UNSUCCESSFUL or AppConstants.ApplicationStatus.REVOKED => "govuk-tag--red",
+            AppConstants.ApplicationStatus.REVOKED => "govuk-tag--red",
+            AppConstants.ApplicationStatus.UNSUCCESSFUL => "govuk-tag--orange",
             AppConstants.ApplicationStatus.APPROVED => "govuk-tag--green",
             AppConstants.ApplicationStatus.AWAITINGVERIFICATION => "govuk-tag--blue",
+            AppConstants.ApplicationStatus.SUSPENDED => "govuk-tag--yellow",
             _ => "govuk-tag--red",
         };
 
         return cssClass;
     }
 
-    public static string StatusBasedDetailsUrl(this ApplicationSummaryDto application)
+    public static string StatusBasedDetailsUrl(this ApplicationSummaryDto application)// to change, to include cancelled and unsuccessful
     {
         string cssClass = application.Status switch
         {
             AppConstants.ApplicationStatus.APPROVED => $"{WebAppConstants.Pages.TravelDocument.ApplicationCertificate}/{application.ApplicationId}",
+            AppConstants.ApplicationStatus.SUSPENDED => $"{WebAppConstants.Pages.TravelDocument.ApplicationCertificate}/{application.ApplicationId}",
+            AppConstants.ApplicationStatus.REVOKED => $"{WebAppConstants.Pages.TravelDocument.ApplicationCertificate}/{application.ApplicationId}",
+            AppConstants.ApplicationStatus.UNSUCCESSFUL => $"{WebAppConstants.Pages.TravelDocument.ApplicationDetails}/{application.ApplicationId}",
             _ => $"{WebAppConstants.Pages.TravelDocument.ApplicationDetails}/{application.ApplicationId}",
         };
 

@@ -6,7 +6,7 @@ namespace Defra.PTS.Web.Domain.ViewModels.TravelDocument;
 public class DeclarationViewModel : TravelDocumentFormPage
 {
 
-    public string FormTitle => $"Check your answers and sign the declaration";
+    public static string FormTitle => $"Check your answers and sign the declaration";
 
     public bool AgreedToAccuracy { get; set; }
 
