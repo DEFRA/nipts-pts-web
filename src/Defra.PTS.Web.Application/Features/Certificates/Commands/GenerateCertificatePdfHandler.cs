@@ -35,8 +35,12 @@ public class GenerateCertificatePdfHandler : IRequestHandler<GenerateCertificate
                 ApplicationCertificate = await _applicationService.GetApplicationCertificate(request.ApplicationId),
             };
 
-            if (!response.ApplicationCertificate.UserId.Equals(request.UserId))
+            var responseUserId = response.ApplicationCertificate?.UserId;
+            var requestUserId = request.UserId;
+
+            if (!responseUserId.Equals(requestUserId))
             {
+                _logger.LogError("GenerateCertificatePdfHandler: User ID mismatch. Request UserId: {RequestUserId}, Response UserId: {ResponseUserId}, returning null", requestUserId, responseUserId);
                 return null;
             }
 
@@ -48,15 +52,15 @@ public class GenerateCertificatePdfHandler : IRequestHandler<GenerateCertificate
             };
 
             var certificateResult = await _certificateGenerator
-                .GenerateAsync(model, CancellationToken.None)
+                .GenerateAsync(model, CancellationToken.None) // something going on here
                 .ConfigureAwait(false);
 
             return certificateResult;
         }
         catch (Exception ex)
-        {
+        {// hapening here
             _logger.LogError(ex, "GenerateCertificatePdfHandler: Unable to generate application PDF for ID {0}", request?.ApplicationId);
-            return null;
+            return null; // returning null here
         }
                     
     }
