@@ -93,14 +93,20 @@
     width: 28%;
 }
  
-/* Tag: single line, no wrap, no bleed */
+/* Default: truncate long status text */
 .govuk-tag {
     white-space: nowrap !important;
     overflow: hidden !important;
-    text-overflow: ellipsis !important;
+    text-overflow: unset !important;
     display: inline-block;
-    max-width: 100%;
     vertical-align: middle;
+}
+ 
+/* On larger screens (e.g. iPad 12.9"), allow wrapping */
+@@media screen and (min-width: 1024px) {
+    .status-column .govuk-tag {
+        overflow: visible !important;
+    }
 }
 </style>
 
