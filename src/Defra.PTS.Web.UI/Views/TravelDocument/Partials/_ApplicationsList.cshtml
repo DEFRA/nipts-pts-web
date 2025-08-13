@@ -97,11 +97,22 @@
 .govuk-tag {
     white-space: nowrap !important;
     overflow: hidden !important;
-    text-overflow: ellipsis !important;
     display: inline-block;
     max-width: 100%;
     vertical-align: middle;
 }
+
+.status-column {
+    display: flex;
+    align-items: center;
+}
+
+.status-column .govuk-tag {
+    flex: 1;
+    min-width: 0;
+}
+
+
 </style>
 
 <script>
