@@ -126,6 +126,9 @@
 	<data name="Approved" xml:space="preserve">
     <value>Wedi’u cymeradwyo</value>
   </data>
+  <data name="Suspended" xml:space="preserve">
+    <value>Wedi’i atal</value>
+  </data>
 	<data name="Pending" xml:space="preserve">
     <value>Yn aros</value>
   </data>
