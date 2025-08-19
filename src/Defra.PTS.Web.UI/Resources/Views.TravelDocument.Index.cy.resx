@@ -120,6 +120,9 @@
   <data name="Apply for a document" xml:space="preserve">
     <value>Gwneud cais am ddogfen</value>
   </data>
+  <data name="You have been suspended from this scheme and cannot use your pet travel documents or apply for new ones until your suspension is lifted. Check your email for more information, including how to appeal." xml:space="preserve">
+    <value>Rydych chi wedi cael eich atal o'r cynllun yma a chewch chi ddim defnyddio’ch dogfennau teithio anifeiliaid anwes na gwneud cais am rai newydd nes bod eich ataliad wedi’i godi. Gwiriwch eich ebost am ragor o wybodaeth, gan gynnwys sut i apelio.</value>
+  </data>
   <data name="View invalid documents" xml:space="preserve">
     <value>Gweld dogfennau annilys</value>
   </data>
