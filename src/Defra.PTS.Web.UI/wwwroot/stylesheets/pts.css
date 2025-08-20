@@ -130,6 +130,11 @@ html, body {
 
 
 @media (max-width: 40.0525em) {
+
+    .govuk-template__body {
+        width: fit-content;
+    }
+
     .table-responsive-wrapper {
         overflow-x: auto !important;
         -webkit-overflow-scrolling: touch !important;
@@ -181,13 +186,6 @@ html, body {
         border-bottom: 1px solid #b1b4b6 !important;
     }
 }
-
-@media (max-width: 600px) {
-    .govuk-template__body {
-        width: fit-content;
-    }
-}
-
 
 .hide-scrollbar {
     overflow-x: hidden !important;
