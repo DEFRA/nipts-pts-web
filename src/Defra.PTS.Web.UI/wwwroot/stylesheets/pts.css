@@ -62,7 +62,6 @@ html, body {
     background-color: #ffffff !important;
 }
 
-
 .table-responsive-wrapper {
     background-color: #ffffff !important;
     margin-bottom: 20px;
@@ -131,6 +130,11 @@ html, body {
 
 
 @media (max-width: 40.0525em) {
+
+    .govuk-template__body {
+        width: fit-content;
+    }
+
     .table-responsive-wrapper {
         overflow-x: auto !important;
         -webkit-overflow-scrolling: touch !important;
@@ -182,7 +186,6 @@ html, body {
         border-bottom: 1px solid #b1b4b6 !important;
     }
 }
-
 
 .hide-scrollbar {
     overflow-x: hidden !important;
