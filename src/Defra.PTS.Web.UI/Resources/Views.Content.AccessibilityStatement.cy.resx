@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+	<xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="metadata">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" />
+							</xsd:sequence>
+							<xsd:attribute name="name" use="required" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="assembly">
+						<xsd:complexType>
+							<xsd:attribute name="alias" type="xsd:string" />
+							<xsd:attribute name="name" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+							<xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+							<xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+							<xsd:attribute ref="xml:space" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="resmimetype">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="version">
+		<value>2.0</value>
+	</resheader>
+	<resheader name="reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="Accessibility statement for ‘Taking a dog, cat or ferret from Great Britain to Northern Ireland’" xml:space="preserve">
+		<value>Datganiad hygyrchedd ar gyfer 'Mynd â chi, cath neu ffured o Brydain Fawr i Ogledd Iwerddon'</value>
+    </data>
+	<data name="This accessibility statement applies to the ‘Taking a dog, cat or ferret from Great Britain to Northern Ireland’ service. This website is run by the Department for Environment, Food and Rural Affairs." xml:space="preserve">
+		<value>Mae'r datganiad hygyrchedd yma yn gymwys i'r gwasanaeth 'Mynd â chi, cath neu ffured o Brydain Fawr i Ogledd Iwerddon'. Adran yr Amgylchedd, Bwyd a Materion Gwledig sy’n rhedeg y wefan yma.</value>
+    </data>
+	<data name="We want as many people as possible to be able to use this website. For example, that means you should be able to:" xml:space="preserve">
+		<value>Rydyn ni am i gynifer o bobl â phosibl allu defnyddio'r wefan yma. Er enghraifft, mae hyn yn golygu y dylech fod yn gallu:</value>
+    </data>
+	<data name="change colours, contrast levels and fonts using browser or device settings" xml:space="preserve">
+		<value>newid lliwiau, lefelau cyferbyniad a ffontiau gan ddefnyddio gosodiadau’r porwr neu’r ddyfais</value>
+    </data>
+	<data name="zoom in up to 400% without the text spilling off the screen" xml:space="preserve">
+		<value>chwyddo i mewn hyd at 400% heb i'r testun ollwng oddi ar y sgrin </value>
+    </data>
+	<data name="navigate most of the website using a keyboard or speech recognition software" xml:space="preserve">
+		<value>llywio'r rhan fwyaf o'r wefan gan ddefnyddio bysellfwrdd neu feddalwedd adnabod llais</value>
+    </data>
+	<data name="listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)" xml:space="preserve">
+		<value>gwrando ar y rhan fwyaf o'r wefan gan ddefnyddio darllenydd sgrin (gan gynnwys fersiynau diweddaraf JAWS, NVDA a VoiceOver)</value>
+    </data>
+	<data name="listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)" xml:space="preserve">
+		<value>gwrando ar y rhan fwyaf o'r wefan gan ddefnyddio darllenydd sgrin (gan gynnwys fersiynau diweddaraf JAWS, NVDA a VoiceOver)</value>
+    </data>
+	<data name="We’ve also made the website text as simple as possible to understand." xml:space="preserve">
+		<value>Rydyn ni hefyd wedi gwneud testun y wefan mor syml â phosibl i'w ddeall.</value>
+    </data>
+	<data name="How accessible this website is" xml:space="preserve">
+		<value>a mor hygyrch yw'r wefan yma</value>
+    </data>
+	<data name="This website is fully accessible." xml:space="preserve">
+		<value>Mae'r wefan yma yn gwbl hygyrch.</value>
+    </data>
+	<data name="Feedback and contact information" xml:space="preserve">
+		<value>Adborth a gwybodaeth gysylltu</value>
+    </data>
+	<data name="If you’d like support applying for a lifelong pet travel document, phone 03000 200 301. The line is open from 8.30am to 5pm, Monday to Friday (excluding bank holidays)." xml:space="preserve">
+		<value>Os hoffech gael cymorth i wneud cais am ddogfen deithio gydol oes i anifeiliaid anwes, ffoniwch 03000 200 301. Mae'r llinell yn agored rhwng 8.30am a 5pm, o ddydd Llun i ddydd Gwener (ac eithrio gwyliau banc).</value>
+    </data>
+	<data name="Contact us:" xml:space="preserve">
+		<value>Cysylltwch â ni:</value>
+    </data>
+	<data name="if you find any problems not listed on this page or think we’re not meeting accessibility requirements" xml:space="preserve">
+		<value>os byddwch yn gweld unrhyw broblemau sydd heb eu rhestru ar y tudalen yma neu os ydych chi'n credu nad ydyn ni’n bodloni gofynion hygyrchedd</value>
+    </data>
+	<data name="if you need information on this website in a different format, like accessible PDF, large print, easy read, audio recording or braille" xml:space="preserve">
+		<value>os oes arnoch chi angen gwybodaeth ar y wefan yma mewn fformat gwahanol, fel PDF hygyrch, print bras, hawdd ei ddarllen, recordiad sain neu braille</value>
+    </data>
+	<data name="Contact us by:" xml:space="preserve">
+		<value>Cysylltwch â ni drwy’r canlynol:</value>
+    </data>
+	<data name="Phone: 03000 200 301 – from 8.30am to 5pm, Monday to Friday (excluding bank holidays)" xml:space="preserve">
+		<value>Ffôn: 03000 200 301 – rhwng 8.30am a 5pm, dydd Llun i ddydd Gwener (ac eithrio gwyliau banc)</value>
+    </data>
+	<data name="We’ll consider your request and get back to you within 5 days." xml:space="preserve">
+		<value>Byddwn yn ystyried eich cais ac yn cysylltu â chi o fewn 5 diwrnod.</value>
+    </data>
+	<data name="Enforcement procedure" xml:space="preserve">
+		<value>Gweithdrefn orfodi</value>
+    </data>
+	<data name="Technical information about this website’s accessibility" xml:space="preserve">
+		<value>Gwybodaeth dechnegol am hygyrchedd y wefan yma</value>
+    </data>
+	<data name="Compliance status" xml:space="preserve">
+		<value>Statws cydymffurfio</value>
+    </data>
+	<data name="Preparation of this accessibility statement" xml:space="preserve">
+		<value>Paratoi'r datganiad hygyrchedd yma</value>
+    </data>
+	<data name="This statement was prepared on 6 February 2025. It was last reviewed on 17 July 2025." xml:space="preserve">
+		<value>Cafodd y datganiad yma ei baratoi ar 6 Chwefror 2025. Y tro diwethaf iddo gael ei adolygu oedd 17 Gorffennaf 2025.</value>
+    </data>
+	<data name="This website was last tested on 8 May 2025 against the WCAG 2.2 AA standard." xml:space="preserve">
+		<value>Y tro diwethaf i'r wefan yma gael ei phrofi oedd 8 Mai 2025 yn erbyn safon WCAG 2.2 AA.</value>
+    </data>
+	<data name="The test was carried out by Digital Accessibility Centre. The most viewed pages were tested using automated testing tools by our website team." xml:space="preserve">
+		<value>Cafodd y prawf ei gynnal gan y Ganolfan Hygyrchedd Digidol. Cafodd y tudalennau a welir fwyaf eu profi drwy ddefnyddio offer profi awtomataidd gan ein tîm gwefannau.</value>
+    </data>
+	<data name="AbilityNet (opens in new tab)" xml:space="preserve">
+		<value>AbilityNet (yn agor mewn tab newydd)</value>
+    </data>
+	<data name="has advice on making your device easier to use if you have a disability." xml:space="preserve">
+		<value>gyngor ar wneud eich dyfais yn haws i'w defnyddio os oes gennych anabledd.</value>
+    </data>
+	<data name="Find out about call charges (open in new tab)" xml:space="preserve">
+		<value>Rhagor o wybodaeth am daliadau am alwadau (yn agor mewn tab newydd)</value>
+    </data>
+	<data name="Find out about call charges (open in new tab)" xml:space="preserve">
+		<value>Rhagor o wybodaeth am daliadau am alwadau (yn agor mewn tab newydd)</value>
+    </data>
+	<data name="Email:" xml:space="preserve">
+		<value>Ebost:</value>
+    </data>
+	<data name="The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint," xml:space="preserve">
+		<value>Mae’r Comisiwn Cydraddoldeb a Hawliau Dynol (EHRC) yn gyfrifol am orfodi Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Chymwysiadau Symudol) (Rhif 2) 2018 (y ‘rheoliadau hygyrchedd’). Os nad ydych chi’n fodlon ar y ffordd rydyn ni’n ymateb i'ch cwyn,</value>
+    </data>
+	<data name="contact the Equality Advisory and Support Service (EASS) (opens in a new tab)" xml:space="preserve">
+		<value>cysylltwch â'r Gwasanaeth Cynghori a Chymorth Cydraddoldeb (EASS) (yn agor mewn tab newydd)</value>
+    </data>
+	<data name="The website is fully compliant with the" xml:space="preserve">
+		<value>Mae'r wefan yn cydymffurfio'n llawn â safon AA</value>
+    </data>
+	<data name="AA standard." xml:space="preserve">
+		<value></value>
+    </data>
+	<data name="Web Content Accessibility Guidelines (WCAG) 2.2 (w3.org) (opens in a new tab)" xml:space="preserve">
+		<value>Canllawiau Hygyrchedd Cynnwys y We (WCAG) 2.2 (w3.org) (yn agor mewn tab newydd).</value>
+    </data>
+	<data name="The Department for Environment, Food and Rural Affairs is committed to making its website accessible, in accordance with the" xml:space="preserve">
+		<value>Mae Adran yr Amgylchedd, Bwyd a Materion Gwledig wedi ymrwymo i wneud ei gwefan yn hygyrch, yn unol â</value>
+    </data>
+	<data name="Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (opens in a new tab)." xml:space="preserve">
+		<value>Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Chymwysiadau Symudol) (Rhif 2) 2018 (yn agor mewn tab newydd).</value>
+    </data>
+	<data name="If you’d like support applying for a lifelong pet travel document, phone 03000 200 301. The line is open from 8.30am to 5pm, Monday to Friday (excluding bank holidays)." xml:space="preserve">
+		<value>Os hoffech gael cymorth i wneud cais am ddogfen deithio gydol oes i anifeiliaid anwes, ffoniwch 03000 200 301. Mae'r llinell yn agored rhwng 8.30am a 5pm, o ddydd Llun i ddydd Gwener (ac eithrio gwyliau banc).</value>
+    </data>
+</root>

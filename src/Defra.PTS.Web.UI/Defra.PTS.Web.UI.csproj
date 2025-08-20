@@ -54,6 +54,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Views.Content.AccessibilityStatement.cy.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views.Content.TermsAndConditions.cy.resx">
       <SubType>Designer</SubType>
     </EmbeddedResource>

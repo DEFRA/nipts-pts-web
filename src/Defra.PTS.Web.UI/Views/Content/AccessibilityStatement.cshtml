@@ -1,4 +1,8 @@
 ﻿@using Defra.PTS.Web.UI.Extensions;
+@using Microsoft.AspNetCore.Mvc.Localization;
+@using Microsoft.Extensions.Localization;
+@inject IViewLocalizer Localizer
+@inject IStringLocalizer<ISharedResource> sharedlocalizer
 
 @{
     var pageTitle = "Accessibility statement for ‘Taking a dog, cat or ferret from Great Britain to Northern Ireland’";
@@ -12,7 +16,7 @@
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-two-thirds">
                     <h1 class="govuk-heading-xl">
-                        @pageTitle
+                        @Localizer[@pageTitle]
                     </h1>
                 </div>
             </div>
@@ -20,103 +24,103 @@
             <div class="govuk-grid-row">
                 <div class="govuk-grid-column-two-thirds">
                     <p class="govuk-body">
-                        This accessibility statement applies to the ‘Taking a dog, cat or ferret from Great Britain to Northern Ireland’ service. This website is run by the Department for Environment, Food and Rural Affairs.
+                        @Localizer["This accessibility statement applies to the ‘Taking a dog, cat or ferret from Great Britain to Northern Ireland’ service. This website is run by the Department for Environment, Food and Rural Affairs."]
                     </p>
 
                     <p class="govuk-body">
-                        We want as many people as possible to be able to use this website. For example, that means you should be able to:
+                        @Localizer["We want as many people as possible to be able to use this website. For example, that means you should be able to:"]
                     </p>
                     <ul class="govuk-list govuk-list--bullet">
-                        <li>change colours, contrast levels and fonts using browser or device settings</li>
+                        <li>@Localizer["change colours, contrast levels and fonts using browser or device settings"]</li>
                         <li>
-                            zoom in up to 400% without the text spilling off the screen
+                            @Localizer["zoom in up to 400% without the text spilling off the screen"]
                         </li>
                         <li>
-                            navigate most of the website using a keyboard or speech recognition software
+                            @Localizer["navigate most of the website using a keyboard or speech recognition software"]
                         </li>
                         <li>
-                            listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)
+                            @Localizer["listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)"]
                         </li>
                     </ul>
                     <p class="govuk-body">
-                        We’ve also made the website text as simple as possible to understand.
+                        @Localizer["We’ve also made the website text as simple as possible to understand."]
                     </p>
                     <p class="govuk-body">
-                        <a href="https://mcmw.abilitynet.org.uk/" class="govuk-link" rel="noreferrer noopener" target="_blank">AbilityNet (opens in new tab)</a> has advice on making your device easier to use if you have a disability.
+                        <a href="https://mcmw.abilitynet.org.uk/" class="govuk-link" rel="noreferrer noopener" target="_blank">@Localizer["AbilityNet (opens in new tab)"]</a> @Localizer["has advice on making your device easier to use if you have a disability."]
                     </p>
 
-                    <h2 class="govuk-heading-l">How accessible this website is</h2>
+                    <h2 class="govuk-heading-l">@Localizer["How accessible this website is"]</h2>
                     <p class="govuk-body">
-                        This website is fully accessible.
+                        @Localizer["This website is fully accessible."]
                     </p>
 
                     <h2 class="govuk-heading-l">
-                        Feedback and contact information
+                        @Localizer["Feedback and contact information"]
                     </h2>
                     <p class="govuk-body">
-                        If you’d like support to apply for a lifelong pet travel document, phone 03000 200 301. The line is open from 8.30am to 5pm, Monday to Friday (excluding bank holidays).
+                        @Localizer["If you’d like support applying for a lifelong pet travel document, phone 03000 200 301. The line is open from 8.30am to 5pm, Monday to Friday (excluding bank holidays)."]
                     </p><p class="govuk-body">
-                        <a href="https://www.gov.uk/call-charges" rel="noreferrer noopener" target="_blank">Find out about call charges (open in new tab)</a>.
+                        <a href="https://www.gov.uk/call-charges" rel="noreferrer noopener" target="_blank">@Localizer["Find out about call charges (open in new tab)"]</a>.
                     </p>
 
                     <p class="govuk-body">
-                        Contact us:
+                        @Localizer["Contact us:"]
                     </p>
 
                     <ul class="govuk-list govuk-list--bullet">
                         <li>
-                            if you find any problems not listed on this page or think we’re not meeting accessibility requirements
+                            @Localizer["if you find any problems not listed on this page or think we’re not meeting accessibility requirements"]
                         </li>
                         <li>
-                            if you need information on this website in a different format, like accessible PDF, large print, easy read, audio recording or braille
+                            @Localizer["if you need information on this website in a different format, like accessible PDF, large print, easy read, audio recording or braille"]
                         </li>
                     </ul>
 
                     <p class="govuk-body">
-                        Contact us by:
+                        @Localizer["Contact us by:"]
                     </p>
 
                     <ul class="govuk-list govuk-list--bullet">
-                        <li>Email: <a href="mailto:NIPetTravel@apha.gov.uk">NIPetTravel@apha.gov.uk</a> </li>
+                        <li>@Localizer["Email:"] <a href="mailto:NIPetTravel@apha.gov.uk">NIPetTravel@apha.gov.uk</a> </li>
                         <li>
-                            Phone: 03000 200 301 – from 8.30am to 5pm, Monday to Friday (excluding bank holidays)
+                            @Localizer["Phone: 03000 200 301 – from 8.30am to 5pm, Monday to Friday (excluding bank holidays)"]
                         </li>
                     </ul>
 
-                    <p>We’ll consider your request and get back to you within 5 days.</p>
+                    <p>@Localizer["We’ll consider your request and get back to you within 5 days."]</p>
 
                     <h2 class="govuk-heading-l">
-                        Enforcement procedure
+                        @Localizer["Enforcement procedure"]
                     </h2>
                     <p class="govuk-body">
-                        The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint, <a href="https://www.equalityadvisoryservice.com/" rel="noreferrer noopener" target="_blank">contact the Equality Advisory and Support Service (EASS) (opens in a new tab)</a>.
+                        @Localizer["The Equality and Human Rights Commission (EHRC) is responsible for enforcing the Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (the ‘accessibility regulations’). If you’re not happy with how we respond to your complaint,"] <a href="https://www.equalityadvisoryservice.com/" rel="noreferrer noopener" target="_blank">@Localizer["contact the Equality Advisory and Support Service (EASS) (opens in a new tab)"]</a>.
                     </p>
 
                     <h2 class="govuk-heading-m">
-                        Compliance status
+                        @Localizer["Compliance status"]
                     </h2>
 
-                    <p>The website is fully compliant with the <a href="https://www.w3.org/TR/WCAG22/" rel="noreferrer noopener" target="_blank">Web Content Accessibility Guidelines (WCAG) 2.2 (w3.org) (opens in a new tab)</a> AA standard.</p>
+                    <p>@Localizer["The website is fully compliant with the"] <a href="https://www.w3.org/TR/WCAG22/" rel="noreferrer noopener" target="_blank">@Localizer["Web Content Accessibility Guidelines (WCAG) 2.2 (w3.org) (opens in a new tab)"]</a> @Localizer["AA standard."]</p>
 
                     
                     <h1 class="govuk-heading-l">
-                        Technical information about this website’s accessibility
+                        @Localizer["Technical information about this website’s accessibility"]
                     </h1>
 
-                    <p>The Department for Environment, Food and Rural Affairs is committed to making its website accessible, in accordance with the <a href="https://www.legislation.gov.uk/uksi/2018/952/contents" target="_blank">Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (opens in a new tab)</a>.</p>
+                    <p>@Localizer["The Department for Environment, Food and Rural Affairs is committed to making its website accessible, in accordance with the"] <a href="https://www.legislation.gov.uk/uksi/2018/952/contents" target="_blank">@Localizer["Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (opens in a new tab)"]</a>.</p>
 
                     <h2 class="govuk-heading-l">
-                        Preparation of this accessibility statement
+                        @Localizer["Preparation of this accessibility statement"]
                     </h2>
 
                     <p class="govuk-body">
-                        This statement was prepared on 6 February 2025. It was last reviewed on 17 July 2025.
+                        @Localizer["This statement was prepared on 6 February 2025. It was last reviewed on 17 July 2025."]
                     </p>
                     <p class="govuk-body">
-                        This website was last tested on 8 May 2025 against the WCAG 2.2 AA standard.
+                        @Localizer["This website was last tested on 8 May 2025 against the WCAG 2.2 AA standard."]
                     </p>
                     <p class="govuk-body">
-                        The test was carried out by Digital Accessibility Centre. The most viewed pages were tested using automated testing tools by our website team.
+                        @Localizer["The test was carried out by Digital Accessibility Centre. The most viewed pages were tested using automated testing tools by our website team."]
                     </p>
                 </div>
             </div>
