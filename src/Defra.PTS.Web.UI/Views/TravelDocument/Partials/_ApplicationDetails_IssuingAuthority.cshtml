@@ -26,12 +26,11 @@
                             @Localizer["Signed on behalf of the competent authority (APHA)"]
                         </dt>
                         <dd class="govuk-summary-list__value issuer-values">
-
-                            ‎
-
-                            <div><img src="data:image/png;base64,@Model.DocumentSignedBySignature" 
-                                 alt="Signature on behalf of the competent authority, the Animal and Plant Health Agency" 
-                                 class="signature-image" /></div>
+                            <div class="image-Container">
+                                <img src="data:image/png;base64,@Model.DocumentSignedBySignature"
+                                     alt="Signature on behalf of the competent authority, the Animal and Plant Health Agency" 
+                                 class="signature-image" />
+                             </div> 
                             <p class="govuk-body">
                                 @if (!string.IsNullOrEmpty(Model.DocumentSignedBy))
                                 {
@@ -56,6 +55,11 @@
     .signature-image {
         width: 190px;
         height: 48px;
-        display: block;
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    .image-Container{
+        padding-top: 10px;
     }
 </style>
