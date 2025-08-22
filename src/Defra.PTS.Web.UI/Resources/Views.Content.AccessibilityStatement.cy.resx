@@ -138,9 +138,6 @@
 	<data name="listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)" xml:space="preserve">
 		<value>gwrando ar y rhan fwyaf o'r wefan gan ddefnyddio darllenydd sgrin (gan gynnwys fersiynau diweddaraf JAWS, NVDA a VoiceOver)</value>
     </data>
-	<data name="listen to most of the website using a screen reader (including the most recent versions of JAWS, NVDA and VoiceOver)" xml:space="preserve">
-		<value>gwrando ar y rhan fwyaf o'r wefan gan ddefnyddio darllenydd sgrin (gan gynnwys fersiynau diweddaraf JAWS, NVDA a VoiceOver)</value>
-    </data>
 	<data name="We’ve also made the website text as simple as possible to understand." xml:space="preserve">
 		<value>Rydyn ni hefyd wedi gwneud testun y wefan mor syml â phosibl i'w ddeall.</value>
     </data>
@@ -204,9 +201,6 @@
 	<data name="Find out about call charges (open in new tab)" xml:space="preserve">
 		<value>Rhagor o wybodaeth am daliadau am alwadau (yn agor mewn tab newydd)</value>
     </data>
-	<data name="Find out about call charges (open in new tab)" xml:space="preserve">
-		<value>Rhagor o wybodaeth am daliadau am alwadau (yn agor mewn tab newydd)</value>
-    </data>
 	<data name="Email:" xml:space="preserve">
 		<value>Ebost:</value>
     </data>
@@ -230,8 +224,5 @@
     </data>
 	<data name="Public Sector Bodies (Websites and Mobile Applications) (No. 2) Accessibility Regulations 2018 (opens in a new tab)." xml:space="preserve">
 		<value>Rheoliadau Hygyrchedd Cyrff y Sector Cyhoeddus (Gwefannau a Chymwysiadau Symudol) (Rhif 2) 2018 (yn agor mewn tab newydd).</value>
-    </data>
-	<data name="If you’d like support applying for a lifelong pet travel document, phone 03000 200 301. The line is open from 8.30am to 5pm, Monday to Friday (excluding bank holidays)." xml:space="preserve">
-		<value>Os hoffech gael cymorth i wneud cais am ddogfen deithio gydol oes i anifeiliaid anwes, ffoniwch 03000 200 301. Mae'r llinell yn agored rhwng 8.30am a 5pm, o ddydd Llun i ddydd Gwener (ac eithrio gwyliau banc).</value>
     </data>
 </root>
