@@ -27,7 +27,7 @@
     int timeout = (int)(expiry - DateTime.Now).TotalSeconds;
 }
 <!DOCTYPE html>
-<html lang="en" class="govuk-template">
+<html lang="en" class="govuk-template--rebranded">
 <head>
     <meta charset="utf-8">
     <title>@ViewData[WebAppConstants.ViewKeys.Title] - @WebAppConstants.ServiceName</title>
@@ -84,7 +84,7 @@
     <link rel="stylesheet" href="~/stylesheets/pts.css" type="text/css" media="all">
 </head>
 
-<body class="govuk-template__body @ViewData.GetKeyValue("BodyExtraCssClass")">
+<body class="govuk-template--rebranded__body @ViewData.GetKeyValue("BodyExtraCssClass")">
     <!-- Google Tag Manager (noscript) -->
     <noscript>
         <iframe title="googleTagManager" src="@GTMLink" height="0" width="0" style="display:none;visibility:hidden"></iframe>
