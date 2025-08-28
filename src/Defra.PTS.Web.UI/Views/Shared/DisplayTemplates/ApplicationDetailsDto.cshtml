@@ -51,6 +51,10 @@
     </div>
 </div>
 
+@if (!isInvalid)
+{
+    <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_ActionLinks" model=Model.ActionLinks />
+}
 
 <div class="govuk-grid-row pet-declaration-row pet-declaration-row-qrcode">
     <div class="govuk-grid-column-three-quarters">
@@ -115,11 +119,6 @@
 </div>
 
 <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_Declaration" model=Model.Declaration />
-
-@if (!isInvalid)
-{
-    <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_ActionLinks" model=Model.ActionLinks />
-}
 
 <style>
     .pet-declaration-row-qrcode {
