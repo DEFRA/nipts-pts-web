@@ -84,7 +84,7 @@
     <link rel="stylesheet" href="~/stylesheets/pts.css" type="text/css" media="all">
 </head>
 
-<body class="govuk-template--rebranded__body @ViewData.GetKeyValue("BodyExtraCssClass")">
+<body class="@ViewData.GetKeyValue("BodyExtraCssClass") no-margin">
     <!-- Google Tag Manager (noscript) -->
     <noscript>
         <iframe title="googleTagManager" src="@GTMLink" height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -92,11 +92,15 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <script>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
-   <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
+    <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
 
-    <partial name=@WebAppConstants.PartialViews.Header />
 
-    <div class="govuk-width-container ">
+    <header class="govuk-header" role="banner">
+        <partial name=@WebAppConstants.PartialViews.Header />
+    </header>
+
+
+    <div class="govuk-width-container govuk-template--rebranded__body">
         @if(!onPasswordPage)
         {
             <partial name=@WebAppConstants.PartialViews.BetaPanel />

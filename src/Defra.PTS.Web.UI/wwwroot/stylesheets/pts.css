@@ -29,6 +29,10 @@ html, body {
     border: 0;
 }
 
+.no-margin {
+    margin: 0;
+}
+
 .scroll-container {
     width: 100%;
     overflow-x: auto;

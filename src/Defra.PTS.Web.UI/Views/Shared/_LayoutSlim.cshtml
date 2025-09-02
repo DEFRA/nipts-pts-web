@@ -75,7 +75,7 @@
     <!-- End Google Tag Manager -->
 </head>
 
-<body class="govuk-template--rebranded__body @ViewData.GetKeyValue("BodyExtraCssClass")">
+<body class="@ViewData.GetKeyValue("BodyExtraCssClass")">
     <!-- Google Tag Manager (noscript) -->
     <noscript>
         <iframe title="googleTagManager" src="@GTMLink" height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -85,9 +85,13 @@
     <script>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
    <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
 
-    <partial name=@WebAppConstants.PartialViews.Header />
 
-    <div class="govuk-width-container ">
+    <header class="govuk-header" role="banner">
+        <partial name=@WebAppConstants.PartialViews.Header />
+    </header>
+
+
+    <div class="govuk-width-container govuk-template--rebranded__body">
 
         <partial name=@WebAppConstants.PartialViews.BackLink />
 
