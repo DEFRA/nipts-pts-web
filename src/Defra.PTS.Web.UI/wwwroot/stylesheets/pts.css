@@ -15,7 +15,14 @@
 
 html, body {
     overflow-x: hidden;
-    background-color: #ffffff !important;
+}
+
+body.govuk-template--rebranded__body {
+    background-color: #ffffff;
+}
+
+.govuk-main-wrapper {
+    background-color: #ffffff;
 }
 
 .sr-only {
@@ -31,6 +38,10 @@ html, body {
 
 .no-margin {
     margin: 0;
+}
+
+.rebrand-background-white {
+    background-color: #ffffff !important;
 }
 
 .scroll-container {

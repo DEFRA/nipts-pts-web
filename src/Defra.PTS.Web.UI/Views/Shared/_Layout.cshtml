@@ -44,8 +44,8 @@
         })(window, document, 'script', 'dataLayer', '@config["GoogleTagManager:ContainerId"]');</script>
     <!-- End Google Tag Manager -->
 
-    
-   
+
+
     <meta name="viewport" content="width=device-width">
     <meta name="format-detection" content="telephone=no">
 
@@ -84,7 +84,7 @@
     <link rel="stylesheet" href="~/stylesheets/pts.css" type="text/css" media="all">
 </head>
 
-<body class="@ViewData.GetKeyValue("BodyExtraCssClass") no-margin">
+<body class="govuk-template--rebranded__body no-margin @ViewData.GetKeyValue("BodyExtraCssClass")">
     <!-- Google Tag Manager (noscript) -->
     <noscript>
         <iframe title="googleTagManager" src="@GTMLink" height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -94,22 +94,18 @@
     <script>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
     <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
 
+    <partial name=@WebAppConstants.PartialViews.Header />
 
-    <header class="govuk-header" role="banner">
-        <partial name=@WebAppConstants.PartialViews.Header />
-    </header>
-
-
-    <div class="govuk-width-container govuk-template--rebranded__body">
-        @if(!onPasswordPage)
+    <div class="govuk-width-container">
+        @if (!onPasswordPage)
         {
             <partial name=@WebAppConstants.PartialViews.BetaPanel />
-             @if (authenticated)
-             {
+            @if (authenticated)
+            {
                 <partial name=@WebAppConstants.PartialViews.Navigation />
-             }
+            }
             <partial name=@WebAppConstants.PartialViews.LanguageSelect />
-        }        
+        }
 
         <partial name=@WebAppConstants.PartialViews.BackLink />
 
