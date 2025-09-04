@@ -180,6 +180,15 @@
   <data name="This is a new service - your" xml:space="preserve">
     <value>Mae hwn yn wasanaeth newydd - bydd eich</value>
   </data>
+ <data name="This is a new service. " xml:space="preserve">
+    <value>Mae hwn yn wasanaeth newydd. </value>
+  </data>
+  <data name="Help us improve it and " xml:space="preserve">
+    <value>Bydd eich  </value>
+  </data>
+  <data name="give your feedback (opens in a new tab)." xml:space="preserve">
+    <value>adborth (yn agor mewn tab newydd) </value>
+  </data>
   <data name="will help us to improve it." xml:space="preserve">
     <value>yn ein helpu i'w wella.</value>
     <comment>Pet Colour</comment>
