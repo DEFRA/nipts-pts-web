@@ -24,12 +24,12 @@ namespace Defra.PTS.Web.Application.Validation
                 .NotEmpty().WithMessage(x => localizer["Enter your postcode"])
                 .Custom((postcode, context) =>
                 {
-                    if (!string.IsNullOrWhiteSpace(postcode))
+                    if (!string.IsNullOrWhiteSpace(postcode) &&
+                    (!UkPostcodeRegex.IsMatch(postcode) ||
+                     postcode.Length > AppConstants.MaxLength.Postcode ||
+                     !BeValidUKPostcode(postcode)))
                     {
-                        if (!UkPostcodeRegex.IsMatch(postcode) || postcode.Length > AppConstants.MaxLength.Postcode || !BeValidUKPostcode(postcode))
-                        {
-                            context.AddFailure(localizer["Enter your full postcode in the correct format, for example TF7 5AY or TF75AY"]);
-                        }
+                        context.AddFailure(localizer["Enter your full postcode in the correct format, for example TF7 5AY or TF75AY"]);
                     }
                 });
         }
