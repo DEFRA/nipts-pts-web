@@ -26,11 +26,7 @@ namespace Defra.PTS.Web.Application.Validation
                 {
                     if (!string.IsNullOrWhiteSpace(postcode))
                     {
-                        if (!UkPostcodeRegex.IsMatch(postcode) || postcode.Length > AppConstants.MaxLength.Postcode)
-                        {
-                            context.AddFailure(localizer["Enter your full postcode in the correct format, for example TF7 5AY or TF75AY"]);
-                        }
-                        else if (!BeValidUKPostcode(postcode))
+                        if (!UkPostcodeRegex.IsMatch(postcode) || postcode.Length > AppConstants.MaxLength.Postcode || !BeValidUKPostcode(postcode))
                         {
                             context.AddFailure(localizer["Enter your full postcode in the correct format, for example TF7 5AY or TF75AY"]);
                         }
