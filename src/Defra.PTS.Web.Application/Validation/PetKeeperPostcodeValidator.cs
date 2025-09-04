@@ -32,7 +32,7 @@ namespace Defra.PTS.Web.Application.Validation
                         }
                         else if (!BeValidUKPostcode(postcode))
                         {
-                            context.AddFailure(localizer["Enter your postcode in England, Scotland or Wales"]);
+                            context.AddFailure(localizer["Enter your full postcode in the correct format, for example TF7 5AY or TF75AY"]);
                         }
                     }
                 });

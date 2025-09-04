@@ -8,6 +8,6 @@ public class PetKeeperUserDetailsValidator : AbstractValidator<PetKeeperUserDeta
 {
     public PetKeeperUserDetailsValidator(IStringLocalizer<ISharedResource> localizer)
     {
-        RuleFor(x => x.UserDetailsAreCorrect).NotEmpty().WithMessage(localizer["Select if your details are correct"]);
+        RuleFor(x => x.UserDetailsAreCorrect).NotEmpty().WithMessage(localizer["Select yes if your details are correct"]);
     }
 }

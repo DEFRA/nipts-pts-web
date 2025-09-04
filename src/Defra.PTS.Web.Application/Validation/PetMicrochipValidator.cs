@@ -27,7 +27,7 @@ namespace Defra.PTS.Web.Application.Validation
                             }
                             else if (!IsAllDigits(microchipNumber) || microchipNumber.Length != 15)
                             {
-                                context.AddFailure("MicrochipNumber", localizer[@"Enter a 15-digit number, using only numbers"]);
+                                context.AddFailure("MicrochipNumber", localizer[@"Enter your pet's 15-digit microchip number, using only numbers"]);
                             }
                         });
                 });

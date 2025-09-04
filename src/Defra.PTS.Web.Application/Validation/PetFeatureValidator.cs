@@ -14,7 +14,7 @@ public class PetFeatureValidator : AbstractValidator<PetFeatureViewModel>
 
         When(x => x.HasUniqueFeature == YesNoOptions.Yes, () =>
         {
-            RuleFor(x => x.FeatureDescription).NotEmpty().WithMessage(x => localizer["Describe your pet's significant feature"]);
+            RuleFor(x => x.FeatureDescription).NotEmpty().WithMessage(x => localizer["Describe your pet's significant features"]);
 
             When(x => !string.IsNullOrWhiteSpace(x.FeatureDescription), () =>
             {

@@ -15,7 +15,7 @@ namespace Defra.PTS.Web.Application.Validation
         {
             RuleLevelCascadeMode = CascadeMode.Stop;
 
-            RuleFor(x => x.AddressLineOne).NotEmpty().WithMessage(x => localizer[$"Enter line 1 of your address"]);
+            RuleFor(x => x.AddressLineOne).NotEmpty().WithMessage(x => localizer[$"Enter address line 1 of your address"]);
 
             When(x => !string.IsNullOrWhiteSpace(x.AddressLineOne), () =>
             {
@@ -41,7 +41,7 @@ namespace Defra.PTS.Web.Application.Validation
             {
                 RuleFor(x => x.Postcode).Cascade(CascadeMode.Stop).Matches(AppConstants.RegularExpressions.UKPostcode).WithMessage(x => localizer[$"Enter your full postcode in the correct format, for example TF7 5AY or TF75AY"])
                 .MaximumLength(AppConstants.MaxLength.Postcode).WithMessage(x => localizer[$"Enter your full postcode in the correct format, for example TF7 5AY or TF75AY"])
-                .Matches($"^(?!BT|JE|GY|IM|bt|je|gy|im).*").WithMessage(x => localizer[$"Enter your postcode in England, Scotland or Wales"]);
+                .Matches($"^(?!BT|JE|GY|IM|bt|je|gy|im).*").WithMessage(x => localizer[$"Enter your full postcode in the correct format, for example TF7 5AY or TF75AY"]);
             });
 
             When(x => !string.IsNullOrWhiteSpace(x.AddressLineTwo), () =>
