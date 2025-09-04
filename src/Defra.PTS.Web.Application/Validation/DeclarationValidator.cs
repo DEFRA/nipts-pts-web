@@ -26,7 +26,7 @@ public class DeclarationValidator : AbstractValidator<DeclarationViewModel>
 
         RuleFor(x => x.Phone)
             .NotEmpty()
-            .WithMessage(x => $"Enter your phone number");
+            .WithMessage(x => $"Enter your phone number, like 01632 960 001 or 07700 900 982");
 
         When(x => !string.IsNullOrWhiteSpace(x.Phone), () =>
         {

@@ -129,9 +129,6 @@
   <data name="Enter your full name" xml:space="preserve">
     <value>Rhowch eich enw llawn</value>
   </data>
-  <data name="Enter your phone number" xml:space="preserve">
-    <value>Rhowch eich rhif ffôn</value>
-  </data>
   <data name="Tell us if your details are correct" xml:space="preserve">
     <value>Dwedwch a yw eich manylion chi’n gywir</value>
   </data>
