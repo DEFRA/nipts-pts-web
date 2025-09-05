@@ -141,7 +141,7 @@
   <data name="Enter your full name, using 300 characters or less" xml:space="preserve">
     <value>Rhowch eich enw llawn, gan ddefnyddio 300 o gymeriadau neu lai</value>
   </data>
-  <data name="Select your address from the list" xml:space="preserve">
+  <data name="Select your address" xml:space="preserve">
     <value>Dewiswch eich cyfeiriad o blith y rhestr</value>
   </data>
   <data name="Enter your county using 100 characters or less" xml:space="preserve">
