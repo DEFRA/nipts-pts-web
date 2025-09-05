@@ -67,7 +67,7 @@ namespace Defra.PTS.Web.Application.UnitTests.Validation
             { string.Empty, "Enter your pet’s 15-digit microchip number" },
             { new string('1', 14), "Enter your pet’s 15-digit microchip number" },
             { new string('1', 16), "Enter your pet’s 15-digit microchip number" },
-            { new string('a', 15), "Enter a 15-digit number, using only numbers" },
+            { new string('a', 15), "Enter your pet's 15-digit microchip number, using only numbers" },
         };
     }
 }

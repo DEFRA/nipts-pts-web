@@ -7,7 +7,7 @@ using Microsoft.Extensions.Localization;
 namespace Defra.PTS.Web.Application.Validation;
 public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewModel>
 {
-    private static readonly string MicrochipError = "Enter a date in the correct format, for example 11 4 2021";
+    private static readonly string MicrochipError = "Enter the date your pet was microchipped or the date it was last scanned. For example, 11 4 2021";
     public PetMicrochipDateValidator(IStringLocalizer<ISharedResource> localizer)
     {
         When(x => x.Day == null, () =>
@@ -70,7 +70,7 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
             When(x => !BeTodayOrPastDate(x.MicrochippedDate), () =>
             {
                 RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
-                .Null().WithMessage(localizer["Enter a date that is in the past"]);
+                .Null().WithMessage(localizer["Date of microchipping or last scan must be in the past"]);
 
                 RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
                 .Null().WithMessage(" ");
@@ -98,7 +98,7 @@ public class PetMicrochipDateValidator : AbstractValidator<PetMicrochipDateViewM
             When(x => !BeTodayOrPastDate(x.MicrochippedDate), () =>
             {
                 RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
-                .Null().WithMessage(localizer["Enter a date that is in the past"]);
+                .Null().WithMessage(localizer["Date of microchipping or last scan must be in the past"]);
 
                 RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
                 .Null().WithMessage(" ");

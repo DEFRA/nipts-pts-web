@@ -126,7 +126,7 @@
   <data name="(takes 30 seconds)" xml:space="preserve">
     <value>(mae'n cymryd 30 eiliad)</value>
   </data>
-  <data name="Enter a 15-digit number, using only numbers" xml:space="preserve">
+  <data name="Enter your pet's 15-digit microchip number, using only numbers" xml:space="preserve">
     <value>Rhaid i rif microsglodyn eich anifail anwes fod yn 15 digid o hyd.</value>
   </data>
   <data name="Get your pet microchipped before applying" xml:space="preserve">
