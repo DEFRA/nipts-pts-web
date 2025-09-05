@@ -9,6 +9,6 @@ public class PetKeeperAddressValidator : AbstractValidator<PetKeeperAddressViewM
 {
     public PetKeeperAddressValidator(IStringLocalizer<ISharedResource> localizer)
     {
-        RuleFor(x => x.Address).NotEmpty().WithMessage(x => localizer[$"Select your address from the list"]);
+        RuleFor(x => x.Address).NotEmpty().WithMessage(x => localizer[$"Select your address"]);
     }
 }
