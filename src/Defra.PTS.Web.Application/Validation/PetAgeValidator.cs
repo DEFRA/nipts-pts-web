@@ -84,7 +84,7 @@ public class PetAgeValidator : AbstractValidator<PetAgeViewModel>
             When(x => !BePastDate(x.BirthDate), () =>
             {
                 RuleFor(x => x.Day).Cascade(CascadeMode.Stop)
-                .Null().WithMessage(localizer["Date of microchipping or last scan must be in the past"]);
+                .Null().WithMessage(localizer["The date you entered is too far in the past, check your pet's date of birth is correct"]);
 
                 RuleFor(x => x.Month).Cascade(CascadeMode.Stop)
                .Null().WithMessage(" ");
