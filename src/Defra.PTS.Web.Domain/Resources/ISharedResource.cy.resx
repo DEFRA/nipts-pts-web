@@ -289,4 +289,7 @@
   <data name="Enter your full postcode in the correct format, for example TF7 5AY or TF75AY" xml:space="preserve">
     <value>Rhowch god post llawn yn y fformat cywir, er enghraifft TF7 5AY neu TF75AY</value>
   </data>
+  <data name="Enter a date that is in the past" xml:space="preserve">
+    <value>Rhowch ddyddiad sydd yn y gorffennol</value>
+  </data>
 </root>
