@@ -33,6 +33,7 @@ public class GetApplicationsQueryHandler : IRequestHandler<GetApplicationsQueryR
 
         response.Applications = response.Applications
             .Where(x => request.Statuses.Contains(x.Status))
+            .OrderByDescending(x => x.DateOfApplication)
             .ToList();
 
         return response;

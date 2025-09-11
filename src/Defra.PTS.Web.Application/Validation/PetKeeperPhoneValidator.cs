@@ -13,7 +13,7 @@ public class PetKeeperPhoneValidator : AbstractValidator<PetKeeperPhoneViewModel
 
         RuleFor(x => x.Phone)
             .NotEmpty()
-            .WithMessage(localizer["Enter your phone number"]);
+            .WithMessage(localizer["Enter your phone number, like 01632 960 001 or 07700 900 982"]);
 
         When(x => !string.IsNullOrWhiteSpace(x.Phone), () =>
         {

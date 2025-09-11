@@ -24,6 +24,11 @@
     </div>
 </div>
 
+@if (!isInvalidStatus)
+{
+        <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_ActionLinks" model=Model.ActionLinks />
+}
+
 <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_PrintLogos" />
 
 <div class="govuk-grid-row pet-declaration-print-only">
@@ -64,14 +69,4 @@
 </div>
 
 <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_Declaration" model=Model.Declaration />
-
-@if (!isInvalidStatus)
-{
-        <partial name="@WebAppConstants.PartialViews.TravelDocument.ApplicationDetails_ActionLinks" model=Model.ActionLinks />
-}
-
-else
-{
-        <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible govuk-!-display-none-print">
-}
 

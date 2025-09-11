@@ -39,7 +39,6 @@
 
 <div class="govuk-grid-row govuk-!-display-none-print">
     <div class="govuk-grid-column-three-quarters">
-        <hr class="govuk-section-break govuk-section-break--xl govuk-section-break--visible govuk-!-margin-top-4">
 
         @{
             string printLinkText = string.Empty;
@@ -80,7 +79,7 @@
                     <span class="hod-icons-download-button"></span>
                     <p class="govuk-body govuk-\!-font-size-14">
                         <a aria-label="@sharedlocalizer[downloadLinkText]"
-                           class="govuk-link"
+                           class="govuk-link govuk-!-font-size-14"
                            download="@downloadFilename"
                            href="@downloadUrl">
                             @sharedlocalizer[downloadLinkText]

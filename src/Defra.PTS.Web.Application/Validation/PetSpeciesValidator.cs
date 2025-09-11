@@ -8,6 +8,6 @@ public class PetSpeciesValidator : AbstractValidator<PetSpeciesViewModel>
 {
     public PetSpeciesValidator(IStringLocalizer<ISharedResource> localizer)
     {
-        RuleFor(x => x.PetSpecies).NotEmpty().WithMessage(x => localizer["Select if you are taking a pet dog, cat or ferret"]);
+        RuleFor(x => x.PetSpecies).NotEmpty().WithMessage(x => localizer["Select if your pet is a cat, dog or ferret"]);
     }
 }

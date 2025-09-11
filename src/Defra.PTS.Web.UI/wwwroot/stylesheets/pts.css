@@ -15,7 +15,14 @@
 
 html, body {
     overflow-x: hidden;
-    background-color: #ffffff !important;
+}
+
+body.govuk-template--rebranded__body {
+    background-color: #ffffff;
+}
+
+.govuk-main-wrapper {
+    background-color: #ffffff;
 }
 
 .sr-only {
@@ -27,6 +34,14 @@ html, body {
     overflow: hidden;
     clip: rect(0, 0, 0, 0);
     border: 0;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.rebrand-background-white {
+    background-color: #ffffff !important;
 }
 
 .scroll-container {
@@ -61,7 +76,6 @@ html, body {
 .govuk-template__body {
     background-color: #ffffff !important;
 }
-
 
 .table-responsive-wrapper {
     background-color: #ffffff !important;
@@ -131,6 +145,11 @@ html, body {
 
 
 @media (max-width: 40.0525em) {
+
+    .govuk-template__body {
+        width: fit-content;
+    }
+
     .table-responsive-wrapper {
         overflow-x: auto !important;
         -webkit-overflow-scrolling: touch !important;
@@ -182,7 +201,6 @@ html, body {
         border-bottom: 1px solid #b1b4b6 !important;
     }
 }
-
 
 .hide-scrollbar {
     overflow-x: hidden !important;

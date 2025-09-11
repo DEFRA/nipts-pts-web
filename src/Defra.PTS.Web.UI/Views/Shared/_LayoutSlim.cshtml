@@ -20,15 +20,14 @@
 }
 
 <!DOCTYPE html>
-<html lang="en" class="govuk-template">
+<html lang="en" class="govuk-template--rebranded">
 <head>
     <meta charset="utf-8">
     <title>@ViewData[WebAppConstants.ViewKeys.Title] - @WebAppConstants.ServiceName</title>
-   
+
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=1">
     <meta name="format-detection" content="telephone=no">
 
-    <meta name="theme-color" content="#0b0c0c">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     @if (authenticated)
@@ -50,9 +49,10 @@
               data-hide-sign-out-button="" />
     }
 
+    <meta name="theme-color" content="#1d70b8">
     <link rel="icon" sizes="48x48" href="/assets/images/favicon.ico">
     <link rel="icon" sizes="any" href="/assets/images/favicon.svg" type="image/svg+xml">
-    <link rel="mask-icon" href="/assets/images/govuk-icon-mask.svg" color="#0b0c0c">
+    <link rel="mask-icon" href="/assets/images/govuk-icon-mask.svg" color="#1d70b8">
     <link rel="apple-touch-icon" href="/assets/images/govuk-icon-180.png">
     <link rel="manifest" href="/assets/manifest.json">
 
@@ -75,7 +75,7 @@
     <!-- End Google Tag Manager -->
 </head>
 
-<body class="govuk-template__body @ViewData.GetKeyValue("BodyExtraCssClass")">
+<body class="govuk-template--rebranded__body no-margin @ViewData.GetKeyValue("BodyExtraCssClass")">
     <!-- Google Tag Manager (noscript) -->
     <noscript>
         <iframe title="googleTagManager" src="@GTMLink" height="0" width="0" style="display:none;visibility:hidden"></iframe>
@@ -83,11 +83,11 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <script>document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');</script>
-   <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
+    <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
 
     <partial name=@WebAppConstants.PartialViews.Header />
 
-    <div class="govuk-width-container ">
+    <div class="govuk-width-container  govuk-template--rebranded__body">
 
         <partial name=@WebAppConstants.PartialViews.BackLink />
 
@@ -96,7 +96,7 @@
         </main>
     </div>
 
-        <partial name=@WebAppConstants.PartialViews.Footer />
+    <partial name=@WebAppConstants.PartialViews.Footer />
 
     <script type="module" src="~/javascripts/hmrc-frontend-6.33.0.min.js"></script>
     <script type="module" src="~/javascripts/govuk-frontend.min.js"></script>
