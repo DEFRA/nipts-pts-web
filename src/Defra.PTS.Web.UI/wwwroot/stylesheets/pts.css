@@ -216,6 +216,10 @@ body.govuk-template--rebranded__body {
         display: none !important;
     }
 
+    .govuk-template--rebranded {
+        background-color: white !important;
+    }
+
     .govuk-template {
         background-color: white !important;
     }
