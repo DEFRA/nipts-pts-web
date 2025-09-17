@@ -306,6 +306,7 @@ html, body {
     }
 }
 
+
 @supports (-webkit-appearance: none) {
     html, body, .govuk-template, .govuk-template--rebranded {
         background: #ffffff !important;
