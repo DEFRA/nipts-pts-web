@@ -216,6 +216,10 @@ body.govuk-template--rebranded__body {
         display: none !important;
     }
 
+    .govuk-template--rebranded {
+        background-color: white !important;
+    }
+
     .govuk-template {
         background-color: white !important;
     }
@@ -271,4 +275,34 @@ body.govuk-template--rebranded__body {
             border-color: #000000 !important;
         }
     }
+
+
+    html {
+        overflow-x: hidden;
+    }
+
+
+    html {
+        box-sizing: border-box;
+    }
+
+    *, *:before, *:after {
+        box-sizing: inherit;
+    }
+
+
+    @media (max-width: 40.0625em) {
+
+        .govuk-width-container {
+            margin-right: 15px;
+            margin-left: 15px;
+        }
+
+
+        .govuk-grid-row {
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+    }
+ 
 }

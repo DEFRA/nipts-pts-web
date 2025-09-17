@@ -3,12 +3,11 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Logging;
 
 namespace Defra.PTS.Web.CertificateGenerator.Puppeteer;
 
 [ExcludeFromCodeCoverage]
-public class PuppeteerPageAdapter(PuppeteerSharp.IBrowser browser, PuppeteerSharp.IPage page, ILogger<PuppeteerPageAdapter> _logger) : IPage
+public class PuppeteerPageAdapter(PuppeteerSharp.IBrowser browser, PuppeteerSharp.IPage page) : IPage
 {
     private PuppeteerSharp.IBrowser browser = browser;
     private PuppeteerSharp.IPage page = page;
@@ -16,46 +15,13 @@ public class PuppeteerPageAdapter(PuppeteerSharp.IBrowser browser, PuppeteerShar
     private PuppeteerSharp.IBrowser Browser => browser ?? throw new ObjectDisposedException(nameof(PuppeteerBrowserAdapter));
     private PuppeteerSharp.IPage Page => page ?? throw new ObjectDisposedException(nameof(PuppeteerBrowserAdapter));
 
-    private readonly ILogger<PuppeteerPageAdapter> logger = _logger;
-
     public async ValueTask DisposeAsync()
     {
-        logger.LogInformation("Attempting to invoke PuppeteerPageAdapter.DisposeAsync()");
-        try
-        {
-            if (Page != null)
-            {
-                await Page.DisposeAsync();
-                page = null;
-            }
-        }
-        catch (TargetClosedException ex)
-        {
-            logger.LogError(ex, "TargetClosedException occurred in PuppeteerPageAdapter.DisposeAsync while invoking Page.DisposeAsync()");
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Error disposing Puppeteer page.");
-        }
-
-        try
-        {
-            if (Browser != null)
-            {
-                Browser.Disconnect();
-                await Browser.DisposeAsync();
-                browser = null;
-            }
-        }
-        catch (TargetClosedException ex)
-        {
-            logger.LogError(ex, "TargetClosedException occurred in PuppeteerPageAdapter.DisposeAsync while invoking Browser.DisposeAsync()");
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Error disposing Puppeteer browser.");
-        }
-
+        await Page.DisposeAsync();
+        page = null;
+        Browser.Disconnect();
+        await Browser.DisposeAsync();
+        browser = null;
         GC.SuppressFinalize(this);
     }
 
