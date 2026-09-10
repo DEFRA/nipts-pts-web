@@ -1,5 +1,4 @@
-﻿using Defra.PTS.Web.Application.Features.Lookups.Queries;
-using Defra.PTS.Web.Application.Services.Interfaces;
+﻿using Defra.PTS.Web.Application.Services.Interfaces;
 using Defra.PTS.Web.Domain.DTOs;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.Models;
@@ -15,13 +14,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Moq;
-using NUnit.Framework;
 using System.Globalization;
-using Assert = NUnit.Framework.Assert;
 
 namespace Defra.PTS.Web.UI.UnitTests.Controllers
 {
-    [TestFixture]
     public class TravelDocumentControllerPetColourTests
     {
         private readonly Mock<IValidationService> _mockValidationService = new();
@@ -36,11 +32,6 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
             _localizer = new StringLocalizer<ISharedResource>(factory);
-        }
-
-        [SetUp]
-        public void Setup()
-        {
             _sut = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object, _mockSelectListLocaliser.Object, _localizer)
             {
                 CallBase = true
@@ -52,7 +43,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _sut.Object.ControllerContext.HttpContext = mockHttpContext.Object;
         }
 
-        [Ignore("Needs fixes")]
+        [Fact]
         public async Task GetColoursView()
         {
             var petColours = new List<ColourDto>
@@ -62,10 +53,22 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             };
             var formData = new TravelDocumentViewModel
             {
+                PetKeeperUserDetails = new PetKeeperUserDetailsViewModel
+                {
+                    IsCompleted = true,
+                    PetOwnerDetailsRequired = false,
+                },
+                PetMicrochip = new PetMicrochipViewModel { IsCompleted = true },
+                PetMicrochipDate = new PetMicrochipDateViewModel { IsCompleted = true },
                 PetSpecies = new PetSpeciesViewModel
                 {
-                    PetSpecies = PetSpecies.Dog
-                }
+                    PetSpecies = PetSpecies.Dog,
+                    IsCompleted = true,
+                },
+                PetBreed = new PetBreedViewModel { IsCompleted = true },
+                PetName = new PetNameViewModel { IsCompleted = true },
+                PetGender = new PetGenderViewModel { IsCompleted = true },
+                PetAge = new PetAgeViewModel { IsCompleted = true },
             };
 
             _sut.Setup(x => x.IsApplicationInProgress())
@@ -74,12 +77,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _sut.Setup(x => x.GetFormData(false))
                 .Returns(formData);
 
-            _mockMediator.Setup(x => x.Send(It.IsAny<GetColoursQueryRequest>(), CancellationToken.None))
-                .ReturnsAsync(new Application.DTOs.Features.GetColoursQueryResponse
-                {
-                    Colours = petColours,
-                    PetType = PetSpecies.Dog
-                });
+            _mockSelectListLocaliser.Setup(x => x.GetPetColoursList(It.IsAny<PetSpecies>()))
+                .ReturnsAsync(petColours);
 
             _sut.Setup(x => x.SaveFormData(It.IsAny<PetColourViewModel>()))
                 .Verifiable();
@@ -87,11 +86,11 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var result = await _sut.Object.PetColour();
             var viewResult = result as ViewResult;
 
-            Assert.IsNotNull(viewResult);
+            Assert.NotNull(viewResult);
         }
 
 
-        [Test]
+        [Fact]
         public async Task RedirectToIndex_If_ApplicationNotInProgress()
         {
             _sut.Setup(x => x.IsApplicationInProgress())
@@ -101,11 +100,11 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             var redirectResult = result as RedirectToActionResult;
 
-            Assert.IsNotNull(redirectResult);
-            Assert.AreEqual("Index", redirectResult.ActionName);
+            Assert.NotNull(redirectResult);
+            Assert.Equal("Index", redirectResult.ActionName);
         }
 
-        [Test]
+        [Fact]
         public async Task CreatePetColour()
         {
             var petColoursList = new List<ColourDto>
@@ -142,11 +141,11 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             var redirectResult = result as RedirectToActionResult;
 
-            Assert.IsNotNull(redirectResult);
-            Assert.AreEqual("PetFeature", redirectResult.ActionName);
+            Assert.NotNull(redirectResult);
+            Assert.Equal("PetFeature", redirectResult.ActionName);
         }
 
-        [Test]
+        [Fact]
         public async Task CreatePetColour_Welsh()
         {
             // Arrange
@@ -188,11 +187,11 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             var redirectResult = result as RedirectToActionResult;
 
-            Assert.IsNotNull(redirectResult);
-            Assert.AreEqual("PetFeature", redirectResult.ActionName);
+            Assert.NotNull(redirectResult);
+            Assert.Equal("PetFeature", redirectResult.ActionName);
         }
 
-        [Test]
+        [Fact]
         public async Task CreatePetColour_InvalidModel()
         {
             var petColoursList = new List<ColourDto>
@@ -210,7 +209,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             var ViewResult = result as ViewResult;
 
-            Assert.IsNotNull(ViewResult);
+            Assert.NotNull(ViewResult);
         }
     }
 

@@ -20,13 +20,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Moq;
-using NUnit.Framework;
 using System.Security.Claims;
-using Assert = NUnit.Framework.Assert;
 
 namespace Defra.PTS.Web.UI.UnitTests.Controllers
 {
-    [TestFixture]
     public class TravelDocumentControllerPetKeeperNonGbAddressTests
     {
         private readonly Mock<IValidationService> _mockValidationService = new();
@@ -44,11 +41,6 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
             _localizer = new StringLocalizer<ISharedResource>(factory);
-        }
-
-        [SetUp]
-        public void Setup()
-        {
             var ptsSettings = new PtsSettings
             {
                 MagicWordEnabled = true,
@@ -68,8 +60,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         }
 
 
-        [Test]
-        public void PetKeeperNonGbAddressAsync_Returns_RedirectToAction_When_Application_NotInProgress()
+        [Fact]
+        public async Task PetKeeperNonGbAddressAsync_Returns_RedirectToAction_When_Application_NotInProgress()
         {
             // Arrange
             var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
@@ -78,15 +70,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _travelDocumentController.Object.TempData = tempData;
 
             // Act
-            var result = _travelDocumentController.Object.PetKeeperNonGbAddressAsync().Result as RedirectToActionResult;
+            var result = (await _travelDocumentController.Object.PetKeeperNonGbAddressAsync()) as RedirectToActionResult;
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(nameof(TravelDocumentController.Index), result.ActionName);
+            Assert.NotNull(result);
+            Assert.Equal(nameof(TravelDocumentController.Index), result.ActionName);
         }
 
-        [Test]
-        public void PetKeeperNonGbAddressAsync_Returns_RedirectToAction_When_User_IsSuspended()
+        [Fact]
+        public async Task PetKeeperNonGbAddressAsync_Returns_RedirectToAction_When_User_IsSuspended()
         {
             // Arrange
             var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
@@ -96,15 +88,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _travelDocumentController.Object.TempData = tempData;
 
             // Act
-            var result = _travelDocumentController.Object.PetKeeperNonGbAddressAsync().Result as RedirectToActionResult;
+            var result = (await _travelDocumentController.Object.PetKeeperNonGbAddressAsync()) as RedirectToActionResult;
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(nameof(TravelDocumentController.Index), result.ActionName);
+            Assert.NotNull(result);
+            Assert.Equal(nameof(TravelDocumentController.Index), result.ActionName);
         }
 
-        [Test]
-        public void PetKeeperNonGbAddressAsync_Returns_RedirectToAction_When_Page_PreConditions()
+        [Fact]
+        public async Task PetKeeperNonGbAddressAsync_Returns_RedirectToAction_When_Page_PreConditions()
         {
             // Arrange
             var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
@@ -157,15 +149,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                  .Returns(formData);
 
             // Act
-            var result = _travelDocumentController.Object.PetKeeperNonGbAddressAsync().Result as RedirectToActionResult;
+            var result = (await _travelDocumentController.Object.PetKeeperNonGbAddressAsync()) as RedirectToActionResult;
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.NotNull(result);
 
         }
 
 
-        [Test]
+        [Fact]
         public void PetKeeperNonGbAddress_WithValidModel_If_UserDetailsAreCorrect_Yes_RedirectsToPetKeeperName()
         {
             // Arrange
@@ -191,8 +183,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var result = _travelDocumentController.Object.PetKeeperNonGbAddress(formData.PetKeeperUserDetails) as RedirectToActionResult;
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(nameof(TravelDocumentController.PetKeeperName), result.ActionName);
+            Assert.NotNull(result);
+            Assert.Equal(nameof(TravelDocumentController.PetKeeperName), result.ActionName);
         }
 
 
