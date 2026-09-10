@@ -14,19 +14,15 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.Azure.Management.Monitor.Fluent.AutoscaleSetting.Definition;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Moq;
-using NUnit.Framework;
 using System.Security.Claims;
-using Assert = NUnit.Framework.Assert;
 
 namespace Defra.PTS.Web.UI.UnitTests.Controllers
 {
-    [TestFixture]
     public class TravelDocumentControllerPetKeeperUserDetailsTests
     {
         private readonly Mock<IValidationService> _mockValidationService = new();
@@ -44,11 +40,6 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
             _localizer = new StringLocalizer<ISharedResource>(factory);
-        }
-
-        [SetUp]
-        public void Setup()
-        {
             var ptsSettings = new PtsSettings
             {
                 MagicWordEnabled = true,
@@ -68,8 +59,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         }
 
 
-        [Test]
-        public void PetKeeperUserDetails_Returns_RedirectToAction_When_Application_NotInProgress()
+        [Fact]
+        public async Task PetKeeperUserDetails_Returns_RedirectToAction_When_Application_NotInProgress()
         {
             // Arrange
             var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
@@ -78,15 +69,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _travelDocumentController.Object.TempData = tempData;
 
             // Act
-            var result = _travelDocumentController.Object.PetKeeperUserDetails().Result as RedirectToActionResult;
+            var result = (await _travelDocumentController.Object.PetKeeperUserDetails()) as RedirectToActionResult;
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(nameof(TravelDocumentController.Index), result.ActionName);
+            Assert.NotNull(result);
+            Assert.Equal(nameof(TravelDocumentController.Index), result.ActionName);
         }
 
-        [Test]
-        public void PetKeeperUserDetails_Returns_RedirectToAction_When_User_IsSuspended()
+        [Fact]
+        public async Task PetKeeperUserDetails_Returns_RedirectToAction_When_User_IsSuspended()
         {
             // Arrange
             var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
@@ -96,14 +87,14 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             _travelDocumentController.Object.TempData = tempData;
 
             // Act
-            var result = _travelDocumentController.Object.PetKeeperUserDetails().Result as RedirectToActionResult;
+            var result = (await _travelDocumentController.Object.PetKeeperUserDetails()) as RedirectToActionResult;
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(nameof(TravelDocumentController.Index), result.ActionName);
+            Assert.NotNull(result);
+            Assert.Equal(nameof(TravelDocumentController.Index), result.ActionName);
         }
 
-        [Test]
+        [Fact]
         public void PetKeeperUserDetails_Returns_RedirectToAction_When_Page_PreConditions()
         {
             // Arrange
@@ -134,11 +125,11 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var result = _travelDocumentController.Object.PetKeeperUserDetails(formData.PetKeeperUserDetails) as RedirectToActionResult;
 
             // Assert
-            Assert.IsNotNull(result);
+            Assert.NotNull(result);
 
         }
 
-        [Test]
+        [Fact]
         public void PetName_WithValidModel_If_UserDetailsAreCorrect_Yes_RedirectsToIndex()
         {
             // Arrange
@@ -169,12 +160,12 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var result = _travelDocumentController.Object.PetKeeperUserDetails(formData.PetKeeperUserDetails) as RedirectToActionResult;
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(nameof(TravelDocumentController.Index), result.ActionName);
+            Assert.NotNull(result);
+            Assert.Equal(nameof(TravelDocumentController.Index), result.ActionName);
         }
 
 
-        [Test]
+        [Fact]
         public void PetName_WithValidModel_If_UserDetailsAreCorrect_Yes_RedirectsToPetMicrochip()
         {
             // Arrange
@@ -211,10 +202,10 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var result = _travelDocumentController.Object.PetKeeperUserDetails(formData.PetKeeperUserDetails) as RedirectToActionResult;
 
             // Assert
-            Assert.AreEqual(nameof(TravelDocumentController.PetMicrochip), result.ActionName);
+            Assert.Equal(nameof(TravelDocumentController.PetMicrochip), result.ActionName);
         }
 
-        [Test]
+        [Fact]
         public void PetName_WithValidModel_If_UserDetailsAreCorrect_Yes_ResetsPetModels_RedirectsToPetMicrochip()
         {
             // Arrange
@@ -254,18 +245,18 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var result = _travelDocumentController.Object.PetKeeperUserDetails(formData.PetKeeperUserDetails) as RedirectToActionResult;
 
             // Assert
-            Assert.AreEqual(nameof(TravelDocumentController.PetMicrochip), result.ActionName);
-            Assert.IsTrue(!formData.PetKeeperName.IsCompleted);
-            Assert.IsNotNull(formData.PetKeeperName.Name);
-            Assert.IsTrue(!formData.PetKeeperPhone.IsCompleted);
-            Assert.IsNotNull(formData.PetKeeperPhone.Phone);
-            Assert.IsTrue(!formData.PetKeeperPostcode.IsCompleted);
-            Assert.IsNotNull(formData.PetKeeperPostcode.Postcode);
-            Assert.IsTrue(!formData.PetKeeperAddress.IsCompleted);
-            Assert.IsTrue(!formData.PetKeeperAddressManual.IsCompleted);
+            Assert.Equal(nameof(TravelDocumentController.PetMicrochip), result.ActionName);
+            Assert.False(formData.PetKeeperName.IsCompleted);
+            Assert.NotNull(formData.PetKeeperName.Name);
+            Assert.False(formData.PetKeeperPhone.IsCompleted);
+            Assert.NotNull(formData.PetKeeperPhone.Phone);
+            Assert.False(formData.PetKeeperPostcode.IsCompleted);
+            Assert.NotNull(formData.PetKeeperPostcode.Postcode);
+            Assert.False(formData.PetKeeperAddress.IsCompleted);
+            Assert.False(formData.PetKeeperAddressManual.IsCompleted);
         }
 
-        [Test]
+        [Fact]
         public void PetName_WithValidModel_If_UserDetailsAreCorrect_Yes_RedirectsToPetKeeperName()
         {
             // Arrange
@@ -296,8 +287,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var result = _travelDocumentController.Object.PetKeeperUserDetails(formData.PetKeeperUserDetails) as RedirectToActionResult;
 
             // Assert
-            Assert.IsNotNull(result);
-            Assert.AreEqual(nameof(TravelDocumentController.PetKeeperName), result.ActionName);
+            Assert.NotNull(result);
+            Assert.Equal(nameof(TravelDocumentController.PetKeeperName), result.ActionName);
         }
 
 

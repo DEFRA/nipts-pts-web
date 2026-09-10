@@ -2,6 +2,7 @@
 using Defra.PTS.Web.CertificateGenerator.Models;
 using Defra.PTS.Web.Domain.Enums;
 using Defra.PTS.Web.Domain.ViewModels.TravelDocument;
+using Defra.PTS.Web.UI.Configuration;
 using Defra.PTS.Web.UI.Extensions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -304,6 +305,9 @@ public class BaseTravelDocumentController : BaseController
 
     public async virtual Task<IActionResult> SetFileTitle(CertificateResult response, string fileName, string fileTitle)
     {
+        // Ensure PDFsharp can resolve fonts before manipulating/saving the PDF.
+        PdfFontConfiguration.Configure();
+
         // Convert response.Content (Stream) to a MemoryStream
         using (var inputStream = new MemoryStream())
         {
@@ -345,7 +349,7 @@ public class BaseTravelDocumentController : BaseController
 
                 using (var outputStream = new MemoryStream())
                 {
-                    pdfDocument.Save(outputStream);
+                    await pdfDocument.SaveAsync(outputStream);
                     outputStream.Position = 0;
                     return File(outputStream.ToArray(), response.MimeType, fileName);
                 }

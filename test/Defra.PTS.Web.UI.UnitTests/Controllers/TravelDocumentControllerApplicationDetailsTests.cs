@@ -23,13 +23,11 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Moq;
-using NUnit.Framework;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using System.Security.Claims;
 using System.Text;
 using System.IO;
-using Assert = NUnit.Framework.Assert;
 using Defra.PTS.Web.Application.Features.Certificates.Commands;
 using Defra.PTS.Web.Application.Helpers;
 using Xunit.Sdk;
@@ -37,7 +35,6 @@ using System.Net;
 
 namespace Defra.PTS.Web.UI.UnitTests.Controllers
 {
-    [TestFixture]
     public class TravelDocumentControllerApplicationDetailsTests
     {
         private readonly Mock<IValidationService> _mockValidationService = new();
@@ -55,10 +52,7 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
             _localizer = new StringLocalizer<ISharedResource>(factory);
-        }
-        [SetUp]
-        public void Setup()
-        {
+
             _mockControllerContext = new Mock<ControllerContext>();
             _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object, _mockBreedHelper.Object, _localizer)
             {                
@@ -79,8 +73,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         }
 
 
-        [Test]
-        public void PetKeeperUserDetails_Returns_RedirectToAction_When_Application_NotInProgress()
+        [Fact]
+        public async Task PetKeeperUserDetails_Returns_RedirectToAction_When_Application_NotInProgress()
         {
             // Arrange
             var applicationId = Guid.NewGuid();
@@ -94,13 +88,13 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
                      }
                  });
 
-            var result =  _travelDocumentController.Object.ApplicationDetails(applicationId).Result as ViewResult;
+            var result =  (await _travelDocumentController.Object.ApplicationDetails(applicationId)) as ViewResult;
 
-            Assert.IsNotNull(result);
+            Assert.NotNull(result);
         }
 
-        [Test]
-        public void ApplicationDetails_Returns_View()
+        [Fact]
+        public async Task ApplicationDetails_Returns_View()
         {
             // Arrange
             var userId = Guid.NewGuid();
@@ -122,13 +116,13 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // different UserId
             _travelDocumentController.Setup(x => x.CurrentUserId()).Returns(userId);
 
-            var result = _travelDocumentController.Object.ApplicationDetails(applicationId).Result as ViewResult;
+            var result = (await _travelDocumentController.Object.ApplicationDetails(applicationId)) as ViewResult;
 
-            Assert.IsNotNull(result);
+            Assert.NotNull(result);
         }
 
-        [Test]
-        public void ApplicationDetails_Returns_Error()
+        [Fact]
+        public async Task ApplicationDetails_Returns_Error()
         {
             // Arrange
             var userId = Guid.NewGuid();
@@ -150,15 +144,16 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // different UserId
             _travelDocumentController.Setup(x => x.CurrentUserId()).Returns(Guid.NewGuid());
 
-            var result = _travelDocumentController.Object.ApplicationDetails(applicationId).Result as ViewResult;
+            var result = (await _travelDocumentController.Object.ApplicationDetails(applicationId)) as ViewResult;
 
-            Assert.IsNull(result);
+            Assert.Null(result);
         }
 
-        [TestCase("404", "Not Found", System.Net.HttpStatusCode.NotFound)]
-        [TestCase("500", "Internal Server Error", System.Net.HttpStatusCode.InternalServerError)]
-        [TestCase("500", "unexpected Error", null)]
-        public void ApplicationDetails_Returns_Error_Code(string expectedErrorCode, string errorMessage, HttpStatusCode? statusCode)
+        [Theory]
+        [InlineData("404", "Not Found", System.Net.HttpStatusCode.NotFound)]
+        [InlineData("500", "Internal Server Error", System.Net.HttpStatusCode.InternalServerError)]
+        [InlineData("500", "unexpected Error", null)]
+        public async Task ApplicationDetails_Returns_Error_Code(string expectedErrorCode, string errorMessage, HttpStatusCode? statusCode)
         {
             // Arrange
             var userId = Guid.NewGuid();
@@ -177,12 +172,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // different UserId
             _travelDocumentController.Setup(x => x.CurrentUserId()).Returns(Guid.NewGuid());
 
-            var result = _travelDocumentController.Object.ApplicationDetails(applicationId).Result as ViewResult;
+            var result = (await _travelDocumentController.Object.ApplicationDetails(applicationId)) as RedirectToActionResult;
 
-            Assert.IsNull(result);
+            Assert.NotNull(result);
+            Assert.Equal("HandleError", result.ActionName);
+            Assert.Equal("Error", result.ControllerName);
+            Assert.Equal(expectedErrorCode, result.RouteValues.Values.FirstOrDefault().ToString());
         }
 
-        [Test]
+        [Fact]
         public async Task SetFileTitle_ShouldSetTitleForApplicationPdfAndReturnFile()
         {
             // Arrange
@@ -201,11 +199,11 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             // Assert
             Assert.NotNull(result);
-            Assert.AreEqual("application/pdf", result.ContentType);
-            Assert.AreEqual(fileName, result.FileDownloadName);
+            Assert.Equal("application/pdf", result.ContentType);
+            Assert.Equal(fileName, result.FileDownloadName);
         }
 
-        [Test]
+        [Fact]
         public async Task DownloadApplicationDetailsPdf_ShouldReturnNotFoundWhenResponseIsNull()
         {
             // Arrange
@@ -219,14 +217,15 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var result = await _travelDocumentController.Object.DownloadApplicationDetailsPdf(id, referenceNumber);
 
             // Assert
-            Assert.IsInstanceOf<NotFoundObjectResult>(result);
+            Assert.IsType<NotFoundObjectResult>(result);
             var notFoundResult = result as NotFoundObjectResult;
-            Assert.AreEqual("Unable to download the PDF", notFoundResult.Value);
+            Assert.Equal("Unable to download the PDF", notFoundResult.Value);
         }
 
-        [TestCase("404", "Not Found", System.Net.HttpStatusCode.NotFound)]
-        [TestCase("500", "Internal Server Error", System.Net.HttpStatusCode.InternalServerError)]
-        [TestCase("500", "unexpected Error", null)]
+        [Theory]
+        [InlineData("404", "Not Found", System.Net.HttpStatusCode.NotFound)]
+        [InlineData("500", "Internal Server Error", System.Net.HttpStatusCode.InternalServerError)]
+        [InlineData("500", "unexpected Error", null)]
         public async Task DownloadApplicationDetailsPdf_Error_Code(string expectedErrorCode, string errorMessage, HttpStatusCode? statusCode)
         {
             // Arrange
@@ -241,12 +240,12 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             // Assert
             Assert.NotNull(result);
-            Assert.AreEqual("HandleError", result.ActionName);
-            Assert.AreEqual("Error", result.ControllerName);
-            Assert.AreEqual(expectedErrorCode, result.RouteValues.Values.FirstOrDefault().ToString());
+            Assert.Equal("HandleError", result.ActionName);
+            Assert.Equal("Error", result.ControllerName);
+            Assert.Equal(expectedErrorCode, result.RouteValues.Values.FirstOrDefault().ToString());
         }
 
-        [Test]
+        [Fact]
         public async Task DownloadApplicationDetailsPdf_ShouldCallSetFileTitleAndReturnFile()
         {
             // Arrange
@@ -272,8 +271,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             // Assert
             Assert.NotNull(result);
-            Assert.AreEqual("application/pdf", result.ContentType);
-            Assert.AreEqual(fileName, result.FileDownloadName);
+            Assert.Equal("application/pdf", result.ContentType);
+            Assert.Equal(fileName, result.FileDownloadName);
         }
 
         public static MemoryStream CreateSamplePdfStream(bool setTabs = false)

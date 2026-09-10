@@ -20,23 +20,18 @@ using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using Microsoft.Azure.Management.BatchAI.Fluent.Models;
 using Microsoft.Extensions.Localization;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Logging.Abstractions;
 using Microsoft.Extensions.Options;
 using Moq;
-using NUnit.Framework;
 using PdfSharp.Drawing;
 using PdfSharp.Pdf;
 using System.Net;
 using System.Security.Claims;
-using Xunit.Sdk;
-using Assert = NUnit.Framework.Assert;
 
 namespace Defra.PTS.Web.UI.UnitTests.Controllers
 {
-    [TestFixture]
     public class TravelDocumentControllerApplicationCertificateTests
     {
         private readonly Mock<IValidationService> _mockValidationService = new();
@@ -54,11 +49,6 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var options = Options.Create(new LocalizationOptions { ResourcesPath = "Resources" });
             var factory = new ResourceManagerStringLocalizerFactory(options, NullLoggerFactory.Instance);
             _localizer = new StringLocalizer<ISharedResource>(factory);
-        }
-
-        [SetUp]
-        public void Setup()
-        {
             _mockControllerContext = new Mock<ControllerContext>();
             _travelDocumentController = new Mock<TravelDocumentController>(_mockValidationService.Object, _mockMediator.Object, _mockLogger.Object, _mockPtsSettings.Object, _mockBreedHelper.Object, _localizer)
             {
@@ -79,8 +69,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
         }
 
 
-        [Test]
-        public void ApplicationCertificate_Returns_RedirectTo_ApplicationDetails()
+        [Fact]
+        public async Task ApplicationCertificate_Returns_RedirectTo_ApplicationDetails()
         {
             // Arrange
             var userId = Guid.NewGuid();
@@ -101,14 +91,14 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             _travelDocumentController.Setup(x => x.CurrentUserId()).Returns(userId);
 
-            var result = _travelDocumentController.Object.ApplicationCertificate(applicationId).Result as RedirectToActionResult;
+            var result = (await _travelDocumentController.Object.ApplicationCertificate(applicationId)) as RedirectToActionResult;
 
-            Assert.IsNotNull(result);
-            Assert.AreEqual(nameof(TravelDocumentController.ApplicationDetails), result.ActionName);
+            Assert.NotNull(result);
+            Assert.Equal(nameof(TravelDocumentController.ApplicationDetails), result.ActionName);
         }
 
-        [Test]
-        public void ApplicationCertificate_Returns_ViewResult()
+        [Fact]
+        public async Task ApplicationCertificate_Returns_ViewResult()
         {
             // Arrange
             var userId = Guid.NewGuid();
@@ -130,14 +120,14 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             _travelDocumentController.Setup(x => x.CurrentUserId()).Returns(userId);
 
-            var result = _travelDocumentController.Object.ApplicationCertificate(applicationId).Result as ViewResult;
+            var result = (await _travelDocumentController.Object.ApplicationCertificate(applicationId)) as ViewResult;
 
-            Assert.IsNotNull(result);
+            Assert.NotNull(result);
         }
 
 
-        [Test]
-        public void ApplicationCertificate_Returns_Error()
+        [Fact]
+        public async Task ApplicationCertificate_Returns_Error()
         {
             // Arrange
             var userId = Guid.NewGuid();
@@ -160,15 +150,16 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // different UserId
             _travelDocumentController.Setup(x => x.CurrentUserId()).Returns(Guid.NewGuid());
 
-            var result = _travelDocumentController.Object.ApplicationCertificate(applicationId).Result as ViewResult;
+            var result = (await _travelDocumentController.Object.ApplicationCertificate(applicationId)) as ViewResult;
 
-            Assert.IsNull(result);
+            Assert.Null(result);
         }
 
-        [TestCase("404", "Not Found", System.Net.HttpStatusCode.NotFound)]
-        [TestCase("500", "Internal Server Error", System.Net.HttpStatusCode.InternalServerError)]
-        [TestCase("500", "unexpected Error", null)]
-        public void ApplicationCertificate_Returns_Error_Code(string expectedErrorCode, string errorMessage, HttpStatusCode? statusCode)
+        [Theory]
+        [InlineData("404", "Not Found", System.Net.HttpStatusCode.NotFound)]
+        [InlineData("500", "Internal Server Error", System.Net.HttpStatusCode.InternalServerError)]
+        [InlineData("500", "unexpected Error", null)]
+        public async Task ApplicationCertificate_Returns_Error_Code(string expectedErrorCode, string errorMessage, HttpStatusCode? statusCode)
         {
             // Arrange
             var userId = Guid.NewGuid();
@@ -188,17 +179,17 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             // different UserId
             _travelDocumentController.Setup(x => x.CurrentUserId()).Returns(Guid.NewGuid());
 
-            var result = _travelDocumentController.Object.ApplicationCertificate(applicationId).Result as RedirectToActionResult;
+            var result = (await _travelDocumentController.Object.ApplicationCertificate(applicationId)) as RedirectToActionResult;
 
-            Assert.IsNotNull(result);
-            Assert.AreEqual("HandleError", result.ActionName);
-            Assert.AreEqual("Error", result.ControllerName);
-            Assert.AreEqual(expectedErrorCode, result.RouteValues.Values.FirstOrDefault().ToString());
+            Assert.NotNull(result);
+            Assert.Equal("HandleError", result.ActionName);
+            Assert.Equal("Error", result.ControllerName);
+            Assert.Equal(expectedErrorCode, result.RouteValues.Values.FirstOrDefault().ToString());
         }
 
 
 
-        [Test]
+        [Fact]
         public async Task SetFileTitle_ShouldSetTitleForCertificatePdfAndReturnFile()
         {
             // Arrange
@@ -217,11 +208,11 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             // Assert
             Assert.NotNull(result);
-            Assert.AreEqual("application/pdf", result.ContentType);
-            Assert.AreEqual(fileName, result.FileDownloadName);
+            Assert.Equal("application/pdf", result.ContentType);
+            Assert.Equal(fileName, result.FileDownloadName);
         }
 
-        [Test]
+        [Fact]
         public async Task DownloadCertificateDetailsPdf_ShouldReturnNotFoundWhenResponseIsNull()
         {
             // Arrange
@@ -235,12 +226,12 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             var result = await _travelDocumentController.Object.DownloadCertificatePdf(id, referenceNumber);
 
             // Assert
-            Assert.IsInstanceOf<NotFoundObjectResult>(result);
+            Assert.IsType<NotFoundObjectResult>(result);
             var notFoundResult = result as NotFoundObjectResult;
-            Assert.AreEqual("Unable to download the PDF", notFoundResult.Value);
+            Assert.Equal("Unable to download the PDF", notFoundResult.Value);
         }
 
-        [Test]
+        [Fact]
         public async Task DownloadCertificateDetailsPdf_ShouldCallSetFileTitleAndReturnFile()
         {
             // Arrange
@@ -266,13 +257,14 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             // Assert
             Assert.NotNull(result);
-            Assert.AreEqual("application/pdf", result.ContentType);
-            Assert.AreEqual(fileName, result.FileDownloadName);
+            Assert.Equal("application/pdf", result.ContentType);
+            Assert.Equal(fileName, result.FileDownloadName);
         }
 
-        [TestCase("404", "Not Found", System.Net.HttpStatusCode.NotFound)]
-        [TestCase("500", "Internal Server Error", System.Net.HttpStatusCode.InternalServerError)]
-        [TestCase("500", "unexpected Error", null)]
+        [Theory]
+        [InlineData("404", "Not Found", System.Net.HttpStatusCode.NotFound)]
+        [InlineData("500", "Internal Server Error", System.Net.HttpStatusCode.InternalServerError)]
+        [InlineData("500", "unexpected Error", null)]
         public async Task DownloadCertificateDetailsPdf_ShouldCallSetFileTitleAndReturnFile_Error_Code(string expectedErrorCode, string errorMessage, HttpStatusCode? statusCode)
         {
             // Arrange
@@ -298,9 +290,9 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
 
             // Assert
             Assert.NotNull(result);
-            Assert.AreEqual("HandleError", result.ActionName);
-            Assert.AreEqual("Error", result.ControllerName);
-            Assert.AreEqual(expectedErrorCode, result.RouteValues.Values.FirstOrDefault().ToString());
+            Assert.Equal("HandleError", result.ActionName);
+            Assert.Equal("Error", result.ControllerName);
+            Assert.Equal(expectedErrorCode, result.RouteValues.Values.FirstOrDefault().ToString());
         }
 
         public static MemoryStream CreateSamplePdfStream()
