@@ -26,7 +26,7 @@ public class LoggingPipeline<TRequest, TResponse> : IPipelineBehavior<TRequest, 
     {
         Log("Request: {request}", request);
 
-        var response = await next();
+        var response = await next(cancellationToken);
 
         Log("Response: {response}", response);
 
