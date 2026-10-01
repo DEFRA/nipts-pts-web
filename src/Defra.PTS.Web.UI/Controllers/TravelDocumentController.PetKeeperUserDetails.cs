@@ -77,42 +77,48 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
         SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);
 
-        if (!ModelState.IsValid)
+        // Details are held in session (set on GET); only the radio choice is posted.
+        var formData = GetFormData();
+        if (formData?.PetKeeperUserDetails == null)
         {
-            return View(model);
+            return RedirectToAction(nameof(Index));
         }
 
-        model.IsCompleted = true;
-        SaveFormData(model);
+        var details = formData.PetKeeperUserDetails;
+        details.UserDetailsAreCorrect = model.UserDetailsAreCorrect;
 
-        SetApplicationInProgress();
-
-        if (model.UserDetailsAreCorrect == YesNoOptions.Yes)
+        if (!ModelState.IsValid)
         {
-            var formData = GetFormData();
+            return View(details);
+        }
 
+        details.IsCompleted = true;
+        formData.IsApplicationInProgress = true;
+
+        if (details.UserDetailsAreCorrect == YesNoOptions.Yes)
+        {
             formData.PetKeeperName = new PetKeeperNameViewModel
             {
-                Name = model.Name
+                Name = details.Name
             };
             formData.PetKeeperPhone = new PetKeeperPhoneViewModel
             {
-                Phone = model.Phone
+                Phone = details.Phone
             };
 
             formData.PetKeeperPostcode = new PetKeeperPostcodeViewModel { 
-                Postcode = model.Postcode,
+                Postcode = details.Postcode,
                 PostcodeRegion = PostcodeRegion.GB
             };
             formData.PetKeeperAddress = new PetKeeperAddressViewModel
             {
-                Postcode = model.Postcode
+                Postcode = details.Postcode
             };
             formData.PetKeeperAddressManual = new PetKeeperAddressManualViewModel {
-                AddressLineOne = model.AddressLineOne,
-                TownOrCity = model.TownOrCity,
-                County = model.County,
-                Postcode = model.Postcode,
+                AddressLineOne = details.AddressLineOne,
+                TownOrCity = details.TownOrCity,
+                County = details.County,
+                Postcode = details.Postcode,
                 PostcodeRegion = PostcodeRegion.GB
             };
 
@@ -120,6 +126,8 @@ public partial class TravelDocumentController : BaseTravelDocumentController
 
             return RedirectToAction(nameof(PetMicrochip));
         }
+
+        SaveFormData(formData);
 
         return RedirectToAction(nameof(PetKeeperName));
     }
