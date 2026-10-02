@@ -1,6 +1,7 @@
 ﻿using Defra.PTS.Web.Application.DTOs.Features;
 using Defra.PTS.Web.Application.DTOs.Services;
 using Defra.PTS.Web.Application.Extensions;
+using Defra.PTS.Web.Application.Features.Address.Queries;
 using Defra.PTS.Web.Application.Features.DynamicsCrm.Commands;
 using Defra.PTS.Web.Application.Features.Users.Queries;
 using Defra.PTS.Web.Application.Services.Interfaces;
@@ -291,6 +292,173 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
             Assert.Equal(nameof(TravelDocumentController.PetKeeperName), result.ActionName);
         }
 
+
+        [Fact]
+        public async Task PetKeeperUserDetails_Get_Returns_View_When_Postcode_Is_Gb()
+        {
+            // Arrange
+            var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
+            var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = true };
+            tempData.SetHasUserUsedMagicWord(magicWordViewModel);
+            tempData.SetIsUserSuspended(false);
+            _travelDocumentController.Object.TempData = tempData;
+
+            SetupInitializeUserDetailsMediator(userDetail: null);
+            MockHttpContext();
+            SetupSessionControllerContext();
+
+            var formData = new TravelDocumentViewModel
+            {
+                PetKeeperUserDetails = new PetKeeperUserDetailsViewModel
+                {
+                    IsCompleted = true,
+                    Postcode = "RM6 4FB"
+                }
+            };
+            _travelDocumentController.Setup(x => x.GetFormData(true)).Returns(formData);
+
+            // Act
+            var result = await _travelDocumentController.Object.PetKeeperUserDetails();
+
+            // Assert
+            Assert.IsType<ViewResult>(result);
+            Assert.Equal(PostcodeRegion.GB, formData.PetKeeperUserDetails.PostcodeRegion);
+        }
+
+        [Fact]
+        public async Task PetKeeperUserDetails_Get_RedirectsTo_NonGbAddress_When_Postcode_Is_NonGb()
+        {
+            // Arrange
+            var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
+            var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = true };
+            tempData.SetHasUserUsedMagicWord(magicWordViewModel);
+            tempData.SetIsUserSuspended(false);
+            _travelDocumentController.Object.TempData = tempData;
+
+            SetupInitializeUserDetailsMediator(userDetail: null);
+            MockHttpContext();
+            SetupSessionControllerContext();
+
+            var formData = new TravelDocumentViewModel
+            {
+                PetKeeperUserDetails = new PetKeeperUserDetailsViewModel
+                {
+                    IsCompleted = true,
+                    Postcode = "BT1 1AA"
+                }
+            };
+            _travelDocumentController.Setup(x => x.GetFormData(true)).Returns(formData);
+
+            // Act
+            var result = await _travelDocumentController.Object.PetKeeperUserDetails() as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(nameof(TravelDocumentController.PetKeeperNonGbAddress), result.ActionName);
+        }
+
+        [Fact]
+        public async Task PetKeeperUserDetails_Get_Populates_Details_When_UserDetail_Returned()
+        {
+            // Arrange
+            var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
+            var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = true };
+            tempData.SetHasUserUsedMagicWord(magicWordViewModel);
+            tempData.SetIsUserSuspended(false);
+            _travelDocumentController.Object.TempData = tempData;
+
+            SetupInitializeUserDetailsMediator(userDetail: new UserDetailDto
+            {
+                FullName = "John Doe",
+                Email = "john.doe@example.com",
+                Telephone = "01234567890",
+                AddressLineOne = "1 High Street",
+                AddressLineTwo = "Flat 2",
+                TownOrCity = "London",
+                County = "Greater London",
+                PostCode = "RM6 4FB"
+            });
+            MockHttpContext();
+            SetupSessionControllerContext();
+
+            var formData = new TravelDocumentViewModel
+            {
+                PetKeeperUserDetails = new PetKeeperUserDetailsViewModel { IsCompleted = true }
+            };
+            _travelDocumentController.Setup(x => x.GetFormData(true)).Returns(formData);
+
+            // Act
+            var result = await _travelDocumentController.Object.PetKeeperUserDetails();
+
+            // Assert
+            Assert.IsType<ViewResult>(result);
+            Assert.Equal("John Doe", formData.PetKeeperUserDetails.Name);
+            Assert.Equal("1 High Street Flat 2", formData.PetKeeperUserDetails.AddressLineOne);
+            Assert.Equal(PostcodeRegion.GB, formData.PetKeeperUserDetails.PostcodeRegion);
+        }
+
+        [Fact]
+        public void PetKeeperUserDetails_Post_RedirectsTo_Index_When_FormData_Null()
+        {
+            // Arrange
+            var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
+            var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = true };
+            tempData.SetHasUserUsedMagicWord(magicWordViewModel);
+            _travelDocumentController.Object.TempData = tempData;
+            _travelDocumentController.Setup(x => x.GetFormData(false)).Returns((TravelDocumentViewModel)null);
+
+            // Act
+            var result = _travelDocumentController.Object.PetKeeperUserDetails(new PetKeeperUserDetailsViewModel()) as RedirectToActionResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(nameof(TravelDocumentController.Index), result.ActionName);
+        }
+
+        [Fact]
+        public void PetKeeperUserDetails_Post_Returns_View_When_ModelState_Invalid()
+        {
+            // Arrange
+            var tempData = new TempDataDictionary(Mock.Of<Microsoft.AspNetCore.Http.HttpContext>(), Mock.Of<ITempDataProvider>());
+            var magicWordViewModel = new MagicWordViewModel { HasUserPassedPasswordCheck = true };
+            tempData.SetHasUserUsedMagicWord(magicWordViewModel);
+            _travelDocumentController.Object.TempData = tempData;
+            var formData = new TravelDocumentViewModel
+            {
+                PetKeeperUserDetails = new PetKeeperUserDetailsViewModel { Name = "John Doe" }
+            };
+            _travelDocumentController.Setup(x => x.GetFormData(false)).Returns(formData);
+            _travelDocumentController.Object.ModelState.AddModelError("UserDetailsAreCorrect", "Required");
+
+            // Act
+            var result = _travelDocumentController.Object.PetKeeperUserDetails(new PetKeeperUserDetailsViewModel()) as ViewResult;
+
+            // Assert
+            Assert.NotNull(result);
+            Assert.Equal(formData.PetKeeperUserDetails, result.Model);
+        }
+
+        private void SetupInitializeUserDetailsMediator(UserDetailDto userDetail)
+        {
+            _mockMediator.Setup(x => x.Send(It.IsAny<AddAddressRequest>(), CancellationToken.None))
+                .ReturnsAsync(new AddAddressResponse { IsSuccess = true });
+
+            _mockMediator.Setup(x => x.Send(It.IsAny<GetUserDetailQueryRequest>(), CancellationToken.None))
+                .ReturnsAsync(new GetUserDetailQueryResponse { UserDetail = userDetail });
+        }
+
+        private void SetupSessionControllerContext()
+        {
+            var mockHttpContext = new Mock<HttpContext>();
+            var mockSession = new Mock<ISession>();
+            mockHttpContext.SetupGet(x => x.Session).Returns(mockSession.Object);
+            mockHttpContext.Setup(_ => _.Request.Headers.Referer).Returns("aaa");
+
+            _travelDocumentController.Object.ControllerContext = new ControllerContext()
+            {
+                HttpContext = mockHttpContext.Object
+            };
+        }
 
         private void MockHttpContext()
         {

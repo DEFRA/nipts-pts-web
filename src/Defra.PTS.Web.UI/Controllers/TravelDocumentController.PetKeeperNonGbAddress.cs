@@ -70,10 +70,16 @@ public partial class TravelDocumentController : BaseTravelDocumentController
     {
         SetBackUrl(WebAppConstants.Pages.TravelDocument.Index);
 
-        model.IsCompleted = true;
-        SaveFormData(model);
+        // Details are held in session (set on GET); nothing user-entered is posted here.
+        var formData = GetFormData();
+        if (formData?.PetKeeperUserDetails == null)
+        {
+            return RedirectToAction(nameof(Index));
+        }
 
-        SetApplicationInProgress();
+        formData.PetKeeperUserDetails.IsCompleted = true;
+        formData.IsApplicationInProgress = true;
+        SaveFormData(formData);
 
         return RedirectToAction(nameof(PetKeeperName));
     }
