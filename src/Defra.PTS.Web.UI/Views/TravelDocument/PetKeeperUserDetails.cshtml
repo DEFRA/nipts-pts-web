@@ -21,14 +21,7 @@
         {
             @Html.AntiForgeryToken()
             @Html.HiddenFor(x => x.IsCompleted)
-            @Html.HiddenFor(x => x.Name)
-            @Html.HiddenFor(x => x.Email)
-            @Html.HiddenFor(x => x.Phone)
-            @Html.HiddenFor(x => x.AddressLineOne)
-            @Html.HiddenFor(x => x.TownOrCity)
-            @Html.HiddenFor(x => x.County)
-            @Html.HiddenFor(x => x.Postcode)
-            @Html.HiddenFor(x => x.PostcodeRegion)
+            @* Name/email/phone/address are held in session and re-read on POST, so they are not posted back and cannot trip WAF rules. *@
 
             <partial name="_ErrorSummary" />
 
