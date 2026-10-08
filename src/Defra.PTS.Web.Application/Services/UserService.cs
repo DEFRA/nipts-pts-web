@@ -172,4 +172,15 @@ public class UserService : IUserService
         var userDetail = JsonConvert.DeserializeObject<UserDetailDto>(content);
         return userDetail;
     }
+
+    public async Task<bool> IsUserSuspended(Guid contactId)
+    {
+        string apiUrl = _httpClient.BaseAddress + $"IsUserSuspended/{contactId}";
+        var response = await _httpClient.GetAsync(apiUrl);
+        response.EnsureSuccessStatusCode();
+
+        var content = await response.Content.ReadAsStringAsync();
+
+        return JsonConvert.DeserializeObject<bool>(content);
+    }
 }
