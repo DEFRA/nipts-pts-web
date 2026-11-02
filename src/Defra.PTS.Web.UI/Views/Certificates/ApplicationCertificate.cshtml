@@ -3,18 +3,13 @@
 @using Defra.PTS.Web.CertificateGenerator.ViewModels;
 @using Defra.PTS.Web.UI.Constants;
 @inject IConfiguration Configuration
-@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment WebHostEnvironment
 @{
     var pageTitle = "Lifelong pet travel document and declaration";
     ViewData.SetKeyValue("BodyExtraCssClass", "pet-declaration-print");
     this.SetMetaTitle(pageTitle);
 
     var baseUrl = Context.Request.GetHostUrl();
-    // Inline the crest as a local base64 data URI so the remote PDF renderer needs no network fetch.
-    var logoPath = System.IO.Path.Combine(WebHostEnvironment.WebRootPath, "assets", "images", "HMGFullSize.png");
-    var logoFile = System.IO.File.Exists(logoPath)
-        ? $"data:image/png;base64,{System.Convert.ToBase64String(System.IO.File.ReadAllBytes(logoPath))}"
-        : Configuration["AppSettings:PdfLogoUrl"] ?? $"{baseUrl}/assets/images/HMGFullSize.png";
+    var logoFile = Configuration["AppSettings:PdfLogoUrl"] ?? $"{baseUrl}/assets/images/HMGFullSize.png";
 
     Layout = null;
 }
