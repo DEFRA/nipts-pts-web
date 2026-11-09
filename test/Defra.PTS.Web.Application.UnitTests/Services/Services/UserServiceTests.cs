@@ -558,5 +558,54 @@ namespace Defra.PTS.Web.Application.UnitTests.Services.Services
             await Assert.ThrowsAsync<HttpRequestException>(async () => await _sut.GetUserDetail(expectedUserId));
         }
 
+        [Theory]
+        [InlineData(true)]
+        [InlineData(false)]
+        public async Task IsUserSuspended_Return_Success(bool isSuspended)
+        {
+            var contactId = Guid.NewGuid();
+
+            var jsonString = JsonConvert.SerializeObject(isSuspended);
+            var httpContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
+
+            var expectedResponse = new HttpResponseMessage
+            {
+                StatusCode = HttpStatusCode.OK,
+                Content = httpContent
+            };
+
+            _mockHttpMessageHandler.Protected().Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .ReturnsAsync(expectedResponse);
+
+            var httpClient = new HttpClient(_mockHttpMessageHandler.Object)
+            {
+                BaseAddress = new Uri("https://localhost/")
+            };
+
+            _sut = new UserService(_mockLogger.Object, httpClient);
+
+            var actualResult = await _sut.IsUserSuspended(contactId);
+
+            Assert.Equal(isSuspended, actualResult);
+        }
+
+        [Fact]
+        public async Task IsUserSuspended_Throws_Exception()
+        {
+            var contactId = Guid.NewGuid();
+
+            _mockHttpMessageHandler.Protected().Setup<Task<HttpResponseMessage>>("SendAsync", ItExpr.IsAny<HttpRequestMessage>(), ItExpr.IsAny<CancellationToken>())
+                .ThrowsAsync(new HttpRequestException("Error"));
+
+            var httpClient = new HttpClient(_mockHttpMessageHandler.Object)
+            {
+                BaseAddress = new Uri("https://localhost/")
+            };
+
+            _sut = new UserService(_mockLogger.Object, httpClient);
+
+            await Assert.ThrowsAsync<HttpRequestException>(async () => await _sut.IsUserSuspended(contactId));
+        }
+
     }
 }

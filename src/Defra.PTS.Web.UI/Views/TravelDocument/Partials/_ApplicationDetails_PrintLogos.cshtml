@@ -1,9 +1,20 @@
-﻿<div class="govuk-grid-row pet-declaration-print-logo">
+﻿@inject Microsoft.AspNetCore.Hosting.IWebHostEnvironment WebHostEnvironment
+@{
+    // Inline the crest as a local base64 data URI; the PDF renderer gets HTML via SetContentAsync with no base URL, so it cannot fetch external/relative images.
+    string crestSrc = null;
+    var crestPath = WebHostEnvironment.WebRootPath is { } webRoot
+        ? System.IO.Path.Combine(webRoot, "assets", "images", "HMGFullSize.png")
+        : null;
+    if (crestPath != null && System.IO.File.Exists(crestPath))
+    {
+        var crestData = System.Convert.ToBase64String(await System.IO.File.ReadAllBytesAsync(crestPath));
+        crestSrc = $"data:image/png;base64,{crestData}";
+    }
+}
+<div class="govuk-grid-row pet-declaration-print-logo">
     <div class="govuk-grid-column-two-thirds">
         <div class="gem-c-organisation-logo pet-logo-print">
-            <div role="img" aria-label="UK Government coat of arms with the words &apos;UK Government&apos;" class="gem-c-organisation-logo__container gem-c-organisation-logo__crest gem-c-organisation-logo__crest--single-identity brand__border-color">
-                <span class="gem-c-organisation-logo__name"></span>
-            </div>        
+            <img src="@(crestSrc ?? Url.Content("~/assets/images/HMGFullSize.png"))" alt="UK Government coat of arms with the words 'UK Government'" style="height:45px;width:auto;padding:5px 0 0 5px;" />
         </div>
     </div>
 </div>
