@@ -181,6 +181,8 @@ namespace Defra.PTS.Web.UI.UnitTests.Controllers
              {
                  Applications = [new ApplicationSummaryDto { ApplicationId = Guid.NewGuid() }]
              });
+            _mockMediator.Setup(x => x.Send(It.IsAny<GetIsUserSuspendedQueryRequest>(), CancellationToken.None))
+             .ReturnsAsync(new GetIsUserSuspendedQueryResponse { IsSuspended = false });
             // Act
             var result = (await _travelDocumentController.Index()) as ViewResult;
 
