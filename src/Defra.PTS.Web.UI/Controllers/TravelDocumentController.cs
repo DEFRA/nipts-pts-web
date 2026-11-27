@@ -109,7 +109,11 @@ public partial class TravelDocumentController : BaseTravelDocumentController
                 var response = await _mediator.Send(new GetApplicationsQueryRequest(userId, validStatuses));
                 var invalidResponse = await _mediator.Send(new GetApplicationsQueryRequest(userId, invalidStatuses));
 
-                SaveIsUserSuspendedFormData(response.Applications.Any(x => x.Status == "Suspended"));
+                var isUserSuspended = response.Applications.Any(x => x.Status == "Suspended")
+                    || (await _mediator.Send(new GetIsUserSuspendedQueryRequest(CurrentUserContactId()))).IsSuspended;
+
+                SaveIsUserSuspendedFormData(isUserSuspended);
+                ViewBag.IsUserSuspended = isUserSuspended;
 
                 // Pass a flag to the view indicating whether invalid documents exist
                 ViewBag.HasInvalidDocuments = invalidResponse.Applications.Count > 0;

@@ -13,4 +13,5 @@ public interface IUserService
     Task<Guid> UpdateUserAddressAsync(string emailAddress, Guid? addressId);
     Task<UserDetailDto> GetUserDetail(Guid userId);
     Task<Guid> AddAddressAsync(AddressType addressType, TravelDocumentViewModel travelDocument);
+    Task<bool> IsUserSuspended(Guid contactId);
 }
